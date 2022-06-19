@@ -38,11 +38,12 @@ namespace jng {
 	using int32 = int32_t;
 	using int64 = int64_t;
 
-	enum class RenderAPI {
+	enum class RendererBackend {
 		None = -1,
 		Direct3D,
 		Vulkan,
-		OpenGL
+		OpenGL,
+		WebGL
 	};
 
 } // namespace jng

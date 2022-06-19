@@ -15,10 +15,10 @@ namespace jng {
     public:
         OpenGLRendererAPI() = default;
 
-        void setViewport(uint32 x, uint32 y, uint32 width, uint32 height) const;
-        void clear(const glm::vec3& color) const;
-        void drawIndexed(const VertexArray& vao) const;
-        void drawIndexed(uint32 count) const;
+        void setViewport(uint32 x, uint32 y, uint32 width, uint32 height) const override;
+        void clear(const glm::vec3& color) const override;
+        void drawIndexed(const VertexArray& vao) const override;
+        void drawIndexed(uint32 count) const override;
     };
 
 } // namespace jng

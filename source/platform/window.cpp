@@ -116,14 +116,14 @@ namespace jng {
         glfwSetWindowTitle(m_windowHandle, title);
     }
 
-    Scope<Window> Window::create(const char* title, uint32 width, uint32 height, RenderAPI api)
+    Scope<Window> Window::create(const char* title, uint32 width, uint32 height, RendererBackend api)
     {
         JNG_PROFILE_FUNCTION();
 
         return makeScope<Window>(title, width, height, api);
     }
 
-    Window::Window(const char* title, uint32 width, uint32 height, RenderAPI api)
+    Window::Window(const char* title, uint32 width, uint32 height, RendererBackend api)
     {
         m_windowData.title = title;
         m_windowData.width = width;

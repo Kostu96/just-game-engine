@@ -6,7 +6,7 @@
 
 #include "renderer/shader_sources.hpp"
 
-namespace k2d {
+namespace jng {
     namespace shader_source {
 
         const char* basic_vert = R"(
@@ -53,4 +53,4 @@ void main()
 )";
 
     } // namespace shader_source
-} // namespace k2d
+} // namespace jng

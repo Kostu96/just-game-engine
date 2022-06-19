@@ -12,7 +12,7 @@
 #include "core/window_events.hpp"
 #include "platform/graphics_context.hpp"
 #include "platform/window.hpp"
-#include "renderer/renderer.hpp"
+#include "renderer/renderer2d.hpp"
 
 namespace jng {
 
@@ -24,20 +24,21 @@ namespace jng {
         s_instance = this;
 
         // TODO: do proper render API choosing
-        RenderAPI api = RenderAPI::OpenGL;
+        RendererBackend api = RendererBackend::OpenGL;
 
         m_window = Window::create(title, width, height, api);
         m_window->setEventCallback(JNG_BIND_EVENT_FUNC(Engine::onEvent));
         m_window->setVSync(true);
 
-        Renderer::init(api);
+        // TODO: choose 3D/2D or 2D only mode
+        Renderer2D::init(api);
     }
 
     Engine::~Engine()
     {
         JNG_PROFILE_FUNCTION();
 
-        Renderer::shutdown();
+        Renderer2D::shutdown();
     }
 
     void Engine::run()
@@ -85,7 +86,7 @@ namespace jng {
     bool Engine::onWindowResize(WindowResizeEvent& event)
     {
         if (!m_window->isMinimized())
-            Renderer::setViewport(0, 0, event.getWidth(), event.getHeight());
+            Renderer2D::setViewport(0, 0, event.getWidth(), event.getHeight());
 
         return false;
     }

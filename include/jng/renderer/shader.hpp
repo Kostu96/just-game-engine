@@ -12,27 +12,20 @@
 
 namespace jng {
 
-    class ShaderImpl;
-
     class Shader
     {
     public:
-        void bind() const;
-        void unbind() const;
+        virtual void bind() const = 0;
+        virtual void unbind() const = 0;
 
-        void set(const char* name, int value) const;
-        void set(const char* name, const int* value, uint32 count) const;
-        void set(const char* name, const glm::vec3& value) const;
-        void set(const char* name, const glm::vec4& value) const;
-        void set(const char* name, const glm::mat4& value) const;
-
-        ShaderImpl* getImplementation() const { return m_implementation.get(); }
+        virtual void set(const char* name, int value) const = 0;
+        virtual void set(const char* name, const int* value, uint32 count) const = 0;
+        virtual void set(const char* name, const glm::vec3& value) const = 0;
+        virtual void set(const char* name, const glm::vec4& value) const = 0;
+        virtual void set(const char* name, const glm::mat4& value) const = 0;
 
         static Ref<Shader> create(std::string_view vertexShaderSrc, std::string_view fragmentShaderSrc);
-        Shader(Scope<ShaderImpl>&& implementation);
-        ~Shader();
-    private:
-        Scope<ShaderImpl> m_implementation;
+        virtual ~Shader() = default;
     };
 
 } // namespace jng

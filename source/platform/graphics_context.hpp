@@ -19,7 +19,7 @@ namespace jng {
         virtual void makeCurrent() const = 0;
         virtual void swapBuffers() const = 0;
 
-        static Scope<GraphicsContext> create(Window& window, RenderAPI api);
+        static Scope<GraphicsContext> create(Window& window, RendererBackend api);
     };
 
 } // namespace jng

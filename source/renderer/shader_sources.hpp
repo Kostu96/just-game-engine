@@ -6,11 +6,11 @@
 
 #pragma once
 
-namespace k2d {
+namespace jng {
     namespace shader_source {
 
         extern const char* basic_vert;
         extern const char* basic_frag;
 
     } // namespace shader_source
-} // namespace k2d
+} // namespace jng

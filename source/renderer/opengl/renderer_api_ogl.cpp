@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-#include "renderer/opengl/renderer_api_impl_ogl.hpp"
+#include "renderer/opengl/renderer_api_ogl.hpp"
 
 #include "renderer/vertex_array.hpp"
 #include "renderer/buffers.hpp"

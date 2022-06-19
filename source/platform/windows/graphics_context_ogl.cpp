@@ -15,13 +15,13 @@
 #define GLFW_EXPOSE_NATIVE_WIN32
 #include <GLFW/glfw3native.h>
 
-#if defined(K2D_WINDOWS)
+#if defined(JNG_WINDOWS)
 #pragma comment(lib, "opengl32.lib")
 #endif
 
-namespace k2d {
+namespace jng {
     
-#ifdef K2D_DEBUG
+#ifdef JNG_DEBUG
     static void GLAPIENTRY openGlErrorHandler(
         GLenum source,
         GLenum type,
@@ -56,19 +56,19 @@ namespace k2d {
 
         switch (severity) {
         case GL_DEBUG_SEVERITY_HIGH:
-            K2D_CORE_ERROR("OpenGL debug | {0} | Type: {1} | Severity: {2}\n  {3}",
+            JNG_CORE_ERROR("OpenGL debug | {0} | Type: {1} | Severity: {2}\n  {3}",
                 sourceStr, typeStr, "High", message);
             break;
         case GL_DEBUG_SEVERITY_MEDIUM:
-            K2D_CORE_ERROR("OpenGL debug | {0} | Type: {1} | Severity: {2}\n  {3}",
+            JNG_CORE_ERROR("OpenGL debug | {0} | Type: {1} | Severity: {2}\n  {3}",
                 sourceStr, typeStr, "Medium", message);
             break;
         case GL_DEBUG_SEVERITY_LOW:
-            K2D_CORE_WARN("OpenGL debug | {0} | Type: {1} | Severity: {2}\n  {3}",
+            JNG_CORE_WARN("OpenGL debug | {0} | Type: {1} | Severity: {2}\n  {3}",
                 sourceStr, typeStr, "Low", message);
             break;
         case GL_DEBUG_SEVERITY_NOTIFICATION:
-            K2D_CORE_WARN("OpenGL debug | {0} | Type: {1}\n  {2}",
+            JNG_CORE_WARN("OpenGL debug | {0} | Type: {1}\n  {2}",
                 sourceStr, typeStr, message);
             break;
         }
@@ -82,7 +82,7 @@ namespace k2d {
         {
             HMODULE oglLib = GetModuleHandleA("opengl32.dll");
             if (!oglLib) {
-                K2D_CORE_FATAL("GetModuleHandle error! opengl32.dll is not loaded!");
+                JNG_CORE_FATAL("GetModuleHandle error! opengl32.dll is not loaded!");
                 return nullptr;
             }
 
@@ -107,21 +107,21 @@ namespace k2d {
         pfd.cStencilBits = 8;
 
         int pixelFormat = ChoosePixelFormat(m_deviceContext, &pfd);
-        K2D_CORE_ASSERT(pixelFormat, "Could not choose pixel format!");
+        JNG_CORE_ASSERT(pixelFormat, "Could not choose pixel format!");
         SetPixelFormat(m_deviceContext, pixelFormat, &pfd);
 
         m_graphicsContextHandle = wglCreateContext(m_deviceContext);
         makeCurrent();
 
         [[maybe_unused]] int success = gladLoadGLLoader(windowsGLGetProcAddress);
-        K2D_CORE_ASSERT(success, "Could not initialize GLAD!");
+        JNG_CORE_ASSERT(success, "Could not initialize GLAD!");
 
-        K2D_CORE_INFO("OpenGL info:");
-        K2D_CORE_INFO("  Vendor: {0}", glGetString(GL_VENDOR));
-        K2D_CORE_INFO("  Renderer: {0}", glGetString(GL_RENDERER));
-        K2D_CORE_INFO("  Version: {0}", glGetString(GL_VERSION));
+        JNG_CORE_INFO("OpenGL info:");
+        JNG_CORE_INFO("  Vendor: {0}", (const char*)glGetString(GL_VENDOR));
+        JNG_CORE_INFO("  Renderer: {0}", (const char*)glGetString(GL_RENDERER));
+        JNG_CORE_INFO("  Version: {0}", (const char*)glGetString(GL_VERSION));
 
-#if K2D_DEBUG
+#if JNG_DEBUG
         glEnable(GL_DEBUG_OUTPUT);
         glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
         glDebugMessageCallback(openGlErrorHandler, nullptr);
@@ -147,4 +147,4 @@ namespace k2d {
         SwapBuffers(GetDC(m_windowHandle));
     }
 
-} // namespace k2d
+} // namespace jng

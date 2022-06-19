@@ -13,7 +13,7 @@
 
 #pragma comment(lib, "d3d11.lib")
 
-namespace k2d {
+namespace jng {
 
     Direct3DGraphicsContext::Direct3DGraphicsContext(Window& window) :
         m_window{ window },
@@ -32,7 +32,7 @@ namespace k2d {
 
         UINT deviceAndSwapChainCreationFlags = 0;
 
-#ifdef K2D_DEBUG
+#ifdef JNG_DEBUG
         deviceAndSwapChainCreationFlags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
 
@@ -92,4 +92,4 @@ namespace k2d {
         K2D_D3D_CHECK_HR_DEVICE_REMOVED(hr, m_device);
     }
 
-} // namespace k2d
+} // namespace jng

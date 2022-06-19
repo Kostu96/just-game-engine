@@ -5,33 +5,35 @@
  */
 
 #pragma once
-#include "core/base.hpp"
+#include "renderer/buffers.hpp"
 
 namespace jng {
 
-    class OpenGLVertexBuffer
+    class OpenGLVertexBuffer :
+        public VertexBuffer
     {
     public:
         OpenGLVertexBuffer(const void* vertices, size_t size);
-        OpenGLVertexBuffer(size_t size);
-        ~OpenGLVertexBuffer();
+        explicit OpenGLVertexBuffer(size_t size);
+        virtual ~OpenGLVertexBuffer();
 
-        void bind() const;
-        void unbind() const;
-        void setData(const void* data, size_t size) const;
+        void bind() const override;
+        void unbind() const override;
+        void setData(const void* data, size_t size) const override;
     private:
         uint32 m_id;
     };
 
-    class OpenGLIndexBuffer
+    class OpenGLIndexBuffer :
+        public IndexBuffer
     {
     public:
         OpenGLIndexBuffer(uint32* indices, uint32 count);
-        ~OpenGLIndexBuffer();
+        virtual ~OpenGLIndexBuffer();
 
-        void bind() const;
-        void unbind() const;
-        uint32 getCount() const { return m_count; }
+        void bind() const override;
+        void unbind() const override;
+        uint32 getCount() const override { return m_count; }
     private:
         uint32 m_id;
         uint32 m_count;

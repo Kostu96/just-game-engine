@@ -9,18 +9,19 @@
 
 namespace jng {
 
-    class OpenGLVertexArray
+    class OpenGLVertexArray :
+        public VertexArray
     {
     public:
         OpenGLVertexArray(const Ref<VertexBuffer>& vbo, const VertexLayout& layout, const Ref<Shader>& shader);
-        ~OpenGLVertexArray();
+        virtual ~OpenGLVertexArray();
 
-        void bind() const;
-        void unbind() const;
+        void bind() const override;
+        void unbind() const override;
 
-        const Ref<VertexBuffer>& getVertexBuffer() const { return m_VBO; }
-        void setIndexBuffer(const Ref<IndexBuffer>& ibo);
-        const Ref<IndexBuffer>& getIndexBuffer() const { return m_IBO; }
+        const Ref<VertexBuffer>& getVertexBuffer() const override { return m_VBO; }
+        void setIndexBuffer(const Ref<IndexBuffer>& ibo) override;
+        const Ref<IndexBuffer>& getIndexBuffer() const override { return m_IBO; }
     private:
         uint32 m_id;
         Ref<VertexBuffer> m_VBO;

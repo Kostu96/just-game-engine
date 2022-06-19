@@ -15,7 +15,6 @@ namespace jng {
     class IndexBuffer;
     class VertexBuffer;
     class Shader;
-    class VertexArrayImpl;
 
     struct LayoutElement
     {
@@ -61,18 +60,15 @@ namespace jng {
     class VertexArray
     {
     public:
-        void bind() const;
-        void unbind() const;
+        virtual void bind() const = 0;
+        virtual void unbind() const = 0;
 
-        const Ref<VertexBuffer>& getVertexBuffer() const;
-        void setIndexBuffer(const Ref<IndexBuffer>& ibo);
-        const Ref<IndexBuffer>& getIndexBuffer() const;
+        virtual const Ref<VertexBuffer>& getVertexBuffer() const = 0;
+        virtual void setIndexBuffer(const Ref<IndexBuffer>& ibo) = 0;
+        virtual const Ref<IndexBuffer>& getIndexBuffer() const = 0;
 
         static Ref<VertexArray> create(const Ref<VertexBuffer>& vbo, const VertexLayout& layout, const Ref<Shader>& shader);
-        explicit VertexArray(Scope<VertexArrayImpl>&& implementation);
-        ~VertexArray();
-    private:
-        Scope<VertexArrayImpl> m_implementation;
+        virtual ~VertexArray() = default;
     };
 
 } // namespace jng

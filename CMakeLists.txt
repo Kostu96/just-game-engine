@@ -74,7 +74,7 @@ target_link_libraries(${JNG_TARGET_NAME} PUBLIC
     #${Vulkan_LIBRARIES}
     glad
     glfw
-    imgui
+#    imgui
     spdlog
     stb
 )
@@ -88,6 +88,6 @@ target_link_libraries(${JNG_TARGET_NAME} PUBLIC
 #add_subdirectory(sandbox-app)
 
 if (JNG_BUILD_SAMPLES)
-    message(STATUS "JENG: Building sample projects.")
+    message(STATUS "JNG: Building sample projects.")
     add_subdirectory(samples)
 endif()

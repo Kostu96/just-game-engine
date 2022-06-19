@@ -9,7 +9,7 @@
 #include "core/base_internal.hpp"
 #include "renderer/renderer_api.hpp"
 //#include "renderer/direct3d/vertex_array_impl_d3d.hpp"
-#include "renderer/opengl/vertex_array_impl_ogl.hpp"
+#include "renderer/opengl/vertex_array_ogl.hpp"
 //#include "renderer/vulkan/vertex_array_impl_vlk.hpp"
 
 namespace jng {
@@ -55,41 +55,11 @@ namespace jng {
         }
     }
 
-    void VertexArray::bind() const
-    {
-        m_implementation->bind();
-    }
-
-    void VertexArray::unbind() const
-    {
-        m_implementation->unbind();
-    }
-
-    const Ref<VertexBuffer>& VertexArray::getVertexBuffer() const
-    {
-        return m_implementation->getVertexBuffer();
-    }
-
-    void VertexArray::setIndexBuffer(const Ref<IndexBuffer>& ibo)
-    {
-        m_implementation->setIndexBuffer(ibo);
-    }
-
-    const Ref<IndexBuffer>& VertexArray::getIndexBuffer() const
-    {
-        return m_implementation->getIndexBuffer();
-    }
-
     Ref<VertexArray> VertexArray::create(const Ref<VertexBuffer>& vbo, const VertexLayout& layout, const Ref<Shader>& shader)
     {
         JNG_PROFILE_FUNCTION();
 
-        return makeRef<VertexArray>(makeScope<VertexArrayImpl>(vbo, layout, shader));
+        return makeRef<OpenGLVertexArray>(vbo, layout, shader);
     }
-
-    VertexArray::VertexArray(Scope<VertexArrayImpl>&& implementation) :
-        m_implementation{ std::move(implementation) } {}
-
-    VertexArray::~VertexArray() = default;
 
 } // namespace jng

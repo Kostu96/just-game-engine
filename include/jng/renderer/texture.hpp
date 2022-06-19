@@ -9,26 +9,21 @@
 
 namespace jng {
 
-    class TextureImpl;
-
     class Texture
     {
     public:
-        void bind(uint32 slot) const;
-        void unbind(uint32 slot) const;
-        uint32 getWidth() const;
-        uint32 getHeight() const;
-        void setData(void* data, size_t size) const;
+        virtual void bind(uint32 slot) const = 0;
+        virtual void unbind(uint32 slot) const = 0;
+        virtual uint32 getWidth() const = 0;
+        virtual uint32 getHeight() const = 0;
+        virtual void setData(void* data, size_t size) const = 0;
 
         // TODO: temp!
-        uint32 getID() const;
+        virtual uint32 getID() const = 0;
 
         static Ref<Texture> create(const char* path);
         static Ref<Texture> create(uint32 width, uint32 height);
-        explicit Texture(Scope<TextureImpl>&& implementation);
-        ~Texture();
-    private:
-        Scope<TextureImpl> m_implementation;
+        virtual ~Texture() = default;
     };
 
 } // namespace jng

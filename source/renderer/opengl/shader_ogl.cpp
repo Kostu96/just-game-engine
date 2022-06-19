@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-#include "renderer/opengl/shader_impl_ogl.hpp"
+#include "renderer/opengl/shader_ogl.hpp"
 
 #include "core/base_internal.hpp"
 

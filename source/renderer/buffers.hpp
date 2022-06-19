@@ -9,37 +9,28 @@
 
 namespace jng {
 
-    class VertexBufferImpl;
-    class IndexBufferImpl;
-
     class VertexBuffer
     {
     public:
-        void bind() const;
-        void unbind() const;
-        void setData(const void* data, size_t size);
+        virtual void bind() const = 0;
+        virtual void unbind() const = 0;
+        virtual void setData(const void* data, size_t size) const = 0;
 
         static Ref<VertexBuffer> create(const void* vertices, size_t size);
         static Ref<VertexBuffer> create(size_t size);
-        explicit VertexBuffer(Scope<VertexBufferImpl>&& implementation);
-        ~VertexBuffer();
-    private:
-        Scope<VertexBufferImpl> m_implementation;
+        virtual ~VertexBuffer() = default;
     };
 
     // TODO: support for less than 32bit ibos
     class IndexBuffer
     {
     public:
-        void bind() const;
-        void unbind() const;
-        uint32 getCount() const;
+        virtual void bind() const = 0;
+        virtual void unbind() const = 0;
+        virtual uint32 getCount() const = 0;
 
         static Ref<IndexBuffer> create(uint32* indices, uint32 count);
-        explicit IndexBuffer(Scope<IndexBufferImpl>&& implementation);
-        ~IndexBuffer();
-    private:
-        Scope<IndexBufferImpl> m_implementation;
+        virtual ~IndexBuffer() = default;
     };
 
 } // namespace jng

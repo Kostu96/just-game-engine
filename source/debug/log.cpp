@@ -4,13 +4,13 @@
  * SPDX-License-Identifier: MIT
  */
 
-#ifdef K2D_DEBUG
+#ifdef JNG_DEBUG
 
 #include "debug/log.hpp"
 
 #include <spdlog/sinks/stdout_color_sinks.h>
 
-namespace k2d {
+namespace jng {
 
     std::shared_ptr<spdlog::logger> Log::m_coreLogger;
     std::shared_ptr<spdlog::logger> Log::m_userLogger;
@@ -31,6 +31,6 @@ namespace k2d {
     }
     globalLogInitializer;
 
-} // namespace k2d
+} // namespace jng
 
 #endif

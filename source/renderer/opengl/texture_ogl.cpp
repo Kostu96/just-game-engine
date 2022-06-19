@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-#include "renderer/opengl/texture_impl_ogl.hpp"
+#include "renderer/opengl/texture_ogl.hpp"
 
 #include "core/base_internal.hpp"
 

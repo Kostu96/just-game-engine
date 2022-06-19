@@ -8,19 +8,19 @@
 
 #include "core/base_internal.hpp"
 #include "renderer/renderer_api.hpp"
-#include "platform/graphics_context_d3d.hpp"
+//#include "platform/graphics_context_d3d.hpp"
 #include "platform/graphics_context_ogl.hpp"
 
 namespace jng {
 
-    Scope<GraphicsContext> GraphicsContext::create(Window& window, RenderAPI api)
+    Scope<GraphicsContext> GraphicsContext::create(Window& window, RendererBackend api)
     {
         JNG_PROFILE_FUNCTION();
 
         switch (api)
         {
-        case RenderAPI::Direct3D: return makeScope<Direct3DGraphicsContext>(window);
-        case RenderAPI::OpenGL: return makeScope<OpenGLGraphicsContext>(window);
+        //case RendererBackend::Direct3D: return makeScope<Direct3DGraphicsContext>(window);
+        case RendererBackend::OpenGL: return makeScope<OpenGLGraphicsContext>(window);
         default:
             JNG_CORE_ASSERT(false, "API unsupported!");
             return nullptr;

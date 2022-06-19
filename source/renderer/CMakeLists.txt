@@ -11,6 +11,7 @@ list(APPEND JNG_HEADERS
     ${JNG_HEADERS_DIR}/camera.hpp
     ${JNG_HEADERS_DIR}/renderer.hpp
     ${JNG_HEADERS_DIR}/renderer_api.hpp
+    ${JNG_HEADERS_DIR}/renderer2d.hpp
     ${JNG_HEADERS_DIR}/shader.hpp
     #${JNG_HEADERS_DIR}/shader_sources.hpp
     ${JNG_HEADERS_DIR}/texture.hpp
@@ -24,6 +25,7 @@ list(APPEND JNG_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/camera.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/renderer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/renderer_api.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/renderer2d.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/shader.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/shader_sources.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/texture.cpp
