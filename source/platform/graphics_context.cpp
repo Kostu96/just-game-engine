@@ -8,16 +8,15 @@
 
 #include "core/base_internal.hpp"
 #include "renderer/renderer_api.hpp"
-//#include "platform/graphics_context_d3d.hpp"
 #include "platform/graphics_context_ogl.hpp"
 
 namespace jng {
 
-    Scope<GraphicsContext> GraphicsContext::create(Window& window, RendererBackend api)
+    Scope<GraphicsContext> GraphicsContext::create(Window& window, RendererBackend backend)
     {
         JNG_PROFILE_FUNCTION();
 
-        switch (api)
+        switch (backend)
         {
         //case RendererBackend::Direct3D: return makeScope<Direct3DGraphicsContext>(window);
         case RendererBackend::OpenGL: return makeScope<OpenGLGraphicsContext>(window);

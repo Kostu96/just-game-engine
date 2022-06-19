@@ -13,6 +13,7 @@
 #include "platform/graphics_context.hpp"
 #include "platform/window.hpp"
 #include "renderer/renderer2d.hpp"
+#include "renderer/renderer_api.hpp"
 
 namespace jng {
 
@@ -24,14 +25,15 @@ namespace jng {
         s_instance = this;
 
         // TODO: do proper render API choosing
-        RendererBackend api = RendererBackend::OpenGL;
+        RendererBackend backend = RendererBackend::OpenGL;
 
-        m_window = Window::create(title, width, height, api);
+        m_window = Window::create(title, width, height, backend);
         m_window->setEventCallback(JNG_BIND_EVENT_FUNC(Engine::onEvent));
         m_window->setVSync(true);
 
         // TODO: choose 3D/2D or 2D only mode
-        Renderer2D::init(api);
+        RendererAPI::init(backend);
+        Renderer2D::init(backend);
     }
 
     Engine::~Engine()

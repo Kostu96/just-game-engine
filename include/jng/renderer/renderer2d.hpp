@@ -27,7 +27,7 @@ namespace jng {
             const glm::vec4& color;
         };
 
-        static void init(RendererBackend api);
+        static void init(RendererBackend backend);
         static void shutdown();
 
         static void setViewport(unsigned int x, unsigned int y, unsigned int width, unsigned int height);
@@ -35,6 +35,8 @@ namespace jng {
 
         static void beginScene(const Camera& camera);
         static void endScene();
+
+        // TODO: static void fillTriangle(const Properties& properties);
 
         static void fillQuad(const Properties& properties);
         static void fillQuad(glm::vec2 position, glm::vec2 size, const glm::vec4& color);

@@ -12,6 +12,11 @@ class SampleLayer :
 {
 public:
     SampleLayer() = default;
+
+    void onUpdate(float /*dt*/) override
+    {
+        jng::RendererAPI::clear({ 0.1f, 0.1f, 0.2f });
+    }
 private:
 
 };

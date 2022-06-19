@@ -39,8 +39,8 @@ namespace jng {
         const EventCallbackFunc& getEventCallback() const { return m_windowData.eventCallback; }
         const GraphicsContext* getGraphicsContext() const { return m_graphicsContext.get(); }
 
-        static Scope<Window> create(const char* title, uint32 width, uint32 height, RendererBackend api);
-        Window(const char* title, uint32 width, uint32 height, RendererBackend api);
+        static Scope<Window> create(const char* title, uint32 width, uint32 height, RendererBackend backend);
+        Window(const char* title, uint32 width, uint32 height, RendererBackend backend);
         ~Window();
     private:
         GLFWwindow* m_windowHandle;

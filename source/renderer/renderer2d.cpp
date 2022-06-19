@@ -30,6 +30,7 @@ namespace jng {
     struct RenderData
     {
         static constexpr uint32 MaxQuadsPerBatch = 5000;
+        //static constexpr uint32 TrisVertexCount = 3;
         static constexpr uint32 QuadVertexCount = 4;
         static constexpr uint32 QuadIndexCount = 6;
         static constexpr uint32 MaxVerticesPerBatch = QuadVertexCount * MaxQuadsPerBatch;
@@ -56,7 +57,7 @@ namespace jng {
 
     static RenderData s_data;
 
-    void Renderer2D::init(RendererBackend /*api*/)
+    void Renderer2D::init(RendererBackend /*backend*/)
     {
         JNG_PROFILE_FUNCTION();
 
@@ -142,6 +143,44 @@ namespace jng {
 
         endBatch();
     }
+
+    //void Renderer2D::fillTriangle(const Properties& properties)
+    //{
+    //    JNG_PROFILE_FUNCTION();
+
+    //    if (s_data.currentQuadIndexCount >= RenderData::MaxIndicesPerBatch)
+    //    {
+    //        endBatch();
+    //        beginBatch();
+    //    }
+
+    //    uint32 textureIndex = static_cast<uint32>(-1);
+    //    for (uint32 i = 0; i < s_data.textureSlotIndex; ++i)
+    //        if (s_data.textureSlots[i]->getID() == properties.texture->getID())
+    //        {
+    //            textureIndex = i;
+    //            break;
+    //        }
+
+    //    if (textureIndex == static_cast<uint32>(-1))
+    //    {
+    //        s_data.textureSlots[s_data.textureSlotIndex] = properties.texture;
+    //        textureIndex = s_data.textureSlotIndex++;
+    //    }
+
+    //    for (uint32 i = 0; i < RenderData::TrisVertexCount; ++i)
+    //    {
+    //        s_data.quadVBOPtr->position = properties.quadVertexPositions[i];
+    //        s_data.quadVBOPtr->texCoord = properties.textureCoords[i];
+    //        s_data.quadVBOPtr->color = properties.color;
+    //        s_data.quadVBOPtr->texIndex = static_cast<float>(textureIndex);
+    //        ++s_data.quadVBOPtr;
+    //    }
+
+    //    s_data.currentQuadIndexCount += RenderData::QuadIndexCount;
+
+    //    //++s_data.statistics.quadCount;
+    //}
 
     void Renderer2D::fillQuad(const Properties& properties)
     {
@@ -276,6 +315,6 @@ namespace jng {
         ++s_data.statistics.drawCalls;
     }
 
-    Scope<RendererAPI> Renderer2D::s_rendererAPI = RendererAPI::create();
+    Scope<RendererAPI> Renderer2D::s_rendererAPI;
 
 } // namespace k2d
