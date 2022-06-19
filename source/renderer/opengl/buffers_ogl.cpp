@@ -1,0 +1,71 @@
+/*
+ * Copyright (C) 2021-2022 Konstanty Misiak
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include "renderer/opengl/buffers_ogl.hpp"
+
+#include <glad/glad.h>
+
+namespace jng {
+
+    OpenGLVertexBuffer::OpenGLVertexBuffer(const void* vertices, size_t size)
+    {
+        glCreateBuffers(1, &m_id);
+        bind();
+        glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(size), vertices, GL_STATIC_DRAW);
+    }
+
+    OpenGLVertexBuffer::OpenGLVertexBuffer(size_t size)
+    {
+        glCreateBuffers(1, &m_id);
+        bind();
+        glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(size), nullptr, GL_DYNAMIC_DRAW);
+    }
+
+    OpenGLVertexBuffer::~OpenGLVertexBuffer()
+    {
+        glDeleteBuffers(1, &m_id);
+    }
+
+    void OpenGLVertexBuffer::bind() const
+    {
+        glBindBuffer(GL_ARRAY_BUFFER, m_id);
+    }
+
+    void OpenGLVertexBuffer::unbind() const
+    {
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+    }
+
+    void OpenGLVertexBuffer::setData(const void* data, size_t size) const
+    {
+        bind();
+        glBufferSubData(GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(size), data);
+    }
+
+    OpenGLIndexBuffer::OpenGLIndexBuffer(uint32* indices, uint32 count) :
+        m_count(count)
+    {
+        glCreateBuffers(1, &m_id);
+        bind();
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizeiptr>(count * sizeof(uint32)), indices, GL_STATIC_DRAW);
+    }
+
+    OpenGLIndexBuffer::~OpenGLIndexBuffer()
+    {
+        glDeleteBuffers(1, &m_id);
+    }
+
+    void OpenGLIndexBuffer::bind() const
+    {
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_id);
+    }
+
+    void OpenGLIndexBuffer::unbind() const
+    {
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    }
+
+} // namespace jng
