@@ -6,3 +6,4 @@
 
 add_subdirectory(hello_cube)
 add_subdirectory(hello_triangle)
+add_subdirectory(sandbox)

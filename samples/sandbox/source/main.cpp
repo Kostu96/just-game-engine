@@ -4,15 +4,15 @@
  * SPDX-License-Identifier: MIT
  */
 
-#define K2D_DECLARE_MAIN
+#define JNG_DECLARE_MAIN
 
 #include "game_data.hpp"
 #include "game_layer.hpp"
 
-#include <k2d/k2d.hpp>
+#include <jng/jng.hpp>
 
 class App :
-    public k2d::Engine
+    public jng::Engine
 {
 public:
     static constexpr unsigned int WindowWidth = 1600;
@@ -30,6 +30,6 @@ private:
     GameData m_gameData;
 };
 
-k2d::Engine* createApp() {
+jng::Engine* createApp() {
     return new App{};
 }

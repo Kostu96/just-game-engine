@@ -9,20 +9,20 @@
 #include "game_data.hpp"
 #include "subtexture.hpp"
 
-#include <k2d/k2d.hpp>
+#include <jng/jng.hpp>
 
 class GameLayer :
-    public k2d::Layer
+    public jng::Layer
 {
 public:
     GameLayer(const GameData& gameData);
 
-    void onEvent(k2d::Event& event);
+    void onEvent(jng::Event& event);
     void onUpdate(float dt) override;
     void onImGuiRender() override;
 private:
     const GameData& m_gameData;
     CameraController m_cameraController;
-    k2d::Ref<k2d::Texture> m_texture;
-    k2d::Ref<SubTexture> m_stairTexture;
+    jng::Ref<jng::Texture> m_texture;
+    jng::Ref<SubTexture> m_stairTexture;
 };

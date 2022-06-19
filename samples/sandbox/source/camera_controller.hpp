@@ -5,7 +5,7 @@
  */
 
 #pragma once
-#include <k2d/k2d.hpp>
+#include <jng/jng.hpp>
 
 class CameraController
 {
@@ -13,16 +13,16 @@ public:
     CameraController(float aspectRatio);
 
     void onUpdate(float dt);
-    void onEvent(k2d::Event& event);
+    void onEvent(jng::Event& event);
 
-    const k2d::Camera& getCamera() const { return m_camera; }
+    const jng::Camera& getCamera() const { return m_camera; }
 private:
-    bool onMouseScroll(k2d::MouseScrollEvent& event);
-    bool onWindowResize(k2d::WindowResizeEvent& event);
+    bool onMouseScroll(jng::MouseScrollEvent& event);
+    bool onWindowResize(jng::WindowResizeEvent& event);
 
     float m_aspectRatio;
     float m_zoomLevel;
-    k2d::Camera m_camera;
+    jng::Camera m_camera;
     glm::vec2 m_cameraPosition;
     float m_cameraMoveSpeed;
 };

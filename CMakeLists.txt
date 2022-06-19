@@ -72,6 +72,7 @@ target_include_directories(${JNG_TARGET_NAME} PRIVATE
 
 target_link_libraries(${JNG_TARGET_NAME} PUBLIC
     #${Vulkan_LIBRARIES}
+    cpp-common-lib
     glad
     glfw
 #    imgui

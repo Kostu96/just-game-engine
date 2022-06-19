@@ -15,7 +15,8 @@ namespace jng {
     class RendererAPI;
     class Texture;
 
-    class Renderer2D
+    class Renderer2D :
+        public ccl::NonCopyable
     {
     public:
         struct Properties
@@ -49,11 +50,6 @@ namespace jng {
 
         static const Statistics& getStatistics();
     private:
-        // TODO: NonCopyable from cpp-common-lib
-        Renderer2D() = delete;
-        Renderer2D(const Renderer2D&) = delete;
-        Renderer2D& operator=(const Renderer2D&) = delete;
-
         static void beginBatch();
         static void endBatch();
 

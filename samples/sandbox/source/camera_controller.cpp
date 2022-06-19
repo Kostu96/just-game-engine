@@ -16,13 +16,13 @@ CameraController::CameraController(float aspectRatio) :
 void CameraController::onUpdate(float dt)
 {
     glm::vec2 move{};
-    if (k2d::Input::isKeyPressed(k2d::Key::W))
+    if (jng::Input::isKeyPressed(jng::Key::W))
         move.y = m_cameraMoveSpeed;
-    else if (k2d::Input::isKeyPressed(k2d::Key::S))
+    else if (jng::Input::isKeyPressed(jng::Key::S))
         move.y = -m_cameraMoveSpeed;
-    if (k2d::Input::isKeyPressed(k2d::Key::A))
+    if (jng::Input::isKeyPressed(jng::Key::A))
         move.x = -m_cameraMoveSpeed;
-    else if (k2d::Input::isKeyPressed(k2d::Key::D))
+    else if (jng::Input::isKeyPressed(jng::Key::D))
         move.x = m_cameraMoveSpeed;
 
     if (move.x != 0.f || move.y != 0)
@@ -33,14 +33,14 @@ void CameraController::onUpdate(float dt)
     }
 }
 
-void CameraController::onEvent(k2d::Event& event)
+void CameraController::onEvent(jng::Event& event)
 {
-    k2d::EventDispatcher dispatcher(event);
-    dispatcher.dispatch<k2d::MouseScrollEvent>(K2D_BIND_EVENT_FUNC(CameraController::onMouseScroll));
-    dispatcher.dispatch<k2d::WindowResizeEvent>(K2D_BIND_EVENT_FUNC(CameraController::onWindowResize));
+    jng::EventDispatcher dispatcher(event);
+    dispatcher.dispatch<jng::MouseScrollEvent>(JNG_BIND_EVENT_FUNC(CameraController::onMouseScroll));
+    dispatcher.dispatch<jng::WindowResizeEvent>(JNG_BIND_EVENT_FUNC(CameraController::onWindowResize));
 }
 
-bool CameraController::onMouseScroll(k2d::MouseScrollEvent& event)
+bool CameraController::onMouseScroll(jng::MouseScrollEvent& event)
 {
     m_zoomLevel -= (event.getYOffset() * 0.05f);
     if (m_zoomLevel < 0.01f)
@@ -56,7 +56,7 @@ bool CameraController::onMouseScroll(k2d::MouseScrollEvent& event)
     return true;
 }
 
-bool CameraController::onWindowResize(k2d::WindowResizeEvent& event)
+bool CameraController::onWindowResize(jng::WindowResizeEvent& event)
 {
     m_aspectRatio = static_cast<float>(event.getWidth()) / static_cast<float>(event.getHeight());
 

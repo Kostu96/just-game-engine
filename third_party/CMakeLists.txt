@@ -4,6 +4,10 @@
 # SPDX-License-Identifier: MIT
 #
 
+### cpp-common-lib ###
+add_subdirectory(cpp-common-lib)
+######################
+
 ### glad: ###
 add_subdirectory(glad)
 target_compile_options(glad PRIVATE
@@ -37,6 +41,7 @@ target_compile_options(stb PRIVATE
 ############
 
 set_target_properties(
+    cpp-common-lib
     glad
     glfw
     update_mappings

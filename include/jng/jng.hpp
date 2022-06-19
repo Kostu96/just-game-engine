@@ -21,7 +21,7 @@
 
 //#include "renderer/buffers.hpp"
 #include "renderer/camera.hpp"
-#include "renderer/renderer.hpp"
+#include "renderer/renderer2d.hpp"
 #include "renderer/renderer_api.hpp"
 #include "renderer/shader.hpp"
 //#include "renderer/shader_sources.hpp"
