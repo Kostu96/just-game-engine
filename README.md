@@ -2,7 +2,7 @@
 A 3D/2D game engine developed as an educational project with hope to be usefull.
 
 ## How to build:
-Just™ clone repo with dependencies:
+Just™ clone the repository with dependencies:
 ```
 git clone --recursive https://github.com/Kostu96/just-game-engine.git
 ```
@@ -12,3 +12,5 @@ mkdir build
 cd build
 cmake ..
 ```
+and it might Just™ work for you.
+If not better instruction will come in the future...
