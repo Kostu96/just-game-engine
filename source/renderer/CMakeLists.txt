@@ -7,7 +7,7 @@
 set(JNG_HEADERS_DIR ${JNG_HEADERS_DIR}/renderer)
 
 list(APPEND JNG_HEADERS
-    #${JNG_HEADERS_DIR}/buffers.hpp
+    ${JNG_HEADERS_DIR}/buffers.hpp
     ${JNG_HEADERS_DIR}/camera.hpp
     ${JNG_HEADERS_DIR}/renderer.hpp
     ${JNG_HEADERS_DIR}/renderer_api.hpp
@@ -15,13 +15,12 @@ list(APPEND JNG_HEADERS
     ${JNG_HEADERS_DIR}/shader.hpp
     #${JNG_HEADERS_DIR}/shader_sources.hpp
     ${JNG_HEADERS_DIR}/texture.hpp
-    #${JNG_HEADERS_DIR}/vertex_array.hpp
+    ${JNG_HEADERS_DIR}/vertex_array.hpp
 )
 
 list(APPEND JNG_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
     ${CMAKE_CURRENT_SOURCE_DIR}/buffers.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/buffers.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/camera.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/renderer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/renderer_api.cpp
@@ -30,7 +29,6 @@ list(APPEND JNG_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/shader_sources.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/texture.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/vertex_array.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/vertex_array.hpp
 )
 
 if(WIN32)

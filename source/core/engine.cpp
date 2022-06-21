@@ -31,7 +31,7 @@ namespace jng {
         m_window->setEventCallback(JNG_BIND_EVENT_FUNC(Engine::onEvent));
         m_window->setVSync(true);
 
-        // TODO: choose 3D/2D or 2D only mode
+        // TODO: choose 3D/2D, 2D or NO_RENDERER mode
         RendererAPI::init(backend);
         Renderer2D::init(backend);
     }

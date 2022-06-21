@@ -29,7 +29,7 @@ namespace jng {
         return makeRef<OpenGLVertexBuffer>(size);
     }
 
-    Ref<IndexBuffer> IndexBuffer::create(uint32* indices, uint32 count)
+    Ref<IndexBuffer> IndexBuffer::create(const uint32* indices, uint32 count)
     {
         JNG_PROFILE_FUNCTION();
 

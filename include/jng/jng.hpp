@@ -19,14 +19,14 @@
 #include "platform/mouse_codes.hpp"
 #include "platform/window.hpp"
 
-//#include "renderer/buffers.hpp"
+#include "renderer/buffers.hpp"
 #include "renderer/camera.hpp"
 #include "renderer/renderer2d.hpp"
 #include "renderer/renderer_api.hpp"
 #include "renderer/shader.hpp"
 //#include "renderer/shader_sources.hpp"
 #include "renderer/texture.hpp"
-//#include "renderer/vertex_array.hpp"
+#include "renderer/vertex_array.hpp"
 
 //#include "scene/entity.hpp"
 //#include "scene/scene.hpp"

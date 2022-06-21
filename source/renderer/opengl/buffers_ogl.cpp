@@ -45,7 +45,7 @@ namespace jng {
         glBufferSubData(GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(size), data);
     }
 
-    OpenGLIndexBuffer::OpenGLIndexBuffer(uint32* indices, uint32 count) :
+    OpenGLIndexBuffer::OpenGLIndexBuffer(const uint32* indices, uint32 count) :
         m_count(count)
     {
         glCreateBuffers(1, &m_id);

@@ -24,9 +24,9 @@ namespace jng {
         glClear(GL_COLOR_BUFFER_BIT);
     }
 
-    void OpenGLRendererAPI::drawIndexedImpl(const VertexArray& vao) const
+    void OpenGLRendererAPI::drawIndexedImpl(const Ref<VertexArray>& vao) const
     {
-        glDrawElements(GL_TRIANGLES, static_cast<int>(vao.getIndexBuffer()->getCount()), GL_UNSIGNED_INT, nullptr);
+        glDrawElements(GL_TRIANGLES, static_cast<int>(vao->getIndexBuffer()->getCount()), GL_UNSIGNED_INT, nullptr);
     }
 
     void OpenGLRendererAPI::drawIndexedImpl(uint32 count) const

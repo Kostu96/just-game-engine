@@ -5,7 +5,7 @@
  */
 
 #pragma once
-#include "core/base.hpp"
+#include "jng/core/base.hpp"
 
 namespace jng {
 
@@ -29,7 +29,7 @@ namespace jng {
         virtual void unbind() const = 0;
         virtual uint32 getCount() const = 0;
 
-        static Ref<IndexBuffer> create(uint32* indices, uint32 count);
+        static Ref<IndexBuffer> create(const uint32* indices, uint32 count);
         virtual ~IndexBuffer() = default;
     };
 

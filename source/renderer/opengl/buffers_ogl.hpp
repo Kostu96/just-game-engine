@@ -28,7 +28,7 @@ namespace jng {
         public IndexBuffer
     {
     public:
-        OpenGLIndexBuffer(uint32* indices, uint32 count);
+        OpenGLIndexBuffer(const uint32* indices, uint32 count);
         virtual ~OpenGLIndexBuffer();
 
         void bind() const override;

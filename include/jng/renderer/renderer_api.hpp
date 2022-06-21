@@ -21,12 +21,12 @@ namespace jng {
         
         static void setViewport(uint32 x, uint32 y, uint32 width, uint32 height) { s_implementation->setViewportImpl(x, y, width, height); }
         static void clear(const glm::vec3& color) { s_implementation->clearImpl(color); }
-        static void drawIndexed(const VertexArray& vao) { s_implementation->drawIndexedImpl(vao); }
+        static void drawIndexed(const Ref<VertexArray>& vao) { s_implementation->drawIndexedImpl(vao); }
         static void drawIndexed(uint32 count) { s_implementation->drawIndexedImpl(count); }
 
         virtual void setViewportImpl(uint32 x, uint32 y, uint32 width, uint32 height) const = 0;
         virtual void clearImpl(const glm::vec3& color) const = 0;
-        virtual void drawIndexedImpl(const VertexArray& vao) const = 0;
+        virtual void drawIndexedImpl(const Ref<VertexArray>& vao) const = 0;
         virtual void drawIndexedImpl(uint32 count) const = 0;
 
         virtual ~RendererAPI() = default;

@@ -115,14 +115,15 @@ namespace jng {
     {
         JNG_PROFILE_FUNCTION();
 
-        s_rendererAPI->setViewport(x, y, width, height);
+        RendererAPI::setViewport(x, y, width, height);
     }
 
+    // TODO: are those functions needed?
     void Renderer2D::clear(glm::vec3 color)
     {
         JNG_PROFILE_FUNCTION();
 
-        s_rendererAPI->clear(color);
+        RendererAPI::clear(color);
     }
 
     void Renderer2D::beginScene(const Camera& camera)
@@ -310,7 +311,7 @@ namespace jng {
         s_data.quadVBO->setData(s_data.quadVBOBase, dataSize);
 
         s_data.quadVAO->bind();
-        s_rendererAPI->drawIndexed(s_data.currentQuadIndexCount);
+        RendererAPI::drawIndexed(s_data.currentQuadIndexCount);
 
         ++s_data.statistics.drawCalls;
     }
