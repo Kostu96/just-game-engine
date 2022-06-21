@@ -27,11 +27,8 @@ namespace jng {
             const glm::vec4& color;
         };
 
-        static void init(RendererBackend backend);
+        static void init();
         static void shutdown();
-
-        static void setViewport(unsigned int x, unsigned int y, unsigned int width, unsigned int height);
-        static void clear(glm::vec3 color);
 
         static void beginScene(const Camera& camera);
         static void endScene();
@@ -54,8 +51,6 @@ namespace jng {
     private:
         static void beginBatch();
         static void endBatch();
-
-        static Scope<RendererAPI> s_rendererAPI;
     };
 
 } // namespace jng

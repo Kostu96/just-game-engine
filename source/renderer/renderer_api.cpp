@@ -13,6 +13,8 @@ namespace jng {
 
     void RendererAPI::init(RendererBackend backend)
     {
+        s_backend = backend;
+
         switch (backend)
         {
         case RendererBackend::OpenGL:
@@ -23,6 +25,7 @@ namespace jng {
         }
     }
 
-    Scope<RendererAPI> RendererAPI::s_implementation;
+    RendererBackend RendererAPI::s_backend;
+    Scope<RendererAPI::RendererAPIImpl> RendererAPI::s_implementation;
 
 } // namespace jng

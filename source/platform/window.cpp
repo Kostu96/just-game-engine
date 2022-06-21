@@ -116,14 +116,14 @@ namespace jng {
         glfwSetWindowTitle(m_windowHandle, title);
     }
 
-    Scope<Window> Window::create(const char* title, uint32 width, uint32 height, RendererBackend backend)
+    Scope<Window> Window::create(const char* title, uint32 width, uint32 height)
     {
         JNG_PROFILE_FUNCTION();
 
-        return makeScope<Window>(title, width, height, backend);
+        return makeScope<Window>(title, width, height);
     }
 
-    Window::Window(const char* title, uint32 width, uint32 height, RendererBackend backend)
+    Window::Window(const char* title, uint32 width, uint32 height)
     {
         m_windowData.title = title;
         m_windowData.width = width;
@@ -132,7 +132,7 @@ namespace jng {
         glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
         m_windowHandle = glfwCreateWindow(static_cast<int>(width), static_cast<int>(height), title, nullptr, nullptr);
         
-        m_graphicsContext = GraphicsContext::create(*this, backend);
+        m_graphicsContext = GraphicsContext::create(*this);
 
         glfwSetWindowUserPointer(m_windowHandle, &m_windowData);
 

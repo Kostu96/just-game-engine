@@ -42,8 +42,8 @@ namespace jng {
 	enum class RendererBackend {
 		None = -1,
 		Direct3D,
-		Vulkan,
 		OpenGL,
+		Vulkan,
 		WebGL
 	};
 

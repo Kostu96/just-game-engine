@@ -12,11 +12,11 @@
 
 namespace jng {
 
-    Scope<GraphicsContext> GraphicsContext::create(Window& window, RendererBackend backend)
+    Scope<GraphicsContext> GraphicsContext::create(Window& window)
     {
         JNG_PROFILE_FUNCTION();
 
-        switch (backend)
+        switch (RendererAPI::getRendererBackend())
         {
         //case RendererBackend::Direct3D: return makeScope<Direct3DGraphicsContext>(window);
         case RendererBackend::OpenGL: return makeScope<OpenGLGraphicsContext>(window);

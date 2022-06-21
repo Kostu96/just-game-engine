@@ -66,8 +66,6 @@ public:
         jng::RendererAPI::clear({ 0.1f, 0.1f, 0.2f });
 
         jng::RendererAPI::drawIndexed(m_VAO);
-
-        //jng::RendererAPI api;
     }
 private:
     jng::Ref<jng::Shader> m_shader;

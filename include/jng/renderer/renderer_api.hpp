@@ -13,25 +13,31 @@ namespace jng {
 
     class VertexArray;
 
-    class RendererAPI :
-        public ccl::NonCopyable
+    class RendererAPI
     {
     public:
+        struct RendererAPIImpl {
+            virtual void setViewport(uint32 x, uint32 y, uint32 width, uint32 height) const = 0;
+            virtual void clear(const glm::vec3& color) const = 0;
+            virtual void drawIndexed(const Ref<VertexArray>& vao) const = 0;
+            virtual void drawIndexed(uint32 count) const = 0;
+
+            virtual ~RendererAPIImpl() = default;
+        };
+
         static void init(RendererBackend backend);
+        static RendererBackend getRendererBackend() { return s_backend; }
         
-        static void setViewport(uint32 x, uint32 y, uint32 width, uint32 height) { s_implementation->setViewportImpl(x, y, width, height); }
-        static void clear(const glm::vec3& color) { s_implementation->clearImpl(color); }
-        static void drawIndexed(const Ref<VertexArray>& vao) { s_implementation->drawIndexedImpl(vao); }
-        static void drawIndexed(uint32 count) { s_implementation->drawIndexedImpl(count); }
-
-        virtual void setViewportImpl(uint32 x, uint32 y, uint32 width, uint32 height) const = 0;
-        virtual void clearImpl(const glm::vec3& color) const = 0;
-        virtual void drawIndexedImpl(const Ref<VertexArray>& vao) const = 0;
-        virtual void drawIndexedImpl(uint32 count) const = 0;
-
-        virtual ~RendererAPI() = default;
+        static void setViewport(uint32 x, uint32 y, uint32 width, uint32 height) { s_implementation->setViewport(x, y, width, height); }
+        static void clear(const glm::vec3& color) { s_implementation->clear(color); }
+        static void drawIndexed(const Ref<VertexArray>& vao) { s_implementation->drawIndexed(vao); }
+        static void drawIndexed(uint32 count) { s_implementation->drawIndexed(count); }
     private:
-        static Scope<RendererAPI> s_implementation;
+        RendererAPI() = delete;
+        ~RendererAPI() = delete;
+
+        static RendererBackend s_backend;
+        static Scope<RendererAPIImpl> s_implementation;
     };
 
 } // namespace jng

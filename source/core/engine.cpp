@@ -24,16 +24,12 @@ namespace jng {
         JNG_CORE_ASSERT(!s_instance, "Application already exists!");
         s_instance = this;
 
-        // TODO: do proper render API choosing
-        RendererBackend backend = RendererBackend::OpenGL;
-
-        m_window = Window::create(title, width, height, backend);
+        m_window = Window::create(title, width, height);
         m_window->setEventCallback(JNG_BIND_EVENT_FUNC(Engine::onEvent));
         m_window->setVSync(true);
 
         // TODO: choose 3D/2D, 2D or NO_RENDERER mode
-        RendererAPI::init(backend);
-        Renderer2D::init(backend);
+        Renderer2D::init();
     }
 
     Engine::~Engine()
@@ -88,7 +84,7 @@ namespace jng {
     bool Engine::onWindowResize(WindowResizeEvent& event)
     {
         if (!m_window->isMinimized())
-            Renderer2D::setViewport(0, 0, event.getWidth(), event.getHeight());
+            RendererAPI::setViewport(0, 0, event.getWidth(), event.getHeight());
 
         return false;
     }

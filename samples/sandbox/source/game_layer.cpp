@@ -28,7 +28,7 @@ void GameLayer::onUpdate(float dt)
 {
     m_cameraController.onUpdate(dt);
 
-    jng::Renderer2D::clear({ 0.1f, 0.07f, 0.07f });
+    jng::RendererAPI::clear({ 0.1f, 0.07f, 0.07f });
     jng::Renderer2D::beginScene(m_cameraController.getCamera());
 
     // test texture atlas

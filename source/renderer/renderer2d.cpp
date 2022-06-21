@@ -57,7 +57,7 @@ namespace jng {
 
     static RenderData s_data;
 
-    void Renderer2D::init(RendererBackend /*backend*/)
+    void Renderer2D::init()
     {
         JNG_PROFILE_FUNCTION();
 
@@ -109,21 +109,6 @@ namespace jng {
     void Renderer2D::shutdown()
     {
         delete[] s_data.quadVBOBase;
-    }
-
-    void Renderer2D::setViewport(unsigned int x, unsigned int y, unsigned int width, unsigned int height)
-    {
-        JNG_PROFILE_FUNCTION();
-
-        RendererAPI::setViewport(x, y, width, height);
-    }
-
-    // TODO: are those functions needed?
-    void Renderer2D::clear(glm::vec3 color)
-    {
-        JNG_PROFILE_FUNCTION();
-
-        RendererAPI::clear(color);
     }
 
     void Renderer2D::beginScene(const Camera& camera)
@@ -315,7 +300,5 @@ namespace jng {
 
         ++s_data.statistics.drawCalls;
     }
-
-    Scope<RendererAPI> Renderer2D::s_rendererAPI;
 
 } // namespace k2d
