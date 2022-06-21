@@ -90,3 +90,5 @@ if (JNG_BUILD_SAMPLES)
     message(STATUS "Building sample projects")
     add_subdirectory(samples)
 endif()
+
+add_subdirectory(editor)

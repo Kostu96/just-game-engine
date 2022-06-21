@@ -6,7 +6,7 @@
 
 #pragma once
 
-#if defined(K2D_DEBUG)
+#if defined(JNG_DEBUG)
 
 #include "platform/windows/windows_base.hpp"
 
@@ -17,7 +17,7 @@
 struct ID3D11Device;
 struct IDXGIInfoQueue;
 
-namespace k2d {
+namespace jng {
 
 	void wnd_check_error(HRESULT hr, const char* file, int line);
 
@@ -42,20 +42,20 @@ namespace k2d {
 		static DXGIInfoManager s_instance;
 	};
 
-} // namespace
+} // namespace jng
 
-#define K2D_WND_CHECK_HR(hr) if (FAILED(hr)) { wnd_check_error(hr, __FILE__, __LINE__); }
-#define K2D_WND_LAST_ERROR() wnd_check_error(GetLastError(), __FILE__, __LINE__)
-#define K2D_D3D_CHECK_HR(hr) if (FAILED(hr)) { gfx_check_error(hr, __FILE__, __LINE__); DXGIInfoManager::get().checkMessages(__FILE__, __LINE__); }
-#define K2D_D3D_CHECK() DXGIInfoManager::get().checkMessages(__FILE__, __LINE__)
-#define K2D_D3D_CHECK_HR_DEVICE_REMOVED(hr, device) if (FAILED(hr)) { gfx_check_error_device_removed(hr, device, __FILE__, __LINE__); DXGIInfoManager::get().checkMessages(__FILE__, __LINE__); }
+#define JNG_WND_CHECK_HR(hr) if (FAILED(hr)) { wnd_check_error(hr, __FILE__, __LINE__); }
+#define JNG_WND_LAST_ERROR() wnd_check_error(GetLastError(), __FILE__, __LINE__)
+#define JNG_D3D_CHECK_HR(hr) if (FAILED(hr)) { gfx_check_error(hr, __FILE__, __LINE__); DXGIInfoManager::get().checkMessages(__FILE__, __LINE__); }
+#define JNG_D3D_CHECK() DXGIInfoManager::get().checkMessages(__FILE__, __LINE__)
+#define JNG_D3D_CHECK_HR_DEVICE_REMOVED(hr, device) if (FAILED(hr)) { gfx_check_error_device_removed(hr, device, __FILE__, __LINE__); DXGIInfoManager::get().checkMessages(__FILE__, __LINE__); }
 
 #else
 
-#define K2D_WND_CHECK_HR(hr)
-#define K2D_WND_LAST_ERROR(hr)
-#define K2D_D3D_CHECK_HR(hr)
-#define K2D_D3D_CHECK()
-#define K2D_D3D_CHECK_HR_DEVICE_REMOVED(hr, device)
+#define JNG_WND_CHECK_HR(hr)
+#define JNG_WND_LAST_ERROR(hr)
+#define JNG_D3D_CHECK_HR(hr)
+#define JNG_D3D_CHECK()
+#define JNG_D3D_CHECK_HR_DEVICE_REMOVED(hr, device)
 
 #endif

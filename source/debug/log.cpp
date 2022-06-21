@@ -19,7 +19,7 @@ namespace jng {
     {
         spdlog::set_pattern("%^[%T][%n] %v%$");
         spdlog::set_level(spdlog::level::trace);
-        m_coreLogger = spdlog::stdout_color_mt("K2D");
+        m_coreLogger = spdlog::stdout_color_mt("JNG");
         m_userLogger = spdlog::stdout_color_mt("APP");
     }
 

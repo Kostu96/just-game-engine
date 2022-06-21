@@ -13,7 +13,6 @@
 #include "core/mouse_events.hpp"
 #include "core/window_events.hpp"
 
-//#include "platform/graphics_context.hpp"
 #include "platform/input.hpp"
 #include "platform/key_codes.hpp"
 #include "platform/mouse_codes.hpp"
@@ -24,7 +23,6 @@
 #include "renderer/renderer2d.hpp"
 #include "renderer/renderer_api.hpp"
 #include "renderer/shader.hpp"
-//#include "renderer/shader_sources.hpp"
 #include "renderer/texture.hpp"
 #include "renderer/vertex_array.hpp"
 

@@ -10,7 +10,7 @@
 
 #include <sstream>
 
-namespace k2d {
+namespace jng {
 
     void Profiler::beginSession(const std::string& filepath)
     {
@@ -62,6 +62,6 @@ namespace k2d {
 
     Profiler Profiler::s_instance;
 
-} // namespace k2d
+} // namespace jng
 
 #endif

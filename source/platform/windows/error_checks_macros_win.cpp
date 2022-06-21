@@ -6,7 +6,7 @@
 
 #include "platform/windows/error_checks_macros_win.hpp"
 
-#if defined(K2D_DEBUG)
+#if defined(JNG_DEBUG)
 
 #include "debug/log.hpp"
 
@@ -16,7 +16,7 @@
 
 #pragma comment(lib, "dxguid.lib")
 
-namespace k2d {
+namespace jng {
 
     void wnd_check_error(HRESULT hr, const char* file, int line)
     {
@@ -30,7 +30,7 @@ namespace k2d {
             0,
             nullptr
         );
-        K2D_CORE_ERROR("WinAPI Error nr {0}\n{3}\nFile: {1}:{2}\n", hr, file, line, (messageSize > 0 ? message : "Unknown"));
+        JNG_CORE_ERROR("WinAPI Error nr {0}\n{3}\nFile: {1}:{2}\n", hr, file, line, (messageSize > 0 ? message : "Unknown"));
         LocalFree(message);
     }
 
@@ -38,7 +38,7 @@ namespace k2d {
     {
         char description[512];
         DXGetErrorDescriptionA(hr, description, 512);
-        K2D_CORE_ERROR("D3D Error nr {0} - {1}\n{4}\nFile: {2}:{3}\n", hr, DXGetErrorStringA(hr), file, line, (description[0] == '\0' ? "Empty" : description));
+        JNG_CORE_ERROR("D3D Error nr {0} - {1}\n{4}\nFile: {2}:{3}\n", hr, DXGetErrorStringA(hr), file, line, (description[0] == '\0' ? "Empty" : description));
     }
 
     void gfx_check_error_device_removed(HRESULT hr, const wrl::ComPtr<ID3D11Device>& device, const char* file, int line)
@@ -62,10 +62,10 @@ namespace k2d {
             switch (pMessage->Severity)
             {
             case DXGI_INFO_QUEUE_MESSAGE_SEVERITY_ERROR:
-                K2D_CORE_ERROR("{0}\nFile: {1}:{2}\n", pMessage->pDescription, file, line);
+                JNG_CORE_ERROR("{0}\nFile: {1}:{2}\n", pMessage->pDescription, file, line);
                 break;
             case DXGI_INFO_QUEUE_MESSAGE_SEVERITY_WARNING:
-                K2D_CORE_WARN("{0}\nFile: {1}:{2}\n", pMessage->pDescription, file, line);
+                JNG_CORE_WARN("{0}\nFile: {1}:{2}\n", pMessage->pDescription, file, line);
                 break;
             }
         }
@@ -81,7 +81,7 @@ namespace k2d {
         HMODULE hModDxgiDebug = LoadLibraryExA("dxgidebug.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
         [[maybe_unused]] DWORD err = GetLastError();
         if (!hModDxgiDebug) {
-            K2D_CORE_FATAL("LoadLibrary error! dxgidebug.dll not found!");
+            JNG_CORE_FATAL("LoadLibrary error! dxgidebug.dll not found!");
             return;
         }
 
@@ -89,15 +89,15 @@ namespace k2d {
             reinterpret_cast<DXGIGetDebugInterfaceFunc>(
                 GetProcAddress(hModDxgiDebug, "DXGIGetDebugInterface"));
         if (!DXGIGetDebugInterface)
-            K2D_CORE_FATAL("GetProcAddress error! DXGIGetDebugInterface definition not found!");
+            JNG_CORE_FATAL("GetProcAddress error! DXGIGetDebugInterface definition not found!");
 
         HRESULT hr;
         hr = DXGIGetDebugInterface(__uuidof(IDXGIInfoQueue), &m_DXGIInfoQueue);
-        K2D_D3D_CHECK_HR(hr);
+        JNG_D3D_CHECK_HR(hr);
     }
 
     DXGIInfoManager DXGIInfoManager::s_instance;
 
-} // namespace
+} // namespace jng
 
 #endif

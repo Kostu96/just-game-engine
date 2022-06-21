@@ -41,10 +41,6 @@ set_target_properties(${SAMPLE_TARGET_NAME} PROPERTIES
     FOLDER samples
 )
 
-if (MSVC)
-    set_property(DIRECTORY ${CMAKE_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${SAMPLE_TARGET_NAME})
-endif()
-
 add_custom_command(
     TARGET ${SAMPLE_TARGET_NAME}
     POST_BUILD

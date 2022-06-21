@@ -301,4 +301,4 @@ namespace jng {
         ++s_data.statistics.drawCalls;
     }
 
-} // namespace k2d
+} // namespace jng
