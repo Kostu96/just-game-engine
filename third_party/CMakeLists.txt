@@ -4,6 +4,24 @@
 # SPDX-License-Identifier: MIT
 #
 
+### disable third_party messages and static_analysis
+function(message)
+    if (NOT MESSAGE_QUIET)
+        _message(${ARGN})
+    endif()
+endfunction()
+set(MESSAGE_QUIET ON)
+set(CMAKE_CXX_CLANG_TIDY "")
+set(CMAKE_CXX_CPPCHECK "")
+
+set(COMPILER_FLAGS /MP /fp:fast)
+
+### dxerr: ###
+if (WIN32)
+    add_subdirectory(dxerr)
+endif()
+###########
+
 ### cpp-common-lib ###
 add_subdirectory(cpp-common-lib)
 ######################
@@ -54,12 +72,12 @@ set_target_properties(
     EXCLUDE_FROM_ALL true
 )
 
-#if (WIN32)
-#    set_target_properties(
-#        dxerr
-#        PROPERTIES
-#        FOLDER third_party
-#        MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
-#        EXCLUDE_FROM_ALL true
-#    )
-#endif()
+if (WIN32)
+    set_target_properties(
+        dxerr
+        PROPERTIES
+        FOLDER third_party
+        MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
+        EXCLUDE_FROM_ALL true
+    )
+endif()

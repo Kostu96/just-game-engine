@@ -80,15 +80,13 @@ target_link_libraries(${JNG_TARGET_NAME} PUBLIC
     stb
 )
 
-#if (WIN32)
-#    target_link_libraries(${JNG_TARGET_NAME} PUBLIC
-#        $<$<CONFIG:Debug>:dxerr>
-#    )
-#endif()
-
-#add_subdirectory(sandbox-app)
+if (WIN32)
+    target_link_libraries(${JNG_TARGET_NAME} PUBLIC
+        $<$<CONFIG:Debug>:dxerr>
+    )
+endif()
 
 if (JNG_BUILD_SAMPLES)
-    message(STATUS "JNG: Building sample projects.")
+    message(STATUS "Building sample projects")
     add_subdirectory(samples)
 endif()
