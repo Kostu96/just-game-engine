@@ -15,6 +15,9 @@
 #include "renderer/renderer2d.hpp"
 #include "renderer/renderer_api.hpp"
 
+#include <backends/imgui_impl_glfw.h>
+#include <backends/imgui_impl_opengl3.h>
+
 namespace jng {
 
     Engine::Engine(const char* title, unsigned int width, unsigned int height)
@@ -51,11 +54,21 @@ namespace jng {
             std::chrono::duration<double, std::nano> dt = time - m_lastFrameTime;
             m_lastFrameTime = time;
 
+            ImGui_ImplOpenGL3_NewFrame();
+            ImGui_ImplGlfw_NewFrame();
+            ImGui::NewFrame();
+
+            RendererAPI::clear({ 0.f, 0.f, 0.f });
+
             // TODO: let pause on minimize be controlled by client
             if (!m_window->isMinimized())
                 for (auto layer : m_layerStack)
                     layer->onUpdate(static_cast<float>(dt.count() * 0.000000001));
 
+
+            ImGui::Render();
+            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+            
             m_window->onUpdate();
         }
     }

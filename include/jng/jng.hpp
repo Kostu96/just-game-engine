@@ -31,7 +31,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-//#include <imgui.h>
+#include <imgui.h>
 
 #if defined(JNG_DECLARE_MAIN)
 #include "core/entry_point.hpp"

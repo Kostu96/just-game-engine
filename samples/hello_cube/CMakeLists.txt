@@ -20,7 +20,7 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} PREFIX source FILES ${SAMPLE_SOURC
 set_target_warnings(${SAMPLE_TARGET_NAME})
 
 target_compile_options(${SAMPLE_TARGET_NAME} PRIVATE
-    $<$<CXX_COMPILER_ID:MSVC>:/MP /fp:fast>
+    $<$<CXX_COMPILER_ID:MSVC>:/MP /fp:fast /external:anglebrackets /external:W1>
     $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -pedantic>
 )
 

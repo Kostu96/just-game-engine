@@ -43,7 +43,7 @@ endif()
 set_target_warnings(${JNG_TARGET_NAME})
 
 target_compile_options(${JNG_TARGET_NAME} PRIVATE
-    $<$<CXX_COMPILER_ID:MSVC>:/MP /fp:fast>
+    $<$<CXX_COMPILER_ID:MSVC>:/MP /fp:fast /external:anglebrackets /external:W1>
 )
 
 set_target_properties(${JNG_TARGET_NAME} PROPERTIES
@@ -75,7 +75,7 @@ target_link_libraries(${JNG_TARGET_NAME} PUBLIC
     cpp-common-lib
     glad
     glfw
-#    imgui
+    imgui
     spdlog
     stb
 )

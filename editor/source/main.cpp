@@ -15,7 +15,8 @@ public:
 
     void onUpdate(float /*dt*/) override
     {
-        
+        static bool show = true;
+        ImGui::ShowDemoWindow(&show);
     }
 private:
 };
