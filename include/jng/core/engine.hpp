@@ -20,7 +20,17 @@ namespace jng {
     class Engine
     {
     public:
-        Engine(const char* title, unsigned int width, unsigned int height);
+        enum class RendererType { None, Renderer2D, Renderer3D };
+
+        struct Properties
+        {
+            const char* windowTitle;
+            unsigned int windowWidth;
+            unsigned int windowHeight;
+            RendererType rendererType;
+        };
+
+        explicit Engine(const Properties& properties);
         virtual ~Engine();
 
         void run();
@@ -36,6 +46,7 @@ namespace jng {
 
         static Engine* s_instance;
         Scope<Window> m_window;
+        RendererType m_rendererType;
         LayerStack m_layerStack;
         bool m_isRunning = true;
         std::chrono::time_point<std::chrono::steady_clock> m_lastFrameTime;

@@ -12,6 +12,7 @@
 #include "core/window_events.hpp"
 #include "platform/graphics_context.hpp"
 #include "platform/window.hpp"
+#include "renderer/renderer.hpp"
 #include "renderer/renderer2d.hpp"
 #include "renderer/renderer_api.hpp"
 
@@ -20,26 +21,42 @@
 
 namespace jng {
 
-    Engine::Engine(const char* title, unsigned int width, unsigned int height)
+    Engine::Engine(const Properties& properties) :
+        m_rendererType{ properties.rendererType }
     {
         JNG_PROFILE_FUNCTION();
 
         JNG_CORE_ASSERT(!s_instance, "Application already exists!");
         s_instance = this;
 
-        m_window = Window::create(title, width, height);
+        m_window = Window::create(properties.windowTitle, properties.windowWidth, properties.windowHeight);
         m_window->setEventCallback(JNG_BIND_EVENT_FUNC(Engine::onEvent));
         m_window->setVSync(true);
 
-        // TODO: choose 3D/2D, 2D or NO_RENDERER mode
-        Renderer2D::init();
+        switch (properties.rendererType)
+        {
+        case RendererType::Renderer2D:
+            Renderer2D::init();
+            break;
+        case RendererType::Renderer3D:
+            Renderer::init();
+            break;
+        }
     }
 
     Engine::~Engine()
     {
         JNG_PROFILE_FUNCTION();
 
-        Renderer2D::shutdown();
+        switch (m_rendererType)
+        {
+        case RendererType::Renderer2D:
+            Renderer2D::shutdown();
+            break;
+        case RendererType::Renderer3D:
+            Renderer::shutdown();
+            break;
+        }
     }
 
     void Engine::run()

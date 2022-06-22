@@ -29,7 +29,12 @@ public:
     static constexpr unsigned int WindowHeight = 900;
 
     EditorApp() :
-        Engine("JNG Editor!", WindowWidth, WindowHeight)
+        Engine({
+            "JNG Editor!",
+            WindowWidth,
+            WindowHeight,
+            RendererType::Renderer3D
+        })
     {
         getLayerStack().pushLayer(new EditorLayer{});
     }

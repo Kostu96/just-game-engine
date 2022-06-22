@@ -82,7 +82,12 @@ public:
     static constexpr unsigned int WindowHeight = 600;
 
     App() :
-        Engine("Hello Triangle!", WindowWidth, WindowHeight)
+        Engine({
+            "Hello Triangle!",
+            WindowWidth,
+            WindowHeight,
+            RendererType::Renderer2D
+        })
     {
         getLayerStack().pushLayer(new SampleLayer{});
     }

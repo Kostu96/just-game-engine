@@ -24,7 +24,12 @@ public:
     static constexpr unsigned int WindowHeight = 600;
 
     App() :
-        Engine("Hello Cube!", WindowWidth, WindowHeight)
+        Engine({
+            "Hello Cube!",
+            WindowWidth,
+            WindowHeight,
+            RendererType::Renderer3D
+        })
     {
         getLayerStack().pushLayer(new SampleLayer{});
     }

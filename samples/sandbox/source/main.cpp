@@ -19,7 +19,12 @@ public:
     static constexpr unsigned int WindowHeight = 900;
 
     App() :
-        Engine("Sandbox Application", WindowWidth, WindowHeight)
+        Engine({
+            "Sandbox Application",
+            WindowWidth,
+            WindowHeight,
+            RendererType::Renderer3D
+        })
     {
         m_gameData.WindowWidth = WindowWidth;
         m_gameData.WindowHeight = WindowHeight;

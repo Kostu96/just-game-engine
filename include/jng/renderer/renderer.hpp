@@ -5,9 +5,17 @@
  */
 
 #pragma once
+#include "jng/core/base.hpp"
 
 namespace jng {
 
-
+    class Renderer :
+        public ccl::NonCopyable
+    {
+    public:
+        static void init() {}
+        static void shutdown() {}
+    private:
+    };
 
 } // namespace jng
