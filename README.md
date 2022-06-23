@@ -5,6 +5,7 @@ A 3D/2D game engine developed as an educational project with hope to be usefull.
 Just™ clone the repository with dependencies:
 ```
 git clone --recursive https://github.com/Kostu96/just-game-engine.git
+cd just-game-engine
 ```
 then Just™ try:
 ```
