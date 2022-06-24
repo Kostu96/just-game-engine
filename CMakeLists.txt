@@ -31,6 +31,7 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/source PREFIX source FILES ${JNG_S
 
 target_compile_definitions(${JNG_TARGET_NAME} PUBLIC
     $<$<CONFIG:Debug>:JNG_DEBUG>
+    IMGUI_USER_CONFIG="imconfig.hpp"
 )
 if (WIN32)
     target_compile_definitions(${JNG_TARGET_NAME} PUBLIC
