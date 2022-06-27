@@ -11,6 +11,8 @@
 #include "platform/window.hpp"
 #include "platform/windows/windows_base.hpp"
 #include "platform/windows/error_checks_macros_win.hpp"
+#include "renderer/buffers.hpp"
+#include "renderer/vertex_array.hpp"
 
 #include <glm/gtc/type_ptr.inl>
 #include <d3d11.h>
@@ -32,9 +34,9 @@ namespace jng {
         JNG_D3D_CHECK();
     }
 
-    void Direct3DRendererAPI::drawIndexed(const Ref<VertexArray>& /*vao*/) const
+    void Direct3DRendererAPI::drawIndexed(const Ref<VertexArray>& vao) const
     {
-        // TODO: implement
+        drawIndexed(vao->getIndexBuffer()->getCount());
     }
 
     void Direct3DRendererAPI::drawIndexed(uint32 count) const

@@ -85,12 +85,13 @@ namespace jng {
             ++i;
         }
 
-        const auto& d3dShader = reinterpret_cast<const Direct3DShader&>(shader);
-        auto& blob = d3dShader.getVertexShaderByteCode();
+        const auto& d3dShader = reinterpret_cast<const Ref<Direct3DShader>&>(shader);
+        auto& blob = d3dShader->getVertexShaderByteCode();
+        const void* ptr = blob->GetBufferPointer();
         hr = device->CreateInputLayout(
             ieds,
             size,
-            blob->GetBufferPointer(),
+            ptr,
             blob->GetBufferSize(),
             &m_nativeLayout);
         JNG_D3D_CHECK_HR(hr);

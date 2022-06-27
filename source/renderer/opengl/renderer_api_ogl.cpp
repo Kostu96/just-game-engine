@@ -6,8 +6,8 @@
 
 #include "renderer/opengl/renderer_api_ogl.hpp"
 
-#include "renderer/vertex_array.hpp"
 #include "renderer/buffers.hpp"
+#include "renderer/vertex_array.hpp"
 
 #include <glad/glad.h>
 
@@ -26,7 +26,7 @@ namespace jng {
 
     void OpenGLRendererAPI::drawIndexed(const Ref<VertexArray>& vao) const
     {
-        glDrawElements(GL_TRIANGLES, static_cast<int>(vao->getIndexBuffer()->getCount()), GL_UNSIGNED_INT, nullptr);
+        drawIndexed(vao->getIndexBuffer()->getCount());
     }
 
     void OpenGLRendererAPI::drawIndexed(uint32 count) const

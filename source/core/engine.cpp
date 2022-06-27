@@ -10,14 +10,12 @@
 #include "core/event.hpp"
 #include "core/layer.hpp"
 #include "core/window_events.hpp"
+#include "imgui/imgui_layer.hpp"
 #include "platform/graphics_context.hpp"
 #include "platform/window.hpp"
 #include "renderer/renderer.hpp"
 #include "renderer/renderer2d.hpp"
 #include "renderer/renderer_api.hpp"
-
-#include <backends/imgui_impl_glfw.h>
-#include <backends/imgui_impl_opengl3.h>
 
 namespace jng {
 
@@ -32,6 +30,8 @@ namespace jng {
         m_window = Window::create(properties.windowTitle, properties.windowWidth, properties.windowHeight);
         m_window->setEventCallback(JNG_BIND_EVENT_FUNC(Engine::onEvent));
         m_window->setVSync(true);
+
+        ImGuiLayer::init(m_window.get());
 
         switch (properties.rendererType)
         {
@@ -71,9 +71,7 @@ namespace jng {
             std::chrono::duration<double, std::nano> dt = time - m_lastFrameTime;
             m_lastFrameTime = time;
 
-            ImGui_ImplOpenGL3_NewFrame();
-            ImGui_ImplGlfw_NewFrame();
-            ImGui::NewFrame();
+            ImGuiLayer::newFrame();
 
             RendererAPI::clear({ 0.f, 0.f, 0.f });
 
@@ -82,9 +80,7 @@ namespace jng {
                 for (auto layer : m_layerStack)
                     layer->onUpdate(static_cast<float>(dt.count() * 0.000000001));
 
-
-            ImGui::Render();
-            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+            ImGuiLayer::render();
             
             m_window->onUpdate();
         }

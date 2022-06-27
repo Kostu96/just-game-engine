@@ -31,17 +31,13 @@ namespace jng {
 		compilationFlags |= D3DCOMPILE_ENABLE_STRICTNESS;
 
 #ifdef JNG_DEBUG
-
 		compilationFlags |= D3DCOMPILE_DEBUG;
 		compilationFlags |= D3DCOMPILE_SKIP_OPTIMIZATION;
 		compilationFlags |= D3DCOMPILE_WARNINGS_ARE_ERRORS;
-
 #else
-
 		compilationFlags |= D3DCOMPILE_SKIP_VALIDATION;
 		compilationFlags |= D3DCOMPILE_PARTIAL_PRECISION;
 		compilationFlags |= D3DCOMPILE_OPTIMIZATION_LEVEL3;
-
 #endif
 
 		hr = D3DCompile(vertexShaderSrc.data(), vertexShaderSrc.size(), nullptr, nullptr, nullptr, "main", "vs_5_0", compilationFlags, 0, &m_vertexShaderByteCode, &errorMessages);

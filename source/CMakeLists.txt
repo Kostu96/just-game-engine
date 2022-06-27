@@ -15,6 +15,7 @@ set(JNG_SOURCES
 
 add_subdirectory(core)
 add_subdirectory(debug)
+add_subdirectory(imgui)
 add_subdirectory(platform)
 add_subdirectory(renderer)
 #add_subdirectory(scene)
