@@ -86,7 +86,7 @@ namespace jng {
         }
 
         const auto& d3dShader = reinterpret_cast<const Ref<Direct3DShader>&>(shader);
-        auto& blob = d3dShader->getVertexShaderByteCode();
+        auto* blob = d3dShader->getVertexShaderByteCode();
         const void* ptr = blob->GetBufferPointer();
         hr = device->CreateInputLayout(
             ieds,

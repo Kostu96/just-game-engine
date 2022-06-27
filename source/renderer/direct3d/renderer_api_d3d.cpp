@@ -30,7 +30,8 @@ namespace jng {
         const auto& deviceContext = graphicsContext->getNativeDeviceContext();
         const auto& renderTarget = graphicsContext->getNativeRenderTarget();
 
-        deviceContext->ClearRenderTargetView(renderTarget.Get(), glm::value_ptr(color));
+        glm::vec4 color4{ color, 1.f };
+        deviceContext->ClearRenderTargetView(renderTarget.Get(), glm::value_ptr(color4));
         JNG_D3D_CHECK();
     }
 
