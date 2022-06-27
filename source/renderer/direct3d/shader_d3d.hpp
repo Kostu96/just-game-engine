@@ -36,10 +36,10 @@ namespace jng {
         void set(const char* name, const glm::vec4& value) const override;
         void set(const char* name, const glm::mat4& value) const override;
 
-        wrl::ComPtr<ID3DBlob>& getVertexShaderByteCode() { return m_vertexShaderByteCode; }
+        wrl::ComPtr<ID3DBlob>& getVertexShaderByteCode() const { return m_vertexShaderByteCode; }
     private:
         const Direct3DGraphicsContext* m_graphicsContext;
-        wrl::ComPtr<ID3DBlob> m_vertexShaderByteCode;
+        mutable wrl::ComPtr<ID3DBlob> m_vertexShaderByteCode;
         wrl::ComPtr<ID3D11VertexShader> m_vertexShader;
         wrl::ComPtr<ID3D11PixelShader> m_fragmentShader;
     };

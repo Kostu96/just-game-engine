@@ -4,18 +4,18 @@
  * SPDX-License-Identifier: MIT
  */
 
-#include "renderer/direct3d/vertex_array_impl_d3d.hpp"
+#include "renderer/direct3d/vertex_array_d3d.hpp"
 
 #include "core/base_internal.hpp"
 #include "core/engine.hpp"
 #include "platform/window.hpp"
 #include "platform/windows/error_checks_macros_win.hpp"
 #include "renderer/buffers.hpp"
-#include "renderer/direct3d/shader_impl_d3d.hpp"
+#include "renderer/direct3d/shader_d3d.hpp"
 
 #include <d3d11.h>
 
-namespace k2d {
+namespace jng {
 
     static DXGI_FORMAT dataTypeToDXGIFormat(LayoutElement::DataType type)
     {
@@ -34,7 +34,7 @@ namespace k2d {
         case LayoutElement::DataType::Bool:   return DXGI_FORMAT_UNKNOWN;
         }
 
-        K2D_CORE_ASSERT(false, "This should never be triggered!")
+        JNG_CORE_ASSERT(false, "This should never be triggered!")
             return DXGI_FORMAT_UNKNOWN;
     }
 
@@ -61,14 +61,14 @@ namespace k2d {
             return 0;
     }*/
 
-    VertexArrayImpl::VertexArrayImpl(const Ref<VertexBuffer>& vbo, const VertexLayout& layout, const Ref<Shader>& shader) :
-        m_graphicsContext{ *Engine::get().getWindow().getGraphicsContext()->getImplementation() }
+    Direct3DVertexArray::Direct3DVertexArray(const Ref<VertexBuffer>& vbo, const VertexLayout& layout, const Ref<Shader>& shader) :
+        m_graphicsContext{ reinterpret_cast<const Direct3DGraphicsContext*>(Engine::get().getWindow().getGraphicsContext()) }
     {
         m_VBO = vbo;
-        K2D_CORE_ASSERT(!layout.getElements().empty(), "Vertex buffer layout is empty!");
+        JNG_CORE_ASSERT(!layout.getElements().empty(), "Vertex buffer layout is empty!");
 
         HRESULT hr;
-        const auto& device = m_graphicsContext.getNativeDevice();
+        const auto& device = m_graphicsContext->getNativeDevice();
 
         UINT size = static_cast<UINT>(layout.getElements().size());
         D3D11_INPUT_ELEMENT_DESC* ieds = new D3D11_INPUT_ELEMENT_DESC[size];
@@ -85,19 +85,25 @@ namespace k2d {
             ++i;
         }
 
-        auto d3dShader = shader->getImplementation();
-        auto& blob = d3dShader->getVertexShaderByteCode();
-        hr = device->CreateInputLayout(ieds, size, blob->GetBufferPointer(), blob->GetBufferSize(), &m_nativeLayout);
-        K2D_D3D_CHECK_HR(hr);
+        const auto& d3dShader = reinterpret_cast<const Direct3DShader&>(shader);
+        auto& blob = d3dShader.getVertexShaderByteCode();
+        hr = device->CreateInputLayout(
+            ieds,
+            size,
+            blob->GetBufferPointer(),
+            blob->GetBufferSize(),
+            &m_nativeLayout);
+        JNG_D3D_CHECK_HR(hr);
 
         delete[] ieds;
     }
 
-    VertexArrayImpl::~VertexArrayImpl() = default;
+    // NOTE: this need to be here for com::wrl to work
+    Direct3DVertexArray::~Direct3DVertexArray() = default;
 
-    void VertexArrayImpl::bind() const
+    void Direct3DVertexArray::bind() const
     {
-        const auto& deviceContext = m_graphicsContext.getNativeDeviceContext();
+        const auto& deviceContext = m_graphicsContext->getNativeDeviceContext();
 
         deviceContext->IASetInputLayout(m_nativeLayout.Get());
         m_VBO->bind();
@@ -105,16 +111,16 @@ namespace k2d {
         // TODO: implement
     }
 
-    void VertexArrayImpl::unbind() const
+    void Direct3DVertexArray::unbind() const
     {
         // TODO: implement
     }
 
-    void VertexArrayImpl::setIndexBuffer(const Ref<IndexBuffer>& ibo)
+    void Direct3DVertexArray::setIndexBuffer(const Ref<IndexBuffer>& ibo)
     {
         m_IBO = ibo;
 
         // TODO: implement
     }
 
-} // namespace k2d
+} // namespace jng

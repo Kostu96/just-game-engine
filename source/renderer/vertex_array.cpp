@@ -8,7 +8,7 @@
 
 #include "core/base_internal.hpp"
 #include "renderer/renderer_api.hpp"
-//#include "renderer/direct3d/vertex_array_impl_d3d.hpp"
+#include "renderer/direct3d/vertex_array_d3d.hpp"
 #include "renderer/opengl/vertex_array_ogl.hpp"
 //#include "renderer/vulkan/vertex_array_impl_vlk.hpp"
 
@@ -59,7 +59,14 @@ namespace jng {
     {
         JNG_PROFILE_FUNCTION();
 
-        return makeRef<OpenGLVertexArray>(vbo, layout, shader);
+        switch (RendererAPI::getRendererBackend())
+        {
+        case RendererBackend::Direct3D: return makeRef<Direct3DVertexArray>(vbo, layout, shader);
+        case RendererBackend::OpenGL: return makeRef<OpenGLVertexArray>(vbo, layout, shader);
+        default:
+            JNG_CORE_ASSERT(false, "API unsupported!");
+            return nullptr;
+        }
     }
 
 } // namespace jng
