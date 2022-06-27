@@ -9,6 +9,7 @@
 #include "core/engine.hpp"
 #include "platform/window.hpp"
 #include "platform/windows/error_checks_macros_win.hpp"
+#include "renderer/vertex_array.hpp"
 
 #include <d3d11.h>
 
@@ -24,7 +25,7 @@ namespace jng {
         bd.ByteWidth = static_cast<UINT>(size);
         bd.Usage = D3D11_USAGE_IMMUTABLE;
         bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-        // NOTE: stride left 0
+        //bd.StructureByteStride = m_layout->getStride();
 
         D3D11_SUBRESOURCE_DATA data{};
         data.pSysMem = vertices;
@@ -44,7 +45,7 @@ namespace jng {
         bd.Usage = D3D11_USAGE_DYNAMIC;
         bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
         bd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-        // NOTE: stride left 0
+        //bd.StructureByteStride = m_layout->getStride();
 
         hr = device->CreateBuffer(&bd, nullptr, &m_buffer);
         JNG_D3D_CHECK_HR(hr);
@@ -57,8 +58,8 @@ namespace jng {
     {
         const auto& deviceContext = m_graphicsContext->getNativeDeviceContext();
         
-        UINT strides[1] = { /*m_layout.getStride()*/ };
-        UINT offsets[] = { 0 };
+        UINT strides[1] = { m_layout->getStride() };
+        UINT offsets[1] = { 0 };
         deviceContext->IASetVertexBuffers(0, 1, m_buffer.GetAddressOf(), strides, offsets);
     }
 

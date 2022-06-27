@@ -24,6 +24,11 @@ namespace jng {
         glClear(GL_COLOR_BUFFER_BIT);
     }
 
+    void OpenGLRendererAPI::draw(uint32 count) const
+    {
+        glDrawArrays(GL_TRIANGLES, 0, count);
+    }
+
     void OpenGLRendererAPI::drawIndexed(const Ref<VertexArray>& vao) const
     {
         drawIndexed(vao->getIndexBuffer()->getCount());

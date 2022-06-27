@@ -17,6 +17,8 @@ struct ID3D11Buffer;
 
 namespace jng {
 
+    class VertexLayout;
+
     namespace wrl = Microsoft::WRL;
 
     class Direct3DVertexBuffer :
@@ -30,9 +32,12 @@ namespace jng {
         void bind() const override;
         void unbind() const override;
         void setData(const void* data, size_t size) const override;
+
+        void setVertexLayout(const VertexLayout& layout) { m_layout = &layout; }
     private:
         const Direct3DGraphicsContext* m_graphicsContext;
         wrl::ComPtr<ID3D11Buffer> m_buffer;
+        const VertexLayout* m_layout = nullptr;
     };
 
     class Direct3DIndexBuffer :

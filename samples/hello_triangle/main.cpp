@@ -63,8 +63,6 @@ const glm::vec2 vertices[]{
     {  0.0f,  0.5f }
 };
 
-const jng::uint32 indices[]{ 0, 1, 2 };
-
 class SampleLayer :
     public jng::Layer
 {
@@ -74,11 +72,8 @@ public:
             jng::Shader::create(vert_shader_d3d, frag_shader_d3d) :
             jng::Shader::create(vert_shader_ogl, frag_shader_ogl) },
         m_VBO{ jng::VertexBuffer::create(vertices, sizeof(vertices)) },
-        m_IBO{ jng::IndexBuffer::create(indices, sizeof(indices)) },
-        m_VAO{ jng::VertexArray::create(m_VBO, {{ jng::LayoutElement::DataType::Float2, "a_Position" }}, m_shader) }
+        m_VAO{ jng::VertexArray::create(m_VBO, LAYOUT, m_shader) }
     {
-        m_VAO->setIndexBuffer(m_IBO);
-
         // NOTE: These can be bound once at the begining because they're only one used.
         m_shader->bind();
         m_VAO->bind();
@@ -88,14 +83,17 @@ public:
     {
         jng::RendererAPI::clear({ 0.1f, 0.1f, 0.2f });
 
-        jng::RendererAPI::drawIndexed(m_VAO);
+        jng::RendererAPI::draw(3);
     }
 private:
+    static const jng::VertexLayout LAYOUT;
     jng::Ref<jng::Shader> m_shader;
     jng::Ref<jng::VertexBuffer> m_VBO;
     jng::Ref<jng::IndexBuffer> m_IBO;
     jng::Ref<jng::VertexArray> m_VAO;
 };
+
+const jng::VertexLayout SampleLayer::LAYOUT{ { jng::LayoutElement::DataType::Float2, "a_Position" } };
 
 class App :
     public jng::Engine

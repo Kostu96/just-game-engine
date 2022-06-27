@@ -11,6 +11,7 @@
 #include "platform/window.hpp"
 #include "platform/windows/error_checks_macros_win.hpp"
 #include "renderer/buffers.hpp"
+#include "renderer/direct3d/buffers_d3d.hpp"
 #include "renderer/direct3d/shader_d3d.hpp"
 
 #include <d3d11.h>
@@ -57,15 +58,17 @@ namespace jng {
         case BufferElement::DataType::Bool:    return 1;
         }
 
-        K2D_CORE_ASSERT(false, "This should never be triggered!")
+        JNG_CORE_ASSERT(false, "This should never be triggered!")
             return 0;
     }*/
 
     Direct3DVertexArray::Direct3DVertexArray(const Ref<VertexBuffer>& vbo, const VertexLayout& layout, const Ref<Shader>& shader) :
+        m_VBO{ vbo },
         m_graphicsContext{ reinterpret_cast<const Direct3DGraphicsContext*>(Engine::get().getWindow().getGraphicsContext()) }
     {
-        m_VBO = vbo;
         JNG_CORE_ASSERT(!layout.getElements().empty(), "Vertex buffer layout is empty!");
+        const auto& vbod3d = reinterpret_cast<const Ref<Direct3DVertexBuffer>&>(vbo);
+        vbod3d->setVertexLayout(layout);
 
         HRESULT hr;
         const auto& device = m_graphicsContext->getNativeDevice();
@@ -108,7 +111,8 @@ namespace jng {
 
         deviceContext->IASetInputLayout(m_nativeLayout.Get());
         m_VBO->bind();
-        m_IBO->bind();
+        if (m_IBO)
+            m_IBO->bind();
         // TODO: implement
     }
 
