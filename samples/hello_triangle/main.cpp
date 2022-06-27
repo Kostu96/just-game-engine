@@ -89,7 +89,6 @@ private:
     static const jng::VertexLayout LAYOUT;
     jng::Ref<jng::Shader> m_shader;
     jng::Ref<jng::VertexBuffer> m_VBO;
-    jng::Ref<jng::IndexBuffer> m_IBO;
     jng::Ref<jng::VertexArray> m_VAO;
 };
 
