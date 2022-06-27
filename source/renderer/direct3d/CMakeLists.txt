@@ -6,8 +6,8 @@
 
 list(APPEND JNG_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
-    #${CMAKE_CURRENT_SOURCE_DIR}/buffers_impl_d3d.cpp
-    #${CMAKE_CURRENT_SOURCE_DIR}/buffers_impl_d3d.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/buffers_d3d.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/buffers_d3d.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/renderer_api_d3d.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/renderer_api_d3d.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/shader_d3d.cpp

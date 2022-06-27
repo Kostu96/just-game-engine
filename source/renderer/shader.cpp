@@ -25,7 +25,7 @@ namespace jng {
         case RendererBackend::OpenGL: return makeRef<OpenGLShader>(vertexShaderSrc, fragmentShaderSrc);
         default:
             JNG_CORE_ASSERT(false, "API unsupported!");
-            return Ref<Shader>{};
+            return nullptr;
         }
 	}
 
