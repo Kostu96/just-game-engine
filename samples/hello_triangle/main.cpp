@@ -44,8 +44,8 @@ struct VSOut
 VSOut main(float2 position : a_Position)
 {
     VSOut vso;
-    vso.color = float2(position.x + 0.5, position.y + 0.5);
-    vso.position = float4(position, 0.0, 1.0);
+    vso.color = float2(position.x + 0.5f, position.y + 0.5f);
+    vso.position = float4(position, 0.0f, 1.0f);
     return vso;
 }
 )";
@@ -53,14 +53,14 @@ VSOut main(float2 position : a_Position)
 const char* frag_shader_d3d = R"(
 float4 main(float2 color : v_Color) : SV_Target
 {
-    return float4(color, 0.0, 1.0);
+    return float4(color, 0.0f, 1.0f);
 }
 )";
 
 const glm::vec2 vertices[]{
     { -0.5f, -0.5f },
-    {  0.5f, -0.5f },
-    {  0.0f,  0.5f }
+    {  0.0f,  0.5f },
+    {  0.5f, -0.5f }
 };
 
 class SampleLayer :
