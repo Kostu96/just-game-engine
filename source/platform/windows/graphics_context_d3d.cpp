@@ -10,6 +10,9 @@
 #include "platform/windows/error_checks_macros_win.hpp"
 
 #include <d3d11.h>
+#include <GLFW/glfw3.h>
+#define GLFW_EXPOSE_NATIVE_WIN32
+#include <GLFW/glfw3native.h>
 
 #pragma comment(lib, "d3d11.lib")
 
@@ -17,7 +20,7 @@ namespace jng {
 
     Direct3DGraphicsContext::Direct3DGraphicsContext(Window& window) :
         m_window{ window },
-        m_windowHandle{ reinterpret_cast<HWND>(window.getNativeWindowHandle()) }
+        m_windowHandle{ reinterpret_cast<HWND>(glfwGetWin32Window(window.getNativeWindowHandle())) }
     {
         HRESULT hr;
         
@@ -50,7 +53,7 @@ namespace jng {
             nullptr, 
             &m_deviceContext
         );
-        K2D_D3D_CHECK_HR(hr);
+        JNG_D3D_CHECK_HR(hr);
 
         wrl::ComPtr<ID3D11Resource> backBuffer;
         hr = m_swapChain->GetBuffer(
@@ -58,13 +61,13 @@ namespace jng {
             __uuidof(ID3D11Resource),
             &backBuffer
         );
-        K2D_D3D_CHECK_HR(hr);
+        JNG_D3D_CHECK_HR(hr);
         hr = m_device->CreateRenderTargetView(
             backBuffer.Get(),
             nullptr,
             &m_renderTarget
         );
-        K2D_D3D_CHECK_HR(hr);
+        JNG_D3D_CHECK_HR(hr);
 
         m_deviceContext->OMSetRenderTargets(1, m_renderTarget.GetAddressOf(), nullptr);
 
@@ -89,7 +92,7 @@ namespace jng {
     {
         HRESULT hr;
         hr = m_swapChain->Present(1, 0);
-        K2D_D3D_CHECK_HR_DEVICE_REMOVED(hr, m_device);
+        JNG_D3D_CHECK_HR_DEVICE_REMOVED(hr, m_device);
     }
 
 } // namespace jng

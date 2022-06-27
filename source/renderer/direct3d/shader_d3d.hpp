@@ -20,24 +20,25 @@ typedef ID3D10Blob ID3DBlob;
 
 namespace jng {
 
-    class ShaderImpl
+    class Direct3DShader :
+        public Shader
     {
     public:
-        ShaderImpl(std::string_view vertexShaderSrc, std::string_view fragmentShaderSrc);
-        ~ShaderImpl();
+        Direct3DShader(std::string_view vertexShaderSrc, std::string_view fragmentShaderSrc);
+        ~Direct3DShader();
 
-        void bind() const;
-        void unbind() const;
+        void bind() const override;
+        void unbind() const override;
 
-        void set(const char* name, int value) const;
-        void set(const char* name, const int* value, uint32 count) const;
-        void set(const char* name, const glm::vec3& value) const;
-        void set(const char* name, const glm::vec4& value) const;
-        void set(const char* name, const glm::mat4& value) const;
+        void set(const char* name, int value) const override;
+        void set(const char* name, const int* value, uint32 count) const override;
+        void set(const char* name, const glm::vec3& value) const override;
+        void set(const char* name, const glm::vec4& value) const override;
+        void set(const char* name, const glm::mat4& value) const override;
 
         wrl::ComPtr<ID3DBlob>& getVertexShaderByteCode() { return m_vertexShaderByteCode; }
     private:
-        const Direct3DGraphicsContext& m_graphicsContext;
+        const Direct3DGraphicsContext* m_graphicsContext;
         wrl::ComPtr<ID3DBlob> m_vertexShaderByteCode;
         wrl::ComPtr<ID3D11VertexShader> m_vertexShader;
         wrl::ComPtr<ID3D11PixelShader> m_fragmentShader;

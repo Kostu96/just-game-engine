@@ -28,7 +28,7 @@ public:
             "Hello Cube!",
             WindowWidth,
             WindowHeight,
-            RendererType::Renderer3D
+            RendererType::None
         })
     {
         getLayerStack().pushLayer(new SampleLayer{});

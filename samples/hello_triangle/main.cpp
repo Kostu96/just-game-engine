@@ -7,7 +7,7 @@
 #define JNG_DECLARE_MAIN
 #include <jng/jng.hpp>
 
-const char* vert_shader = R"(
+const char* vert_shader_ogl = R"(
 #version 450
 
 layout(location = 0) in vec2 a_Position;
@@ -19,10 +19,9 @@ void main()
     v_Color = vec2(a_Position.x + 0.5, a_Position.y + 0.5);
     gl_Position = vec4(a_Position, 0.0, 1.0);
 }
-
 )";
 
-const char* frag_shader = R"(
+const char* frag_shader_ogl = R"(
 #version 450
 
 in vec2 v_Color;
@@ -33,7 +32,29 @@ void main()
 {
     fragColor = vec4(v_Color, 0.0, 1.0);
 }
+)";
 
+const char* vert_shader_d3d = R"(
+struct VSOut
+{
+    float2 color : v_Color;
+    float4 position : SV_Position;
+};
+
+VSOut main(float2 position : a_Position)
+{
+    VSOut vso;
+    vso.color = float2(position.x + 0.5, position.y + 0.5);
+    vso.position = float4(position, 0.0, 1.0);
+    return vso;
+}
+)";
+
+const char* frag_shader_d3d = R"(
+float4 main(float4 color : v_Color) : SV_Target
+{
+    return color;
+}
 )";
 
 const glm::vec2 vertices[]{
@@ -49,7 +70,9 @@ class SampleLayer :
 {
 public:
     SampleLayer() :
-        m_shader{ jng::Shader::create(vert_shader, frag_shader) },
+        m_shader{ jng::RendererAPI::getRendererBackend() == jng::RendererBackend::Direct3D ?
+            jng::Shader::create(vert_shader_d3d, frag_shader_d3d) :
+            jng::Shader::create(vert_shader_ogl, frag_shader_ogl) },
         m_VBO{ jng::VertexBuffer::create(vertices, sizeof(vertices)) },
         m_IBO{ jng::IndexBuffer::create(indices, sizeof(indices)) },
         m_VAO{ jng::VertexArray::create(m_VBO, {{ jng::LayoutElement::DataType::Float2, "a_Position" }}, m_shader) }
@@ -86,7 +109,7 @@ public:
             "Hello Triangle!",
             WindowWidth,
             WindowHeight,
-            RendererType::Renderer2D
+            RendererType::None
         })
     {
         getLayerStack().pushLayer(new SampleLayer{});

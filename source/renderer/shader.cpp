@@ -9,9 +9,9 @@
 #include "core/base_internal.hpp"
 #include "renderer/renderer_api.hpp"
 
-//#include "renderer/direct3d/shader_impl_d3d.hpp"
+#include "renderer/direct3d/shader_d3d.hpp"
 #include "renderer/opengl/shader_ogl.hpp"
-//#include "renderer/vulkan/shader_impl_vlk.hpp"
+//#include "renderer/vulkan/shader_vlk.hpp"
 
 namespace jng {
     
@@ -19,7 +19,14 @@ namespace jng {
 	{
         JNG_PROFILE_FUNCTION();
 
-        return makeRef<OpenGLShader>(vertexShaderSrc, fragmentShaderSrc);
+        switch (RendererAPI::getRendererBackend())
+        {
+        case RendererBackend::Direct3D: return makeRef<Direct3DShader>(vertexShaderSrc, fragmentShaderSrc);
+        case RendererBackend::OpenGL: return makeRef<OpenGLShader>(vertexShaderSrc, fragmentShaderSrc);
+        default:
+            JNG_CORE_ASSERT(false, "API unsupported!");
+            return Ref<Shader>{};
+        }
 	}
 
 } // namespace jng
