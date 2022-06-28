@@ -13,8 +13,8 @@ namespace jng {
         public ccl::NonCopyable
     {
     public:
-        static void init() {}
-        static void shutdown() {}
+        static void init();
+        static void shutdown();
     private:
     };
 

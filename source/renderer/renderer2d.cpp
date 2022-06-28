@@ -74,20 +74,20 @@ namespace jng {
 
         s_data.quadVBOBase = new QuadVertex[s_data.MaxVerticesPerBatch];
         s_data.quadVertexPositions[0] = { -0.5f, -0.5f, 0.0f, 1.0f };
-        s_data.quadVertexPositions[1] = { -0.5f,  0.5f, 0.0f, 1.0f };
-        s_data.quadVertexPositions[2] = { 0.5f,  0.5f, 0.0f, 1.0f };
-        s_data.quadVertexPositions[3] = { 0.5f, -0.5f, 0.0f, 1.0f };
+        s_data.quadVertexPositions[1] = {  0.5f, -0.5f, 0.0f, 1.0f };
+        s_data.quadVertexPositions[2] = {  0.5f,  0.5f, 0.0f, 1.0f };
+        s_data.quadVertexPositions[3] = { -0.5f,  0.5f, 0.0f, 1.0f };
 
         uint32* quadIndices = new uint32[RenderData::MaxIndicesPerBatch];
         for (uint32 i = 0, offset = 0; i < s_data.MaxIndicesPerBatch; i += s_data.QuadIndexCount, offset += s_data.QuadVertexCount)
         {
             quadIndices[i + 0] = offset + 0;
-            quadIndices[i + 1] = offset + 1;
-            quadIndices[i + 2] = offset + 2;
+            quadIndices[i + 1] = offset + 2;
+            quadIndices[i + 2] = offset + 1;
 
             quadIndices[i + 3] = offset + 0;
-            quadIndices[i + 4] = offset + 2;
-            quadIndices[i + 5] = offset + 3;
+            quadIndices[i + 4] = offset + 3;
+            quadIndices[i + 5] = offset + 2;
         }
         auto quadIBO = IndexBuffer::create(quadIndices, RenderData::MaxIndicesPerBatch);
         s_data.quadVAO->setIndexBuffer(quadIBO);
