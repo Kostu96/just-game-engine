@@ -52,7 +52,7 @@ VSOut main(float2 position : a_Position)
 {
     VSOut vso;
     vso.color = float2(position.x + 0.5f, position.y + 0.5f);
-    vso.position = mul(float4(position, 0.0f, 1.0f), VP);
+    vso.position = mul(VP, float4(position, 0.0f, 1.0f));
     return vso;
 }
 )";
