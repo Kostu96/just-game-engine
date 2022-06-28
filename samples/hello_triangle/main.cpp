@@ -14,10 +14,12 @@ layout(location = 0) in vec2 a_Position;
 
 out vec2 v_Color;
 
+uniform mat4 u_VP;
+
 void main()
 {
     v_Color = vec2(a_Position.x + 0.5, a_Position.y + 0.5);
-    gl_Position = vec4(a_Position, 0.0, 1.0);
+    gl_Position = u_VP * vec4(a_Position, 0.0, 1.0);
 }
 )";
 
@@ -41,11 +43,16 @@ struct VSOut
     float4 position : SV_Position;
 };
 
+cbuffer buffer
+{
+    matrix VP;
+};
+
 VSOut main(float2 position : a_Position)
 {
     VSOut vso;
     vso.color = float2(position.x + 0.5f, position.y + 0.5f);
-    vso.position = float4(position, 0.0f, 1.0f);
+    vso.position = mul(float4(position, 0.0f, 1.0f), VP);
     return vso;
 }
 )";
@@ -58,9 +65,9 @@ float4 main(float2 color : v_Color) : SV_Target
 )";
 
 const glm::vec2 vertices[]{
-    { -0.5f, -0.5f },
-    {  0.0f,  0.5f },
-    {  0.5f, -0.5f }
+    { -1.f, -1.f },
+    {  0.f,  1.f },
+    {  1.f, -1.f }
 };
 
 class SampleLayer :
@@ -72,11 +79,14 @@ public:
             jng::Shader::create(vert_shader_d3d, frag_shader_d3d) :
             jng::Shader::create(vert_shader_ogl, frag_shader_ogl) },
         m_VBO{ jng::VertexBuffer::create(vertices, sizeof(vertices)) },
-        m_VAO{ jng::VertexArray::create(m_VBO, LAYOUT, m_shader) }
+        m_VAO{ jng::VertexArray::create(m_VBO, LAYOUT, m_shader) },
+        m_camera{ -2.f, 2.f, -1.5f, 1.5f }
     {
         // NOTE: These can be bound once at the begining because they're only one used.
         m_shader->bind();
         m_VAO->bind();
+
+        m_shader->set("u_VP", m_camera.getVP());
     }
 
     void onUpdate(float /*dt*/) override
@@ -90,6 +100,7 @@ private:
     jng::Ref<jng::Shader> m_shader;
     jng::Ref<jng::VertexBuffer> m_VBO;
     jng::Ref<jng::VertexArray> m_VAO;
+    jng::OrthographicCamera m_camera;
 };
 
 const jng::VertexLayout SampleLayer::LAYOUT{ { jng::LayoutElement::DataType::Float2, "a_Position" } };

@@ -15,11 +15,12 @@ layout(location = 0) in vec3 a_Position;
 out vec3 v_Color;
 
 uniform mat4 u_VP;
+uniform mat4 u_Model;
 
 void main()
 {
     v_Color = vec3(a_Position.x + 0.5, a_Position.y + 0.5, a_Position.z + 0.5);
-    gl_Position = u_VP * vec4(a_Position, 1.0);
+    gl_Position = u_VP * u_Model * vec4(a_Position, 1.0);
 }
 )";
 
@@ -43,11 +44,22 @@ struct VSOut
     float4 position : SV_Position;
 };
 
+cbuffer buffer1
+{
+    matrix VP;
+};
+
+cbuffer buffer2
+{
+    matrix Model;
+};
+
 VSOut main(float3 position : a_Position)
 {
     VSOut vso;
     vso.color = float3(position.x + 0.5f, position.y + 0.5f, position.z + 0.5f);
-    vso.position = float4(position, 1.0f);
+    vso.position = mul(Model, float4(position.xy, position.z, 1.0f));
+    vso.position = mul(VP, vso.position);
     return vso;
 }
 )";
@@ -60,15 +72,15 @@ float4 main(float3 color : v_Color) : SV_Target
 )";
 
 const glm::vec3 vertices[]{
-    { -0.5, -0.5,  0.5 },
-    {  0.5, -0.5,  0.5 },
-    {  0.5,  0.5,  0.5 },
-    { -0.5,  0.5,  0.5 },
+    { -1.f, -1.f,  1.f },
+    {  1.f, -1.f,  1.f },
+    {  1.f,  1.f,  1.f },
+    { -1.f,  1.f,  1.f },
 
-    { -0.5, -0.5, -0.5 },
-    {  0.5, -0.5, -0.5 },
-    {  0.5,  0.5, -0.5 },
-    { -0.5,  0.5, -0.5 }
+    { -1.f, -1.f, -1.f },
+    {  1.f, -1.f, -1.f },
+    {  1.f,  1.f, -1.f },
+    { -1.f,  1.f, -1.f }
 };
 
 const jng::uint32 indices[]{
@@ -102,7 +114,9 @@ public:
             jng::Shader::create(vert_shader_ogl, frag_shader_ogl) },
         m_VBO{ jng::VertexBuffer::create(vertices, sizeof(vertices)) },
         m_IBO{ jng::IndexBuffer::create(indices, sizeof(indices)) },
-        m_VAO{ jng::VertexArray::create(m_VBO, LAYOUT, m_shader) }
+        m_VAO{ jng::VertexArray::create(m_VBO, LAYOUT, m_shader) },
+        m_camera{ 45.f, 4.f/3.f, 0.1f, 100.f },
+        m_model{ 1.f }
     {
         m_VAO->setIndexBuffer(m_IBO);
 
@@ -110,15 +124,17 @@ public:
         m_shader->bind();
         m_VAO->bind();
 
-        glm::mat4 projection = glm::ortho(-2.f, 2.f, -1.5f, 1.5f);
-        glm::mat4 vp = projection * glm::mat4{1.f}; // View
+        m_shader->set("u_VP", m_camera.getVP());
 
-        m_shader->set("u_VP", vp);
+        m_model = glm::translate(m_model, glm::vec3{ 0.f, 0.f, -5.f });
     }
 
-    void onUpdate(float /*dt*/) override
+    void onUpdate(float dt) override
     {
         jng::RendererAPI::clear({ 0.1f, 0.1f, 0.2f });
+
+        m_model = glm::rotate(m_model, dt, glm::vec3{ 1.f, 0.8f, 0.f });
+        m_shader->set("u_Model", m_model);
 
         jng::RendererAPI::drawIndexed(m_VAO);
     }
@@ -128,6 +144,8 @@ private:
     jng::Ref<jng::VertexBuffer> m_VBO;
     jng::Ref<jng::IndexBuffer> m_IBO;
     jng::Ref<jng::VertexArray> m_VAO;
+    jng::PerspectiveCamera m_camera;
+    glm::mat4 m_model;
 };
 
 const jng::VertexLayout SampleLayer::LAYOUT{ { jng::LayoutElement::DataType::Float3, "a_Position" } };

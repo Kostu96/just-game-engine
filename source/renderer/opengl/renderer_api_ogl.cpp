@@ -21,7 +21,7 @@ namespace jng {
     void OpenGLRendererAPI::clear(const glm::vec3& color) const
     {
         glClearColor(color.r, color.g, color.b, 1.f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
     void OpenGLRendererAPI::draw(uint32 count) const

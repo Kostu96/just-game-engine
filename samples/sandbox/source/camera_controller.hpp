@@ -22,7 +22,7 @@ private:
 
     float m_aspectRatio;
     float m_zoomLevel;
-    jng::Camera m_camera;
+    jng::OrthographicCamera m_camera;
     glm::vec2 m_cameraPosition;
     float m_cameraMoveSpeed;
 };

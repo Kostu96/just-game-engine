@@ -15,6 +15,8 @@
 #include <d3d11.h>
 #include <d3dcompiler.h>
 
+#include <vector>
+
 #pragma comment(lib, "d3dcompiler.lib")
 
 namespace jng {
@@ -105,9 +107,32 @@ namespace jng {
 		// TODO:
 	}
 
-    void Direct3DShader::set(const char* /*name*/, const glm::mat4& /*value*/) const
+    void Direct3DShader::set(const char* name, const glm::mat4& value) const
     {
-		// TODO:
+		size_t i = 0;
+		for (; i < m_bufferLookup.size(); ++i)
+			if (m_bufferLookup[i] == name)
+				break;
+
+		if (i == m_bufferLookup.size())
+			m_bufferLookup.push_back(name);
+
+		wrl::ComPtr<ID3D11Buffer> pConstantBuffer;
+		D3D11_BUFFER_DESC cbd;
+		cbd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+		cbd.Usage = D3D11_USAGE_IMMUTABLE;
+		cbd.CPUAccessFlags = 0; // D3D11_CPU_ACCESS_WRITE;
+		cbd.MiscFlags = 0u;
+		cbd.ByteWidth = sizeof(glm::mat4);
+		cbd.StructureByteStride = 0u;
+		D3D11_SUBRESOURCE_DATA csd = {};
+		csd.pSysMem = glm::value_ptr(value);
+
+		const auto& device = m_graphicsContext->getNativeDevice();
+		device->CreateBuffer(&cbd, &csd, &pConstantBuffer);
+
+		const auto& deviceContext = m_graphicsContext->getNativeDeviceContext();
+		deviceContext->VSSetConstantBuffers((UINT)i, 1u, pConstantBuffer.GetAddressOf());
     }
 
 } // namespace jng

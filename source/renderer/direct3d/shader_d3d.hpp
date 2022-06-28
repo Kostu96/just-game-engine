@@ -42,6 +42,7 @@ namespace jng {
         wrl::ComPtr<ID3DBlob> m_vertexShaderByteCode;
         wrl::ComPtr<ID3D11VertexShader> m_vertexShader;
         wrl::ComPtr<ID3D11PixelShader> m_fragmentShader;
+        mutable std::vector<std::string> m_bufferLookup;
     };
 
 } // namespace jng
