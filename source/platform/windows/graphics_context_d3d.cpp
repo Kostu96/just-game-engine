@@ -6,6 +6,7 @@
 
 #include "platform/graphics_context_d3d.hpp"
 
+#include "core/base_internal.hpp"
 #include "platform/window.hpp"
 #include "platform/windows/error_checks_macros_win.hpp"
 
@@ -78,6 +79,8 @@ namespace jng {
         m_deviceContext->RSSetViewports(1, &vp);
 
         m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+        JNG_CORE_INFO("Direct3D11 context initialized.");
     }
 
     // NOTE: this is needed for wrl::ComPtr to work

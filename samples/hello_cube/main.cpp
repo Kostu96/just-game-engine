@@ -14,10 +14,12 @@ layout(location = 0) in vec3 a_Position;
 
 out vec3 v_Color;
 
+uniform mat4 u_VP;
+
 void main()
 {
     v_Color = vec3(a_Position.x + 0.5, a_Position.y + 0.5, a_Position.z + 0.5);
-    gl_Position = vec4(a_Position, 1.0);
+    gl_Position = u_VP * vec4(a_Position, 1.0);
 }
 )";
 
@@ -71,23 +73,23 @@ const glm::vec3 vertices[]{
 
 const jng::uint32 indices[]{
     // front
-    0, 1, 2,
-    2, 3, 0,
+    0, 3, 2,
+    2, 1, 0,
     // right
-    1, 5, 6,
-    6, 2, 1,
+    1, 2, 6,
+    6, 5, 1,
     // back
-    7, 6, 5,
-    5, 4, 7,
+    7, 4, 5,
+    5, 6, 7,
     // left
-    4, 0, 3,
-    3, 7, 4,
+    4, 7, 3,
+    3, 0, 4,
     // bottom
-    4, 5, 1,
-    1, 0, 4,
+    4, 0, 1,
+    1, 5, 4,
     // top
-    3, 2, 6,
-    6, 7, 3
+    3, 7, 6,
+    6, 2, 3
 };
 
 class SampleLayer :
@@ -107,6 +109,11 @@ public:
         // NOTE: These can be bound once at the begining because they're only one used.
         m_shader->bind();
         m_VAO->bind();
+
+        glm::mat4 projection = glm::ortho(-2.f, 2.f, -1.5f, 1.5f);
+        glm::mat4 vp = projection * glm::mat4{1.f}; // View
+
+        m_shader->set("u_VP", vp);
     }
 
     void onUpdate(float /*dt*/) override
