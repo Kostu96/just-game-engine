@@ -7,6 +7,7 @@
 cmake_minimum_required(VERSION 3.20)
 
 ### options: ###
+set(JNG_VULKAN_SDK_DIR "" CACHE PATH "Path to your VulkanSDK installation directory")
 option(JNG_BUILD_SAMPLES "Build sample projects" ON) # TODO: switch to off later on
 ################
 
@@ -16,7 +17,10 @@ include(cmake/compiler_warnings.cmake)
 
 set(JNG_TARGET_NAME jng)
 
+set(ENV{VULKAN_SDK} ${JNG_VULKAN_SDK_DIR})
+find_package(Vulkan REQUIRED FATAL_ERROR)
 add_subdirectory(third_party)
+
 set(JNG_HEADERS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/jng)
 add_subdirectory(source)
 
@@ -39,8 +43,6 @@ if (WIN32)
     )
 endif()
 
-#find_package(Vulkan REQUIRED FATAL_ERROR)
-
 set_target_warnings(${JNG_TARGET_NAME})
 
 target_compile_options(${JNG_TARGET_NAME} PRIVATE
@@ -59,20 +61,15 @@ target_include_directories(${JNG_TARGET_NAME} PUBLIC
 target_include_directories(${JNG_TARGET_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include/jng
     ${CMAKE_CURRENT_SOURCE_DIR}/source
-    #${Vulkan_INCLUDE_DIRS}
+    ${Vulkan_INCLUDE_DIRS}
 )
 
-#target_include_directories(${JNG_TARGET_NAME} SYSTEM PRIVATE
+#target_include_directories(${JNG_TARGET_NAME} PRIVATE
 #    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/entt/include
-#    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/lua/include
-#)
-
-#target_link_directories(${JNG_TARGET_NAME} PUBLIC
-#    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/lua/lib
 #)
 
 target_link_libraries(${JNG_TARGET_NAME} PUBLIC
-    #${Vulkan_LIBRARIES}
+    ${Vulkan_LIBRARIES}
     cpp-common-lib
     glad
     glfw

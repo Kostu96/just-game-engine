@@ -33,4 +33,10 @@ namespace jng {
         virtual ~IndexBuffer() = default;
     };
 
+    class UniformBuffer
+    {
+    public:
+        virtual ~UniformBuffer() = default;
+    };
+
 } // namespace jng
