@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: MIT
 #
 
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.24)
 
 ### options: ###
 set(JNG_VULKAN_SDK_DIR "" CACHE PATH "Path to your VulkanSDK installation directory")
@@ -18,7 +18,7 @@ include(cmake/compiler_warnings.cmake)
 set(JNG_TARGET_NAME jng)
 
 set(ENV{VULKAN_SDK} ${JNG_VULKAN_SDK_DIR})
-find_package(Vulkan REQUIRED FATAL_ERROR)
+find_package(Vulkan REQUIRED)
 add_subdirectory(third_party)
 
 set(JNG_HEADERS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/jng)
@@ -68,8 +68,10 @@ target_include_directories(${JNG_TARGET_NAME} PRIVATE
 #    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/entt/include
 #)
 
+message(STATUS "____ ${Vulkan_LIBRARIES}")
 target_link_libraries(${JNG_TARGET_NAME} PUBLIC
-    ${Vulkan_LIBRARIES}
+ #   Vulkan::Vulkan
+ #   Vulkan::glslc
     cpp-common-lib
     glad
     glfw

@@ -1,6 +1,10 @@
 # Just™ Game Engine
 A 3D/2D game engine developed as an educational project with hope to be usefull.
 
+## Prerequisites
+- CMake
+- VulkanSDK 1.3.x.x
+
 ## How to build:
 Just™ clone the repository with dependencies:
 ```
