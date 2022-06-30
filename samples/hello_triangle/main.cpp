@@ -8,7 +8,7 @@
 #include <jng/jng.hpp>
 
 const char* vert_shader_ogl = R"(
-#version 450
+#version 450 core
 
 layout(location = 0) in vec2 a_Position;
 
@@ -24,7 +24,7 @@ void main()
 )";
 
 const char* frag_shader_ogl = R"(
-#version 450
+#version 450 core
 
 in vec2 v_Color;
 
