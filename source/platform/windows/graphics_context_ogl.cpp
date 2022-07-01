@@ -25,12 +25,17 @@ namespace jng {
     static void GLAPIENTRY openGlErrorHandler(
         GLenum source,
         GLenum type,
-        GLuint /*id*/,
+        GLuint id,
         GLenum severity,
         GLsizei /*length*/,
         const GLchar* message,
         const void* /*userParam*/)
     {
+        // Skip
+        switch (id) {
+        case 131185: return; // Buffer usage hint notification
+        }
+
         const char* sourceStr = "";
         switch (source) {
         case GL_DEBUG_SOURCE_API: sourceStr = "Call to the OpenGL API"; break;
@@ -68,8 +73,8 @@ namespace jng {
                 sourceStr, typeStr, "Low", message);
             break;
         case GL_DEBUG_SEVERITY_NOTIFICATION:
-            JNG_CORE_WARN("OpenGL debug | {0} | Type: {1}\n  {2}",
-                sourceStr, typeStr, message);
+            JNG_CORE_WARN("OpenGL debug | {0} | Type: {1} | ID: {2}\n  {3}",
+                sourceStr, typeStr, id, message);
             break;
         }
     }
@@ -120,6 +125,7 @@ namespace jng {
         JNG_CORE_INFO("  Vendor: {0}", (const char*)glGetString(GL_VENDOR));
         JNG_CORE_INFO("  Renderer: {0}", (const char*)glGetString(GL_RENDERER));
         JNG_CORE_INFO("  Version: {0}", (const char*)glGetString(GL_VERSION));
+        JNG_CORE_INFO("  GLSL Version: {0}", (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION));
 
 #if JNG_DEBUG
         glEnable(GL_DEBUG_OUTPUT);

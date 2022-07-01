@@ -81,6 +81,7 @@ public:
         m_shader{ jng::RendererAPI::getRendererBackend() == jng::RendererBackend::Direct3D ?
             jng::Shader::create(vert_shader_d3d, frag_shader_d3d) :
             jng::Shader::create(vert_shader_ogl, frag_shader_ogl) },
+        m_UBO{ jng::UniformBuffer::create(sizeof(glm::mat4), 0) },
         m_VBO{ jng::VertexBuffer::create(vertices, sizeof(vertices)) },
         m_VAO{ jng::VertexArray::create(m_VBO, LAYOUT, m_shader) },
         m_camera{ -2.f, 2.f, -1.5f, 1.5f }
@@ -89,7 +90,7 @@ public:
         m_shader->bind();
         m_VAO->bind();
 
-        m_shader->set("u_VP", m_camera.getVP());
+        m_UBO->setData(glm::value_ptr(m_camera.getVP()), sizeof(glm::mat4), 0);
     }
 
     void onUpdate(float /*dt*/) override
@@ -101,6 +102,7 @@ public:
 private:
     static const jng::VertexLayout LAYOUT;
     jng::Ref<jng::Shader> m_shader;
+    jng::Ref<jng::UniformBuffer> m_UBO;
     jng::Ref<jng::VertexBuffer> m_VBO;
     jng::Ref<jng::VertexArray> m_VAO;
     jng::OrthographicCamera m_camera;

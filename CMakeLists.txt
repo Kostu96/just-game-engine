@@ -77,6 +77,10 @@ target_include_directories(${JNG_TARGET_NAME} PRIVATE
 #    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/entt/include
 #)
 
+target_link_options(${JNG_TARGET_NAME} PUBLIC
+    /ignore:4099
+)
+
 target_link_libraries(${JNG_TARGET_NAME} PUBLIC
     ${Vulkan_LIBRARIES}
     cpp-common-lib
