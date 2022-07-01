@@ -57,14 +57,14 @@ namespace jng {
         }
     }
 
-    Ref<UniformBuffer> UniformBuffer::create(size_t size, uint32 binding)
+    Ref<UniformBuffer> UniformBuffer::create(size_t size)
     {
         JNG_PROFILE_FUNCTION();
 
         switch (RendererAPI::getRendererBackend())
         {
-        //case RendererBackend::Direct3D: return makeRef<Direct3DUniformBuffer>(size, binding);
-        case RendererBackend::OpenGL: return makeRef<OpenGLUniformBuffer>(size, binding);
+        case RendererBackend::Direct3D: return makeRef<Direct3DUniformBuffer>(size);
+        case RendererBackend::OpenGL: return makeRef<OpenGLUniformBuffer>(size);
         default:
             JNG_CORE_ASSERT(false, "API unsupported!");
             return nullptr;

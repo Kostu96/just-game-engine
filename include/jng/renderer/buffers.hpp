@@ -36,9 +36,11 @@ namespace jng {
     class UniformBuffer
     {
     public:
+        virtual void bind(uint32 slot) const = 0;
+        virtual void unbind(uint32 slot) const = 0;
         virtual void setData(const void* data, size_t size, size_t offset) const = 0;
 
-        static Ref<UniformBuffer> create(size_t size, uint32 binding);
+        static Ref<UniformBuffer> create(size_t size);
         virtual ~UniformBuffer() = default;
     };
 

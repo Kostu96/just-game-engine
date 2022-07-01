@@ -81,13 +81,14 @@ public:
         m_shader{ jng::RendererAPI::getRendererBackend() == jng::RendererBackend::Direct3D ?
             jng::Shader::create(vert_shader_d3d, frag_shader_d3d) :
             jng::Shader::create(vert_shader_ogl, frag_shader_ogl) },
-        m_UBO{ jng::UniformBuffer::create(sizeof(glm::mat4), 0) },
+        m_UBO{ jng::UniformBuffer::create(sizeof(glm::mat4)) },
         m_VBO{ jng::VertexBuffer::create(vertices, sizeof(vertices)) },
         m_VAO{ jng::VertexArray::create(m_VBO, LAYOUT, m_shader) },
         m_camera{ -2.f, 2.f, -1.5f, 1.5f }
     {
         // NOTE: These can be bound once at the begining because they're only one used.
         m_shader->bind();
+        m_UBO->bind(0);
         m_VAO->bind();
 
         m_UBO->setData(glm::value_ptr(m_camera.getVP()), sizeof(glm::mat4), 0);

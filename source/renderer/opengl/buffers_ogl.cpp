@@ -64,16 +64,25 @@ namespace jng {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 
-    OpenGLUniformBuffer::OpenGLUniformBuffer(size_t size, uint32 binding)
+    OpenGLUniformBuffer::OpenGLUniformBuffer(size_t size)
     {
         glCreateBuffers(1, &m_id);
         glNamedBufferData(m_id, size, nullptr, GL_STATIC_DRAW); // TODO: investigate usage hint
-        glBindBufferBase(GL_UNIFORM_BUFFER, binding, m_id);
     }
 
     OpenGLUniformBuffer::~OpenGLUniformBuffer()
     {
         glDeleteBuffers(1, &m_id);
+    }
+
+    void OpenGLUniformBuffer::bind(uint32 slot) const
+    {
+        glBindBufferBase(GL_UNIFORM_BUFFER, slot, m_id);
+    }
+
+    void OpenGLUniformBuffer::unbind(uint32 slot) const
+    {
+        glBindBufferBase(GL_UNIFORM_BUFFER, slot, 0);
     }
 
     void OpenGLUniformBuffer::setData(const void* data, size_t size, size_t offset) const
