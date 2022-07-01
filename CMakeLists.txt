@@ -4,11 +4,11 @@
 # SPDX-License-Identifier: MIT
 #
 
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.20)
 
 ### options: ###
 set(JNG_VULKAN_SDK_DIR "" CACHE PATH "Path to your VulkanSDK installation directory")
-option(JNG_BUILD_SAMPLES "Build sample projects" ON) # TODO: switch to off later on
+option(JNG_BUILD_SAMPLES "Build sample projects" ON)
 ################
 
 project(jng-proj LANGUAGES CXX)
@@ -19,6 +19,15 @@ set(JNG_TARGET_NAME jng)
 
 set(ENV{VULKAN_SDK} ${JNG_VULKAN_SDK_DIR})
 find_package(Vulkan REQUIRED)
+if (Vulkan_FOUND)
+    message(STATUS "Vulkan found: ${Vulkan_VERSION}")
+    list(APPEND Vulkan_LIBRARIES
+        ${JNG_VULKAN_SDK_DIR}/Lib/shaderc_shared$<$<CONFIG:Debug>:d>.lib
+        ${JNG_VULKAN_SDK_DIR}/Lib/spirv-cross-core$<$<CONFIG:Debug>:d>.lib
+        ${JNG_VULKAN_SDK_DIR}/Lib/spirv-cross-glsl$<$<CONFIG:Debug>:d>.lib
+    )
+endif()
+
 add_subdirectory(third_party)
 
 set(JNG_HEADERS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/jng)
@@ -50,7 +59,7 @@ target_compile_options(${JNG_TARGET_NAME} PRIVATE
 )
 
 set_target_properties(${JNG_TARGET_NAME} PROPERTIES
-    MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
+    MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL"
 )
 
 target_include_directories(${JNG_TARGET_NAME} PUBLIC
@@ -68,10 +77,8 @@ target_include_directories(${JNG_TARGET_NAME} PRIVATE
 #    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/entt/include
 #)
 
-message(STATUS "____ ${Vulkan_LIBRARIES}")
 target_link_libraries(${JNG_TARGET_NAME} PUBLIC
- #   Vulkan::Vulkan
- #   Vulkan::glslc
+    ${Vulkan_LIBRARIES}
     cpp-common-lib
     glad
     glfw

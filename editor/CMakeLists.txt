@@ -29,7 +29,7 @@ target_link_libraries(${EDITOR_TARGET_NAME} PRIVATE
 )
 
 set_target_properties(${EDITOR_TARGET_NAME} PROPERTIES
-    MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
+    MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL"
     VS_DEBUGGER_WORKING_DIRECTORY $<TARGET_FILE_DIR:${EDITOR_TARGET_NAME}>
 )
 

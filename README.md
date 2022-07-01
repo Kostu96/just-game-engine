@@ -2,8 +2,8 @@
 A 3D/2D game engine developed as an educational project with hope to be usefull.
 
 ## Prerequisites
-- CMake
-- VulkanSDK 1.3.x.x
+- CMake (3.23 tested)
+- VulkanSDK 1.3.x.x (1.3.216.0 tested)
 
 ## How to build:
 Just™ clone the repository with dependencies:

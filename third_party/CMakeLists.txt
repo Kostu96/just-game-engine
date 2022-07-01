@@ -104,7 +104,7 @@ set_target_properties(
     stb
     PROPERTIES
     FOLDER third_party
-    MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
+    MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL"
     EXCLUDE_FROM_ALL true
 )
 
@@ -113,7 +113,7 @@ if (WIN32)
         dxerr
         PROPERTIES
         FOLDER third_party
-        MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
+        MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL"
         EXCLUDE_FROM_ALL true
     )
 endif()
