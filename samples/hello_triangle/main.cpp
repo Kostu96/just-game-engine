@@ -12,9 +12,12 @@ const char* vert_shader_ogl = R"(
 
 layout(location = 0) in vec2 a_Position;
 
-out vec2 v_Color;
+layout(location = 0) out vec2 v_Color;
 
-uniform mat4 u_VP;
+layout(std140, binding = 0) uniform Camera
+{
+	mat4 u_VP;
+};
 
 void main()
 {
@@ -26,9 +29,9 @@ void main()
 const char* frag_shader_ogl = R"(
 #version 450 core
 
-in vec2 v_Color;
+layout(location = 0) in vec2 v_Color;
 
-out vec4 fragColor;
+layout(location = 0) out vec4 fragColor;
 
 void main()
 {
