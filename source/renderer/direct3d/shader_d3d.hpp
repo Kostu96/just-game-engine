@@ -7,7 +7,7 @@
 #pragma once
 #include "renderer/shader.hpp"
 #include "platform/windows/windows_base.hpp"
-#include "platform/graphics_context_d3d.hpp"
+#include "platform/windows/graphics_context_d3d.hpp"
 
 #pragma warning(disable:4265)
 #include <wrl.h>

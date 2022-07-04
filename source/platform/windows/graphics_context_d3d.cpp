@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-#include "platform/graphics_context_d3d.hpp"
+#include "platform/windows/graphics_context_d3d.hpp"
 
 #include "core/base_internal.hpp"
 #include "platform/window.hpp"

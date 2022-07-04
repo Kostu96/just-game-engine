@@ -7,10 +7,10 @@
 #include "renderer/direct3d/renderer_api_d3d.hpp"
 
 #include "core/engine.hpp"
-#include "platform/graphics_context_d3d.hpp"
 #include "platform/window.hpp"
-#include "platform/windows/windows_base.hpp"
 #include "platform/windows/error_checks_macros_win.hpp"
+#include "platform/windows/graphics_context_d3d.hpp"
+#include "platform/windows/windows_base.hpp"
 #include "renderer/buffers.hpp"
 #include "renderer/vertex_array.hpp"
 

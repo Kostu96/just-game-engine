@@ -13,13 +13,14 @@
 
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
-#include <GLFW/glfw3.h>
 
 #if defined(JNG_WINDOWS)
 #include "platform/windows/graphics_context_d3d.hpp"
 
 #include <backends/imgui_impl_dx11.h>
 #endif
+
+#include <GLFW/glfw3.h> // NOTE: this has to be included after any windows stuff because of APIENTRY redefinition
 
 namespace jng {
 
