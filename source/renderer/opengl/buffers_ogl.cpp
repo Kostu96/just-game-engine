@@ -67,7 +67,7 @@ namespace jng {
     OpenGLUniformBuffer::OpenGLUniformBuffer(size_t size)
     {
         glCreateBuffers(1, &m_id);
-        glNamedBufferData(m_id, size, nullptr, GL_STATIC_DRAW); // TODO: investigate usage hint
+        glNamedBufferData(m_id, static_cast<GLsizeiptr>(size), nullptr, GL_STATIC_DRAW); // TODO: investigate usage hint
     }
 
     OpenGLUniformBuffer::~OpenGLUniformBuffer()
@@ -87,7 +87,7 @@ namespace jng {
 
     void OpenGLUniformBuffer::setData(const void* data, size_t size, size_t offset) const
     {
-        glNamedBufferSubData(m_id, offset, size, data);
+        glNamedBufferSubData(m_id, static_cast<GLintptr>(offset), static_cast<GLsizeiptr>(size), data);
     }
 
 } // namespace jng
