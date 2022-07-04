@@ -35,6 +35,7 @@ namespace jng {
 
         switch (properties.rendererType)
         {
+        case RendererType::None: break;
         case RendererType::Renderer2D:
             Renderer2D::init();
             break;
@@ -50,6 +51,7 @@ namespace jng {
 
         switch (m_rendererType)
         {
+        case RendererType::None: break;
         case RendererType::Renderer2D:
             Renderer2D::shutdown();
             break;
