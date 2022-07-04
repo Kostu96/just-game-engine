@@ -26,6 +26,8 @@ list(APPEND JNG_SOURCES
 
 if (WIN32)
     add_subdirectory(windows)
+else()
+    add_subdirectory(linux)
 endif()
 
 set(JNG_HEADERS ${JNG_HEADERS} PARENT_SCOPE)

@@ -11,7 +11,7 @@
 
 #include <GLFW/glfw3.h>
 
-namespace k2d {
+namespace jng {
 
     GraphicsContextImpl::GraphicsContextImpl(WindowImpl& window) :
         m_window{ window },
@@ -35,9 +35,9 @@ namespace k2d {
 
         uint32_t deviceCount = 0;
         result = vkEnumeratePhysicalDevices(m_vkInstance, &deviceCount, nullptr);
-        K2D_CORE_TRACE("Vulkan physical devices count = {0}", deviceCount);
+        JNG_CORE_TRACE("Vulkan physical devices count = {0}", deviceCount);
 
-        K2D_CORE_ASSERT(deviceCount, "No Vulkan physical devices found!");
+        JNG_CORE_ASSERT(deviceCount, "No Vulkan physical devices found!");
 
         std::vector<VkPhysicalDevice> devices(deviceCount);
         result = vkEnumeratePhysicalDevices(m_vkInstance, &deviceCount, devices.data());
@@ -58,4 +58,4 @@ namespace k2d {
         //glfwSwapBuffers(m_windowHandle); ?
     }
 
-} // namespace k2d
+} // namespace jng
