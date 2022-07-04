@@ -16,62 +16,6 @@ include(cmake/compiler_warnings.cmake)
 
 set(JNG_TARGET_NAME jng)
 
-find_package(Vulkan REQUIRED)
-if (Vulkan_FOUND)
-    #if (WIN32)
-    #    list(APPEND Vulkan_LIBRARIES
-    #        $ENV{VULKAN_SDK}/Lib/shaderc_combined$<$<CONFIG:Debug>:d>.lib
-    #        $ENV{VULKAN_SDK}/Lib/spirv-cross-core$<$<CONFIG:Debug>:d>.lib
-    #        $ENV{VULKAN_SDK}/Lib/spirv-cross-glsl$<$<CONFIG:Debug>:d>.lib
-    #    )
-    #else()
-    #    list(APPEND Vulkan_LIBRARIES
-    #        $ENV{VULKAN_SDK}/lib/shaderc_combined.a
-    #        $ENV{VULKAN_SDK}/lib/spirv-cross-core.a
-    #        $ENV{VULKAN_SDK}/lib/spirv-cross-glsl.a
-    #    )
-    #endif()
-    add_library(vulkan-shaderc STATIC IMPORTED)
-    add_library(vulkan-spirv-cross-core STATIC IMPORTED)
-    add_library(vulkan-spirv-cross-glsl STATIC IMPORTED)
-    if (WIN32)
-        set_target_properties(vulkan-shaderc PROPERTIES
-            IMPORTED_LOCATION $ENV{VULKAN_SDK}/Lib/shaderc_combined.lib
-            IMPORTED_LOCATION_DEBUG $ENV{VULKAN_SDK}/Lib/shaderc_combinedd.lib
-            IMPORTED_CONFIGURATIONS "Release;Debug"
-        )
-        set_target_properties(vulkan-spirv-cross-core PROPERTIES
-            IMPORTED_LOCATION $ENV{VULKAN_SDK}/Lib/spirv-cross-core.lib
-            IMPORTED_LOCATION_DEBUG $ENV{VULKAN_SDK}/Lib/spirv-cross-cored.lib
-            IMPORTED_CONFIGURATIONS "Release;Debug"
-        )
-        set_target_properties(vulkan-spirv-cross-glsl PROPERTIES
-            IMPORTED_LOCATION $ENV{VULKAN_SDK}/Lib/spirv-cross-glsl.lib
-            IMPORTED_LOCATION_DEBUG $ENV{VULKAN_SDK}/Lib/spirv-cross-glsld.lib
-            IMPORTED_CONFIGURATIONS "Release;Debug"
-        )
-    else()
-        set_target_properties(vulkan-shaderc PROPERTIES
-            IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/libshaderc_combined.a
-            IMPORTED_CONFIGURATIONS "Release"
-        )
-        set_target_properties(vulkan-spirv-cross-core PROPERTIES
-            IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/libspirv-cross-core.a
-            IMPORTED_CONFIGURATIONS "Release"
-        )
-        set_target_properties(vulkan-spirv-cross-glsl PROPERTIES
-            IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/libspirv-cross-glsl.a
-            IMPORTED_CONFIGURATIONS "Release"
-        )
-    endif()
-    
-    list(APPEND Vulkan_LIBRARIES
-        vulkan-shaderc
-        vulkan-spirv-cross-core
-        vulkan-spirv-cross-glsl
-    )
-endif()
-
 add_subdirectory(third_party)
 
 set(JNG_HEADERS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/jng)
@@ -122,9 +66,11 @@ target_include_directories(${JNG_TARGET_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/source
 )
 
-target_link_options(${JNG_TARGET_NAME} PUBLIC
-    /ignore:4099
-)
+if (WIN32)
+    target_link_options(${JNG_TARGET_NAME} PUBLIC
+        /ignore:4099
+    )
+endif()
 
 target_link_libraries(${JNG_TARGET_NAME} PUBLIC
     ${Vulkan_LIBRARIES}
