@@ -16,7 +16,7 @@
 #include <GLFW/glfw3.h>
 
 #if defined(JNG_WINDOWS)
-#include "platform/graphics_context_d3d.hpp"
+#include "platform/windows/graphics_context_d3d.hpp"
 
 #include <backends/imgui_impl_dx11.h>
 #endif

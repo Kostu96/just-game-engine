@@ -10,8 +10,11 @@
 #include "renderer/renderer_api.hpp"
 
 #include "renderer/opengl/buffers_ogl.hpp"
-#include "renderer/direct3d/buffers_d3d.hpp"
 //#include "renderer/vulkan/buffers_vlk.hpp"
+
+#if defined(JNG_WINDOWS)
+#include "renderer/direct3d/buffers_d3d.hpp"
+#endif
 
 namespace jng {
 
@@ -21,7 +24,9 @@ namespace jng {
 
         switch (RendererAPI::getRendererBackend())
         {
+#if defined(JNG_WINDOWS)
         case RendererBackend::Direct3D: return makeRef<Direct3DVertexBuffer>(vertices, size);
+#endif
         case RendererBackend::OpenGL: return makeRef<OpenGLVertexBuffer>(vertices, size);
         default:
             JNG_CORE_ASSERT(false, "API unsupported!");
@@ -35,7 +40,9 @@ namespace jng {
 
         switch (RendererAPI::getRendererBackend())
         {
+#if defined(JNG_WINDOWS)
         case RendererBackend::Direct3D: return makeRef<Direct3DVertexBuffer>(size);
+#endif
         case RendererBackend::OpenGL: return makeRef<OpenGLVertexBuffer>(size);
         default:
             JNG_CORE_ASSERT(false, "API unsupported!");
@@ -49,7 +56,9 @@ namespace jng {
 
         switch (RendererAPI::getRendererBackend())
         {
+#if defined(JNG_WINDOWS)
         case RendererBackend::Direct3D: return makeRef<Direct3DIndexBuffer>(indices, count);
+#endif
         case RendererBackend::OpenGL: return makeRef<OpenGLIndexBuffer>(indices, count);
         default:
             JNG_CORE_ASSERT(false, "API unsupported!");
@@ -63,7 +72,9 @@ namespace jng {
 
         switch (RendererAPI::getRendererBackend())
         {
+#if defined(JNG_WINDOWS)
         case RendererBackend::Direct3D: return makeRef<Direct3DUniformBuffer>(size);
+#endif
         case RendererBackend::OpenGL: return makeRef<OpenGLUniformBuffer>(size);
         default:
             JNG_CORE_ASSERT(false, "API unsupported!");
