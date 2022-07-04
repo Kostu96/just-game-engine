@@ -46,6 +46,11 @@ if (Vulkan_FOUND)
         set_target_properties(vulkan-spirv-cross-glsld PROPERTIES IMPORTED_LOCATION $ENV{VULKAN_SDK}/Lib/spirv-cross-glsld.lib)
     else()
         set_target_properties(vulkan-shaderc PROPERTIES IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/shaderc_combined.a)
+        set_target_properties(vulkan-shadercd PROPERTIES IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/shaderc_combined.a) # TODO: ?
+        set_target_properties(vulkan-spirv-cross-core PROPERTIES IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/spirv-cross-core.a)
+        set_target_properties(vulkan-spirv-cross-cored PROPERTIES IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/spirv-cross-core.a) # TODO: ?
+        set_target_properties(vulkan-spirv-cross-glsl PROPERTIES IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/spirv-cross-glsl.a)
+        set_target_properties(vulkan-spirv-cross-glsld PROPERTIES IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/spirv-cross-glsl.a) # TODO: ?
     endif()
     
     list(APPEND Vulkan_LIBRARIES
