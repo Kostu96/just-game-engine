@@ -18,11 +18,19 @@ set(JNG_TARGET_NAME jng)
 
 find_package(Vulkan REQUIRED)
 if (Vulkan_FOUND)
-    list(APPEND Vulkan_LIBRARIES
-        $ENV{VULKAN_SDK}/Lib/shaderc_combined$<$<CONFIG:Debug>:d>.lib
-        $ENV{VULKAN_SDK}/Lib/spirv-cross-core$<$<CONFIG:Debug>:d>.lib
-        $ENV{VULKAN_SDK}/Lib/spirv-cross-glsl$<$<CONFIG:Debug>:d>.lib
-    )
+    if (WIN32)
+        list(APPEND Vulkan_LIBRARIES
+            $ENV{VULKAN_SDK}/Lib/shaderc_combined$<$<CONFIG:Debug>:d>.lib
+            $ENV{VULKAN_SDK}/Lib/spirv-cross-core$<$<CONFIG:Debug>:d>.lib
+            $ENV{VULKAN_SDK}/Lib/spirv-cross-glsl$<$<CONFIG:Debug>:d>.lib
+        )
+    else()
+        list(APPEND Vulkan_LIBRARIES
+            $ENV{VULKAN_SDK}/lib/shaderc_combined.a
+            $ENV{VULKAN_SDK}/lib/spirv-cross-core.a
+            $ENV{VULKAN_SDK}/lib/spirv-cross-glsl.a
+        )
+    endif()
 endif()
 
 add_subdirectory(third_party)
