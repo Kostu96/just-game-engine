@@ -18,19 +18,41 @@ set(JNG_TARGET_NAME jng)
 
 find_package(Vulkan REQUIRED)
 if (Vulkan_FOUND)
+    #if (WIN32)
+    #    list(APPEND Vulkan_LIBRARIES
+    #        $ENV{VULKAN_SDK}/Lib/shaderc_combined$<$<CONFIG:Debug>:d>.lib
+    #        $ENV{VULKAN_SDK}/Lib/spirv-cross-core$<$<CONFIG:Debug>:d>.lib
+    #        $ENV{VULKAN_SDK}/Lib/spirv-cross-glsl$<$<CONFIG:Debug>:d>.lib
+    #    )
+    #else()
+    #    list(APPEND Vulkan_LIBRARIES
+    #        $ENV{VULKAN_SDK}/lib/shaderc_combined.a
+    #        $ENV{VULKAN_SDK}/lib/spirv-cross-core.a
+    #        $ENV{VULKAN_SDK}/lib/spirv-cross-glsl.a
+    #    )
+    #endif()
+    add_library(vulkan-shaderc STATIC IMPORTED)
+    add_library(vulkan-shadercd STATIC IMPORTED)
+    add_library(vulkan-spirv-cross-core STATIC IMPORTED)
+    add_library(vulkan-spirv-cross-cored STATIC IMPORTED)
+    add_library(vulkan-spirv-cross-glsl STATIC IMPORTED)
+    add_library(vulkan-spirv-cross-glsld STATIC IMPORTED)
     if (WIN32)
-        list(APPEND Vulkan_LIBRARIES
-            $ENV{VULKAN_SDK}/Lib/shaderc_combined$<$<CONFIG:Debug>:d>.lib
-            $ENV{VULKAN_SDK}/Lib/spirv-cross-core$<$<CONFIG:Debug>:d>.lib
-            $ENV{VULKAN_SDK}/Lib/spirv-cross-glsl$<$<CONFIG:Debug>:d>.lib
-        )
+        set_target_properties(vulkan-shaderc PROPERTIES IMPORTED_LOCATION $ENV{VULKAN_SDK}/Lib/shaderc_combined.lib)
+        set_target_properties(vulkan-shadercd PROPERTIES IMPORTED_LOCATION $ENV{VULKAN_SDK}/Lib/shaderc_combinedd.lib)
+        set_target_properties(vulkan-spirv-cross-core PROPERTIES IMPORTED_LOCATION $ENV{VULKAN_SDK}/Lib/spirv-cross-core.lib)
+        set_target_properties(vulkan-spirv-cross-cored PROPERTIES IMPORTED_LOCATION $ENV{VULKAN_SDK}/Lib/spirv-cross-cored.lib)
+        set_target_properties(vulkan-spirv-cross-glsl PROPERTIES IMPORTED_LOCATION $ENV{VULKAN_SDK}/Lib/spirv-cross-glsl.lib)
+        set_target_properties(vulkan-spirv-cross-glsld PROPERTIES IMPORTED_LOCATION $ENV{VULKAN_SDK}/Lib/spirv-cross-glsld.lib)
     else()
-        list(APPEND Vulkan_LIBRARIES
-            $ENV{VULKAN_SDK}/lib/shaderc_combined.a
-            $ENV{VULKAN_SDK}/lib/spirv-cross-core.a
-            $ENV{VULKAN_SDK}/lib/spirv-cross-glsl.a
-        )
+        set_target_properties(vulkan-shaderc PROPERTIES IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/shaderc_combined.a)
     endif()
+    
+    list(APPEND Vulkan_LIBRARIES
+        vulkan-shaderc$<$<CONFIG:Debug>:d>
+        vulkan-spirv-cross-core$<$<CONFIG:Debug>:d>
+        vulkan-spirv-cross-glsl$<$<CONFIG:Debug>:d>
+    )
 endif()
 
 add_subdirectory(third_party)
