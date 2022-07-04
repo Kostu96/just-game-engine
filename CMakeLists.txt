@@ -7,7 +7,6 @@
 cmake_minimum_required(VERSION 3.20)
 
 ### options: ###
-set(JNG_VULKAN_SDK_DIR "" CACHE PATH "Path to your VulkanSDK installation directory")
 option(JNG_BUILD_SAMPLES "Build sample projects" ON)
 ################
 
@@ -17,14 +16,13 @@ include(cmake/compiler_warnings.cmake)
 
 set(JNG_TARGET_NAME jng)
 
-set(ENV{VULKAN_SDK} ${JNG_VULKAN_SDK_DIR})
 find_package(Vulkan REQUIRED)
 if (Vulkan_FOUND)
     message(STATUS "Vulkan found: ${Vulkan_VERSION}")
     list(APPEND Vulkan_LIBRARIES
-        ${JNG_VULKAN_SDK_DIR}/Lib/shaderc_shared$<$<CONFIG:Debug>:d>.lib
-        ${JNG_VULKAN_SDK_DIR}/Lib/spirv-cross-core$<$<CONFIG:Debug>:d>.lib
-        ${JNG_VULKAN_SDK_DIR}/Lib/spirv-cross-glsl$<$<CONFIG:Debug>:d>.lib
+        $ENV{VULKAN_SDK}/Lib/shaderc_combined$<$<CONFIG:Debug>:d>.lib
+        $ENV{VULKAN_SDK}/Lib/spirv-cross-core$<$<CONFIG:Debug>:d>.lib
+        $ENV{VULKAN_SDK}/Lib/spirv-cross-glsl$<$<CONFIG:Debug>:d>.lib
     )
 endif()
 
