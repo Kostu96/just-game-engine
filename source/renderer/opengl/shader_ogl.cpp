@@ -10,8 +10,21 @@
 
 #include <glad/glad.h>
 #include <glm/gtc/type_ptr.inl>
+#include <shaderc/shaderc.hpp>
+#include <spirv_cross/spirv_glsl.hpp>
 
 namespace jng {
+
+	static shaderc_shader_kind GLShaderTypeToShaderC(GLenum stage)
+	{
+		switch (stage)
+		{
+		case GL_VERTEX_SHADER:   return shaderc_glsl_vertex_shader;
+		case GL_FRAGMENT_SHADER: return shaderc_glsl_fragment_shader;
+		}
+		JNG_CORE_ASSERT(false, "");
+		return (shaderc_shader_kind)0;
+	}
 
 	OpenGLShader::OpenGLShader(std::string_view vertexShaderSrc, std::string_view fragmentShaderSrc)
     {
@@ -30,8 +43,11 @@ namespace jng {
 			char* infoLog = new char[maxLength];
 			glGetProgramInfoLog(m_id, maxLength, nullptr, infoLog);
 			JNG_CORE_ERROR("Shader program linking failed! {0}", infoLog);
+			glDeleteProgram(m_id);
 		}
 
+		glDetachShader(m_id, vs);
+		glDetachShader(m_id, fs);
 		glDeleteShader(vs);
 		glDeleteShader(fs);
     }
@@ -78,11 +94,34 @@ namespace jng {
 
 	uint32 OpenGLShader::compileShader(const char* shaderSource, uint32 shaderType) const
 	{
-		int success;
-		uint32 id = glCreateShader(shaderType);
+		shaderc::Compiler compiler;
+		shaderc::CompileOptions options1;
+		options1.SetTargetEnvironment(shaderc_target_env_vulkan, shaderc_env_version_vulkan_1_3);
+		options1.SetOptimizationLevel(shaderc_optimization_level_performance);
 
-		glShaderSource(id, 1, &shaderSource, nullptr);
-		glCompileShader(id);
+		auto vulkanSpirv = compiler.CompileGlslToSpv(shaderSource, GLShaderTypeToShaderC(shaderType), "filename", options1);
+		if (vulkanSpirv.GetCompilationStatus() != shaderc_compilation_status_success)
+			JNG_CORE_ERROR(vulkanSpirv.GetErrorMessage());
+
+		// TODO: Reflect
+
+		shaderc::CompileOptions options2;
+		options2.SetTargetEnvironment(shaderc_target_env_opengl, shaderc_env_version_opengl_4_5);
+		options2.SetOptimizationLevel(shaderc_optimization_level_performance);
+
+		spirv_cross::CompilerGLSL glslCompiler{ std::vector<uint32>{ vulkanSpirv.cbegin(), vulkanSpirv.cend() }};
+		std::string openglCode = glslCompiler.compile();
+
+		shaderc::SpvCompilationResult openGLSpirv = compiler.CompileGlslToSpv(openglCode, GLShaderTypeToShaderC(shaderType), "filename", options2);
+		if (openGLSpirv.GetCompilationStatus() != shaderc_compilation_status_success)
+			JNG_CORE_ERROR(openGLSpirv.GetErrorMessage());
+
+		std::vector<uint32> openGLSpirvAsVector{ openGLSpirv.cbegin(), openGLSpirv.cend() };
+
+		uint32 id = glCreateShader(shaderType);
+		glShaderBinary(1, &id, GL_SHADER_BINARY_FORMAT_SPIR_V, openGLSpirvAsVector.data(), static_cast<GLsizei>(openGLSpirvAsVector.size() * sizeof(uint32)));
+		glSpecializeShader(id, "main", 0, nullptr, nullptr);
+		int success;
 		glGetShaderiv(id, GL_COMPILE_STATUS, &success);
 		if (!success) {
 			int maxLength = 0;

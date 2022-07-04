@@ -8,14 +8,21 @@
 #include <jng/jng.hpp>
 
 const char* vert_shader_ogl = R"(
-#version 450
+#version 450 core
 
 layout(location = 0) in vec3 a_Position;
 
-out vec3 v_Color;
+layout(location = 0) out vec3 v_Color;
 
-uniform mat4 u_VP;
-uniform mat4 u_Model;
+layout(std140, binding = 0) uniform Camera
+{
+	mat4 u_VP;
+};
+
+layout(std140, binding = 1) uniform Object
+{
+	mat4 u_Model;
+};
 
 void main()
 {
@@ -25,11 +32,11 @@ void main()
 )";
 
 const char* frag_shader_ogl = R"(
-#version 450
+#version 450 core
 
-in vec3 v_Color;
+layout(location = 0) in vec3 v_Color;
 
-out vec4 fragColor;
+layout(location = 0) out vec4 fragColor;
 
 void main()
 {
@@ -112,6 +119,8 @@ public:
         m_shader{ jng::RendererAPI::getRendererBackend() == jng::RendererBackend::Direct3D ?
             jng::Shader::create(vert_shader_d3d, frag_shader_d3d) :
             jng::Shader::create(vert_shader_ogl, frag_shader_ogl) },
+        m_cameraUBO{ jng::UniformBuffer::create(sizeof(glm::mat4)) },
+        m_modelUBO{ jng::UniformBuffer::create(sizeof(glm::mat4)) },
         m_VBO{ jng::VertexBuffer::create(vertices, sizeof(vertices)) },
         m_IBO{ jng::IndexBuffer::create(indices, sizeof(indices)) },
         m_VAO{ jng::VertexArray::create(m_VBO, LAYOUT, m_shader) },
@@ -122,9 +131,11 @@ public:
 
         // NOTE: These can be bound once at the begining because they're only one used.
         m_shader->bind();
+        m_cameraUBO->bind(0);
+        m_modelUBO->bind(1);
         m_VAO->bind();
 
-        m_shader->set("u_VP", m_camera.getVP());
+        m_cameraUBO->setData(glm::value_ptr(m_camera.getVP()), sizeof(glm::mat4), 0);
 
         m_model = glm::translate(m_model, glm::vec3{ 0.f, 0.f, -5.f });
     }
@@ -134,13 +145,15 @@ public:
         jng::RendererAPI::clear({ 0.1f, 0.1f, 0.2f });
 
         m_model = glm::rotate(m_model, dt, glm::vec3{ 1.f, 0.8f, 0.f });
-        m_shader->set("u_Model", m_model);
+        m_modelUBO->setData(glm::value_ptr(m_model), sizeof(glm::mat4), 0);
 
         jng::RendererAPI::drawIndexed(m_VAO);
     }
 private:
     static const jng::VertexLayout LAYOUT;
     jng::Ref<jng::Shader> m_shader;
+    jng::Ref<jng::UniformBuffer> m_cameraUBO;
+    jng::Ref<jng::UniformBuffer> m_modelUBO;
     jng::Ref<jng::VertexBuffer> m_VBO;
     jng::Ref<jng::IndexBuffer> m_IBO;
     jng::Ref<jng::VertexArray> m_VAO;

@@ -12,7 +12,10 @@
 #include "platform/window.hpp"
 #include "renderer/renderer_api.hpp"
 
+#if defined(JNG_WINDOWS)
 #include <backends/imgui_impl_dx11.h>
+#endif
+
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
 #include <GLFW/glfw3.h>
@@ -24,10 +27,10 @@ namespace jng {
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
         ImGuiIO& io = ImGui::GetIO();
-        io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
-        //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-        io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-        //io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+        io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
+        //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; // Enable Gamepad Controls
+        io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;      // Enable Docking
+        //io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;  // Enable Multi-Viewport / Platform Windows
         //io.ConfigViewportsNoAutoMerge = true;
         //io.ConfigViewportsNoTaskBarIcon = true;
 
@@ -45,6 +48,7 @@ namespace jng {
 
         switch (RendererAPI::getRendererBackend())
         {
+#if defined(JNG_WINDOWS)
         case RendererBackend::Direct3D:
         {
             // TODO: temp, move thos to impl files
@@ -53,6 +57,7 @@ namespace jng {
             const auto& deviceContext = graphicsContext->getNativeDeviceContext();
             ImGui_ImplDX11_Init(device.Get(), deviceContext.Get());
         } break;
+#endif
         case RendererBackend::OpenGL:
             ImGui_ImplOpenGL3_Init("#version 450");
             break;
@@ -65,9 +70,11 @@ namespace jng {
     {
         switch (RendererAPI::getRendererBackend())
         {
+#if defined(JNG_WINDOWS)
         case RendererBackend::Direct3D:
             ImGui_ImplDX11_NewFrame();
             break;
+#endif
         case RendererBackend::OpenGL:
             ImGui_ImplOpenGL3_NewFrame();
             break;
@@ -85,9 +92,11 @@ namespace jng {
         
         switch (RendererAPI::getRendererBackend())
         {
+#if defined(JNG_WINDOWS)
         case RendererBackend::Direct3D:
             ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
             break;
+#endif
         case RendererBackend::OpenGL:
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
             break;

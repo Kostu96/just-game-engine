@@ -8,13 +8,16 @@
 #include <jng/jng.hpp>
 
 const char* vert_shader_ogl = R"(
-#version 450
+#version 450 core
 
 layout(location = 0) in vec2 a_Position;
 
-out vec2 v_Color;
+layout(location = 0) out vec2 v_Color;
 
-uniform mat4 u_VP;
+layout(std140, binding = 0) uniform Camera
+{
+	mat4 u_VP;
+};
 
 void main()
 {
@@ -24,11 +27,11 @@ void main()
 )";
 
 const char* frag_shader_ogl = R"(
-#version 450
+#version 450 core
 
-in vec2 v_Color;
+layout(location = 0) in vec2 v_Color;
 
-out vec4 fragColor;
+layout(location = 0) out vec4 fragColor;
 
 void main()
 {
@@ -78,15 +81,17 @@ public:
         m_shader{ jng::RendererAPI::getRendererBackend() == jng::RendererBackend::Direct3D ?
             jng::Shader::create(vert_shader_d3d, frag_shader_d3d) :
             jng::Shader::create(vert_shader_ogl, frag_shader_ogl) },
+        m_UBO{ jng::UniformBuffer::create(sizeof(glm::mat4)) },
         m_VBO{ jng::VertexBuffer::create(vertices, sizeof(vertices)) },
         m_VAO{ jng::VertexArray::create(m_VBO, LAYOUT, m_shader) },
         m_camera{ -2.f, 2.f, -1.5f, 1.5f }
     {
         // NOTE: These can be bound once at the begining because they're only one used.
         m_shader->bind();
+        m_UBO->bind(0);
         m_VAO->bind();
 
-        m_shader->set("u_VP", m_camera.getVP());
+        m_UBO->setData(glm::value_ptr(m_camera.getVP()), sizeof(glm::mat4), 0);
     }
 
     void onUpdate(float /*dt*/) override
@@ -98,6 +103,7 @@ public:
 private:
     static const jng::VertexLayout LAYOUT;
     jng::Ref<jng::Shader> m_shader;
+    jng::Ref<jng::UniformBuffer> m_UBO;
     jng::Ref<jng::VertexBuffer> m_VBO;
     jng::Ref<jng::VertexArray> m_VAO;
     jng::OrthographicCamera m_camera;

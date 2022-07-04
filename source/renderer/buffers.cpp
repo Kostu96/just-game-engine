@@ -11,7 +11,7 @@
 
 #include "renderer/opengl/buffers_ogl.hpp"
 #include "renderer/direct3d/buffers_d3d.hpp"
-//#include "renderer/vulkan/buffers_impl_vlk.hpp"
+//#include "renderer/vulkan/buffers_vlk.hpp"
 
 namespace jng {
 
@@ -51,6 +51,20 @@ namespace jng {
         {
         case RendererBackend::Direct3D: return makeRef<Direct3DIndexBuffer>(indices, count);
         case RendererBackend::OpenGL: return makeRef<OpenGLIndexBuffer>(indices, count);
+        default:
+            JNG_CORE_ASSERT(false, "API unsupported!");
+            return nullptr;
+        }
+    }
+
+    Ref<UniformBuffer> UniformBuffer::create(size_t size)
+    {
+        JNG_PROFILE_FUNCTION();
+
+        switch (RendererAPI::getRendererBackend())
+        {
+        case RendererBackend::Direct3D: return makeRef<Direct3DUniformBuffer>(size);
+        case RendererBackend::OpenGL: return makeRef<OpenGLUniformBuffer>(size);
         default:
             JNG_CORE_ASSERT(false, "API unsupported!");
             return nullptr;

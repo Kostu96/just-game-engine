@@ -39,4 +39,18 @@ namespace jng {
         uint32 m_count;
     };
 
+    class OpenGLUniformBuffer :
+        public UniformBuffer
+    {
+    public:
+        explicit OpenGLUniformBuffer(size_t size);
+        virtual ~OpenGLUniformBuffer();
+
+        void bind(uint32 slot) const override;
+        void unbind(uint32 slot) const override;
+        void setData(const void* data, size_t size, size_t offset) const override;
+    private:
+        uint32 m_id;
+    };
+
 } // namespace jng

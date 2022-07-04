@@ -13,15 +13,13 @@ namespace jng {
     OpenGLVertexBuffer::OpenGLVertexBuffer(const void* vertices, size_t size)
     {
         glCreateBuffers(1, &m_id);
-        bind();
-        glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(size), vertices, GL_STATIC_DRAW);
+        glNamedBufferData(m_id, static_cast<GLsizeiptr>(size), vertices, GL_STATIC_DRAW);
     }
 
     OpenGLVertexBuffer::OpenGLVertexBuffer(size_t size)
     {
         glCreateBuffers(1, &m_id);
-        bind();
-        glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(size), nullptr, GL_DYNAMIC_DRAW);
+        glNamedBufferData(m_id, static_cast<GLsizeiptr>(size), nullptr, GL_DYNAMIC_DRAW);
     }
 
     OpenGLVertexBuffer::~OpenGLVertexBuffer()
@@ -41,16 +39,14 @@ namespace jng {
 
     void OpenGLVertexBuffer::setData(const void* data, size_t size) const
     {
-        bind();
-        glBufferSubData(GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(size), data);
+        glNamedBufferSubData(m_id, 0, static_cast<GLsizeiptr>(size), data);
     }
 
     OpenGLIndexBuffer::OpenGLIndexBuffer(const uint32* indices, uint32 count) :
         m_count(count)
     {
         glCreateBuffers(1, &m_id);
-        bind();
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizeiptr>(count * sizeof(uint32)), indices, GL_STATIC_DRAW);
+        glNamedBufferData(m_id, static_cast<GLsizeiptr>(count * sizeof(uint32)), indices, GL_STATIC_DRAW);
     }
 
     OpenGLIndexBuffer::~OpenGLIndexBuffer()
@@ -66,6 +62,32 @@ namespace jng {
     void OpenGLIndexBuffer::unbind() const
     {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    }
+
+    OpenGLUniformBuffer::OpenGLUniformBuffer(size_t size)
+    {
+        glCreateBuffers(1, &m_id);
+        glNamedBufferData(m_id, size, nullptr, GL_STATIC_DRAW); // TODO: investigate usage hint
+    }
+
+    OpenGLUniformBuffer::~OpenGLUniformBuffer()
+    {
+        glDeleteBuffers(1, &m_id);
+    }
+
+    void OpenGLUniformBuffer::bind(uint32 slot) const
+    {
+        glBindBufferBase(GL_UNIFORM_BUFFER, slot, m_id);
+    }
+
+    void OpenGLUniformBuffer::unbind(uint32 slot) const
+    {
+        glBindBufferBase(GL_UNIFORM_BUFFER, slot, 0);
+    }
+
+    void OpenGLUniformBuffer::setData(const void* data, size_t size, size_t offset) const
+    {
+        glNamedBufferSubData(m_id, offset, size, data);
     }
 
 } // namespace jng

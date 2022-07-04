@@ -18,26 +18,23 @@ namespace jng {
     Direct3DVertexBuffer::Direct3DVertexBuffer(const void* vertices, size_t size) :
         m_graphicsContext{ reinterpret_cast<const Direct3DGraphicsContext*>(Engine::get().getWindow().getGraphicsContext()) }
     {
-        HRESULT hr;
         const auto& device = m_graphicsContext->getNativeDevice();
 
         D3D11_BUFFER_DESC bd{};
         bd.ByteWidth = static_cast<UINT>(size);
         bd.Usage = D3D11_USAGE_IMMUTABLE;
         bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-        //bd.StructureByteStride = m_layout->getStride();
 
         D3D11_SUBRESOURCE_DATA data{};
         data.pSysMem = vertices;
 
-        hr = device->CreateBuffer(&bd, &data, &m_buffer);
+        HRESULT hr = device->CreateBuffer(&bd, &data, &m_buffer);
         JNG_D3D_CHECK_HR(hr);
     }
 
     Direct3DVertexBuffer::Direct3DVertexBuffer(size_t size) :
         m_graphicsContext{ reinterpret_cast<const Direct3DGraphicsContext*>(Engine::get().getWindow().getGraphicsContext()) }
     {
-        HRESULT hr;
         const auto& device = m_graphicsContext->getNativeDevice();
 
         D3D11_BUFFER_DESC bd{};
@@ -45,9 +42,8 @@ namespace jng {
         bd.Usage = D3D11_USAGE_DYNAMIC;
         bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
         bd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-        //bd.StructureByteStride = m_layout->getStride();
 
-        hr = device->CreateBuffer(&bd, nullptr, &m_buffer);
+        HRESULT hr = device->CreateBuffer(&bd, nullptr, &m_buffer);
         JNG_D3D_CHECK_HR(hr);
     }
 
@@ -63,18 +59,12 @@ namespace jng {
         deviceContext->IASetVertexBuffers(0, 1, m_buffer.GetAddressOf(), strides, offsets);
     }
 
-    void Direct3DVertexBuffer::unbind() const
-    {
-        // TODO: implement
-    }
-
     void Direct3DVertexBuffer::setData(const void* data, size_t size) const
     {
-        HRESULT hr;
         const auto& deviceContext = m_graphicsContext->getNativeDeviceContext();
 
         D3D11_MAPPED_SUBRESOURCE mappedResource{};
-        hr = deviceContext->Map(m_buffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+        HRESULT hr = deviceContext->Map(m_buffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
         JNG_D3D_CHECK_HR(hr);
         memcpy(mappedResource.pData, data, size);
         deviceContext->Unmap(m_buffer.Get(), 0);
@@ -84,19 +74,17 @@ namespace jng {
         m_graphicsContext{ reinterpret_cast<const Direct3DGraphicsContext*>(Engine::get().getWindow().getGraphicsContext()) },
         m_count(count)
     {
-        HRESULT hr;
         const auto& device = m_graphicsContext->getNativeDevice();
 
         D3D11_BUFFER_DESC bd{};
         bd.ByteWidth = static_cast<UINT>(count * sizeof(uint32));
         bd.Usage = D3D11_USAGE_IMMUTABLE;
         bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
-        // NOTE: stride left 0
 
         D3D11_SUBRESOURCE_DATA data{};
         data.pSysMem = indices;
 
-        hr = device->CreateBuffer(&bd, &data, &m_buffer);
+        HRESULT hr = device->CreateBuffer(&bd, &data, &m_buffer);
         JNG_D3D_CHECK_HR(hr);
     }
 
@@ -110,9 +98,40 @@ namespace jng {
         deviceContext->IASetIndexBuffer(m_buffer.Get(), DXGI_FORMAT_R32_UINT, 0);
     }
 
-    void Direct3DIndexBuffer::unbind() const
+    Direct3DUniformBuffer::Direct3DUniformBuffer(size_t size) :
+        m_graphicsContext{ reinterpret_cast<const Direct3DGraphicsContext*>(Engine::get().getWindow().getGraphicsContext()) }
     {
-        // TODO: implement
+        D3D11_BUFFER_DESC cbd;
+        cbd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+        cbd.Usage = D3D11_USAGE_DYNAMIC;
+        cbd.CPUAccessFlags =  D3D11_CPU_ACCESS_WRITE;
+        cbd.MiscFlags = 0u;
+        cbd.ByteWidth = static_cast<UINT>(size);
+        cbd.StructureByteStride = 0u;
+
+        const auto& device = m_graphicsContext->getNativeDevice();
+        HRESULT hr = device->CreateBuffer(&cbd, nullptr, &m_buffer);
+        JNG_D3D_CHECK_HR(hr);
+    }
+
+    // NOTE: this needs to be here for com::wrl to work
+    Direct3DUniformBuffer::~Direct3DUniformBuffer() = default;
+
+    void Direct3DUniformBuffer::bind(uint32 slot) const
+    {
+        const auto& deviceContext = m_graphicsContext->getNativeDeviceContext();
+        deviceContext->VSSetConstantBuffers(slot, 1u, m_buffer.GetAddressOf());
+    }
+
+    void Direct3DUniformBuffer::setData(const void* data, size_t size, size_t offset) const
+    {
+        const auto& deviceContext = m_graphicsContext->getNativeDeviceContext();
+
+        D3D11_MAPPED_SUBRESOURCE mappedResource{};
+        HRESULT hr = deviceContext->Map(m_buffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+        JNG_D3D_CHECK_HR(hr);
+        memcpy(reinterpret_cast<void*>((uintptr_t)mappedResource.pData + (ptrdiff_t)offset), data, size);
+        deviceContext->Unmap(m_buffer.Get(), 0);
     }
 
 } // namespace jng

@@ -46,8 +46,6 @@ target_compile_options(glfw PRIVATE
 
 ### imgui: ###
 set(IMGUI_SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/imgui/backends/imgui_impl_dx11.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/imgui/backends/imgui_impl_dx11.h
     ${CMAKE_CURRENT_SOURCE_DIR}/imgui/backends/imgui_impl_glfw.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/imgui/backends/imgui_impl_glfw.h
     ${CMAKE_CURRENT_SOURCE_DIR}/imgui/backends/imgui_impl_opengl3.cpp
@@ -64,6 +62,13 @@ set(IMGUI_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/imgui/imstb_textedit.h
     ${CMAKE_CURRENT_SOURCE_DIR}/imgui/imstb_truetype.h
 )
+
+if (WIN32)
+    list(APPEND IMGUI_SOURCES
+        ${CMAKE_CURRENT_SOURCE_DIR}/imgui/backends/imgui_impl_dx11.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/imgui/backends/imgui_impl_dx11.h
+    )
+endif()
 
 add_library(imgui STATIC ${IMGUI_SOURCES})
 
@@ -104,7 +109,7 @@ set_target_properties(
     stb
     PROPERTIES
     FOLDER third_party
-    MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
+    MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL"
     EXCLUDE_FROM_ALL true
 )
 
@@ -113,7 +118,7 @@ if (WIN32)
         dxerr
         PROPERTIES
         FOLDER third_party
-        MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
+        MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL"
         EXCLUDE_FROM_ALL true
     )
 endif()
