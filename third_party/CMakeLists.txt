@@ -76,7 +76,7 @@ target_compile_options(imgui PRIVATE
     $<$<CXX_COMPILER_ID:MSVC>:${COMPILER_FLAGS}>
 )
 
-target_include_directories(imgui PUBLIC
+target_include_directories(imgui SYSTEM PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/imgui
 )
 
