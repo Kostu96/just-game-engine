@@ -52,15 +52,15 @@ if (Vulkan_FOUND)
         )
     else()
         set_target_properties(vulkan-shaderc PROPERTIES
-            IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/shaderc_combined.a
+            IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/libshaderc_combined.a
             IMPORTED_CONFIGURATIONS "Release"
         )
         set_target_properties(vulkan-spirv-cross-core PROPERTIES
-            IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/spirv-cross-core.a
+            IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/libspirv-cross-core.a
             IMPORTED_CONFIGURATIONS "Release"
         )
         set_target_properties(vulkan-spirv-cross-glsl PROPERTIES
-            IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/spirv-cross-glsl.a
+            IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/libspirv-cross-glsl.a
             IMPORTED_CONFIGURATIONS "Release"
         )
     endif()
