@@ -7,13 +7,19 @@
 #pragma once
 #include "platform/graphics_context.hpp"
 
-// TODO: temp
+// TODO: temp or not
+#if defined(JNG_WINDOWS)
 struct HGLRC__;
-typedef HGLRC__* HGLRC;
+typedef HGLRC__* GraphicsContextHandle;
 struct HWND__;
-typedef HWND__* HWND;
+typedef HWND__* WindowHandle;
 struct HDC__;
-typedef HDC__* HDC;
+typedef HDC__* DeviceContextHandle;
+#else
+typedef void* GraphicsContextHandle;
+typedef void* WindowHandle;
+typedef void* DeviceContextHandle;
+#endif
 
 namespace jng {
 
@@ -28,9 +34,9 @@ namespace jng {
         void swapBuffers() const override;
     private:
         Window& m_window;
-        HWND m_windowHandle;
-        HDC m_deviceContext;
-        HGLRC m_graphicsContextHandle;
+        WindowHandle m_windowHandle;
+        DeviceContextHandle m_deviceContext;
+        GraphicsContextHandle m_graphicsContextHandle;
     };
 
 } // namespace jng
