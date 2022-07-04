@@ -18,7 +18,6 @@ set(JNG_TARGET_NAME jng)
 
 find_package(Vulkan REQUIRED)
 if (Vulkan_FOUND)
-    message(STATUS "Vulkan found: ${Vulkan_VERSION}")
     list(APPEND Vulkan_LIBRARIES
         $ENV{VULKAN_SDK}/Lib/shaderc_combined$<$<CONFIG:Debug>:d>.lib
         $ENV{VULKAN_SDK}/Lib/spirv-cross-core$<$<CONFIG:Debug>:d>.lib

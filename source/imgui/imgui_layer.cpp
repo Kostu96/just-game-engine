@@ -8,17 +8,18 @@
 
 #include "core/base_internal.hpp"
 #include "core/engine.hpp"
-#include "platform/graphics_context_d3d.hpp"
 #include "platform/window.hpp"
 #include "renderer/renderer_api.hpp"
-
-#if defined(JNG_WINDOWS)
-#include <backends/imgui_impl_dx11.h>
-#endif
 
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
 #include <GLFW/glfw3.h>
+
+#if defined(JNG_WINDOWS)
+#include "platform/graphics_context_d3d.hpp"
+
+#include <backends/imgui_impl_dx11.h>
+#endif
 
 namespace jng {
 
