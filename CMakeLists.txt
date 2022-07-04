@@ -59,8 +59,12 @@ set_target_properties(${JNG_TARGET_NAME} PROPERTIES
     MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL"
 )
 
-target_include_directories(${JNG_TARGET_NAME} SYSTEM PUBLIC
+target_include_directories(${JNG_TARGET_NAME} SYSTEM
+    PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/glm
+    PRIVATE
+    ${Vulkan_INCLUDE_DIRS}
+    #${CMAKE_CURRENT_SOURCE_DIR}/third_party/entt/include
 )
 
 target_include_directories(${JNG_TARGET_NAME}
@@ -69,8 +73,6 @@ target_include_directories(${JNG_TARGET_NAME}
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include/jng
     ${CMAKE_CURRENT_SOURCE_DIR}/source
-    ${Vulkan_INCLUDE_DIRS}
-    #${CMAKE_CURRENT_SOURCE_DIR}/third_party/entt/include
 )
 
 target_link_options(${JNG_TARGET_NAME} PUBLIC
