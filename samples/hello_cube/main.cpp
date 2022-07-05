@@ -7,7 +7,7 @@
 #define JNG_DECLARE_MAIN
 #include <jng/jng.hpp>
 
-const char* vert_shader_ogl = R"(
+const char* vert_shader = R"(
 #version 450 core
 
 layout(location = 0) in vec3 a_Position;
@@ -34,7 +34,7 @@ void main()
 }
 )";
 
-const char* frag_shader_ogl = R"(
+const char* frag_shader = R"(
 #version 450 core
 
 layout(location = 0) in vec3 v_Color;
@@ -47,45 +47,6 @@ layout(binding = 0) uniform sampler2D u_Texture;
 void main()
 {
     fragColor = vec4(v_Color, 1.0) * texture(u_Texture, v_TexCoord);
-}
-)";
-
-const char* vert_shader_d3d = R"(
-struct VSOut
-{
-    float3 color : v_Color;
-    float2 texCoord : v_TexCoord;
-    float4 position : SV_Position;
-};
-
-cbuffer buffer1
-{
-    matrix VP;
-};
-
-cbuffer buffer2
-{
-    matrix Model;
-};
-
-VSOut main(float3 position : a_Position, float2 texCoord : a_TexCoord)
-{
-    VSOut vso;
-    vso.color = float3(position.x + 0.5f, position.y + 0.5f, position.z + 0.5f);
-    vso.texCoord = texCoord;
-    vso.position = mul(Model, float4(position.xy, position.z, 1.0f));
-    vso.position = mul(VP, vso.position);
-    return vso;
-}
-)";
-
-const char* frag_shader_d3d = R"(
-Texture2D diffuseTex;
-SamplerState sampler1;
-
-float4 main(float3 color : v_Color, float2 texCoord : v_TexCoord) : SV_Target
-{
-    return mul(diffuseTex.Sample(sampler1, texCoord), float4(color, 1.0f));
 }
 )";
 
@@ -137,9 +98,7 @@ class SampleLayer :
 {
 public:
     SampleLayer() :
-        m_shader{ jng::RendererAPI::getRendererBackend() == jng::RendererBackend::Direct3D ?
-            jng::Shader::create(vert_shader_d3d, frag_shader_d3d) :
-            jng::Shader::create(vert_shader_ogl, frag_shader_ogl) },
+        m_shader{ jng::Shader::create(vert_shader, frag_shader) },
         m_cameraUBO{ jng::UniformBuffer::create(sizeof(glm::mat4)) },
         m_modelUBO{ jng::UniformBuffer::create(sizeof(glm::mat4)) },
         m_VBO{ jng::VertexBuffer::create(vertices, sizeof(vertices)) },

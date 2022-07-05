@@ -7,7 +7,7 @@
 #define JNG_DECLARE_MAIN
 #include <jng/jng.hpp>
 
-const char* vert_shader_ogl = R"(
+const char* vert_shader = R"(
 #version 450 core
 
 layout(location = 0) in vec2 a_Position;
@@ -26,7 +26,7 @@ void main()
 }
 )";
 
-const char* frag_shader_ogl = R"(
+const char* frag_shader = R"(
 #version 450 core
 
 layout(location = 0) in vec2 v_Color;
@@ -36,34 +36,6 @@ layout(location = 0) out vec4 fragColor;
 void main()
 {
     fragColor = vec4(v_Color, 0.0, 1.0);
-}
-)";
-
-const char* vert_shader_d3d = R"(
-struct VSOut
-{
-    float2 color : v_Color;
-    float4 position : SV_Position;
-};
-
-cbuffer buffer
-{
-    matrix VP;
-};
-
-VSOut main(float2 position : a_Position)
-{
-    VSOut vso;
-    vso.color = float2(position.x + 0.5f, position.y + 0.5f);
-    vso.position = mul(VP, float4(position, 0.0f, 1.0f));
-    return vso;
-}
-)";
-
-const char* frag_shader_d3d = R"(
-float4 main(float2 color : v_Color) : SV_Target
-{
-    return float4(color, 0.0f, 1.0f);
 }
 )";
 
@@ -78,9 +50,7 @@ class SampleLayer :
 {
 public:
     SampleLayer() :
-        m_shader{ jng::RendererAPI::getRendererBackend() == jng::RendererBackend::Direct3D ?
-            jng::Shader::create(vert_shader_d3d, frag_shader_d3d) :
-            jng::Shader::create(vert_shader_ogl, frag_shader_ogl) },
+        m_shader{ jng::Shader::create(vert_shader, frag_shader) },
         m_UBO{ jng::UniformBuffer::create(sizeof(glm::mat4)) },
         m_VBO{ jng::VertexBuffer::create(vertices, sizeof(vertices)) },
         m_VAO{ jng::VertexArray::create(m_VBO, LAYOUT, m_shader) },

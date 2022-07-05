@@ -10,6 +10,7 @@ if (Vulkan_FOUND)
     add_library(vulkan-shaderc STATIC IMPORTED GLOBAL)
     add_library(vulkan-spirv-cross-core STATIC IMPORTED GLOBAL)
     add_library(vulkan-spirv-cross-glsl STATIC IMPORTED GLOBAL)
+    add_library(vulkan-spirv-cross-hlsl STATIC IMPORTED GLOBAL)
     if (WIN32)
         set_target_properties(vulkan-shaderc PROPERTIES
             IMPORTED_LOCATION $ENV{VULKAN_SDK}/Lib/shaderc_combined.lib
@@ -26,6 +27,11 @@ if (Vulkan_FOUND)
             IMPORTED_LOCATION_DEBUG $ENV{VULKAN_SDK}/Lib/spirv-cross-glsld.lib
             IMPORTED_CONFIGURATIONS "Release;Debug"
         )
+        set_target_properties(vulkan-spirv-cross-hlsl PROPERTIES
+            IMPORTED_LOCATION $ENV{VULKAN_SDK}/Lib/spirv-cross-hlsl.lib
+            IMPORTED_LOCATION_DEBUG $ENV{VULKAN_SDK}/Lib/spirv-cross-hlsld.lib
+            IMPORTED_CONFIGURATIONS "Release;Debug"
+        )
     else()
         set_target_properties(vulkan-shaderc PROPERTIES
             IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/libshaderc_combined.a
@@ -39,12 +45,17 @@ if (Vulkan_FOUND)
             IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/libspirv-cross-glsl.a
             IMPORTED_CONFIGURATIONS "Release"
         )
+        set_target_properties(vulkan-spirv-cross-hlsl PROPERTIES
+            IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/libspirv-cross-hlsl.a
+            IMPORTED_CONFIGURATIONS "Release"
+        )
     endif()
     
     list(APPEND Vulkan_LIBRARIES
         vulkan-shaderc
         vulkan-spirv-cross-core
         vulkan-spirv-cross-glsl
+        vulkan-spirv-cross-hlsl
     )
     set(Vulkan_INCLUDE_DIRS ${Vulkan_INCLUDE_DIRS} PARENT_SCOPE)
     set(Vulkan_LIBRARIES ${Vulkan_LIBRARIES} PARENT_SCOPE)

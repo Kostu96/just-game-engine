@@ -24,6 +24,11 @@ namespace jng {
         public Shader
     {
     public:
+        enum class Type {
+            Vertex,
+            Fragment
+        };
+
         Direct3DShader(std::string_view vertexShaderSrc, std::string_view fragmentShaderSrc);
         ~Direct3DShader();
 
@@ -38,6 +43,8 @@ namespace jng {
 
         ID3DBlob* getVertexShaderByteCode() const { return m_vertexShaderByteCode.Get(); }
     private:
+        void compileShader(const char* shaderSource, Type type, wrl::ComPtr<ID3DBlob>& byteCode);
+
         const Direct3DGraphicsContext* m_graphicsContext;
         wrl::ComPtr<ID3DBlob> m_vertexShaderByteCode;
         wrl::ComPtr<ID3D11VertexShader> m_vertexShader;
