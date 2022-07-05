@@ -24,7 +24,7 @@ namespace jng {
         virtual void set(const char* name, const glm::vec4& value) const = 0;
         virtual void set(const char* name, const glm::mat4& value) const = 0;
 
-        static Ref<Shader> create(std::string_view vertexShaderSrc, std::string_view fragmentShaderSrc);
+        static Ref<Shader> create(std::string_view vertexShaderFilename, std::string_view fragmentShaderFilename);
         virtual ~Shader() = default;
     };
 

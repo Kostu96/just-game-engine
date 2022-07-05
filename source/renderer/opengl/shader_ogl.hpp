@@ -13,7 +13,7 @@ namespace jng {
         public Shader
     {
     public:
-        OpenGLShader(std::string_view vertexShaderSrc, std::string_view fragmentShaderSrc);
+        OpenGLShader(std::string_view vertexShaderFilename, std::string_view fragmentShaderFilename);
         virtual ~OpenGLShader();
 
         void bind() const override;
@@ -25,7 +25,7 @@ namespace jng {
         void set(const char* name, const glm::vec4& value) const override;
         void set(const char* name, const glm::mat4& value) const override;
     private:
-        uint32 compileShader(const char* shaderSource, uint32 shaderType) const;
+        uint32 compileShader(const char* shaderFilename, uint32 shaderType) const;
 
         uint32 m_id;
     };

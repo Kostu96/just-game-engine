@@ -7,38 +7,6 @@
 #define JNG_DECLARE_MAIN
 #include <jng/jng.hpp>
 
-const char* vert_shader = R"(
-#version 450 core
-
-layout(location = 0) in vec2 a_Position;
-
-layout(location = 0) out vec2 v_Color;
-
-layout(std140, binding = 0) uniform Camera
-{
-	mat4 u_VP;
-};
-
-void main()
-{
-    v_Color = vec2(a_Position.x + 0.5, a_Position.y + 0.5);
-    gl_Position = u_VP * vec4(a_Position, 0.0, 1.0);
-}
-)";
-
-const char* frag_shader = R"(
-#version 450 core
-
-layout(location = 0) in vec2 v_Color;
-
-layout(location = 0) out vec4 fragColor;
-
-void main()
-{
-    fragColor = vec4(v_Color, 0.0, 1.0);
-}
-)";
-
 const glm::vec2 vertices[]{
     { -1.f, -1.f },
     {  0.f,  1.f },
@@ -50,7 +18,7 @@ class SampleLayer :
 {
 public:
     SampleLayer() :
-        m_shader{ jng::Shader::create(vert_shader, frag_shader) },
+        m_shader{ jng::Shader::create("assets/shaders/vertex.glsl", "assets/shaders/fragment.glsl") },
         m_UBO{ jng::UniformBuffer::create(sizeof(glm::mat4)) },
         m_VBO{ jng::VertexBuffer::create(vertices, sizeof(vertices)) },
         m_VAO{ jng::VertexArray::create(m_VBO, LAYOUT, m_shader) },

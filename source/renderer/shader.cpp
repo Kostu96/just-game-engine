@@ -18,16 +18,16 @@
 
 namespace jng {
     
-    Ref<Shader> Shader::create(std::string_view vertexShaderSrc, std::string_view fragmentShaderSrc)
+    Ref<Shader> Shader::create(std::string_view vertexShaderFilename, std::string_view fragmentShaderFilename)
 	{
         JNG_PROFILE_FUNCTION();
 
         switch (RendererAPI::getRendererBackend())
         {
 #if defined(JNG_WINDOWS)
-        case RendererBackend::Direct3D: return makeRef<Direct3DShader>(vertexShaderSrc, fragmentShaderSrc);
+        case RendererBackend::Direct3D: return makeRef<Direct3DShader>(vertexShaderFilename, fragmentShaderFilename);
 #endif
-        case RendererBackend::OpenGL: return makeRef<OpenGLShader>(vertexShaderSrc, fragmentShaderSrc);
+        case RendererBackend::OpenGL: return makeRef<OpenGLShader>(vertexShaderFilename, fragmentShaderFilename);
         default:
             JNG_CORE_ASSERT(false, "API unsupported!");
             return nullptr;
