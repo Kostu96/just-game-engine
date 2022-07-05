@@ -4,6 +4,53 @@
 # SPDX-License-Identifier: MIT
 #
 
+### Vulkan ###
+find_package(Vulkan REQUIRED)
+if (Vulkan_FOUND)
+    add_library(vulkan-shaderc STATIC IMPORTED GLOBAL)
+    add_library(vulkan-spirv-cross-core STATIC IMPORTED GLOBAL)
+    add_library(vulkan-spirv-cross-glsl STATIC IMPORTED GLOBAL)
+    if (WIN32)
+        set_target_properties(vulkan-shaderc PROPERTIES
+            IMPORTED_LOCATION $ENV{VULKAN_SDK}/Lib/shaderc_combined.lib
+            IMPORTED_LOCATION_DEBUG $ENV{VULKAN_SDK}/Lib/shaderc_combinedd.lib
+            IMPORTED_CONFIGURATIONS "Release;Debug"
+        )
+        set_target_properties(vulkan-spirv-cross-core PROPERTIES
+            IMPORTED_LOCATION $ENV{VULKAN_SDK}/Lib/spirv-cross-core.lib
+            IMPORTED_LOCATION_DEBUG $ENV{VULKAN_SDK}/Lib/spirv-cross-cored.lib
+            IMPORTED_CONFIGURATIONS "Release;Debug"
+        )
+        set_target_properties(vulkan-spirv-cross-glsl PROPERTIES
+            IMPORTED_LOCATION $ENV{VULKAN_SDK}/Lib/spirv-cross-glsl.lib
+            IMPORTED_LOCATION_DEBUG $ENV{VULKAN_SDK}/Lib/spirv-cross-glsld.lib
+            IMPORTED_CONFIGURATIONS "Release;Debug"
+        )
+    else()
+        set_target_properties(vulkan-shaderc PROPERTIES
+            IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/libshaderc_combined.a
+            IMPORTED_CONFIGURATIONS "Release"
+        )
+        set_target_properties(vulkan-spirv-cross-core PROPERTIES
+            IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/libspirv-cross-core.a
+            IMPORTED_CONFIGURATIONS "Release"
+        )
+        set_target_properties(vulkan-spirv-cross-glsl PROPERTIES
+            IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/libspirv-cross-glsl.a
+            IMPORTED_CONFIGURATIONS "Release"
+        )
+    endif()
+    
+    list(APPEND Vulkan_LIBRARIES
+        vulkan-shaderc
+        vulkan-spirv-cross-core
+        vulkan-spirv-cross-glsl
+    )
+    set(Vulkan_INCLUDE_DIRS ${Vulkan_INCLUDE_DIRS} PARENT_SCOPE)
+    set(Vulkan_LIBRARIES ${Vulkan_LIBRARIES} PARENT_SCOPE)
+endif()
+##############
+
 ### disable third_party messages and static_analysis
 function(message)
     if (NOT MESSAGE_QUIET)
@@ -20,7 +67,7 @@ set(COMPILER_FLAGS /MP /fp:fast)
 if (WIN32)
     add_subdirectory(dxerr)
 endif()
-###########
+##############
 
 ### cpp-common-lib ###
 add_subdirectory(cpp-common-lib)
@@ -76,7 +123,7 @@ target_compile_options(imgui PRIVATE
     $<$<CXX_COMPILER_ID:MSVC>:${COMPILER_FLAGS}>
 )
 
-target_include_directories(imgui PUBLIC
+target_include_directories(imgui SYSTEM PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/imgui
 )
 

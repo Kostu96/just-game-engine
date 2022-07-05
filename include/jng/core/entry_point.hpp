@@ -5,11 +5,10 @@
  */
 
 #pragma once
-#include "core/engine.hpp"
-#include "debug/profiling.hpp"
-#include "renderer/renderer_api.hpp"
+#include "jng/core/engine.hpp"
+#include "jng/debug/profiling.hpp"
+#include "jng/renderer/renderer_api.hpp"
 
-// TODO: force render api through cli args or debug config file
 extern jng::Engine* createApp();
 
 int main(int argc, char* argv[])

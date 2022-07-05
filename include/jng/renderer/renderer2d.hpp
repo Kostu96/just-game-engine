@@ -6,8 +6,7 @@
 
 #pragma once
 #include "jng/core/base.hpp"
-
-#include "renderer/camera.hpp"
+#include "jng/renderer/camera.hpp"
 
 namespace jng {
 

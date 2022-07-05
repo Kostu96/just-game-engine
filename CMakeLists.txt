@@ -16,16 +16,6 @@ include(cmake/compiler_warnings.cmake)
 
 set(JNG_TARGET_NAME jng)
 
-find_package(Vulkan REQUIRED)
-if (Vulkan_FOUND)
-    message(STATUS "Vulkan found: ${Vulkan_VERSION}")
-    list(APPEND Vulkan_LIBRARIES
-        $ENV{VULKAN_SDK}/Lib/shaderc_combined$<$<CONFIG:Debug>:d>.lib
-        $ENV{VULKAN_SDK}/Lib/spirv-cross-core$<$<CONFIG:Debug>:d>.lib
-        $ENV{VULKAN_SDK}/Lib/spirv-cross-glsl$<$<CONFIG:Debug>:d>.lib
-    )
-endif()
-
 add_subdirectory(third_party)
 
 set(JNG_HEADERS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/jng)
@@ -42,7 +32,7 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/source PREFIX source FILES ${JNG_S
 
 target_compile_definitions(${JNG_TARGET_NAME} PUBLIC
     $<$<CONFIG:Debug>:JNG_DEBUG>
-    IMGUI_USER_CONFIG="imconfig.hpp"
+    IMGUI_USER_CONFIG="jng/imconfig.hpp"
 )
 if (WIN32)
     target_compile_definitions(${JNG_TARGET_NAME} PUBLIC
@@ -60,8 +50,12 @@ set_target_properties(${JNG_TARGET_NAME} PROPERTIES
     MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL"
 )
 
-target_include_directories(${JNG_TARGET_NAME} SYSTEM PUBLIC
+target_include_directories(${JNG_TARGET_NAME} SYSTEM
+    PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/glm
+    PRIVATE
+    ${Vulkan_INCLUDE_DIRS}
+    #${CMAKE_CURRENT_SOURCE_DIR}/third_party/entt/include
 )
 
 target_include_directories(${JNG_TARGET_NAME}
@@ -70,13 +64,13 @@ target_include_directories(${JNG_TARGET_NAME}
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include/jng
     ${CMAKE_CURRENT_SOURCE_DIR}/source
-    ${Vulkan_INCLUDE_DIRS}
-    #${CMAKE_CURRENT_SOURCE_DIR}/third_party/entt/include
 )
 
-target_link_options(${JNG_TARGET_NAME} PUBLIC
-    /ignore:4099
-)
+if (WIN32)
+    target_link_options(${JNG_TARGET_NAME} PUBLIC
+        /ignore:4099
+    )
+endif()
 
 target_link_libraries(${JNG_TARGET_NAME} PUBLIC
     ${Vulkan_LIBRARIES}

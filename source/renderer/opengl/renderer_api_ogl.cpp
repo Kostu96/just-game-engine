@@ -26,7 +26,7 @@ namespace jng {
 
     void OpenGLRendererAPI::draw(uint32 count) const
     {
-        glDrawArrays(GL_TRIANGLES, 0, count);
+        glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(count));
     }
 
     void OpenGLRendererAPI::drawIndexed(const Ref<VertexArray>& vao) const
@@ -36,7 +36,7 @@ namespace jng {
 
     void OpenGLRendererAPI::drawIndexed(uint32 count) const
     {
-        glDrawElements(GL_TRIANGLES, static_cast<int>(count), GL_UNSIGNED_INT, nullptr);
+        glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(count), GL_UNSIGNED_INT, nullptr);
     }
 
 } // namespace jng

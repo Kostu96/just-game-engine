@@ -5,8 +5,8 @@
  */
 
 #pragma once
-#include "core/base.hpp"
-#include "core/layer_stack.hpp"
+#include "jng/core/base.hpp"
+#include "jng/core/layer_stack.hpp"
 
 #include <chrono>
 

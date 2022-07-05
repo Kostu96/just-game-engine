@@ -23,7 +23,7 @@ namespace jng {
 		case GL_FRAGMENT_SHADER: return shaderc_glsl_fragment_shader;
 		}
 		JNG_CORE_ASSERT(false, "");
-		return (shaderc_shader_kind)0;
+		return static_cast<shaderc_shader_kind>(0);
 	}
 
 	OpenGLShader::OpenGLShader(std::string_view vertexShaderSrc, std::string_view fragmentShaderSrc)
@@ -100,8 +100,7 @@ namespace jng {
 		options1.SetOptimizationLevel(shaderc_optimization_level_performance);
 
 		auto vulkanSpirv = compiler.CompileGlslToSpv(shaderSource, GLShaderTypeToShaderC(shaderType), "filename", options1);
-		if (vulkanSpirv.GetCompilationStatus() != shaderc_compilation_status_success)
-			JNG_CORE_ERROR(vulkanSpirv.GetErrorMessage());
+		JNG_CORE_ASSERT(vulkanSpirv.GetCompilationStatus() == shaderc_compilation_status_success, vulkanSpirv.GetErrorMessage());
 
 		// TODO: Reflect
 
@@ -113,8 +112,7 @@ namespace jng {
 		std::string openglCode = glslCompiler.compile();
 
 		shaderc::SpvCompilationResult openGLSpirv = compiler.CompileGlslToSpv(openglCode, GLShaderTypeToShaderC(shaderType), "filename", options2);
-		if (openGLSpirv.GetCompilationStatus() != shaderc_compilation_status_success)
-			JNG_CORE_ERROR(openGLSpirv.GetErrorMessage());
+		JNG_CORE_ASSERT(openGLSpirv.GetCompilationStatus() == shaderc_compilation_status_success, openGLSpirv.GetErrorMessage());
 
 		std::vector<uint32> openGLSpirvAsVector{ openGLSpirv.cbegin(), openGLSpirv.cend() };
 

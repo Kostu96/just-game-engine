@@ -38,3 +38,5 @@
 #if defined(JNG_DECLARE_MAIN)
 #include "core/entry_point.hpp"
 #endif
+
+// TODO: put ogl, d3d and other stuff inside namespaces and remove name prefixes

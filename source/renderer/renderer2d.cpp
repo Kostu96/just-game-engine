@@ -10,7 +10,6 @@
 #include "renderer/buffers.hpp"
 #include "renderer/renderer_api.hpp"
 #include "renderer/shader.hpp"
-#include "renderer/shader_sources.hpp"
 #include "renderer/texture.hpp"
 #include "renderer/vertex_array.hpp"
 
@@ -61,7 +60,7 @@ namespace jng {
     {
         JNG_PROFILE_FUNCTION();
 
-        s_data.shader = Shader::create(shader_source::basic_vert, shader_source::basic_frag);
+        //s_data.shader = Shader::create(shader_source::basic_vert, shader_source::basic_frag);
         s_data.quadVBO = VertexBuffer::create(RenderData::MaxVerticesPerBatch * sizeof(QuadVertex));
 
         VertexLayout vertexLayout = {
