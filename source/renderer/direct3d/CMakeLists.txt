@@ -12,8 +12,8 @@ list(APPEND JNG_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/renderer_api_d3d.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/shader_d3d.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/shader_d3d.hpp
-    #${CMAKE_CURRENT_SOURCE_DIR}/texture_d3d.cpp
-    #${CMAKE_CURRENT_SOURCE_DIR}/texture_d3d.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/texture_d3d.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/texture_d3d.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/vertex_array_d3d.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/vertex_array_d3d.hpp
 )

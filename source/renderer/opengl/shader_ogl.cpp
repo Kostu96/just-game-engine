@@ -104,14 +104,14 @@ namespace jng {
 
 		// TODO: Reflect
 
+		spirv_cross::CompilerGLSL glslCompiler{ std::vector<uint32>{ vulkanSpirv.cbegin(), vulkanSpirv.cend() }};
+		std::string openglCode = glslCompiler.compile();
+
 		shaderc::CompileOptions options2;
 		options2.SetTargetEnvironment(shaderc_target_env_opengl, shaderc_env_version_opengl_4_5);
 		options2.SetOptimizationLevel(shaderc_optimization_level_performance);
 
-		spirv_cross::CompilerGLSL glslCompiler{ std::vector<uint32>{ vulkanSpirv.cbegin(), vulkanSpirv.cend() }};
-		std::string openglCode = glslCompiler.compile();
-
-		shaderc::SpvCompilationResult openGLSpirv = compiler.CompileGlslToSpv(openglCode, GLShaderTypeToShaderC(shaderType), "filename", options2);
+		auto openGLSpirv = compiler.CompileGlslToSpv(openglCode, GLShaderTypeToShaderC(shaderType), "filename", options2);
 		JNG_CORE_ASSERT(openGLSpirv.GetCompilationStatus() == shaderc_compilation_status_success, openGLSpirv.GetErrorMessage());
 
 		std::vector<uint32> openGLSpirvAsVector{ openGLSpirv.cbegin(), openGLSpirv.cend() };
