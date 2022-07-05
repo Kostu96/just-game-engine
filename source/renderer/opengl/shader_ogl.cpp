@@ -112,7 +112,7 @@ namespace jng {
 		std::string openglCode = glslCompiler.compile();
 
 		shaderc::SpvCompilationResult openGLSpirv = compiler.CompileGlslToSpv(openglCode, GLShaderTypeToShaderC(shaderType), "filename", options2);
-		JNG_CORE_ASSERT(openGLSpirv.GetCompilationStatus() != shaderc_compilation_status_success, openGLSpirv.GetErrorMessage());
+		JNG_CORE_ASSERT(openGLSpirv.GetCompilationStatus() == shaderc_compilation_status_success, openGLSpirv.GetErrorMessage());
 
 		std::vector<uint32> openGLSpirvAsVector{ openGLSpirv.cbegin(), openGLSpirv.cend() };
 
