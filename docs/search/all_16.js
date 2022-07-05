@@ -22,8 +22,8 @@ var searchData=
   ['windowresizeevent_19',['WindowResizeEvent',['../classjng_1_1_window_resize_event.html',1,'jng::WindowResizeEvent'],['../classjng_1_1_window_resize_event.html#abf973895e5145a3dcd8c871b8cef32e4',1,'jng::WindowResizeEvent::WindowResizeEvent()']]],
   ['windows_5fbase_2ehpp_20',['windows_base.hpp',['../windows__base_8hpp.html',1,'']]],
   ['windowtitle_21',['windowTitle',['../structjng_1_1_engine_1_1_properties.html#acf9ff4b746c8625840584b457edc4b1e',1,'jng::Engine::Properties']]],
-  ['windowwidth_22',['WindowWidth',['../class_editor_app.html#afcbd905c2bb52294cd4cc02a27cb11d9',1,'EditorApp']]],
-  ['windowwidth_23',['windowWidth',['../structjng_1_1_engine_1_1_properties.html#a8f54e99c8c17cb20a9fd1b0aa597b089',1,'jng::Engine::Properties']]],
+  ['windowwidth_22',['windowWidth',['../structjng_1_1_engine_1_1_properties.html#a8f54e99c8c17cb20a9fd1b0aa597b089',1,'jng::Engine::Properties']]],
+  ['windowwidth_23',['WindowWidth',['../class_editor_app.html#afcbd905c2bb52294cd4cc02a27cb11d9',1,'EditorApp']]],
   ['world1_24',['World1',['../namespacejng_1_1_key.html#ab8abf90a17a761093a4c09096a8bf0b7',1,'jng::Key']]],
   ['world2_25',['World2',['../namespacejng_1_1_key.html#a33feec925b2c7ad68fd8313f1283b174',1,'jng::Key']]]
 ];
