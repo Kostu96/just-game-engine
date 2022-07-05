@@ -74,6 +74,7 @@ namespace jng {
 		JNG_D3D_CHECK_HR(hr);
     }
 
+	// NOTE: this needs to be here for com::wrl to work
 	Direct3DShader::~Direct3DShader() = default;
 
     void Direct3DShader::bind() const

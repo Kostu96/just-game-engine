@@ -54,6 +54,7 @@ const char* vert_shader_d3d = R"(
 struct VSOut
 {
     float3 color : v_Color;
+    float2 texCoord : v_TexCoord;
     float4 position : SV_Position;
 };
 
@@ -67,10 +68,11 @@ cbuffer buffer2
     matrix Model;
 };
 
-VSOut main(float3 position : a_Position)
+VSOut main(float3 position : a_Position, float2 texCoord : a_TexCoord)
 {
     VSOut vso;
     vso.color = float3(position.x + 0.5f, position.y + 0.5f, position.z + 0.5f);
+    vso.texCoord = texCoord;
     vso.position = mul(Model, float4(position.xy, position.z, 1.0f));
     vso.position = mul(VP, vso.position);
     return vso;
@@ -78,9 +80,12 @@ VSOut main(float3 position : a_Position)
 )";
 
 const char* frag_shader_d3d = R"(
-float4 main(float3 color : v_Color) : SV_Target
+Texture2D diffuseTex;
+SamplerState sampler1;
+
+float4 main(float3 color : v_Color, float2 texCoord : v_TexCoord) : SV_Target
 {
-    return float4(color, 1.0f);
+    return mul(diffuseTex.Sample(sampler1, texCoord), float4(color, 1.0f));
 }
 )";
 
