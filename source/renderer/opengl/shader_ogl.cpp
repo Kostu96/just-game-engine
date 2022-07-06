@@ -14,6 +14,7 @@
 #include <spirv_cross/spirv_glsl.hpp>
 #include <filesystem>
 #include <cpp-common/helper_functions.h>
+#include <vector>
 
 namespace jng {
 
@@ -29,7 +30,7 @@ namespace jng {
 			std::filesystem::create_directories(cacheDirectory);
 	}
 
-	/*static const char* GLShaderTypeToCachedOGLFileExtension(GLenum stage)
+	static const char* GLShaderTypeToCachedOGLFileExtension(GLenum stage)
 	{
 		switch (stage)
 		{
@@ -38,7 +39,7 @@ namespace jng {
 		}
 		JNG_CORE_ASSERT(false, "");
 		return "";
-	}*/
+	}
 
 	static const char* GLShaderTypeToCachedVlkFileExtension(GLenum stage)
 	{
@@ -133,14 +134,11 @@ namespace jng {
 	uint32 OpenGLShader::compileShader(const char* shaderFilename, uint32 shaderType) const
 	{
 		shaderc::Compiler compiler;
-		shaderc::CompileOptions options1;
-		options1.SetTargetEnvironment(shaderc_target_env_vulkan, shaderc_env_version_vulkan_1_3);
-		options1.SetOptimizationLevel(shaderc_optimization_level_performance);
-
 		std::filesystem::path shaderFilePath = shaderFilename;
 		std::filesystem::path cacheDirectory = GetCacheDirectory();
-		std::filesystem::path cachedPath = cacheDirectory / (shaderFilePath.stem().string() + GLShaderTypeToCachedVlkFileExtension(shaderType));
 
+		// Check for cached Vulkan SPIR-V
+		std::filesystem::path cachedPath = cacheDirectory / (shaderFilePath.stem().string() + GLShaderTypeToCachedVlkFileExtension(shaderType));
 		size_t size;
 		bool success = ccl::readFile(cachedPath.generic_string().c_str(), nullptr, size, true);
 
@@ -156,7 +154,11 @@ namespace jng {
 			char* shaderSource = new char[size + 1];
 			success = ccl::readFile(shaderFilename, shaderSource, size, true);
 			shaderSource[size] = 0;
-			auto vulkanSpirv = compiler.CompileGlslToSpv(shaderSource, GLShaderTypeToShaderC(shaderType), "filename", options1);
+
+			shaderc::CompileOptions options1;
+			options1.SetTargetEnvironment(shaderc_target_env_vulkan, shaderc_env_version_vulkan_1_3);
+			options1.SetOptimizationLevel(shaderc_optimization_level_performance);
+			auto vulkanSpirv = compiler.CompileGlslToSpv(shaderSource, GLShaderTypeToShaderC(shaderType), shaderFilename, options1);
 			JNG_CORE_ASSERT(vulkanSpirv.GetCompilationStatus() == shaderc_compilation_status_success, vulkanSpirv.GetErrorMessage());
 			vulkanSpirvData = std::vector<uint32>{ vulkanSpirv.cbegin(), vulkanSpirv.cend() };
 
@@ -169,17 +171,28 @@ namespace jng {
 		spirv_cross::CompilerGLSL glslCompiler{ vulkanSpirvData };
 		std::string openglCode = glslCompiler.compile();
 
-		shaderc::CompileOptions options2;
-		options2.SetTargetEnvironment(shaderc_target_env_opengl, shaderc_env_version_opengl_4_5);
-		options2.SetOptimizationLevel(shaderc_optimization_level_performance);
+		// Check for cached OpenGL SPIR-V
+		cachedPath = cacheDirectory / (shaderFilePath.stem().string() + GLShaderTypeToCachedOGLFileExtension(shaderType));
+		success = ccl::readFile(cachedPath.generic_string().c_str(), nullptr, size, true);
 
-		auto openGLSpirv = compiler.CompileGlslToSpv(openglCode, GLShaderTypeToShaderC(shaderType), "filename", options2);
-		JNG_CORE_ASSERT(openGLSpirv.GetCompilationStatus() == shaderc_compilation_status_success, openGLSpirv.GetErrorMessage());
+		std::vector<uint32> openglSpirvData;
+		if (success) {
+			openglSpirvData.resize(size / sizeof(uint32));
+			success = ccl::readFile(cachedPath.generic_string().c_str(), reinterpret_cast<char*>(openglSpirvData.data()), size, true);
+		}
+		else {
+			shaderc::CompileOptions options2;
+			options2.SetTargetEnvironment(shaderc_target_env_opengl, shaderc_env_version_opengl_4_5);
+			options2.SetOptimizationLevel(shaderc_optimization_level_performance);
+			auto openGLSpirv = compiler.CompileGlslToSpv(openglCode, GLShaderTypeToShaderC(shaderType), shaderFilename, options2);
+			JNG_CORE_ASSERT(openGLSpirv.GetCompilationStatus() == shaderc_compilation_status_success, openGLSpirv.GetErrorMessage());
+			openglSpirvData = std::vector<uint32>{ openGLSpirv.cbegin(), openGLSpirv.cend() };
 
-		std::vector<uint32> openGLSpirvAsVector{ openGLSpirv.cbegin(), openGLSpirv.cend() };
+			success = ccl::writeFile(cachedPath.generic_string().c_str(), reinterpret_cast<char*>(openglSpirvData.data()), openglSpirvData.size() * sizeof(uint32), true);
+		}
 
 		uint32 id = glCreateShader(shaderType);
-		glShaderBinary(1, &id, GL_SHADER_BINARY_FORMAT_SPIR_V, openGLSpirvAsVector.data(), static_cast<GLsizei>(openGLSpirvAsVector.size() * sizeof(uint32)));
+		glShaderBinary(1, &id, GL_SHADER_BINARY_FORMAT_SPIR_V, openglSpirvData.data(), static_cast<GLsizei>(openglSpirvData.size() * sizeof(uint32)));
 		glSpecializeShader(id, "main", 0, nullptr, nullptr);
 		int ret;
 		glGetShaderiv(id, GL_COMPILE_STATUS, &ret);
