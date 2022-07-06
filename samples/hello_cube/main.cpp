@@ -7,49 +7,6 @@
 #define JNG_DECLARE_MAIN
 #include <jng/jng.hpp>
 
-const char* vert_shader = R"(
-#version 450 core
-
-layout(location = 0) in vec3 a_Position;
-layout(location = 1) in vec2 a_TexCoord;
-
-layout(location = 0) out vec3 v_Color;
-layout(location = 1) out vec2 v_TexCoord;
-
-layout(std140, binding = 0) uniform Camera
-{
-	mat4 u_VP;
-};
-
-layout(std140, binding = 1) uniform Object
-{
-	mat4 u_Model;
-};
-
-void main()
-{
-    v_Color = vec3(a_Position.x + 1.0, a_Position.y + 1.0, a_Position.z + 1.0);
-    v_TexCoord = a_TexCoord;
-    gl_Position = u_VP * u_Model * vec4(a_Position, 1.0);
-}
-)";
-
-const char* frag_shader = R"(
-#version 450 core
-
-layout(location = 0) in vec3 v_Color;
-layout(location = 1) in vec2 v_TexCoord;
-
-layout(location = 0) out vec4 fragColor;
-
-layout(binding = 0) uniform sampler2D u_Texture;
-
-void main()
-{
-    fragColor = vec4(v_Color, 1.0) * texture(u_Texture, v_TexCoord);
-}
-)";
-
 struct Vertex {
     glm::vec3 position;
     glm::vec2 texCoord;
@@ -98,7 +55,7 @@ class SampleLayer :
 {
 public:
     SampleLayer() :
-        m_shader{ jng::Shader::create(vert_shader, frag_shader) },
+        m_shader{ jng::Shader::create("assets/shaders/vertex.glsl", "assets/shaders/fragment.glsl") },
         m_cameraUBO{ jng::UniformBuffer::create(sizeof(glm::mat4)) },
         m_modelUBO{ jng::UniformBuffer::create(sizeof(glm::mat4)) },
         m_VBO{ jng::VertexBuffer::create(vertices, sizeof(vertices)) },

@@ -24,11 +24,6 @@ namespace jng {
         public Shader
     {
     public:
-        enum class Type {
-            Vertex,
-            Fragment
-        };
-
         Direct3DShader(std::string_view vertexShaderFilename, std::string_view fragmentShaderFilename);
         ~Direct3DShader();
 
@@ -42,8 +37,13 @@ namespace jng {
         void set(const char* /*name*/, const glm::mat4& /*value*/) const override {}
 
         ID3DBlob* getVertexShaderByteCode() const { return m_vertexShaderByteCode.Get(); }
+    protected:
+        const char* getCacheDirectory() const override { return "assets/cache/shaders/direct3d"; }
     private:
         void compileShader(const char* shaderFilename, Type type, wrl::ComPtr<ID3DBlob>& byteCode);
+
+        static const char* shaderTypeToCachedD3DFileExtension(Type type);
+        static const char* shaderTypeToD3DTarget(Type type);
 
         const Direct3DGraphicsContext* m_graphicsContext;
         wrl::ComPtr<ID3DBlob> m_vertexShaderByteCode;

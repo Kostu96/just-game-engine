@@ -21,5 +21,5 @@ var searchData=
   ['title_18',['title',['../structjng_1_1_window_1_1_window_data.html#af01a3e166fc67a5e9dc2ca0a43804379',1,'jng::Window::WindowData']]],
   ['to_5fstring_19',['to_string',['../classjng_1_1_event.html#a87f014489fcb726196911c57c381f4ba',1,'jng::Event']]],
   ['transformcomponent_20',['TransformComponent',['../structk2d_1_1_transform_component.html',1,'k2d::TransformComponent'],['../structk2d_1_1_transform_component.html#a55e43768a7e9570e2c6206a514eb047d',1,'k2d::TransformComponent::TransformComponent()=default'],['../structk2d_1_1_transform_component.html#a81ee5af1b38c8e2b4ddafd387b7bf805',1,'k2d::TransformComponent::TransformComponent(const TransformComponent &amp;)=default']]],
-  ['type_21',['Type',['../classjng_1_1_direct3_d_shader.html#af3da14cd2a3e45fa3b33c75bd49f6487',1,'jng::Direct3DShader::Type()'],['../structjng_1_1_layout_element.html#af18c4397ee72fc97fa25169c465d89d5',1,'jng::LayoutElement::Type()']]]
+  ['type_21',['Type',['../classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7',1,'jng::Shader::Type()'],['../structjng_1_1_layout_element.html#af18c4397ee72fc97fa25169c465d89d5',1,'jng::LayoutElement::Type()']]]
 ];

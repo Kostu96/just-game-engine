@@ -67,8 +67,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="classjng_1_1_direct3_d_shader-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">jng::Direct3DShader Class Reference</div></div>
 </div><!--header-->
@@ -85,20 +85,10 @@ Inheritance diagram for jng::Direct3DShader:</div>
   </map>
 </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:af3da14cd2a3e45fa3b33c75bd49f6487"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_direct3_d_shader.html#af3da14cd2a3e45fa3b33c75bd49f6487">Type</a> { <br />
-&#160;&#160;<a class="el" href="classjng_1_1_direct3_d_shader.html#af3da14cd2a3e45fa3b33c75bd49f6487ab22b929ba52471a02d18bb3a4e4472e6">Vertex</a>
-, <br />
-&#160;&#160;<a class="el" href="classjng_1_1_direct3_d_shader.html#af3da14cd2a3e45fa3b33c75bd49f6487a37d01b98065725fe3a1d30acf3a0064a">Fragment</a>
-<br />
- }</td></tr>
-<tr class="separator:af3da14cd2a3e45fa3b33c75bd49f6487"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a32ad2eb40abde9bc75dee972d37ea83a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_direct3_d_shader.html#a32ad2eb40abde9bc75dee972d37ea83a">Direct3DShader</a> (std::string_view vertexShaderSrc, std::string_view fragmentShaderSrc)</td></tr>
-<tr class="separator:a32ad2eb40abde9bc75dee972d37ea83a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abaf6911744ddc58e75709731ab36df05"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_direct3_d_shader.html#abaf6911744ddc58e75709731ab36df05">Direct3DShader</a> (std::string_view vertexShaderFilename, std::string_view fragmentShaderFilename)</td></tr>
+<tr class="separator:abaf6911744ddc58e75709731ab36df05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5421e57fe7aa83c6e2d6b3d735bc4e9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_direct3_d_shader.html#ac5421e57fe7aa83c6e2d6b3d735bc4e9">~Direct3DShader</a> ()</td></tr>
 <tr class="separator:ac5421e57fe7aa83c6e2d6b3d735bc4e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb7f28d5557de25e6decfe8ab6784801"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_direct3_d_shader.html#abb7f28d5557de25e6decfe8ab6784801">bind</a> () const override</td></tr>
@@ -135,42 +125,38 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a11f101642238b36011301d8ce54e63c4 inherit pub_methods_classjng_1_1_shader"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_shader.html#a11f101642238b36011301d8ce54e63c4">~Shader</a> ()=default</td></tr>
 <tr class="separator:a11f101642238b36011301d8ce54e63c4 inherit pub_methods_classjng_1_1_shader"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a3afe1014b4570901ecf5b315a9c96dca"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_direct3_d_shader.html#a3afe1014b4570901ecf5b315a9c96dca">getCacheDirectory</a> () const override</td></tr>
+<tr class="separator:a3afe1014b4570901ecf5b315a9c96dca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classjng_1_1_shader"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classjng_1_1_shader')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classjng_1_1_shader.html">jng::Shader</a></td></tr>
+<tr class="memitem:a558982fbc0a6c1fcf3bbb916181ec230 inherit pro_methods_classjng_1_1_shader"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_shader.html#a558982fbc0a6c1fcf3bbb916181ec230">compileToVulkanSPIRV</a> (const char *shaderFilename, <a class="el" href="classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7">Type</a> type) const</td></tr>
+<tr class="separator:a558982fbc0a6c1fcf3bbb916181ec230 inherit pro_methods_classjng_1_1_shader"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea588b1cb7f32c18ed3ab1b2cc48b04e inherit pro_methods_classjng_1_1_shader"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_shader.html#aea588b1cb7f32c18ed3ab1b2cc48b04e">createCacheDirectoryIfNeeded</a> () const</td></tr>
+<tr class="separator:aea588b1cb7f32c18ed3ab1b2cc48b04e inherit pro_methods_classjng_1_1_shader"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59788516a64f66d35ac1d6e806c31762 inherit pro_methods_classjng_1_1_shader"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_shader.html#a59788516a64f66d35ac1d6e806c31762">getCacheDirectory</a> () const =0</td></tr>
+<tr class="separator:a59788516a64f66d35ac1d6e806c31762 inherit pro_methods_classjng_1_1_shader"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_static_methods_classjng_1_1_shader"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_classjng_1_1_shader')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="classjng_1_1_shader.html">jng::Shader</a></td></tr>
-<tr class="memitem:a9dde4e606cd57a8531d7eac8ab86de68 inherit pub_static_methods_classjng_1_1_shader"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespacejng.html#ad7198e5df8ee2302d860ff3d5b41d355">Ref</a>&lt; <a class="el" href="classjng_1_1_shader.html">Shader</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_shader.html#a9dde4e606cd57a8531d7eac8ab86de68">create</a> (std::string_view vertexShaderSrc, std::string_view fragmentShaderSrc)</td></tr>
-<tr class="separator:a9dde4e606cd57a8531d7eac8ab86de68 inherit pub_static_methods_classjng_1_1_shader"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b706dca6a38e32645bd77f2000b518b inherit pub_static_methods_classjng_1_1_shader"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespacejng.html#ad7198e5df8ee2302d860ff3d5b41d355">Ref</a>&lt; <a class="el" href="classjng_1_1_shader.html">Shader</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_shader.html#a3b706dca6a38e32645bd77f2000b518b">create</a> (std::string_view vertexShaderFilename, std::string_view fragmentShaderFilename)</td></tr>
+<tr class="separator:a3b706dca6a38e32645bd77f2000b518b inherit pub_static_methods_classjng_1_1_shader"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_types_classjng_1_1_shader"><td colspan="2" onclick="javascript:toggleInherit('pro_types_classjng_1_1_shader')"><img src="closed.png" alt="-"/>&#160;Protected Types inherited from <a class="el" href="classjng_1_1_shader.html">jng::Shader</a></td></tr>
+<tr class="memitem:a2879f751917d855ee8fbae0adafa43e7 inherit pro_types_classjng_1_1_shader"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7">Type</a> { <br />
+&#160;&#160;<a class="el" href="classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7ab22b929ba52471a02d18bb3a4e4472e6">Vertex</a>
+, <br />
+&#160;&#160;<a class="el" href="classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7a37d01b98065725fe3a1d30acf3a0064a">Fragment</a>
+<br />
+ }</td></tr>
+<tr class="separator:a2879f751917d855ee8fbae0adafa43e7 inherit pro_types_classjng_1_1_shader"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_static_methods_classjng_1_1_shader"><td colspan="2" onclick="javascript:toggleInherit('pro_static_methods_classjng_1_1_shader')"><img src="closed.png" alt="-"/>&#160;Static Protected Member Functions inherited from <a class="el" href="classjng_1_1_shader.html">jng::Shader</a></td></tr>
+<tr class="memitem:a0c49641bb81f110e926c8fe91c1452cf inherit pro_static_methods_classjng_1_1_shader"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_shader.html#a0c49641bb81f110e926c8fe91c1452cf">shaderTypeToShaderCKind</a> (<a class="el" href="classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7">Type</a> type)</td></tr>
+<tr class="separator:a0c49641bb81f110e926c8fe91c1452cf inherit pro_static_methods_classjng_1_1_shader"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="af3da14cd2a3e45fa3b33c75bd49f6487" name="af3da14cd2a3e45fa3b33c75bd49f6487"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3da14cd2a3e45fa3b33c75bd49f6487">&#9670;&nbsp;</a></span>Type</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum class <a class="el" href="classjng_1_1_direct3_d_shader.html#af3da14cd2a3e45fa3b33c75bd49f6487">jng::Direct3DShader::Type</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af3da14cd2a3e45fa3b33c75bd49f6487ab22b929ba52471a02d18bb3a4e4472e6" name="af3da14cd2a3e45fa3b33c75bd49f6487ab22b929ba52471a02d18bb3a4e4472e6"></a>Vertex&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="af3da14cd2a3e45fa3b33c75bd49f6487a37d01b98065725fe3a1d30acf3a0064a" name="af3da14cd2a3e45fa3b33c75bd49f6487a37d01b98065725fe3a1d30acf3a0064a"></a>Fragment&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-</div>
-</div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a32ad2eb40abde9bc75dee972d37ea83a" name="a32ad2eb40abde9bc75dee972d37ea83a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a32ad2eb40abde9bc75dee972d37ea83a">&#9670;&nbsp;</a></span>Direct3DShader()</h2>
+<a id="abaf6911744ddc58e75709731ab36df05" name="abaf6911744ddc58e75709731ab36df05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abaf6911744ddc58e75709731ab36df05">&#9670;&nbsp;</a></span>Direct3DShader()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -179,13 +165,13 @@ Additional Inherited Members</h2></td></tr>
           <td class="memname">jng::Direct3DShader::Direct3DShader </td>
           <td>(</td>
           <td class="paramtype">std::string_view&#160;</td>
-          <td class="paramname"><em>vertexShaderSrc</em>, </td>
+          <td class="paramname"><em>vertexShaderFilename</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::string_view&#160;</td>
-          <td class="paramname"><em>fragmentShaderSrc</em>&#160;</td>
+          <td class="paramname"><em>fragmentShaderFilename</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -247,6 +233,33 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Implements <a class="el" href="classjng_1_1_shader.html#aaaff8d58fb2cbef837afaa8183e90286">jng::Shader</a>.</p>
+
+</div>
+</div>
+<a id="a3afe1014b4570901ecf5b315a9c96dca" name="a3afe1014b4570901ecf5b315a9c96dca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3afe1014b4570901ecf5b315a9c96dca">&#9670;&nbsp;</a></span>getCacheDirectory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * jng::Direct3DShader::getCacheDirectory </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classjng_1_1_shader.html#a59788516a64f66d35ac1d6e806c31762">jng::Shader</a>.</p>
 
 </div>
 </div>
@@ -505,7 +518,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 5 2022 20:01:15 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Jul 6 2022 20:23:43 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

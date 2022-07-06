@@ -26,6 +26,20 @@ namespace jng {
 
         static Ref<Shader> create(std::string_view vertexShaderFilename, std::string_view fragmentShaderFilename);
         virtual ~Shader() = default;
+    protected:
+        enum class Type {
+            Vertex,
+            Fragment
+        };
+
+        std::vector<uint32> compileToVulkanSPIRV(const char* shaderFilename, Type type) const;
+        void createCacheDirectoryIfNeeded() const;
+        
+        virtual const char* getCacheDirectory() const = 0;
+
+        static uint32 shaderTypeToShaderCKind(Type type);
+    private:
+        static const char* shaderTypeToCachedVlkFileExtension(Type type);
     };
 
 } // namespace jng
