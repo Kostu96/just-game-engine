@@ -21,9 +21,9 @@ int main(int argc, char* argv[])
         if (std::strcmp(argv[i], "--backend") == 0) {
             if (i + 1 >= argc) return -1; // TODO: bad cli args error
 
-            if (std::strcmp(argv[i + 1], "direct3d") == 0)    backend = jng::RendererBackend::Direct3D;
-            else if (std::strcmp(argv[i + 1], "opengl") == 0) backend = jng::RendererBackend::OpenGL;
-            else if (std::strcmp(argv[i + 1], "vulkan") == 0) backend = jng::RendererBackend::Vulkan;
+            if (std::strcmp(argv[i + 1], "d3d") == 0)    backend = jng::RendererBackend::Direct3D;
+            else if (std::strcmp(argv[i + 1], "ogl") == 0) backend = jng::RendererBackend::OpenGL;
+            else if (std::strcmp(argv[i + 1], "vlk") == 0) backend = jng::RendererBackend::Vulkan;
             else return -1; // TODO: bad cli args error
         }
     jng::RendererAPI::init(backend);

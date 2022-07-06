@@ -29,7 +29,7 @@ namespace jng {
             Fragment
         };
 
-        Direct3DShader(std::string_view vertexShaderSrc, std::string_view fragmentShaderSrc);
+        Direct3DShader(std::string_view vertexShaderFilename, std::string_view fragmentShaderFilename);
         ~Direct3DShader();
 
         void bind() const override;
@@ -43,7 +43,7 @@ namespace jng {
 
         ID3DBlob* getVertexShaderByteCode() const { return m_vertexShaderByteCode.Get(); }
     private:
-        void compileShader(const char* shaderSource, Type type, wrl::ComPtr<ID3DBlob>& byteCode);
+        void compileShader(const char* shaderFilename, Type type, wrl::ComPtr<ID3DBlob>& byteCode);
 
         const Direct3DGraphicsContext* m_graphicsContext;
         wrl::ComPtr<ID3DBlob> m_vertexShaderByteCode;
