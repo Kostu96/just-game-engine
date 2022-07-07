@@ -65,7 +65,7 @@ namespace jng {
 
         void bind(uint32 slot) const override;
         void unbind(uint32 /*slot*/) const override {}
-        void setData(const void* data, size_t size, size_t offset) const override;
+        void setData(const void* data, size_t size, size_t offset = 0) const override;
     private:
         const Direct3DGraphicsContext* m_graphicsContext;
         wrl::ComPtr<ID3D11Buffer> m_buffer;

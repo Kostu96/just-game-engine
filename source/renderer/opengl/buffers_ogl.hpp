@@ -48,7 +48,7 @@ namespace jng {
 
         void bind(uint32 slot) const override;
         void unbind(uint32 slot) const override;
-        void setData(const void* data, size_t size, size_t offset) const override;
+        void setData(const void* data, size_t size, size_t offset = 0) const override;
     private:
         uint32 m_id;
     };

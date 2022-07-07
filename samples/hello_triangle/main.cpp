@@ -29,7 +29,7 @@ public:
         m_UBO->bind(0);
         m_VAO->bind();
 
-        m_UBO->setData(glm::value_ptr(m_camera.getVP()), sizeof(glm::mat4), 0);
+        m_UBO->setData(glm::value_ptr(m_camera.getVP()), sizeof(glm::mat4));
     }
 
     void onUpdate(float /*dt*/) override
