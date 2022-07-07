@@ -43,8 +43,7 @@ namespace jng {
 		None = -1,
 		Direct3D,
 		OpenGL,
-		Vulkan,
-		WebGL
+		Vulkan
 	};
 
 } // namespace jng
