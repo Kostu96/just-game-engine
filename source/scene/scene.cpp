@@ -5,21 +5,24 @@
  */
 
 #include "scene/scene.hpp"
+
 #include "scene/components.hpp"
 #include "scene/entity.hpp"
 
-namespace k2d {
+namespace jng {
 
     Entity Scene::createEntity()
     {
         auto entity = m_registry.create();
-        //m_registry.emplace<TransformComponent>(entity);
+        m_registry.emplace<TagComponent>(entity);
+        m_registry.emplace<TransformComponent>(entity);
 
-        return Entity(entity , *this);
+        return Entity(entity, *this);
     }
 
-    void Scene::render()
+    void Scene::onUpdate()
     {
+
     }
 
-} // namespace k2d
+} // namespace jng

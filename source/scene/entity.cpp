@@ -6,7 +6,7 @@
 
 #include "scene/entity.hpp"
 
-namespace k2d {
+namespace jng {
 
     Entity::Entity(entt::entity handle, Scene& scene) :
         m_handle(handle),
@@ -15,4 +15,4 @@ namespace k2d {
 
     }
 
-} // namespace k2d
+} // namespace jng

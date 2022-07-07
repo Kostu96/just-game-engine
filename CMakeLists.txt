@@ -21,14 +21,21 @@ add_subdirectory(third_party)
 set(JNG_HEADERS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/jng)
 add_subdirectory(source)
 
+set(JNG_SHADER_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/assets/shaders/basic_fragment.glsl
+    ${CMAKE_CURRENT_SOURCE_DIR}/assets/shaders/basic_vertex.glsl
+)
+
 add_library(${JNG_TARGET_NAME} STATIC
     ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
     ${JNG_HEADERS}
     ${JNG_SOURCES}
+    ${JNG_SHADER_SOURCES}
 )
 
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/include/jng PREFIX source FILES ${JNG_HEADERS})
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/source PREFIX source FILES ${JNG_SOURCES})
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/assets/shaders PREFIX shaders FILES ${JNG_SHADER_SOURCES})
 
 target_compile_definitions(${JNG_TARGET_NAME} PUBLIC
     $<$<CONFIG:Debug>:JNG_DEBUG>
@@ -53,9 +60,9 @@ set_target_properties(${JNG_TARGET_NAME} PROPERTIES
 target_include_directories(${JNG_TARGET_NAME} SYSTEM
     PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/glm
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/entt/include
     PRIVATE
     ${Vulkan_INCLUDE_DIRS}
-    #${CMAKE_CURRENT_SOURCE_DIR}/third_party/entt/include
 )
 
 target_include_directories(${JNG_TARGET_NAME}

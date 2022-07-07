@@ -12,6 +12,8 @@ set(SAMPLE_SOURCES
 
 add_executable(${SAMPLE_TARGET_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
+    ${CMAKE_CURRENT_SOURCE_DIR}/assets/shaders/fragment.glsl
+    ${CMAKE_CURRENT_SOURCE_DIR}/assets/shaders/vertex.glsl
     ${SAMPLE_SOURCES}
 )
 
