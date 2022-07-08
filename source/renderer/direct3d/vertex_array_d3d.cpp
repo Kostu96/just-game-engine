@@ -64,19 +64,20 @@ namespace jng {
 
     Direct3DVertexArray::Direct3DVertexArray(const Ref<VertexBuffer>& vbo, const VertexLayout& layout, const Ref<Shader>& shader) :
         m_VBO{ vbo },
-        m_graphicsContext{ reinterpret_cast<const Direct3DGraphicsContext*>(Engine::get().getWindow().getGraphicsContext()) }
+        m_graphicsContext{ reinterpret_cast<const Direct3DGraphicsContext*>(Engine::get().getWindow().getGraphicsContext()) },
+        m_layout{ layout }
     {
         JNG_CORE_ASSERT(!layout.getElements().empty(), "Vertex buffer layout is empty!");
         const auto& vbod3d = reinterpret_cast<const Ref<Direct3DVertexBuffer>&>(vbo);
-        vbod3d->setVertexLayout(layout);
+        vbod3d->setVertexLayout(m_layout);
 
         HRESULT hr;
         const auto& device = m_graphicsContext->getNativeDevice();
 
-        UINT size = static_cast<UINT>(layout.getElements().size());
+        UINT size = static_cast<UINT>(m_layout.getElements().size());
         D3D11_INPUT_ELEMENT_DESC* ieds = new D3D11_INPUT_ELEMENT_DESC[size];
         unsigned int i = 0;
-        for (const auto& element : layout)
+        for (const auto& element : m_layout)
         {
             ieds[i].SemanticName = "TEXCOORD";
             ieds[i].SemanticIndex = i;

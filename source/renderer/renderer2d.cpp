@@ -101,10 +101,6 @@ namespace jng {
 
         s_data.shader->bind();
         s_data.quadUBO->bind(0);
-        int32 samplers[s_data.MaxTextureSlots];
-        for (uint32 i = 0; i < s_data.MaxTextureSlots; ++i)
-            samplers[i] = static_cast<int32>(i);
-        s_data.shader->set("u_Textures", samplers, RenderData::MaxTextureSlots);
     }
 
     void Renderer2D::shutdown()

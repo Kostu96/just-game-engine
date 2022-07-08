@@ -61,31 +61,22 @@ namespace jng {
 	{
 		std::vector<uint32> vulkanSpirvData = compileToVulkanSPIRV(shaderFilename, type);
 
-		spirv_cross::CompilerHLSL hlslCompiler{ vulkanSpirvData };
-		spirv_cross::CompilerHLSL::Options options2;
-		options2.shader_model = 50;
-		hlslCompiler.set_hlsl_options(options2);
-		std::string hlslCode = hlslCompiler.compile();
-
 		// Check for cached HLSL Intermediate
 		std::filesystem::path cacheDirectory = getCacheDirectory();
 		std::filesystem::path shaderFilePath = shaderFilename;
 		std::filesystem::path cachedPath = cacheDirectory / (shaderFilePath.stem().string() + shaderTypeToCachedD3DFileExtension(type));
-		size_t size;
-		bool success = ccl::readFile(cachedPath.generic_string().c_str(), nullptr, size, true);
-
+		
 		HRESULT hr;
-		if (success) {
-			hr = D3DReadFileToBlob(ccl::stringToWstring(cachedPath.generic_string()).c_str(), &byteCode);
-			JNG_D3D_CHECK_HR(hr);
-		}
-		else {
-			wrl::ComPtr<ID3DBlob> errorMessages;
+		if (m_isCacheDirty) {
+			spirv_cross::CompilerHLSL hlslCompiler{ vulkanSpirvData };
+			spirv_cross::CompilerHLSL::Options options2;
+			options2.shader_model = 50;
+			hlslCompiler.set_hlsl_options(options2);
+			std::string hlslCode = hlslCompiler.compile();
 
 			UINT compilationFlags = 0;
 			compilationFlags |= D3DCOMPILE_PACK_MATRIX_COLUMN_MAJOR;
 			compilationFlags |= D3DCOMPILE_ENABLE_STRICTNESS;
-
 #ifdef JNG_DEBUG
 			compilationFlags |= D3DCOMPILE_DEBUG;
 			compilationFlags |= D3DCOMPILE_SKIP_OPTIMIZATION;
@@ -96,6 +87,7 @@ namespace jng {
 			compilationFlags |= D3DCOMPILE_OPTIMIZATION_LEVEL3;
 #endif
 
+			wrl::ComPtr<ID3DBlob> errorMessages;
 			hr = D3DCompile(hlslCode.c_str(), hlslCode.size(), nullptr, nullptr, nullptr, "main", shaderTypeToD3DTarget(type), compilationFlags, 0, &byteCode, &errorMessages);
 			if (FAILED(hr))
 			{
@@ -109,6 +101,10 @@ namespace jng {
 			}
 
 			hr = D3DWriteBlobToFile(byteCode.Get(), ccl::stringToWstring(cachedPath.generic_string()).c_str(), TRUE);
+			JNG_D3D_CHECK_HR(hr);
+		}
+		else {
+			hr = D3DReadFileToBlob(ccl::stringToWstring(cachedPath.generic_string()).c_str(), &byteCode);
 			JNG_D3D_CHECK_HR(hr);
 		}
 	}

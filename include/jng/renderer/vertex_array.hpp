@@ -46,6 +46,7 @@ namespace jng {
 
         VertexLayout() = default;
         VertexLayout(const std::initializer_list<LayoutElement>& list);
+        VertexLayout(const VertexLayout& other);
 
         const ContainerType& getElements() const { return m_elements; }
         uint32 getStride() const { return m_stride; }

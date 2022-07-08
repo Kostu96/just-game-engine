@@ -36,6 +36,7 @@ namespace jng {
         Ref<VertexBuffer> m_VBO;
         Ref<IndexBuffer> m_IBO;
         wrl::ComPtr<ID3D11InputLayout> m_nativeLayout;
+        VertexLayout m_layout;
     };
 
 } // namespace jng

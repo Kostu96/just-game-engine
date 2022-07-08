@@ -95,10 +95,7 @@ namespace jng {
 	uint32 OpenGLShader::compileShader(const char* shaderFilename, Type type) const
 	{
 		std::vector<uint32> vulkanSpirvData = compileToVulkanSPIRV(shaderFilename, type);
-
-		spirv_cross::CompilerGLSL glslCompiler{ vulkanSpirvData };
-		std::string openglCode = glslCompiler.compile();
-
+		
 		// Check for cached OpenGL SPIR-V
 		std::filesystem::path cacheDirectory = getCacheDirectory();
 		std::filesystem::path shaderFilePath = shaderFilename;
@@ -107,6 +104,9 @@ namespace jng {
 		bool success;
 		std::vector<uint32> openglSpirvData;
 		if (m_isCacheDirty) {
+			spirv_cross::CompilerGLSL glslCompiler{ vulkanSpirvData };
+			std::string openglCode = glslCompiler.compile();
+
 			shaderc::Compiler compiler;
 			shaderc::CompileOptions options;
 			options.SetTargetEnvironment(shaderc_target_env_opengl, shaderc_env_version_opengl_4_5);

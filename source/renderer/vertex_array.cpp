@@ -58,6 +58,10 @@ namespace jng {
         }
     }
 
+    VertexLayout::VertexLayout(const VertexLayout& other) :
+        m_elements{ other.m_elements },
+        m_stride{ other.m_stride } {}
+
     Ref<VertexArray> VertexArray::create(const Ref<VertexBuffer>& vbo, const VertexLayout& layout, const Ref<Shader>& shader)
     {
         JNG_PROFILE_FUNCTION();
