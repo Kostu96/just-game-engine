@@ -96,7 +96,6 @@ namespace jng {
         uint32 whiteTextureData = 0xffffffff;
         s_data.whiteTexture->setData(&whiteTextureData, sizeof(uint32));
         s_data.textureSlots[0] = s_data.whiteTexture;
-        s_data.whiteTexture->bind(0);
 
         s_data.shader->bind();
         s_data.quadUBO->bind(0);
@@ -243,7 +242,7 @@ namespace jng {
 
     void Renderer2D::endBatch()
     {
-        for (uint32 i = 1; i < s_data.textureSlotIndex; ++i)
+        for (uint32 i = 0; i < s_data.textureSlotIndex; ++i)
             s_data.textureSlots[i]->bind(i);
 
         size_t dataSize = static_cast<size_t>(

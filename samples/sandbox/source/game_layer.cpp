@@ -12,6 +12,7 @@ GameLayer::GameLayer(const GameData& gameData) :
     m_gameData(gameData),
     m_cameraController(static_cast<float>(gameData.WindowWidth) / static_cast<float>(gameData.WindowHeight))
 {
+    auto xyz = jng::Framebuffer::create({ 1280, 720 } );
     m_texture = jng::Texture::create("assets/textures/RPGpack_sheet_2X.png");
 
     constexpr float x = 7.f, y = 6.f;
