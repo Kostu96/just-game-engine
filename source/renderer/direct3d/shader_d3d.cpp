@@ -52,6 +52,11 @@ namespace jng {
 		deviceContext->PSSetShader(m_fragmentShader.Get(), nullptr, 0);
     }
 
+	std::filesystem::path Direct3DShader::getCacheDirectory() const
+	{
+		return Engine::get().getProperties().assetsDirectory / std::filesystem::path{ "cache/shaders/direct3d" };
+	}
+
 	void Direct3DShader::compileShader(const char* shaderFilename, Type type, wrl::ComPtr<ID3DBlob>& byteCode)
 	{
 		std::vector<uint32> vulkanSpirvData = compileToVulkanSPIRV(shaderFilename, type);

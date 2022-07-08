@@ -102,7 +102,7 @@ namespace jng {
 
 	void Shader::createCacheDirectoryIfNeeded() const
 	{
-		std::string cacheDirectory = getCacheDirectory();
+		auto cacheDirectory = getCacheDirectory();
 		if (!std::filesystem::exists(cacheDirectory))
 			std::filesystem::create_directories(cacheDirectory);
 	}

@@ -7,6 +7,7 @@
 #include "renderer/opengl/shader_ogl.hpp"
 
 #include "core/base_internal.hpp"
+#include "core/engine.hpp"
 
 #include <glad/glad.h>
 #include <glm/gtc/type_ptr.inl>
@@ -85,6 +86,11 @@ namespace jng {
     {
 		glUniformMatrix4fv(glGetUniformLocation(m_id, name), 1, GL_FALSE, glm::value_ptr(value));
     }
+
+	std::filesystem::path OpenGLShader::getCacheDirectory() const
+	{
+		return Engine::get().getProperties().assetsDirectory / std::filesystem::path{ "cache/shaders/opengl" };
+	}
 
 	uint32 OpenGLShader::compileShader(const char* shaderFilename, Type type) const
 	{

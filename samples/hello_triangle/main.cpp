@@ -61,7 +61,8 @@ public:
             "Hello Triangle!",
             WindowWidth,
             WindowHeight,
-            RendererType::None
+            RendererType::None,
+            "assets/hello_triangle"
         })
     {
         getLayerStack().pushLayer(new SampleLayer{});

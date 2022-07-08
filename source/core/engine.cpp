@@ -20,6 +20,7 @@
 namespace jng {
 
     Engine::Engine(const Properties& properties) :
+        m_properties{ properties },
         m_rendererType{ properties.rendererType }
     {
         JNG_PROFILE_FUNCTION();

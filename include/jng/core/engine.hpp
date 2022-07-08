@@ -28,6 +28,7 @@ namespace jng {
             unsigned int windowWidth;
             unsigned int windowHeight;
             RendererType rendererType;
+            const char* assetsDirectory = "assets";
         };
 
         explicit Engine(const Properties& properties);
@@ -36,6 +37,7 @@ namespace jng {
         void run();
 
         static Engine& get() { return *s_instance; }
+        const Properties& getProperties() const { return m_properties; }
         Window& getWindow() { return *m_window; }
     protected:
         LayerStack& getLayerStack() { return m_layerStack; }
@@ -45,6 +47,7 @@ namespace jng {
         bool onWindowResize(WindowResizeEvent& event);
 
         static Engine* s_instance;
+        Properties m_properties;
         Scope<Window> m_window;
         RendererType m_rendererType;
         LayerStack m_layerStack;
