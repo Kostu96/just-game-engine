@@ -16,7 +16,7 @@
 #include "renderer/direct3d/shader_d3d.hpp"
 #endif
 
-#include <cpp-common/helper_functions.h>
+#include <ccl/helper_functions.h>
 #include <shaderc/shaderc.hpp>
 #include <filesystem>
 

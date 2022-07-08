@@ -13,7 +13,7 @@
 #include <shaderc/shaderc.hpp>
 #include <spirv_cross/spirv_glsl.hpp>
 #include <filesystem>
-#include <cpp-common/helper_functions.h>
+#include <ccl/helper_functions.h>
 #include <vector>
 
 namespace jng {

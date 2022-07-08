@@ -17,7 +17,7 @@
 #include <shaderc/shaderc.hpp>
 #include <spirv_cross/spirv_hlsl.hpp>
 #include <filesystem>
-#include <cpp-common/helper_functions.h>
+#include <ccl/helper_functions.h>
 #include <vector>
 
 #pragma comment(lib, "d3dcompiler.lib")

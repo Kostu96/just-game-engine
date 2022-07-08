@@ -5,7 +5,7 @@
  */
 
 #pragma once
-#include <cpp-common/non_copyable.h>
+#include <ccl/non_copyable.h>
 #include <cstdint>
 #include <memory>
 #include <functional>
