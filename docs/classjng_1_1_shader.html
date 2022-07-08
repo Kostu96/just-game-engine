@@ -72,6 +72,7 @@ $(function() {
 <a href="#pro-types">Protected Types</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classjng_1_1_shader-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">jng::Shader Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
@@ -129,13 +130,18 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:a558982fbc0a6c1fcf3bbb916181ec230"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea588b1cb7f32c18ed3ab1b2cc48b04e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_shader.html#aea588b1cb7f32c18ed3ab1b2cc48b04e">createCacheDirectoryIfNeeded</a> () const</td></tr>
 <tr class="separator:aea588b1cb7f32c18ed3ab1b2cc48b04e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59788516a64f66d35ac1d6e806c31762"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_shader.html#a59788516a64f66d35ac1d6e806c31762">getCacheDirectory</a> () const =0</td></tr>
-<tr class="separator:a59788516a64f66d35ac1d6e806c31762"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b8660d78744b4957402168c91d82660"><td class="memItemLeft" align="right" valign="top">virtual std::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_shader.html#a9b8660d78744b4957402168c91d82660">getCacheDirectory</a> () const =0</td></tr>
+<tr class="separator:a9b8660d78744b4957402168c91d82660"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
 <tr class="memitem:a0c49641bb81f110e926c8fe91c1452cf"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_shader.html#a0c49641bb81f110e926c8fe91c1452cf">shaderTypeToShaderCKind</a> (<a class="el" href="classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7">Type</a> type)</td></tr>
 <tr class="separator:a0c49641bb81f110e926c8fe91c1452cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a2307633a8e55b645d11c132a80fb25b6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_shader.html#a2307633a8e55b645d11c132a80fb25b6">m_isCacheDirty</a> = true</td></tr>
+<tr class="separator:a2307633a8e55b645d11c132a80fb25b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="a2879f751917d855ee8fbae0adafa43e7" name="a2879f751917d855ee8fbae0adafa43e7"></a>
@@ -315,8 +321,8 @@ Static Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a59788516a64f66d35ac1d6e806c31762" name="a59788516a64f66d35ac1d6e806c31762"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59788516a64f66d35ac1d6e806c31762">&#9670;&nbsp;</a></span>getCacheDirectory()</h2>
+<a id="a9b8660d78744b4957402168c91d82660" name="a9b8660d78744b4957402168c91d82660"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b8660d78744b4957402168c91d82660">&#9670;&nbsp;</a></span>getCacheDirectory()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -325,7 +331,7 @@ Static Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual const char * jng::Shader::getCacheDirectory </td>
+          <td class="memname">virtual std::filesystem::path jng::Shader::getCacheDirectory </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -338,7 +344,7 @@ Static Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classjng_1_1_direct3_d_shader.html#a3afe1014b4570901ecf5b315a9c96dca">jng::Direct3DShader</a>, and <a class="el" href="classjng_1_1_open_g_l_shader.html#a1e336ebf19c1b914020816d94b776c5e">jng::OpenGLShader</a>.</p>
+<p>Implemented in <a class="el" href="classjng_1_1_direct3_d_shader.html#a03b5e074b2572a9398ddcceca052a193">jng::Direct3DShader</a>, and <a class="el" href="classjng_1_1_open_g_l_shader.html#aac01b13d827bc93b7f76cdfc4b19d774">jng::OpenGLShader</a>.</p>
 
 </div>
 </div>
@@ -591,6 +597,29 @@ Static Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a2307633a8e55b645d11c132a80fb25b6" name="a2307633a8e55b645d11c132a80fb25b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2307633a8e55b645d11c132a80fb25b6">&#9670;&nbsp;</a></span>m_isCacheDirty</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool jng::Shader::m_isCacheDirty = true</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">mutable</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>include/jng/renderer/<a class="el" href="shader_8hpp_source.html">shader.hpp</a></li>
 <li>source/renderer/<a class="el" href="shader_8cpp.html">shader.cpp</a></li>
@@ -598,7 +627,7 @@ Static Protected Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 6 2022 20:23:43 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jul 8 2022 23:37:10 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

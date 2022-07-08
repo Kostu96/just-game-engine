@@ -4,7 +4,7 @@ var searchData=
   ['ondetach_1',['onDetach',['../classjng_1_1_layer.html#a1bd441d8b3bb7a7a61d189cfedea765d',1,'jng::Layer']]],
   ['onevent_2',['onEvent',['../classjng_1_1_layer.html#a98778927330aed3fe696e3e0c090c9ad',1,'jng::Layer']]],
   ['onimguirender_3',['onImGuiRender',['../classjng_1_1_layer.html#a8806b170785ce2c4ee553b3e349aa52e',1,'jng::Layer']]],
-  ['onupdate_4',['onUpdate',['../class_editor_layer.html#a4575c3baaa9103227823a424d0db66fe',1,'EditorLayer::onUpdate()'],['../classjng_1_1_layer.html#acc9f94712e940db97a91945a6bfe324d',1,'jng::Layer::onUpdate()'],['../classjng_1_1_window.html#a5919501e3a5b0d74f69399622e74cb4e',1,'jng::Window::onUpdate()']]],
+  ['onupdate_4',['onUpdate',['../class_editor_layer.html#a4575c3baaa9103227823a424d0db66fe',1,'EditorLayer::onUpdate()'],['../classjng_1_1_layer.html#acc9f94712e940db97a91945a6bfe324d',1,'jng::Layer::onUpdate()'],['../classjng_1_1_window.html#a5919501e3a5b0d74f69399622e74cb4e',1,'jng::Window::onUpdate()'],['../classjng_1_1_scene.html#ad433ef62af62a679c8564f226ed471d4',1,'jng::Scene::onUpdate()']]],
   ['openglgraphicscontext_5',['OpenGLGraphicsContext',['../classjng_1_1_open_g_l_graphics_context.html#af7c6025877525a7d27179aedef12fe31',1,'jng::OpenGLGraphicsContext']]],
   ['openglindexbuffer_6',['OpenGLIndexBuffer',['../classjng_1_1_open_g_l_index_buffer.html#a3f7259e88fb2e4088cab93a8bf468a84',1,'jng::OpenGLIndexBuffer']]],
   ['openglrendererapi_7',['OpenGLRendererAPI',['../classjng_1_1_open_g_l_renderer_a_p_i.html#a4d54aa09aec6e27a02eacc9fca8efc19',1,'jng::OpenGLRendererAPI']]],

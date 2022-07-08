@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Just™ Game Engine: source/scene/entity.hpp Source File</title>
+<title>Just™ Game Engine: include/jng/scene/entity.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_617b3da50917290aa75bd232f8918039.html">scene</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_bb1c6036e66ba10b9c9a458cc5e85c1e.html">jng</a></li><li class="navelem"><a class="el" href="dir_3eb4bdce3b2bc741f2ab9405d91acac8.html">scene</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -78,30 +78,30 @@ $(function() {
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;entt/entt.hpp&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacek2d.html">k2d</a> {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacejng.html">jng</a> {</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keyword">class </span>Scene;</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="classk2d_1_1_entity.html">   14</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classk2d_1_1_entity.html">Entity</a></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="classjng_1_1_entity.html">   14</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classjng_1_1_entity.html">Entity</a></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    {</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <a class="code hl_class" href="classk2d_1_1_entity.html">Entity</a>(entt::entity handle, <a class="code hl_class" href="classk2d_1_1_scene.html">Scene</a>&amp; scene);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <a class="code hl_class" href="classjng_1_1_entity.html">Entity</a>(entt::entity handle, <a class="code hl_class" href="classjng_1_1_scene.html">Scene</a>&amp; scene);</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        entt::entity m_handle;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <a class="code hl_class" href="classk2d_1_1_scene.html">Scene</a>&amp; m_sceneRef;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <a class="code hl_class" href="classjng_1_1_scene.html">Scene</a>&amp; m_sceneRef;</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classk2d_1_1_entity.html#a032858ae1fe02d2d1170981c2af2d67c">   23</a></span>        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="classk2d_1_1_scene.html">Scene</a>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classjng_1_1_entity.html#a032858ae1fe02d2d1170981c2af2d67c">   23</a></span>        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="classjng_1_1_scene.html">Scene</a>;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    };</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>} <span class="comment">// namespace k2d</span></div>
-<div class="ttc" id="aclassk2d_1_1_entity_html"><div class="ttname"><a href="classk2d_1_1_entity.html">k2d::Entity</a></div><div class="ttdef"><b>Definition:</b> entity.hpp:15</div></div>
-<div class="ttc" id="aclassk2d_1_1_scene_html"><div class="ttname"><a href="classk2d_1_1_scene.html">k2d::Scene</a></div><div class="ttdef"><b>Definition:</b> scene.hpp:15</div></div>
-<div class="ttc" id="anamespacek2d_html"><div class="ttname"><a href="namespacek2d.html">k2d</a></div><div class="ttdef"><b>Definition:</b> graphics_context_vlk.hpp:14</div></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>} <span class="comment">// namespace jng</span></div>
+<div class="ttc" id="aclassjng_1_1_entity_html"><div class="ttname"><a href="classjng_1_1_entity.html">jng::Entity</a></div><div class="ttdef"><b>Definition:</b> entity.hpp:15</div></div>
+<div class="ttc" id="aclassjng_1_1_scene_html"><div class="ttname"><a href="classjng_1_1_scene.html">jng::Scene</a></div><div class="ttdef"><b>Definition:</b> scene.hpp:15</div></div>
+<div class="ttc" id="anamespacejng_html"><div class="ttname"><a href="namespacejng.html">jng</a></div><div class="ttdef"><b>Definition:</b> base.hpp:15</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 6 2022 20:23:43 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jul 8 2022 23:37:10 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

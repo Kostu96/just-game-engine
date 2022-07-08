@@ -80,6 +80,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a52fdb222b1c917d319b70ac7cd292444"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11903811be997fad6ba61cbf3a98566f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacejng.html#ad7198e5df8ee2302d860ff3d5b41d355">Ref</a>&lt; <a class="el" href="classjng_1_1_vertex_buffer.html">VertexBuffer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_render_data.html#a11903811be997fad6ba61cbf3a98566f">quadVBO</a></td></tr>
 <tr class="separator:a11903811be997fad6ba61cbf3a98566f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81bb15039be51d575b330590c3530bad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacejng.html#ad7198e5df8ee2302d860ff3d5b41d355">Ref</a>&lt; <a class="el" href="classjng_1_1_uniform_buffer.html">UniformBuffer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_render_data.html#a81bb15039be51d575b330590c3530bad">quadUBO</a></td></tr>
+<tr class="separator:a81bb15039be51d575b330590c3530bad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4874a384ba18063232ac59a2c87065b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacejng.html#ad7198e5df8ee2302d860ff3d5b41d355">Ref</a>&lt; <a class="el" href="classjng_1_1_texture.html">Texture</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_render_data.html#ad4874a384ba18063232ac59a2c87065b">whiteTexture</a></td></tr>
 <tr class="separator:ad4874a384ba18063232ac59a2c87065b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27335154705f3e86fd18b8e51001776e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacejng.html#ad7198e5df8ee2302d860ff3d5b41d355">Ref</a>&lt; <a class="el" href="classjng_1_1_shader.html">Shader</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_render_data.html#a27335154705f3e86fd18b8e51001776e">shader</a></td></tr>
@@ -96,8 +98,6 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a8d27a75088ecab25f17ab07dd767a4f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7b08f0651124fa4281b6b1645b2fede"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacejng.html#aa82ce29b259a573ca89ec50eeefc26ee">uint8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_render_data.html#ad7b08f0651124fa4281b6b1645b2fede">textureSlotIndex</a> = 1</td></tr>
 <tr class="separator:ad7b08f0651124fa4281b6b1645b2fede"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25fdb2d832babfdfbf617e85c75f245d"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_render_data.html#a25fdb2d832babfdfbf617e85c75f245d">VP</a> {}</td></tr>
-<tr class="separator:a25fdb2d832babfdfbf617e85c75f245d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69cd910caada29d2d7fce96773536c40"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structjng_1_1_renderer2_d_1_1_statistics.html">Renderer2D::Statistics</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_render_data.html#a69cd910caada29d2d7fce96773536c40">statistics</a></td></tr>
 <tr class="separator:a69cd910caada29d2d7fce96773536c40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -113,7 +113,7 @@ Static Public Attributes</h2></td></tr>
 <tr class="separator:af6d896d79acbbfb02d9d96fdc99f0fef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee5af19c82f85103ba4ab27174e65e90"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_render_data.html#aee5af19c82f85103ba4ab27174e65e90">MaxIndicesPerBatch</a> = <a class="el" href="structjng_1_1_render_data.html#aacaed85f0adc2173a2f8460ebcf2c545">QuadIndexCount</a> * <a class="el" href="structjng_1_1_render_data.html#aa3a3fe614838a03fbec61ddeae0dfbae">MaxQuadsPerBatch</a></td></tr>
 <tr class="separator:aee5af19c82f85103ba4ab27174e65e90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a494fab2259115ed91b02c7f04da0010f"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_render_data.html#a494fab2259115ed91b02c7f04da0010f">MaxTextureSlots</a> = 32</td></tr>
+<tr class="memitem:a494fab2259115ed91b02c7f04da0010f"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_render_data.html#a494fab2259115ed91b02c7f04da0010f">MaxTextureSlots</a> = 16</td></tr>
 <tr class="separator:a494fab2259115ed91b02c7f04da0010f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -185,7 +185,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> jng::RenderData::MaxTextureSlots = 32</td>
+          <td class="memname">constexpr <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> jng::RenderData::MaxTextureSlots = 16</td>
         </tr>
       </table>
   </td>
@@ -237,6 +237,20 @@ Static Public Attributes</h2></td></tr>
 <span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
   </tr>
 </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a81bb15039be51d575b330590c3530bad" name="a81bb15039be51d575b330590c3530bad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81bb15039be51d575b330590c3530bad">&#9670;&nbsp;</a></span>quadUBO</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacejng.html#ad7198e5df8ee2302d860ff3d5b41d355">Ref</a>&lt;<a class="el" href="classjng_1_1_uniform_buffer.html">UniformBuffer</a>&gt; jng::RenderData::quadUBO</td>
+        </tr>
+      </table>
 </div><div class="memdoc">
 
 </div>
@@ -389,20 +403,6 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a25fdb2d832babfdfbf617e85c75f245d" name="a25fdb2d832babfdfbf617e85c75f245d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25fdb2d832babfdfbf617e85c75f245d">&#9670;&nbsp;</a></span>VP</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">glm::mat4 jng::RenderData::VP {}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="ad4874a384ba18063232ac59a2c87065b" name="ad4874a384ba18063232ac59a2c87065b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad4874a384ba18063232ac59a2c87065b">&#9670;&nbsp;</a></span>whiteTexture</h2>
 
@@ -423,7 +423,7 @@ Static Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 6 2022 20:23:43 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jul 8 2022 23:37:10 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

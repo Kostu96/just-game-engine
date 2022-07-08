@@ -76,7 +76,7 @@ $(function() {
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> */</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;cpp-common/non_copyable.h&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;ccl/non_copyable.h&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
@@ -114,17 +114,15 @@ $(function() {
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <a class="code hl_enumvalue" href="namespacejng.html#a12ce176de3b33861d2a2f4c90385d499a6adf97f83acf6453d4a6a4b1070f3754">None</a> = -1,</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_enumvalue" href="namespacejng.html#a12ce176de3b33861d2a2f4c90385d499ae5054d13a102957ce58cbb9cbba107d7">Direct3D</a>,</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <a class="code hl_enumvalue" href="namespacejng.html#a12ce176de3b33861d2a2f4c90385d499a760716b590ee7c0adc25f434f577d8be">OpenGL</a>,</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <a class="code hl_enumvalue" href="namespacejng.html#a12ce176de3b33861d2a2f4c90385d499a38625270231b647116c80bcbc4f9d1d8">Vulkan</a>,</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <a class="code hl_enumvalue" href="namespacejng.html#a12ce176de3b33861d2a2f4c90385d499a4423e67d47682f902b06a8c211e7a7db">WebGL</a></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    };</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>} <span class="comment">// namespace jng</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <a class="code hl_enumvalue" href="namespacejng.html#a12ce176de3b33861d2a2f4c90385d499a38625270231b647116c80bcbc4f9d1d8">Vulkan</a></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    };</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>} <span class="comment">// namespace jng</span></div>
 <div class="ttc" id="anamespacejng_1_1_key_html_a0d7ad6a389444d1a8b4d5d27cb31794a"><div class="ttname"><a href="namespacejng_1_1_key.html#a0d7ad6a389444d1a8b4d5d27cb31794a">jng::Key::T</a></div><div class="ttdeci">constexpr KeyCode T</div><div class="ttdef"><b>Definition:</b> key_codes.hpp:56</div></div>
 <div class="ttc" id="anamespacejng_html"><div class="ttname"><a href="namespacejng.html">jng</a></div><div class="ttdef"><b>Definition:</b> base.hpp:15</div></div>
 <div class="ttc" id="anamespacejng_html_a0c97bf03c0b6f16cdb402b8ee440a382"><div class="ttname"><a href="namespacejng.html#a0c97bf03c0b6f16cdb402b8ee440a382">jng::makeScope</a></div><div class="ttdeci">constexpr Scope&lt; T &gt; makeScope(Args &amp;&amp;... args)</div><div class="ttdef"><b>Definition:</b> base.hpp:20</div></div>
 <div class="ttc" id="anamespacejng_html_a12ce176de3b33861d2a2f4c90385d499"><div class="ttname"><a href="namespacejng.html#a12ce176de3b33861d2a2f4c90385d499">jng::RendererBackend</a></div><div class="ttdeci">RendererBackend</div><div class="ttdef"><b>Definition:</b> base.hpp:42</div></div>
 <div class="ttc" id="anamespacejng_html_a12ce176de3b33861d2a2f4c90385d499a38625270231b647116c80bcbc4f9d1d8"><div class="ttname"><a href="namespacejng.html#a12ce176de3b33861d2a2f4c90385d499a38625270231b647116c80bcbc4f9d1d8">jng::RendererBackend::Vulkan</a></div><div class="ttdeci">@ Vulkan</div></div>
-<div class="ttc" id="anamespacejng_html_a12ce176de3b33861d2a2f4c90385d499a4423e67d47682f902b06a8c211e7a7db"><div class="ttname"><a href="namespacejng.html#a12ce176de3b33861d2a2f4c90385d499a4423e67d47682f902b06a8c211e7a7db">jng::RendererBackend::WebGL</a></div><div class="ttdeci">@ WebGL</div></div>
 <div class="ttc" id="anamespacejng_html_a12ce176de3b33861d2a2f4c90385d499a6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="namespacejng.html#a12ce176de3b33861d2a2f4c90385d499a6adf97f83acf6453d4a6a4b1070f3754">jng::RendererBackend::None</a></div><div class="ttdeci">@ None</div></div>
 <div class="ttc" id="anamespacejng_html_a12ce176de3b33861d2a2f4c90385d499a760716b590ee7c0adc25f434f577d8be"><div class="ttname"><a href="namespacejng.html#a12ce176de3b33861d2a2f4c90385d499a760716b590ee7c0adc25f434f577d8be">jng::RendererBackend::OpenGL</a></div><div class="ttdeci">@ OpenGL</div></div>
 <div class="ttc" id="anamespacejng_html_a12ce176de3b33861d2a2f4c90385d499ae5054d13a102957ce58cbb9cbba107d7"><div class="ttname"><a href="namespacejng.html#a12ce176de3b33861d2a2f4c90385d499ae5054d13a102957ce58cbb9cbba107d7">jng::RendererBackend::Direct3D</a></div><div class="ttdeci">@ Direct3D</div></div>
@@ -142,7 +140,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 6 2022 20:23:43 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jul 8 2022 23:37:10 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

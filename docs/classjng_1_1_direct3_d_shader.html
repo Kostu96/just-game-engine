@@ -127,15 +127,15 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a3afe1014b4570901ecf5b315a9c96dca"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_direct3_d_shader.html#a3afe1014b4570901ecf5b315a9c96dca">getCacheDirectory</a> () const override</td></tr>
-<tr class="separator:a3afe1014b4570901ecf5b315a9c96dca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03b5e074b2572a9398ddcceca052a193"><td class="memItemLeft" align="right" valign="top">std::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_direct3_d_shader.html#a03b5e074b2572a9398ddcceca052a193">getCacheDirectory</a> () const override</td></tr>
+<tr class="separator:a03b5e074b2572a9398ddcceca052a193"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classjng_1_1_shader"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classjng_1_1_shader')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classjng_1_1_shader.html">jng::Shader</a></td></tr>
 <tr class="memitem:a558982fbc0a6c1fcf3bbb916181ec230 inherit pro_methods_classjng_1_1_shader"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_shader.html#a558982fbc0a6c1fcf3bbb916181ec230">compileToVulkanSPIRV</a> (const char *shaderFilename, <a class="el" href="classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7">Type</a> type) const</td></tr>
 <tr class="separator:a558982fbc0a6c1fcf3bbb916181ec230 inherit pro_methods_classjng_1_1_shader"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea588b1cb7f32c18ed3ab1b2cc48b04e inherit pro_methods_classjng_1_1_shader"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_shader.html#aea588b1cb7f32c18ed3ab1b2cc48b04e">createCacheDirectoryIfNeeded</a> () const</td></tr>
 <tr class="separator:aea588b1cb7f32c18ed3ab1b2cc48b04e inherit pro_methods_classjng_1_1_shader"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59788516a64f66d35ac1d6e806c31762 inherit pro_methods_classjng_1_1_shader"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_shader.html#a59788516a64f66d35ac1d6e806c31762">getCacheDirectory</a> () const =0</td></tr>
-<tr class="separator:a59788516a64f66d35ac1d6e806c31762 inherit pro_methods_classjng_1_1_shader"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b8660d78744b4957402168c91d82660 inherit pro_methods_classjng_1_1_shader"><td class="memItemLeft" align="right" valign="top">virtual std::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_shader.html#a9b8660d78744b4957402168c91d82660">getCacheDirectory</a> () const =0</td></tr>
+<tr class="separator:a9b8660d78744b4957402168c91d82660 inherit pro_methods_classjng_1_1_shader"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -153,6 +153,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_static_methods_classjng_1_1_shader"><td colspan="2" onclick="javascript:toggleInherit('pro_static_methods_classjng_1_1_shader')"><img src="closed.png" alt="-"/>&#160;Static Protected Member Functions inherited from <a class="el" href="classjng_1_1_shader.html">jng::Shader</a></td></tr>
 <tr class="memitem:a0c49641bb81f110e926c8fe91c1452cf inherit pro_static_methods_classjng_1_1_shader"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_shader.html#a0c49641bb81f110e926c8fe91c1452cf">shaderTypeToShaderCKind</a> (<a class="el" href="classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7">Type</a> type)</td></tr>
 <tr class="separator:a0c49641bb81f110e926c8fe91c1452cf inherit pro_static_methods_classjng_1_1_shader"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classjng_1_1_shader"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classjng_1_1_shader')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classjng_1_1_shader.html">jng::Shader</a></td></tr>
+<tr class="memitem:a2307633a8e55b645d11c132a80fb25b6 inherit pro_attribs_classjng_1_1_shader"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_shader.html#a2307633a8e55b645d11c132a80fb25b6">m_isCacheDirty</a> = true</td></tr>
+<tr class="separator:a2307633a8e55b645d11c132a80fb25b6 inherit pro_attribs_classjng_1_1_shader"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="abaf6911744ddc58e75709731ab36df05" name="abaf6911744ddc58e75709731ab36df05"></a>
@@ -236,8 +239,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a3afe1014b4570901ecf5b315a9c96dca" name="a3afe1014b4570901ecf5b315a9c96dca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3afe1014b4570901ecf5b315a9c96dca">&#9670;&nbsp;</a></span>getCacheDirectory()</h2>
+<a id="a03b5e074b2572a9398ddcceca052a193" name="a03b5e074b2572a9398ddcceca052a193"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03b5e074b2572a9398ddcceca052a193">&#9670;&nbsp;</a></span>getCacheDirectory()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -246,7 +249,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const char * jng::Direct3DShader::getCacheDirectory </td>
+          <td class="memname">std::filesystem::path jng::Direct3DShader::getCacheDirectory </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -254,12 +257,12 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="classjng_1_1_shader.html#a59788516a64f66d35ac1d6e806c31762">jng::Shader</a>.</p>
+<p>Implements <a class="el" href="classjng_1_1_shader.html#a9b8660d78744b4957402168c91d82660">jng::Shader</a>.</p>
 
 </div>
 </div>
@@ -518,7 +521,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 6 2022 20:23:43 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jul 8 2022 23:37:10 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>
