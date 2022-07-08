@@ -27,8 +27,9 @@
 #include "renderer/texture.hpp"
 #include "renderer/vertex_array.hpp"
 
-//#include "scene/entity.hpp"
-//#include "scene/scene.hpp"
+#include "scene/components.hpp"
+#include "scene/entity.hpp"
+#include "scene/scene.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

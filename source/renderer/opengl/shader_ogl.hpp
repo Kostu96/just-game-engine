@@ -25,7 +25,7 @@ namespace jng {
         void set(const char* name, const glm::vec4& value) const override;
         void set(const char* name, const glm::mat4& value) const override;
     protected:
-        const char* getCacheDirectory() const override { return "assets/cache/shaders/opengl"; }
+        std::filesystem::path getCacheDirectory() const override;
     private:
         uint32 compileShader(const char* shaderFilename, Type type) const;
 

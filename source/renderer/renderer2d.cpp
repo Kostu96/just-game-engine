@@ -15,6 +15,7 @@
 
 #include <array>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace jng {
 
@@ -22,7 +23,7 @@ namespace jng {
     {
         glm::vec2 position;
         glm::vec2 texCoord;
-        glm::vec4 color; // convert to unorm format
+        glm::vec4 color; // TODO: convert to unorm format
         float texIndex; // TODO: try to make this uint32 or even uint8 (glVertexAttribIPointer)
     };
 
@@ -34,10 +35,11 @@ namespace jng {
         static constexpr uint32 QuadIndexCount = 6;
         static constexpr uint32 MaxVerticesPerBatch = QuadVertexCount * MaxQuadsPerBatch;
         static constexpr uint32 MaxIndicesPerBatch = QuadIndexCount * MaxQuadsPerBatch;
-        static constexpr uint32 MaxTextureSlots = 32; // TODO: render caps
+        static constexpr uint32 MaxTextureSlots = 16; // TODO: render caps
 
         Ref<VertexArray> quadVAO;
         Ref<VertexBuffer> quadVBO;
+        Ref<UniformBuffer> quadUBO;
         Ref<Texture> whiteTexture;
         Ref<Shader> shader;
 
@@ -49,8 +51,6 @@ namespace jng {
         std::array<Ref<Texture>, MaxTextureSlots> textureSlots;
         uint8 textureSlotIndex = 1; // 0 = white texture
 
-        glm::mat4 VP{}; // TODO: don't need it?
-
         Renderer2D::Statistics statistics;
     };
 
@@ -60,7 +60,8 @@ namespace jng {
     {
         JNG_PROFILE_FUNCTION();
 
-        //s_data.shader = Shader::create(shader_source::basic_vert, shader_source::basic_frag);
+        s_data.shader = Shader::create("assets/shaders/basic_vertex.glsl", "assets/shaders/basic_fragment.glsl");
+        s_data.quadUBO = UniformBuffer::create(sizeof(glm::mat4));
         s_data.quadVBO = VertexBuffer::create(RenderData::MaxVerticesPerBatch * sizeof(QuadVertex));
 
         VertexLayout vertexLayout = {
@@ -99,6 +100,7 @@ namespace jng {
         s_data.whiteTexture->bind(0);
 
         s_data.shader->bind();
+        s_data.quadUBO->bind(0);
         int32 samplers[s_data.MaxTextureSlots];
         for (uint32 i = 0; i < s_data.MaxTextureSlots; ++i)
             samplers[i] = static_cast<int32>(i);
@@ -114,8 +116,7 @@ namespace jng {
     {
         JNG_PROFILE_FUNCTION();
 
-        s_data.VP = camera.getVP();
-        s_data.shader->set("u_VP", s_data.VP);
+        s_data.quadUBO->setData(glm::value_ptr(camera.getVP()), sizeof(glm::mat4));
 
         s_data.statistics.drawCalls = 0;
         s_data.statistics.quadCount = 0;
@@ -128,44 +129,6 @@ namespace jng {
 
         endBatch();
     }
-
-    //void Renderer2D::fillTriangle(const Properties& properties)
-    //{
-    //    JNG_PROFILE_FUNCTION();
-
-    //    if (s_data.currentQuadIndexCount >= RenderData::MaxIndicesPerBatch)
-    //    {
-    //        endBatch();
-    //        beginBatch();
-    //    }
-
-    //    uint32 textureIndex = static_cast<uint32>(-1);
-    //    for (uint32 i = 0; i < s_data.textureSlotIndex; ++i)
-    //        if (s_data.textureSlots[i]->getID() == properties.texture->getID())
-    //        {
-    //            textureIndex = i;
-    //            break;
-    //        }
-
-    //    if (textureIndex == static_cast<uint32>(-1))
-    //    {
-    //        s_data.textureSlots[s_data.textureSlotIndex] = properties.texture;
-    //        textureIndex = s_data.textureSlotIndex++;
-    //    }
-
-    //    for (uint32 i = 0; i < RenderData::TrisVertexCount; ++i)
-    //    {
-    //        s_data.quadVBOPtr->position = properties.quadVertexPositions[i];
-    //        s_data.quadVBOPtr->texCoord = properties.textureCoords[i];
-    //        s_data.quadVBOPtr->color = properties.color;
-    //        s_data.quadVBOPtr->texIndex = static_cast<float>(textureIndex);
-    //        ++s_data.quadVBOPtr;
-    //    }
-
-    //    s_data.currentQuadIndexCount += RenderData::QuadIndexCount;
-
-    //    //++s_data.statistics.quadCount;
-    //}
 
     void Renderer2D::fillQuad(const Properties& properties)
     {

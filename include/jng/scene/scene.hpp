@@ -7,7 +7,7 @@
 #pragma once
 #include <entt/entt.hpp>
 
-namespace k2d {
+namespace jng {
 
     class Entity;
 
@@ -17,11 +17,11 @@ namespace k2d {
         Scene() = default;
 
         Entity createEntity();
-        void render();
+        void onUpdate();
     private:
         entt::registry m_registry;
 
-        friend class Entity;
+        //friend class Entity;
     };
 
-} // namespace k2d
+} // namespace jng

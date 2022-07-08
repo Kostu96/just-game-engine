@@ -17,7 +17,7 @@
 #include <shaderc/shaderc.hpp>
 #include <spirv_cross/spirv_hlsl.hpp>
 #include <filesystem>
-#include <cpp-common/helper_functions.h>
+#include <ccl/helper_functions.h>
 #include <vector>
 
 #pragma comment(lib, "d3dcompiler.lib")
@@ -51,6 +51,11 @@ namespace jng {
 		deviceContext->VSSetShader(m_vertexShader.Get(), nullptr, 0);
 		deviceContext->PSSetShader(m_fragmentShader.Get(), nullptr, 0);
     }
+
+	std::filesystem::path Direct3DShader::getCacheDirectory() const
+	{
+		return Engine::get().getProperties().assetsDirectory / std::filesystem::path{ "cache/shaders/direct3d" };
+	}
 
 	void Direct3DShader::compileShader(const char* shaderFilename, Type type, wrl::ComPtr<ID3DBlob>& byteCode)
 	{

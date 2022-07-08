@@ -38,7 +38,7 @@ namespace jng {
 
         ID3DBlob* getVertexShaderByteCode() const { return m_vertexShaderByteCode.Get(); }
     protected:
-        const char* getCacheDirectory() const override { return "assets/cache/shaders/direct3d"; }
+        std::filesystem::path getCacheDirectory() const override;
     private:
         void compileShader(const char* shaderFilename, Type type, wrl::ComPtr<ID3DBlob>& byteCode);
 

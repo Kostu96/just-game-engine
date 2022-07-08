@@ -5,7 +5,7 @@
  */
 
 #pragma once
-#include <cpp-common/non_copyable.h>
+#include <ccl/non_copyable.h>
 #include <cstdint>
 #include <memory>
 #include <functional>
@@ -43,8 +43,7 @@ namespace jng {
 		None = -1,
 		Direct3D,
 		OpenGL,
-		Vulkan,
-		WebGL
+		Vulkan
 	};
 
 } // namespace jng

@@ -76,11 +76,8 @@ namespace jng {
         UINT size = static_cast<UINT>(layout.getElements().size());
         D3D11_INPUT_ELEMENT_DESC* ieds = new D3D11_INPUT_ELEMENT_DESC[size];
         unsigned int i = 0;
-        //std::vector<std::string> semanticNames;
-        //semanticNames.reserve(size);
         for (const auto& element : layout)
         {
-            //semanticNames.emplace_back(std::string("TEXCOORD") + std::to_string(i));
             ieds[i].SemanticName = "TEXCOORD";
             ieds[i].SemanticIndex = i;
             ieds[i].Format = dataTypeToDXGIFormat(element.Type);

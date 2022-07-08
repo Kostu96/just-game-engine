@@ -23,7 +23,7 @@ public:
             "Sandbox Application",
             WindowWidth,
             WindowHeight,
-            RendererType::Renderer3D
+            RendererType::Renderer2D
         })
     {
         m_gameData.WindowWidth = WindowWidth;

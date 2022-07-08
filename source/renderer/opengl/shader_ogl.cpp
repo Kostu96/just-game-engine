@@ -7,13 +7,14 @@
 #include "renderer/opengl/shader_ogl.hpp"
 
 #include "core/base_internal.hpp"
+#include "core/engine.hpp"
 
 #include <glad/glad.h>
 #include <glm/gtc/type_ptr.inl>
 #include <shaderc/shaderc.hpp>
 #include <spirv_cross/spirv_glsl.hpp>
 #include <filesystem>
-#include <cpp-common/helper_functions.h>
+#include <ccl/helper_functions.h>
 #include <vector>
 
 namespace jng {
@@ -86,6 +87,11 @@ namespace jng {
 		glUniformMatrix4fv(glGetUniformLocation(m_id, name), 1, GL_FALSE, glm::value_ptr(value));
     }
 
+	std::filesystem::path OpenGLShader::getCacheDirectory() const
+	{
+		return Engine::get().getProperties().assetsDirectory / std::filesystem::path{ "cache/shaders/opengl" };
+	}
+
 	uint32 OpenGLShader::compileShader(const char* shaderFilename, Type type) const
 	{
 		std::vector<uint32> vulkanSpirvData = compileToVulkanSPIRV(shaderFilename, type);
@@ -97,15 +103,10 @@ namespace jng {
 		std::filesystem::path cacheDirectory = getCacheDirectory();
 		std::filesystem::path shaderFilePath = shaderFilename;
 		std::filesystem::path cachedPath = cacheDirectory / (shaderFilePath.stem().string() + shaderTypeToCachedOGLFileExtension(type));
-		size_t size;
-		bool success = ccl::readFile(cachedPath.generic_string().c_str(), nullptr, size, true);
-
+		
+		bool success;
 		std::vector<uint32> openglSpirvData;
-		if (success) {
-			openglSpirvData.resize(size / sizeof(uint32));
-			success = ccl::readFile(cachedPath.generic_string().c_str(), reinterpret_cast<char*>(openglSpirvData.data()), size, true);
-		}
-		else {
+		if (m_isCacheDirty) {
 			shaderc::Compiler compiler;
 			shaderc::CompileOptions options;
 			options.SetTargetEnvironment(shaderc_target_env_opengl, shaderc_env_version_opengl_4_5);
@@ -115,6 +116,12 @@ namespace jng {
 			openglSpirvData = std::vector<uint32>{ openGLSpirv.cbegin(), openGLSpirv.cend() };
 
 			success = ccl::writeFile(cachedPath.generic_string().c_str(), reinterpret_cast<char*>(openglSpirvData.data()), openglSpirvData.size() * sizeof(uint32), true);
+		}
+		else {
+			size_t size;
+			success = ccl::readFile(cachedPath.generic_string().c_str(), nullptr, size, true);
+			openglSpirvData.resize(size / sizeof(uint32));
+			success = ccl::readFile(cachedPath.generic_string().c_str(), reinterpret_cast<char*>(openglSpirvData.data()), size, true);
 		}
 
 		uint32 id = glCreateShader(shaderTypeToOGLShaderType(type));

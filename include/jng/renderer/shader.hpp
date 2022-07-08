@@ -8,6 +8,7 @@
 #include "jng/core/base.hpp"
 
 #include <glm/glm.hpp>
+#include <filesystem>
 #include <string_view>
 
 namespace jng {
@@ -35,10 +36,13 @@ namespace jng {
         std::vector<uint32> compileToVulkanSPIRV(const char* shaderFilename, Type type) const;
         void createCacheDirectoryIfNeeded() const;
         
-        virtual const char* getCacheDirectory() const = 0;
+        virtual std::filesystem::path getCacheDirectory() const = 0;
 
         static uint32 shaderTypeToShaderCKind(Type type);
+
+        mutable bool m_isCacheDirty = true;
     private:
+        static const char* shaderTypeToMD5FileExtension(Type type);
         static const char* shaderTypeToCachedVlkFileExtension(Type type);
     };
 

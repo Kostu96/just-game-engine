@@ -55,13 +55,13 @@ class SampleLayer :
 {
 public:
     SampleLayer() :
-        m_shader{ jng::Shader::create("assets/shaders/vertex.glsl", "assets/shaders/fragment.glsl") },
+        m_shader{ jng::Shader::create("assets/hello_cube/shaders/vertex.glsl", "assets/hello_cube/shaders/fragment.glsl") },
         m_cameraUBO{ jng::UniformBuffer::create(sizeof(glm::mat4)) },
         m_modelUBO{ jng::UniformBuffer::create(sizeof(glm::mat4)) },
         m_VBO{ jng::VertexBuffer::create(vertices, sizeof(vertices)) },
         m_IBO{ jng::IndexBuffer::create(indices, sizeof(indices)) },
         m_VAO{ jng::VertexArray::create(m_VBO, LAYOUT, m_shader) },
-        m_texture{ jng::Texture::create("assets/wall_base_color.jpg") },
+        m_texture{ jng::Texture::create("assets/hello_cube/textures/wall_base_color.jpg") },
         m_camera{ 45.f, 4.f/3.f, 0.1f, 100.f },
         m_model{ 1.f }
     {
@@ -131,7 +131,8 @@ public:
             "Hello Cube!",
             WindowWidth,
             WindowHeight,
-            RendererType::None
+            RendererType::None,
+            "assets/hello_cube"
         })
     {
         getLayerStack().pushLayer(new SampleLayer{});

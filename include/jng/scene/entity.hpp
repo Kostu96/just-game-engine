@@ -7,7 +7,7 @@
 #pragma once
 #include <entt/entt.hpp>
 
-namespace k2d {
+namespace jng {
 
     class Scene;
 
@@ -23,4 +23,4 @@ namespace k2d {
         friend class Scene;
     };
 
-} // namespace k2d
+} // namespace jng
