@@ -97,15 +97,10 @@ namespace jng {
 		std::filesystem::path cacheDirectory = getCacheDirectory();
 		std::filesystem::path shaderFilePath = shaderFilename;
 		std::filesystem::path cachedPath = cacheDirectory / (shaderFilePath.stem().string() + shaderTypeToCachedOGLFileExtension(type));
-		size_t size;
-		bool success = ccl::readFile(cachedPath.generic_string().c_str(), nullptr, size, true);
-
+		
+		bool success;
 		std::vector<uint32> openglSpirvData;
-		if (success) {
-			openglSpirvData.resize(size / sizeof(uint32));
-			success = ccl::readFile(cachedPath.generic_string().c_str(), reinterpret_cast<char*>(openglSpirvData.data()), size, true);
-		}
-		else {
+		if (m_isCacheDirty) {
 			shaderc::Compiler compiler;
 			shaderc::CompileOptions options;
 			options.SetTargetEnvironment(shaderc_target_env_opengl, shaderc_env_version_opengl_4_5);
@@ -115,6 +110,12 @@ namespace jng {
 			openglSpirvData = std::vector<uint32>{ openGLSpirv.cbegin(), openGLSpirv.cend() };
 
 			success = ccl::writeFile(cachedPath.generic_string().c_str(), reinterpret_cast<char*>(openglSpirvData.data()), openglSpirvData.size() * sizeof(uint32), true);
+		}
+		else {
+			size_t size;
+			success = ccl::readFile(cachedPath.generic_string().c_str(), nullptr, size, true);
+			openglSpirvData.resize(size / sizeof(uint32));
+			success = ccl::readFile(cachedPath.generic_string().c_str(), reinterpret_cast<char*>(openglSpirvData.data()), size, true);
 		}
 
 		uint32 id = glCreateShader(shaderTypeToOGLShaderType(type));

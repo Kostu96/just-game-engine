@@ -18,7 +18,7 @@ class SampleLayer :
 {
 public:
     SampleLayer() :
-        m_shader{ jng::Shader::create("assets/shaders/vertex.glsl", "assets/shaders/fragment.glsl") },
+        m_shader{ jng::Shader::create("assets/hello_triangle/shaders/vertex.glsl", "assets/hello_triangle/shaders/fragment.glsl") },
         m_UBO{ jng::UniformBuffer::create(sizeof(glm::mat4)) },
         m_VBO{ jng::VertexBuffer::create(vertices, sizeof(vertices)) },
         m_VAO{ jng::VertexArray::create(m_VBO, LAYOUT, m_shader) },

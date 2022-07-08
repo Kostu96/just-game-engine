@@ -36,8 +36,9 @@ set_target_properties(${SAMPLE_TARGET_NAME} PROPERTIES
     FOLDER samples
 )
 
+# TODO: maybe don't copy but set working directory to source
 add_custom_command(
     TARGET ${SAMPLE_TARGET_NAME}
     POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/assets $<TARGET_FILE_DIR:${SAMPLE_TARGET_NAME}>/assets
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/assets $<TARGET_FILE_DIR:${SAMPLE_TARGET_NAME}>/assets/${SAMPLE_TARGET_NAME}
 )

@@ -38,7 +38,10 @@ namespace jng {
         virtual const char* getCacheDirectory() const = 0;
 
         static uint32 shaderTypeToShaderCKind(Type type);
+
+        mutable bool m_isCacheDirty = true;
     private:
+        static const char* shaderTypeToMD5FileExtension(Type type);
         static const char* shaderTypeToCachedVlkFileExtension(Type type);
     };
 
