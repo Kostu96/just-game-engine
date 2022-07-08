@@ -16,11 +16,15 @@
 
 namespace jng {
 
+	// TODO: temp!
+	uint32 Direct3DTexture::s_ID = 0;
+
 	Direct3DTexture::Direct3DTexture(const char* path) :
-		m_graphicsContext{ reinterpret_cast<const Direct3DGraphicsContext*>(Engine::get().getWindow().getGraphicsContext()) }
-    {
+		m_graphicsContext{ reinterpret_cast<const Direct3DGraphicsContext*>(Engine::get().getWindow().getGraphicsContext()) },
+		m_ID{ s_ID++ }
+	{
 		int width, height, channels;
-		//stbi_set_flip_vertically_on_load(1);
+		stbi_set_flip_vertically_on_load(1);
 		stbi_uc* data = stbi_load(path, &width, &height, &channels, 4);
 		JNG_CORE_ASSERT(data, "Failed to load image: {0}", path);
 
@@ -30,12 +34,13 @@ namespace jng {
 		createTexture(data);
 
 		stbi_image_free(data);
-    }
+	}
 
 	Direct3DTexture::Direct3DTexture(uint32 width, uint32 height) :
 		m_graphicsContext{ reinterpret_cast<const Direct3DGraphicsContext*>(Engine::get().getWindow().getGraphicsContext()) },
-		m_width(width),
-		m_height(height)
+		m_width{ width },
+		m_height{ height },
+		m_ID{ s_ID++ }
 	{
 		createTexture(nullptr);
 	}
@@ -55,9 +60,17 @@ namespace jng {
 		
 	}
 
-	void Direct3DTexture::setData(void* /*data*/, [[maybe_unused]] size_t size) const
+	void Direct3DTexture::setData(void* data, size_t size) const
 	{
-		
+		const auto& deviceContext = m_graphicsContext->getNativeDeviceContext();
+
+		wrl::ComPtr<ID3D11Resource> resource;
+		m_textureView->GetResource(&resource);
+		D3D11_MAPPED_SUBRESOURCE mappedResource{};
+		HRESULT hr = deviceContext->Map(resource.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+		JNG_D3D_CHECK_HR(hr);
+		memcpy(mappedResource.pData, data, size);
+		deviceContext->Unmap(resource.Get(), 0);
 	}
 
 	void Direct3DTexture::createTexture(void* data)
@@ -72,9 +85,9 @@ namespace jng {
 		textureDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 		textureDesc.SampleDesc.Count = 1;
 		textureDesc.SampleDesc.Quality = 0;
-		textureDesc.Usage = D3D11_USAGE_DEFAULT;
+		textureDesc.Usage = data ? D3D11_USAGE_DEFAULT : D3D11_USAGE_DYNAMIC;
 		textureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
-		textureDesc.CPUAccessFlags = 0;
+		textureDesc.CPUAccessFlags = data ? 0 : D3D11_CPU_ACCESS_WRITE;
 
 		D3D11_SUBRESOURCE_DATA sd{};
 		sd.pSysMem = data;

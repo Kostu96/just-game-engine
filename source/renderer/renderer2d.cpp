@@ -29,8 +29,7 @@ namespace jng {
 
     struct RenderData
     {
-        static constexpr uint32 MaxQuadsPerBatch = 5000;
-        //static constexpr uint32 TrisVertexCount = 3;
+        static constexpr uint32 MaxQuadsPerBatch = 2000;
         static constexpr uint32 QuadVertexCount = 4;
         static constexpr uint32 QuadIndexCount = 6;
         static constexpr uint32 MaxVerticesPerBatch = QuadVertexCount * MaxQuadsPerBatch;
