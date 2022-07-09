@@ -18,6 +18,8 @@ namespace jng {
 
 		void bind() const override;
 		void unbind() const override;
+
+		void* getColorAttachmentHandle() override { return reinterpret_cast<void*>(&m_colorAttachmentID); }
 	private:
 		void recreate();
 

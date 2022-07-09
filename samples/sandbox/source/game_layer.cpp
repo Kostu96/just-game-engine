@@ -9,12 +9,11 @@
 #include <sstream>
 
 GameLayer::GameLayer(const GameData& gameData) :
-    m_gameData(gameData),
-    m_cameraController(static_cast<float>(gameData.WindowWidth) / static_cast<float>(gameData.WindowHeight))
+    m_gameData{ gameData },
+    m_cameraController{ static_cast<float>(gameData.WindowWidth) / static_cast<float>(gameData.WindowHeight) },
+    m_framebuffer{ jng::Framebuffer::create({ gameData.WindowWidth, gameData.WindowHeight }) },
+    m_texture{ jng::Texture::create("assets/textures/RPGpack_sheet_2X.png") }
 {
-    auto xyz = jng::Framebuffer::create({ 1280, 720 } );
-    m_texture = jng::Texture::create("assets/textures/RPGpack_sheet_2X.png");
-
     constexpr float x = 7.f, y = 6.f;
     constexpr float spriteW = 128.f, spriteH = 128.f;
     m_stairTexture = jng::makeRef<SubTexture>(m_texture, glm::vec2{ x * spriteW, y * spriteH }, glm::vec2{ (x + 1) * spriteW, (y + 1) * spriteH });
@@ -29,6 +28,7 @@ void GameLayer::onUpdate(float dt)
 {
     m_cameraController.onUpdate(dt);
 
+    m_framebuffer->bind();
     jng::RendererAPI::clear({ 0.1f, 0.07f, 0.07f });
     jng::Renderer2D::beginScene(m_cameraController.getCamera());
 
@@ -60,6 +60,14 @@ void GameLayer::onUpdate(float dt)
             }
     }
     jng::Renderer2D::endScene();
+    m_framebuffer->unbind();
+
+    // NOTE: clear second time because first time cleared framebuffer only
+    jng::RendererAPI::clear({ 0.1f, 0.07f, 0.07f });
+    // ImGui
+    ImGui::Begin("Framebuffer");
+    ImGui::Image(m_framebuffer->getColorAttachmentHandle(), { 16 * 30, 9 * 30 });
+    ImGui::End();
 
     static float timer = 0.f;
     static uint32_t frames = 0;

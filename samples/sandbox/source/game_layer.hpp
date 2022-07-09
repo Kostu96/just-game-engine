@@ -23,6 +23,7 @@ public:
 private:
     const GameData& m_gameData;
     CameraController m_cameraController;
+    jng::Ref<jng::Framebuffer> m_framebuffer;
     jng::Ref<jng::Texture> m_texture;
     jng::Ref<SubTexture> m_stairTexture;
 };

@@ -23,6 +23,8 @@ namespace jng {
 		virtual void bind() const = 0;
 		virtual void unbind() const = 0;
 
+		virtual void* getColorAttachmentHandle() = 0;
+
 		static Ref<Framebuffer> create(const Properties& properties);
 		virtual ~Framebuffer() = default;
 	};
