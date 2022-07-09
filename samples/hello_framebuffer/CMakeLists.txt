@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: MIT
 #
 
-set(SAMPLE_TARGET_NAME hello_cube)
+set(SAMPLE_TARGET_NAME hello_framebuffer)
 
 set(SAMPLE_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
@@ -35,7 +35,6 @@ set_target_properties(${SAMPLE_TARGET_NAME} PROPERTIES
     FOLDER samples
 )
 
-# TODO: maybe don't copy but set working directory to source
 add_custom_command(
     TARGET ${SAMPLE_TARGET_NAME}
     POST_BUILD

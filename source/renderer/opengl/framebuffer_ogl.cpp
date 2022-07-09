@@ -40,7 +40,7 @@ namespace jng {
 
 		glCreateTextures(GL_TEXTURE_2D, 1, &m_colorAttachmentID);
 		glBindTexture(GL_TEXTURE_2D, m_colorAttachmentID);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_properties.width, m_properties.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_properties.width, m_properties.height, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
 		glTextureParameteri(m_colorAttachmentID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTextureParameteri(m_colorAttachmentID, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_colorAttachmentID, 0);

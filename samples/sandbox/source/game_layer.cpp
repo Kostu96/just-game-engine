@@ -66,7 +66,7 @@ void GameLayer::onUpdate(float dt)
     jng::RendererAPI::clear({ 0.1f, 0.07f, 0.07f });
     // ImGui
     ImGui::Begin("Framebuffer");
-    ImGui::Image(m_framebuffer->getColorAttachmentHandle(), { 16 * 30, 9 * 30 });
+    ImGui::Image(m_framebuffer->getColorAttachmentHandle(), { 16 * 40, 9 * 40 });
     ImGui::End();
 
     static float timer = 0.f;
