@@ -59,6 +59,8 @@ namespace jng {
 
 	void Direct3DShader::compileShader(const char* shaderFilename, Type type, wrl::ComPtr<ID3DBlob>& byteCode)
 	{
+		JNG_CORE_TRACE("Compiling shader: {0}", shaderFilename);
+
 		std::vector<uint32> vulkanSpirvData = compileToVulkanSPIRV(shaderFilename, type);
 
 		// Check for cached HLSL Intermediate
@@ -68,6 +70,8 @@ namespace jng {
 		
 		HRESULT hr;
 		if (m_isCacheDirty) {
+			JNG_CORE_TRACE("Recompiling HLSL bytecode...");
+			
 			spirv_cross::CompilerHLSL hlslCompiler{ vulkanSpirvData };
 			spirv_cross::CompilerHLSL::Options options2;
 			options2.shader_model = 50;
@@ -104,6 +108,9 @@ namespace jng {
 			JNG_D3D_CHECK_HR(hr);
 		}
 		else {
+			JNG_CORE_TRACE("Loading HLSL bytecode from cache: {0}",
+				cachedPath.generic_string().c_str());
+			
 			hr = D3DReadFileToBlob(ccl::stringToWstring(cachedPath.generic_string()).c_str(), &byteCode);
 			JNG_D3D_CHECK_HR(hr);
 		}

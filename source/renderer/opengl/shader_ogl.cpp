@@ -62,31 +62,6 @@ namespace jng {
 		glUseProgram(0);
 	}
 
-	void OpenGLShader::set(const char* name, int value) const
-	{
-		glUniform1i(glGetUniformLocation(m_id, name), value);
-	}
-
-	void OpenGLShader::set(const char* name, const int* value, uint32 count) const
-	{
-		glUniform1iv(glGetUniformLocation(m_id, name), static_cast<int>(count), value);
-	}
-
-	void OpenGLShader::set(const char* name, const glm::vec3& value) const
-    {
-		glUniform3fv(glGetUniformLocation(m_id, name), 1, glm::value_ptr(value));
-    }
-
-	void OpenGLShader::set(const char* name, const glm::vec4& value) const
-	{
-		glUniform4fv(glGetUniformLocation(m_id, name), 1, glm::value_ptr(value));
-	}
-
-    void OpenGLShader::set(const char* name, const glm::mat4& value) const
-    {
-		glUniformMatrix4fv(glGetUniformLocation(m_id, name), 1, GL_FALSE, glm::value_ptr(value));
-    }
-
 	std::filesystem::path OpenGLShader::getCacheDirectory() const
 	{
 		return Engine::get().getProperties().assetsDirectory / std::filesystem::path{ "cache/shaders/opengl" };
@@ -94,6 +69,8 @@ namespace jng {
 
 	uint32 OpenGLShader::compileShader(const char* shaderFilename, Type type) const
 	{
+		JNG_CORE_TRACE("Compiling shader: {0}", shaderFilename);
+
 		std::vector<uint32> vulkanSpirvData = compileToVulkanSPIRV(shaderFilename, type);
 		
 		// Check for cached OpenGL SPIR-V
@@ -104,6 +81,8 @@ namespace jng {
 		bool success;
 		std::vector<uint32> openglSpirvData;
 		if (m_isCacheDirty) {
+			JNG_CORE_TRACE("Recompiling OpenGL SPIR-V...");
+
 			spirv_cross::CompilerGLSL glslCompiler{ vulkanSpirvData };
 			std::string openglCode = glslCompiler.compile();
 
@@ -118,6 +97,9 @@ namespace jng {
 			success = ccl::writeFile(cachedPath.generic_string().c_str(), reinterpret_cast<char*>(openglSpirvData.data()), openglSpirvData.size() * sizeof(uint32), true);
 		}
 		else {
+			JNG_CORE_TRACE("Loading OpenGL SPIR-V from cache: {0}",
+				cachedPath.generic_string().c_str());
+
 			size_t size;
 			success = ccl::readFile(cachedPath.generic_string().c_str(), nullptr, size, true);
 			openglSpirvData.resize(size / sizeof(uint32));
