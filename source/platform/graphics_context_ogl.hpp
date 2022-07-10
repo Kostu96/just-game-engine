@@ -7,7 +7,7 @@
 #pragma once
 #include "platform/graphics_context.hpp"
 
-// TODO: temp or not
+// TODO: temp or not - waiting for linux support to decide
 #if defined(JNG_WINDOWS)
 struct HGLRC__;
 typedef HGLRC__* GraphicsContextHandle;
@@ -30,7 +30,6 @@ namespace jng {
         explicit OpenGLGraphicsContext(Window& window);
         ~OpenGLGraphicsContext();
 
-        void makeCurrent() const override;
         void swapBuffers() const override;
     private:
         Window& m_window;

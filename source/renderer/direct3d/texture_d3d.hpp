@@ -8,7 +8,6 @@
 #include "renderer/texture.hpp"
 
 #include "platform/windows/windows_base.hpp"
-#include "platform/windows/graphics_context_d3d.hpp"
 
 #pragma warning(disable:4265)
 #include <wrl.h>
@@ -18,6 +17,10 @@ struct ID3D11ShaderResourceView;
 struct ID3D11SamplerState;
 
 namespace jng {
+
+    class Direct3DGraphicsContext;
+
+    namespace wrl = Microsoft::WRL;
 
     class Direct3DTexture :
         public Texture

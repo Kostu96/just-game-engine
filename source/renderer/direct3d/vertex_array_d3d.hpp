@@ -29,7 +29,7 @@ namespace jng {
         void unbind() const override;
 
         const Ref<VertexBuffer>& getVertexBuffer() const override { return m_VBO; }
-        void setIndexBuffer(const Ref<IndexBuffer>& ibo) override;
+        void setIndexBuffer(const Ref<IndexBuffer>& ibo) override { m_IBO = ibo; }
         const Ref<IndexBuffer>& getIndexBuffer() const override { return m_IBO; }
     private:
         const Direct3DGraphicsContext* m_graphicsContext;

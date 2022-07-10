@@ -27,8 +27,8 @@ namespace jng {
     void Direct3DRendererAPI::clear(const glm::vec3& color) const
     {
         const auto* graphicsContext = reinterpret_cast<const Direct3DGraphicsContext*>(Engine::get().getWindow().getGraphicsContext());
-        const auto& deviceContext = graphicsContext->getNativeDeviceContext();
-        const auto& renderTarget = graphicsContext->getNativeRenderTarget();
+        const auto& deviceContext = graphicsContext->getDeviceContext();
+        const auto& renderTarget = graphicsContext->getCurrentRenderTarget();
 
         glm::vec4 color4{ color, 1.f };
         deviceContext->ClearRenderTargetView(renderTarget.Get(), glm::value_ptr(color4));
@@ -38,7 +38,7 @@ namespace jng {
     void Direct3DRendererAPI::draw(uint32 count) const
     {
         const auto* graphicsContext = reinterpret_cast<const Direct3DGraphicsContext*>(Engine::get().getWindow().getGraphicsContext());
-        const auto& deviceContext = graphicsContext->getNativeDeviceContext();
+        const auto& deviceContext = graphicsContext->getDeviceContext();
 
         deviceContext->Draw(count, 0);
         JNG_D3D_CHECK();
@@ -52,7 +52,7 @@ namespace jng {
     void Direct3DRendererAPI::drawIndexed(uint32 count) const
     {
         const auto* graphicsContext = reinterpret_cast<const Direct3DGraphicsContext*>(Engine::get().getWindow().getGraphicsContext());
-        const auto& deviceContext = graphicsContext->getNativeDeviceContext();
+        const auto& deviceContext = graphicsContext->getDeviceContext();
 
         deviceContext->DrawIndexed(count, 0, 0);
         JNG_D3D_CHECK();

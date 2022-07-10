@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-#version 450
+#version 450 core
 
 layout(location = 0) in vec2 a_Position;
 layout(location = 1) in vec2 a_TexCoord;

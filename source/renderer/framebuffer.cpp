@@ -10,6 +10,10 @@
 #include "renderer/renderer_api.hpp"
 #include "renderer/opengl/framebuffer_ogl.hpp"
 
+#if defined(JNG_WINDOWS)
+#include "renderer/direct3d/framebuffer_d3d.hpp"
+#endif
+
 namespace jng {
 
 Ref<Framebuffer> Framebuffer::create(const Properties& properties)
@@ -18,6 +22,9 @@ Ref<Framebuffer> Framebuffer::create(const Properties& properties)
 
         switch (RendererAPI::getRendererBackend())
         {
+#if defined(JNG_WINDOWS)
+        case RendererBackend::Direct3D: return makeRef<Direct3DFramebuffer>(properties);
+#endif
         case RendererBackend::OpenGL: return makeRef<OpenGLFramebuffer>(properties);
         default:
             JNG_CORE_ASSERT(false, "API unsupported!");

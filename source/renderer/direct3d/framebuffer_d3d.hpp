@@ -7,7 +7,20 @@
 #pragma once
 #include "renderer/framebuffer.hpp"
 
+#include "platform/windows/windows_base.hpp"
+
+#pragma warning(disable:4265)
+#include <wrl.h>
+#pragma warning(default:4265)
+
+struct ID3D11RenderTargetView;
+struct ID3D11ShaderResourceView;
+
 namespace jng {
+
+	class Direct3DGraphicsContext;
+
+	namespace wrl = Microsoft::WRL;
 
 	class Direct3DFramebuffer :
 		public Framebuffer
@@ -18,13 +31,15 @@ namespace jng {
 
 		void bind() const override;
 		void unbind() const override;
+
+		void* getColorAttachmentHandle() override { return m_colorAttachmentView.Get(); }
 	private:
 		void recreate();
 
 		Properties m_properties;
-		uint32 m_ID;
-		uint32 m_colorAttachmentID;
-		uint32 m_depthAttachmentID;
+		const Direct3DGraphicsContext* m_graphicsContext;
+		wrl::ComPtr<ID3D11RenderTargetView> m_renderTargetView;
+		wrl::ComPtr<ID3D11ShaderResourceView> m_colorAttachmentView;
 	};
 
 } // namespace jng

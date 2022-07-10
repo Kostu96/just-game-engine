@@ -39,9 +39,7 @@ namespace jng {
             return DXGI_FORMAT_UNKNOWN;
     }
 
-    /*
-
-    static int dataTypeToCount(BufferElement::DataType type)
+    /*static int dataTypeToCount(BufferElement::DataType type)
     {
         switch (type)
         {
@@ -72,7 +70,7 @@ namespace jng {
         vbod3d->setVertexLayout(m_layout);
 
         HRESULT hr;
-        const auto& device = m_graphicsContext->getNativeDevice();
+        const auto& device = m_graphicsContext->getDevice();
 
         UINT size = static_cast<UINT>(m_layout.getElements().size());
         D3D11_INPUT_ELEMENT_DESC* ieds = new D3D11_INPUT_ELEMENT_DESC[size];
@@ -108,25 +106,17 @@ namespace jng {
 
     void Direct3DVertexArray::bind() const
     {
-        const auto& deviceContext = m_graphicsContext->getNativeDeviceContext();
+        const auto& deviceContext = m_graphicsContext->getDeviceContext();
 
         deviceContext->IASetInputLayout(m_nativeLayout.Get());
         m_VBO->bind();
         if (m_IBO)
             m_IBO->bind();
-        // TODO: implement
     }
 
     void Direct3DVertexArray::unbind() const
     {
-        // TODO: implement
-    }
-
-    void Direct3DVertexArray::setIndexBuffer(const Ref<IndexBuffer>& ibo)
-    {
-        m_IBO = ibo;
-
-        // TODO: implement
+        
     }
 
 } // namespace jng

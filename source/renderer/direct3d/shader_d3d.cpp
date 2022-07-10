@@ -27,7 +27,7 @@ namespace jng {
 	Direct3DShader::Direct3DShader(std::string_view vertexShaderFilename, std::string_view fragmentShaderFilename) :
 		m_graphicsContext{ reinterpret_cast<const Direct3DGraphicsContext*>(Engine::get().getWindow().getGraphicsContext()) }
     {
-		const auto& device = m_graphicsContext->getNativeDevice();
+		const auto& device = m_graphicsContext->getDevice();
 
 		createCacheDirectoryIfNeeded();
 
@@ -46,7 +46,7 @@ namespace jng {
 
     void Direct3DShader::bind() const
     {
-		const auto& deviceContext = m_graphicsContext->getNativeDeviceContext();
+		const auto& deviceContext = m_graphicsContext->getDeviceContext();
 
 		deviceContext->VSSetShader(m_vertexShader.Get(), nullptr, 0);
 		deviceContext->PSSetShader(m_fragmentShader.Get(), nullptr, 0);
