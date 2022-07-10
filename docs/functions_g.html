@@ -67,7 +67,12 @@ $(function() {
 <h3><a id="index_g" name="index_g"></a>- g -</h3><ul>
 <li>get()&#160;:&#160;<a class="el" href="classjng_1_1_engine.html#a2d6069409bf9c51915be9b7ebc755ab3">jng::Engine</a></li>
 <li>getCacheDirectory()&#160;:&#160;<a class="el" href="classjng_1_1_direct3_d_shader.html#a03b5e074b2572a9398ddcceca052a193">jng::Direct3DShader</a>, <a class="el" href="classjng_1_1_open_g_l_shader.html#aac01b13d827bc93b7f76cdfc4b19d774">jng::OpenGLShader</a>, <a class="el" href="classjng_1_1_shader.html#a9b8660d78744b4957402168c91d82660">jng::Shader</a></li>
+<li>getColorAttachmentHandle()&#160;:&#160;<a class="el" href="classjng_1_1_direct3_d_framebuffer.html#aec5e99c20eaf8c46594661a656828a73">jng::Direct3DFramebuffer</a>, <a class="el" href="classjng_1_1_framebuffer.html#a16893b153de85a8191574206a226e318">jng::Framebuffer</a>, <a class="el" href="classjng_1_1_open_g_l_framebuffer.html#af2b3dae21d5a2389489415be0ac7b525">jng::OpenGLFramebuffer</a></li>
 <li>getCount()&#160;:&#160;<a class="el" href="classjng_1_1_direct3_d_index_buffer.html#aabd46baad3ccd102afb6868ba40df69d">jng::Direct3DIndexBuffer</a>, <a class="el" href="classjng_1_1_index_buffer.html#ab0d0547b347f945f01e355986b5ee80c">jng::IndexBuffer</a>, <a class="el" href="classjng_1_1_open_g_l_index_buffer.html#a3faa173e28b253c54904093445aceb79">jng::OpenGLIndexBuffer</a>, <a class="el" href="classk2d_1_1_index_buffer_impl.html#ae1b8f163e5cc7a9e2d6c5c35aa141044">k2d::IndexBufferImpl</a></li>
+<li>getCurrentRenderTarget()&#160;:&#160;<a class="el" href="classjng_1_1_direct3_d_graphics_context.html#abd9a5f571afefa7be2b53a3f9abe197d">jng::Direct3DGraphicsContext</a></li>
+<li>getDefaultRenderTarget()&#160;:&#160;<a class="el" href="classjng_1_1_direct3_d_graphics_context.html#a77393c354e4259322366d0090563a5d7">jng::Direct3DGraphicsContext</a></li>
+<li>getDevice()&#160;:&#160;<a class="el" href="classjng_1_1_direct3_d_graphics_context.html#ae43a92a7da182addb5d36d2b180e33ab">jng::Direct3DGraphicsContext</a></li>
+<li>getDeviceContext()&#160;:&#160;<a class="el" href="classjng_1_1_direct3_d_graphics_context.html#ac06cfd483628e9f38e60de75533bfd94">jng::Direct3DGraphicsContext</a></li>
 <li>getElements()&#160;:&#160;<a class="el" href="classjng_1_1_vertex_layout.html#ad7771765fb8cbfdc992ed2b7ad4ec1fb">jng::VertexLayout</a></li>
 <li>getEventCallback()&#160;:&#160;<a class="el" href="classjng_1_1_window.html#ade766b3dc27877def5adf94dc6d12065">jng::Window</a></li>
 <li>getGraphicsContext()&#160;:&#160;<a class="el" href="classjng_1_1_window.html#aebd243034e8890c98476044c6a0e3f05">jng::Window</a></li>
@@ -79,10 +84,7 @@ $(function() {
 <li>getMouseButton()&#160;:&#160;<a class="el" href="classjng_1_1_mouse_button_event.html#adc0d00395677ad678c70fc7b4f6b7493">jng::MouseButtonEvent</a></li>
 <li>getMousePosition()&#160;:&#160;<a class="el" href="classjng_1_1_input.html#a0efa98b9ffb16b0d415d1260f1b99c4d">jng::Input</a></li>
 <li>getName()&#160;:&#160;<a class="el" href="classjng_1_1_event.html#add85314fd26e53153ae4d1b049aa0191">jng::Event</a></li>
-<li>getNativeDevice()&#160;:&#160;<a class="el" href="classjng_1_1_direct3_d_graphics_context.html#a11f5e5918317fcd85098730831957d2f">jng::Direct3DGraphicsContext</a></li>
-<li>getNativeDeviceContext()&#160;:&#160;<a class="el" href="classjng_1_1_direct3_d_graphics_context.html#a4e2953faab02900ece7c0ccecac7a7e1">jng::Direct3DGraphicsContext</a></li>
 <li>getNativeKeyCode()&#160;:&#160;<a class="el" href="classjng_1_1_platform.html#a7ee7f176ed08f63a3d41868604ceb134">jng::Platform</a></li>
-<li>getNativeRenderTarget()&#160;:&#160;<a class="el" href="classjng_1_1_direct3_d_graphics_context.html#a5d05af1580c841cd8170882024c9face">jng::Direct3DGraphicsContext</a></li>
 <li>getNativeWindowHandle()&#160;:&#160;<a class="el" href="classjng_1_1_window.html#a7fbfdf132d677ee62f311f8cadbafbcf">jng::Window</a></li>
 <li>getPosition()&#160;:&#160;<a class="el" href="classjng_1_1_camera.html#a531fcfc06f6d887eacd758d3d4925685">jng::Camera</a></li>
 <li>getProjection()&#160;:&#160;<a class="el" href="classjng_1_1_camera.html#a754b87e54064cb508f750f4f3f4bf73a">jng::Camera</a></li>
@@ -108,7 +110,7 @@ $(function() {
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jul 8 2022 23:37:11 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Sun Jul 10 2022 17:08:38 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

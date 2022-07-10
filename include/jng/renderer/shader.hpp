@@ -19,12 +19,6 @@ namespace jng {
         virtual void bind() const = 0;
         virtual void unbind() const = 0;
 
-        virtual void set(const char* name, int value) const = 0;
-        virtual void set(const char* name, const int* value, uint32 count) const = 0;
-        virtual void set(const char* name, const glm::vec3& value) const = 0;
-        virtual void set(const char* name, const glm::vec4& value) const = 0;
-        virtual void set(const char* name, const glm::mat4& value) const = 0;
-
         static Ref<Shader> create(std::string_view vertexShaderFilename, std::string_view fragmentShaderFilename);
         virtual ~Shader() = default;
     protected:

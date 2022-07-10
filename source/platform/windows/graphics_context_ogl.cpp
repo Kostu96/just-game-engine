@@ -116,7 +116,7 @@ namespace jng {
         SetPixelFormat(m_deviceContext, pixelFormat, &pfd);
 
         m_graphicsContextHandle = wglCreateContext(m_deviceContext);
-        makeCurrent();
+        wglMakeCurrent(m_deviceContext, m_graphicsContextHandle);
 
         [[maybe_unused]] int success = gladLoadGLLoader(windowsGLGetProcAddress);
         JNG_CORE_ASSERT(success, "Could not initialize GLAD!");
@@ -146,11 +146,6 @@ namespace jng {
     {
         wglMakeCurrent(GetDC(m_windowHandle), nullptr);
         wglDeleteContext(m_graphicsContextHandle);
-    }
-
-    void OpenGLGraphicsContext::makeCurrent() const
-    {
-        wglMakeCurrent(GetDC(m_windowHandle), m_graphicsContextHandle);
     }
 
     void OpenGLGraphicsContext::swapBuffers() const

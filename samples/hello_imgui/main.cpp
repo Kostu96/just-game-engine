@@ -11,13 +11,12 @@ class SampleLayer :
     public jng::Layer
 {
 public:
-    SampleLayer()
-    {
-        
-    }
+    SampleLayer() {}
 
     void onUpdate(float /*dt*/) override
     {
+        jng::RendererAPI::clear({ 0.f, 0.f, 0.f });
+
         static bool open = true;
         ImGui::ShowDemoWindow(&open);
     }

@@ -31,12 +31,14 @@ namespace jng {
         explicit Direct3DGraphicsContext(Window& window);
         ~Direct3DGraphicsContext();
 
-        void makeCurrent() const override;
         void swapBuffers() const override;
 
-        const wrl::ComPtr<ID3D11Device>& getNativeDevice() const { return m_device; }
-        const wrl::ComPtr<ID3D11DeviceContext>& getNativeDeviceContext() const { return m_deviceContext; }
-        const wrl::ComPtr<ID3D11RenderTargetView>& getNativeRenderTarget() const { return m_renderTarget; }
+        const wrl::ComPtr<ID3D11Device>& getDevice() const { return m_device; }
+        const wrl::ComPtr<ID3D11DeviceContext>& getDeviceContext() const { return m_deviceContext; }
+        ID3D11RenderTargetView* getCurrentRenderTarget() const { return m_currentRenderTarget; }
+        ID3D11RenderTargetView* getDefaultRenderTarget() const { return m_defaultRenderTarget.Get(); }
+
+        void setCurrentRenderTarget(ID3D11RenderTargetView* renderTargetView) const;
     private:
         // TODO: temp
         Window& m_window;
@@ -44,7 +46,8 @@ namespace jng {
         wrl::ComPtr<ID3D11Device> m_device;
         wrl::ComPtr<IDXGISwapChain> m_swapChain;
         wrl::ComPtr<ID3D11DeviceContext> m_deviceContext;
-        wrl::ComPtr<ID3D11RenderTargetView> m_renderTarget;
+        wrl::ComPtr<ID3D11RenderTargetView> m_defaultRenderTarget;
+        mutable ID3D11RenderTargetView* m_currentRenderTarget = nullptr;
     };
 
 } // namespace jng

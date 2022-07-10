@@ -10,6 +10,7 @@
 #include "core/engine.hpp"
 #include "platform/window.hpp"
 #include "platform/windows/error_checks_macros_win.hpp"
+#include "platform/windows/graphics_context_d3d.hpp"
 
 #include <d3d11.h>
 #include <stb/stb_image.h>
@@ -45,12 +46,12 @@ namespace jng {
 		createTexture(nullptr);
 	}
 
-	// NOTE: this needs to be here for com::wrl to work
+	// NOTE: this needs to be here for wrl::ComPtr to work
 	Direct3DTexture::~Direct3DTexture() = default;
 
     void Direct3DTexture::bind(uint32 slot) const
     {
-		const auto& deviceContext = m_graphicsContext->getNativeDeviceContext();
+		const auto& deviceContext = m_graphicsContext->getDeviceContext();
 		deviceContext->PSSetShaderResources(slot, 1, m_textureView.GetAddressOf());
 		deviceContext->PSSetSamplers(slot, 1, m_sampler.GetAddressOf());
     }
@@ -62,7 +63,7 @@ namespace jng {
 
 	void Direct3DTexture::setData(void* data, size_t size) const
 	{
-		const auto& deviceContext = m_graphicsContext->getNativeDeviceContext();
+		const auto& deviceContext = m_graphicsContext->getDeviceContext();
 
 		wrl::ComPtr<ID3D11Resource> resource;
 		m_textureView->GetResource(&resource);
@@ -75,7 +76,7 @@ namespace jng {
 
 	void Direct3DTexture::createTexture(void* data)
 	{
-		const auto& device = m_graphicsContext->getNativeDevice();
+		const auto& device = m_graphicsContext->getDevice();
 
 		D3D11_TEXTURE2D_DESC textureDesc{};
 		textureDesc.Width = m_width;

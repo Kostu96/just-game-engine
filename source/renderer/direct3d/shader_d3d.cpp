@@ -27,7 +27,7 @@ namespace jng {
 	Direct3DShader::Direct3DShader(std::string_view vertexShaderFilename, std::string_view fragmentShaderFilename) :
 		m_graphicsContext{ reinterpret_cast<const Direct3DGraphicsContext*>(Engine::get().getWindow().getGraphicsContext()) }
     {
-		const auto& device = m_graphicsContext->getNativeDevice();
+		const auto& device = m_graphicsContext->getDevice();
 
 		createCacheDirectoryIfNeeded();
 
@@ -46,7 +46,7 @@ namespace jng {
 
     void Direct3DShader::bind() const
     {
-		const auto& deviceContext = m_graphicsContext->getNativeDeviceContext();
+		const auto& deviceContext = m_graphicsContext->getDeviceContext();
 
 		deviceContext->VSSetShader(m_vertexShader.Get(), nullptr, 0);
 		deviceContext->PSSetShader(m_fragmentShader.Get(), nullptr, 0);
@@ -59,6 +59,8 @@ namespace jng {
 
 	void Direct3DShader::compileShader(const char* shaderFilename, Type type, wrl::ComPtr<ID3DBlob>& byteCode)
 	{
+		JNG_CORE_TRACE("Compiling shader: {0}", shaderFilename);
+
 		std::vector<uint32> vulkanSpirvData = compileToVulkanSPIRV(shaderFilename, type);
 
 		// Check for cached HLSL Intermediate
@@ -68,6 +70,8 @@ namespace jng {
 		
 		HRESULT hr;
 		if (m_isCacheDirty) {
+			JNG_CORE_TRACE("Recompiling HLSL bytecode...");
+			
 			spirv_cross::CompilerHLSL hlslCompiler{ vulkanSpirvData };
 			spirv_cross::CompilerHLSL::Options options2;
 			options2.shader_model = 50;
@@ -104,6 +108,9 @@ namespace jng {
 			JNG_D3D_CHECK_HR(hr);
 		}
 		else {
+			JNG_CORE_TRACE("Loading HLSL bytecode from cache: {0}",
+				cachedPath.generic_string().c_str());
+			
 			hr = D3DReadFileToBlob(ccl::stringToWstring(cachedPath.generic_string()).c_str(), &byteCode);
 			JNG_D3D_CHECK_HR(hr);
 		}

@@ -53,10 +53,6 @@ target_compile_options(${JNG_TARGET_NAME} PRIVATE
     $<$<CXX_COMPILER_ID:MSVC>:/MP /fp:fast /external:anglebrackets /external:W1>
 )
 
-set_target_properties(${JNG_TARGET_NAME} PROPERTIES
-    MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL"
-)
-
 target_include_directories(${JNG_TARGET_NAME} SYSTEM
     PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/glm

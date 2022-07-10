@@ -19,10 +19,11 @@ public:
 
     void onEvent(jng::Event& event);
     void onUpdate(float dt) override;
-    void onImGuiRender() override;
+    // void onImGuiRender() override;
 private:
     const GameData& m_gameData;
     CameraController m_cameraController;
+    jng::Ref<jng::Framebuffer> m_framebuffer;
     jng::Ref<jng::Texture> m_texture;
     jng::Ref<SubTexture> m_stairTexture;
 };

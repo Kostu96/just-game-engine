@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['platform_2ecpp_0',['platform.cpp',['../platform_8cpp.html',1,'']]],
-  ['platform_2ehpp_1',['platform.hpp',['../platform_8hpp.html',1,'']]],
-  ['profiling_2ecpp_2',['profiling.cpp',['../profiling_8cpp.html',1,'']]],
-  ['profiling_2ehpp_3',['profiling.hpp',['../profiling_8hpp.html',1,'']]]
+  ['main_2ecpp_0',['main.cpp',['../main_8cpp.html',1,'']]],
+  ['mouse_5fcodes_2ehpp_1',['mouse_codes.hpp',['../mouse__codes_8hpp.html',1,'']]],
+  ['mouse_5fevents_2ehpp_2',['mouse_events.hpp',['../mouse__events_8hpp.html',1,'']]]
 ];

@@ -66,11 +66,11 @@ namespace jng {
         hr = m_device->CreateRenderTargetView(
             backBuffer.Get(),
             nullptr,
-            &m_renderTarget
+            &m_defaultRenderTarget
         );
         JNG_D3D_CHECK_HR(hr);
 
-        m_deviceContext->OMSetRenderTargets(1, m_renderTarget.GetAddressOf(), nullptr);
+        setCurrentRenderTarget(m_defaultRenderTarget.Get());
 
         D3D11_VIEWPORT vp{};
         vp.Width = static_cast<float>(window.getWidth());
@@ -86,17 +86,18 @@ namespace jng {
     // NOTE: this is needed for wrl::ComPtr to work
     Direct3DGraphicsContext::~Direct3DGraphicsContext() = default;
 
-    void Direct3DGraphicsContext::makeCurrent() const
-    {
-
-    }
-
     void Direct3DGraphicsContext::swapBuffers() const
     {
         HRESULT hr;
         // TODO: d3d vsync - first arg 1 on, 0 off
         hr = m_swapChain->Present(1, 0);
         JNG_D3D_CHECK_HR_DEVICE_REMOVED(hr, m_device);
+    }
+
+    void Direct3DGraphicsContext::setCurrentRenderTarget(ID3D11RenderTargetView* renderTargetView) const
+    {
+        m_currentRenderTarget = renderTargetView;
+        m_deviceContext->OMSetRenderTargets(1, &m_currentRenderTarget, nullptr);
     }
 
 } // namespace jng

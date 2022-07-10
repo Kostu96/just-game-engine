@@ -20,6 +20,7 @@
 
 #include "renderer/buffers.hpp"
 #include "renderer/camera.hpp"
+#include "renderer/framebuffer.hpp"
 #include "renderer/renderer.hpp"
 #include "renderer/renderer_api.hpp"
 #include "renderer/renderer2d.hpp"

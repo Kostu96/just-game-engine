@@ -19,6 +19,8 @@
 
 namespace jng {
 
+    constexpr double NANO_TO_BASE_MULTIPLIER = 0.000000001;
+
     Engine::Engine(const Properties& properties) :
         m_properties{ properties },
         m_rendererType{ properties.rendererType }
@@ -76,12 +78,10 @@ namespace jng {
 
             ImGuiLayer::newFrame();
 
-            RendererAPI::clear({ 0.f, 0.f, 0.f });
-
             // TODO: let pause on minimize be controlled by client
             if (!m_window->isMinimized())
                 for (auto layer : m_layerStack)
-                    layer->onUpdate(static_cast<float>(dt.count() * 0.000000001));
+                    layer->onUpdate(static_cast<float>(dt.count() * NANO_TO_BASE_MULTIPLIER));
 
             ImGuiLayer::render();
             

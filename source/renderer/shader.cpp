@@ -72,10 +72,14 @@ namespace jng {
 		else
 			m_isCacheDirty = true;
 
+		JNG_CORE_TRACE("Shader cache is {0}.", m_isCacheDirty ? "dirty" : "good");
+
 		std::filesystem::path cachedPath = cacheDirectory / (shaderFilePath.stem().string() + shaderTypeToCachedVlkFileExtension(type));
 		
 		std::vector<uint32> vulkanSpirvData;
 		if (m_isCacheDirty) {
+			JNG_CORE_TRACE("Recompiling Vulkan SPIR-V...");
+
 			shaderc::Compiler compiler;
 			shaderc::CompileOptions options;
 			options.SetTargetEnvironment(shaderc_target_env_vulkan, shaderc_env_version_vulkan_1_3);
@@ -88,6 +92,9 @@ namespace jng {
 			ccl::writeFile(cachedPath.generic_string().c_str(), reinterpret_cast<char*>(vulkanSpirvData.data()), vulkanSpirvData.size() * sizeof(uint32), true);
 		}
 		else {
+			JNG_CORE_TRACE("Loading Vulkan SPIR-V from cache: {0}",
+				cachedPath.generic_string().c_str());
+
 			success = ccl::readFile(cachedPath.generic_string().c_str(), nullptr, size, true);
 			vulkanSpirvData.resize(size / sizeof(uint32));
 			success = ccl::readFile(cachedPath.generic_string().c_str(), reinterpret_cast<char*>(vulkanSpirvData.data()), size, true);

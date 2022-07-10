@@ -20,6 +20,6 @@ var searchData=
   ['printscreen_17',['PrintScreen',['../namespacejng_1_1_key.html#adf78708c5728ffc0caee9bacc41f04e6',1,'jng::Key']]],
   ['profiling_2ecpp_18',['profiling.cpp',['../profiling_8cpp.html',1,'']]],
   ['profiling_2ehpp_19',['profiling.hpp',['../profiling_8hpp.html',1,'']]],
-  ['properties_20',['Properties',['../structjng_1_1_engine_1_1_properties.html',1,'jng::Engine::Properties'],['../structjng_1_1_renderer2_d_1_1_properties.html',1,'jng::Renderer2D::Properties']]],
+  ['properties_20',['Properties',['../structjng_1_1_engine_1_1_properties.html',1,'jng::Engine::Properties'],['../structjng_1_1_framebuffer_1_1_properties.html',1,'jng::Framebuffer::Properties'],['../structjng_1_1_renderer2_d_1_1_properties.html',1,'jng::Renderer2D::Properties']]],
   ['pushlayer_21',['pushLayer',['../classjng_1_1_layer_stack.html#a5c931ec74efecc11ad2373a99eb61cff',1,'jng::LayerStack']]]
 ];

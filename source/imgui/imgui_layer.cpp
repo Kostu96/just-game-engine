@@ -55,8 +55,8 @@ namespace jng {
         {
             // TODO: temp, move thos to impl files
             const auto* graphicsContext = reinterpret_cast<const Direct3DGraphicsContext*>(Engine::get().getWindow().getGraphicsContext());
-            const auto& device = graphicsContext->getNativeDevice();
-            const auto& deviceContext = graphicsContext->getNativeDeviceContext();
+            const auto& device = graphicsContext->getDevice();
+            const auto& deviceContext = graphicsContext->getDeviceContext();
             ImGui_ImplDX11_Init(device.Get(), deviceContext.Get());
         } break;
 #endif
