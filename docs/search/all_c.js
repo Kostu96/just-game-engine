@@ -7,7 +7,7 @@ var searchData=
   ['m_5fkeycode_4',['m_keyCode',['../classjng_1_1_key_event.html#aed407cfd89f09619680c082399feec3c',1,'jng::KeyEvent']]],
   ['main_5',['main',['../entry__point_8hpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'entry_point.hpp']]],
   ['main_2ecpp_6',['main.cpp',['../main_8cpp.html',1,'']]],
-  ['makecurrent_7',['makeCurrent',['../classjng_1_1_graphics_context.html#a7d6fd320778b0399cf10ccddb274e0f4',1,'jng::GraphicsContext::makeCurrent()'],['../classjng_1_1_open_g_l_graphics_context.html#a6d3ffc3ff5551047d8ac744883d5f297',1,'jng::OpenGLGraphicsContext::makeCurrent()'],['../classk2d_1_1_graphics_context_impl.html#af99a7b12c22c3c3c58d7cfd8196aa922',1,'k2d::GraphicsContextImpl::makeCurrent()'],['../classjng_1_1_direct3_d_graphics_context.html#a18316e575ff74013c6a9f6fc5d895f1b',1,'jng::Direct3DGraphicsContext::makeCurrent()']]],
+  ['makecurrent_7',['makeCurrent',['../classk2d_1_1_graphics_context_impl.html#af99a7b12c22c3c3c58d7cfd8196aa922',1,'k2d::GraphicsContextImpl']]],
   ['makeref_8',['makeRef',['../namespacejng.html#a855a5235c64c8d90028fe105645e27ad',1,'jng']]],
   ['makescope_9',['makeScope',['../namespacejng.html#a0c97bf03c0b6f16cdb402b8ee440a382',1,'jng']]],
   ['mat3_10',['Mat3',['../structjng_1_1_layout_element.html#af99663c7b612370f9f9197b09119fb5ba2495a7d9c1fab19af6441abbfed823e1',1,'jng::LayoutElement']]],

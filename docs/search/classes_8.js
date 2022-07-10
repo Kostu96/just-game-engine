@@ -1,12 +1,8 @@
 var searchData=
 [
-  ['openglgraphicscontext_0',['OpenGLGraphicsContext',['../classjng_1_1_open_g_l_graphics_context.html',1,'jng']]],
-  ['openglindexbuffer_1',['OpenGLIndexBuffer',['../classjng_1_1_open_g_l_index_buffer.html',1,'jng']]],
-  ['openglrendererapi_2',['OpenGLRendererAPI',['../classjng_1_1_open_g_l_renderer_a_p_i.html',1,'jng']]],
-  ['openglshader_3',['OpenGLShader',['../classjng_1_1_open_g_l_shader.html',1,'jng']]],
-  ['opengltexture_4',['OpenGLTexture',['../classjng_1_1_open_g_l_texture.html',1,'jng']]],
-  ['opengluniformbuffer_5',['OpenGLUniformBuffer',['../classjng_1_1_open_g_l_uniform_buffer.html',1,'jng']]],
-  ['openglvertexarray_6',['OpenGLVertexArray',['../classjng_1_1_open_g_l_vertex_array.html',1,'jng']]],
-  ['openglvertexbuffer_7',['OpenGLVertexBuffer',['../classjng_1_1_open_g_l_vertex_buffer.html',1,'jng']]],
-  ['orthographiccamera_8',['OrthographicCamera',['../classjng_1_1_orthographic_camera.html',1,'jng']]]
+  ['mousebuttonevent_0',['MouseButtonEvent',['../classjng_1_1_mouse_button_event.html',1,'jng']]],
+  ['mousebuttonpressevent_1',['MouseButtonPressEvent',['../classjng_1_1_mouse_button_press_event.html',1,'jng']]],
+  ['mousebuttonreleaseevent_2',['MouseButtonReleaseEvent',['../classjng_1_1_mouse_button_release_event.html',1,'jng']]],
+  ['mousemoveevent_3',['MouseMoveEvent',['../classjng_1_1_mouse_move_event.html',1,'jng']]],
+  ['mousescrollevent_4',['MouseScrollEvent',['../classjng_1_1_mouse_scroll_event.html',1,'jng']]]
 ];
