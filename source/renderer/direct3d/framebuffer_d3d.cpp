@@ -28,7 +28,7 @@ namespace jng {
 
 	void Direct3DFramebuffer::bind() const
 	{
-		m_graphicsContext->setCurrentRenderTarget(m_renderTargetView);
+		m_graphicsContext->setCurrentRenderTarget(m_renderTargetView.Get());
 	}
 
 	void Direct3DFramebuffer::unbind() const

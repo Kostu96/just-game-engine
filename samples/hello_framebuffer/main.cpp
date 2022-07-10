@@ -63,6 +63,9 @@ public:
         m_framebuffer->unbind();
         jng::RendererAPI::clear({ 0.2f, 0.2f, 0.4f });
 
+        m_texture->bind(0);
+        jng::RendererAPI::drawIndexed(6);
+
         ImGui::Begin("Framebuffer");
         ImGui::Image(m_framebuffer->getColorAttachmentHandle(), { 400, 300 });
         ImGui::End();

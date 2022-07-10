@@ -28,10 +28,9 @@ namespace jng {
     {
         const auto* graphicsContext = reinterpret_cast<const Direct3DGraphicsContext*>(Engine::get().getWindow().getGraphicsContext());
         const auto& deviceContext = graphicsContext->getDeviceContext();
-        const auto& renderTarget = graphicsContext->getCurrentRenderTarget();
 
         glm::vec4 color4{ color, 1.f };
-        deviceContext->ClearRenderTargetView(renderTarget.Get(), glm::value_ptr(color4));
+        deviceContext->ClearRenderTargetView(graphicsContext->getCurrentRenderTarget(), glm::value_ptr(color4));
         JNG_D3D_CHECK();
     }
 

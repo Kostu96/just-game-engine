@@ -35,10 +35,10 @@ namespace jng {
 
         const wrl::ComPtr<ID3D11Device>& getDevice() const { return m_device; }
         const wrl::ComPtr<ID3D11DeviceContext>& getDeviceContext() const { return m_deviceContext; }
-        const wrl::ComPtr<ID3D11RenderTargetView>& getCurrentRenderTarget() const { return m_currentRenderTarget; }
-        const wrl::ComPtr<ID3D11RenderTargetView>& getDefaultRenderTarget() const { return m_defaultRenderTarget; }
+        ID3D11RenderTargetView* getCurrentRenderTarget() const { return m_currentRenderTarget; }
+        ID3D11RenderTargetView* getDefaultRenderTarget() const { return m_defaultRenderTarget.Get(); }
 
-        void setCurrentRenderTarget(const wrl::ComPtr<ID3D11RenderTargetView>& renderTargetView) const;
+        void setCurrentRenderTarget(ID3D11RenderTargetView* renderTargetView) const;
     private:
         // TODO: temp
         Window& m_window;
@@ -46,8 +46,8 @@ namespace jng {
         wrl::ComPtr<ID3D11Device> m_device;
         wrl::ComPtr<IDXGISwapChain> m_swapChain;
         wrl::ComPtr<ID3D11DeviceContext> m_deviceContext;
-        wrl::ComPtr<ID3D11RenderTargetView>& m_currentRenderTarget;
         wrl::ComPtr<ID3D11RenderTargetView> m_defaultRenderTarget;
+        mutable ID3D11RenderTargetView* m_currentRenderTarget = nullptr;
     };
 
 } // namespace jng

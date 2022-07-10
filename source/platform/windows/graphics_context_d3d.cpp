@@ -21,8 +21,7 @@ namespace jng {
 
     Direct3DGraphicsContext::Direct3DGraphicsContext(Window& window) :
         m_window{ window },
-        m_windowHandle{ reinterpret_cast<HWND>(glfwGetWin32Window(window.getNativeWindowHandle())) },
-        m_currentRenderTarget{ m_defaultRenderTarget }
+        m_windowHandle{ reinterpret_cast<HWND>(glfwGetWin32Window(window.getNativeWindowHandle())) }
     {
         HRESULT hr;
         
@@ -71,7 +70,7 @@ namespace jng {
         );
         JNG_D3D_CHECK_HR(hr);
 
-        m_deviceContext->OMSetRenderTargets(1, m_currentRenderTarget.GetAddressOf(), nullptr);
+        setCurrentRenderTarget(m_defaultRenderTarget.Get());
 
         D3D11_VIEWPORT vp{};
         vp.Width = static_cast<float>(window.getWidth());
@@ -95,10 +94,10 @@ namespace jng {
         JNG_D3D_CHECK_HR_DEVICE_REMOVED(hr, m_device);
     }
 
-    void Direct3DGraphicsContext::setCurrentRenderTarget(const wrl::ComPtr<ID3D11RenderTargetView>& renderTargetView) const
+    void Direct3DGraphicsContext::setCurrentRenderTarget(ID3D11RenderTargetView* renderTargetView) const
     {
         m_currentRenderTarget = renderTargetView;
-        m_deviceContext->OMSetRenderTargets(1, m_currentRenderTarget.GetAddressOf(), nullptr);
+        m_deviceContext->OMSetRenderTargets(1, &m_currentRenderTarget, nullptr);
     }
 
 } // namespace jng
