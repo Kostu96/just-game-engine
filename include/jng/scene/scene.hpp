@@ -21,7 +21,7 @@ namespace jng {
     private:
         entt::registry m_registry;
 
-        //friend class Entity;
+        friend class Entity;
     };
 
 } // namespace jng

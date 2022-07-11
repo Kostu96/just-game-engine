@@ -22,7 +22,7 @@ namespace jng {
 
 		virtual void bind() const = 0;
 		virtual void unbind() const = 0;
-
+		virtual void resize(uint32 width, uint32 height) = 0;
 		virtual void* getColorAttachmentHandle() = 0;
 
 		static Ref<Framebuffer> create(const Properties& properties);

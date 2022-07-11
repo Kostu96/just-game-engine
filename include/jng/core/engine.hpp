@@ -35,6 +35,7 @@ namespace jng {
         virtual ~Engine();
 
         void run();
+        void close() { m_isRunning = false; }
 
         static Engine& get() { return *s_instance; }
         const Properties& getProperties() const { return m_properties; }

@@ -30,7 +30,7 @@ namespace jng {
         SpriteComponent() = default;
         SpriteComponent(const SpriteComponent&) = default;
 
-        glm::vec3 color{ 1.f, 1.f, 1.f };
+        glm::vec4 color{ 1.f, 1.f, 1.f, 1.f };
     };
 
 } // namespace jng

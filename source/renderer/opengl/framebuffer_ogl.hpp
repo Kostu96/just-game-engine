@@ -18,7 +18,7 @@ namespace jng {
 
 		void bind() const override;
 		void unbind() const override;
-
+		void resize(uint32 width, uint32 height) override;
 		void* getColorAttachmentHandle() override { return reinterpret_cast<void*>(static_cast<uint64>(m_colorAttachmentID)); }
 	private:
 		void recreate();

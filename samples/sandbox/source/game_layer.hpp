@@ -19,7 +19,6 @@ public:
 
     void onEvent(jng::Event& event);
     void onUpdate(float dt) override;
-    // void onImGuiRender() override;
 private:
     const GameData& m_gameData;
     CameraController m_cameraController;
