@@ -26,11 +26,9 @@ namespace jng {
         
         Renderer2D::endScene();
         m_viewportFramebuffer->unbind();
-
-        updateGUI();
     }
 
-    void EditorLayer::updateGUI()
+    void EditorLayer::onImGuiUpdate()
     {
         // DockSpace
         ImGuiViewport* viewport = ImGui::GetMainViewport();
@@ -82,7 +80,7 @@ namespace jng {
                 m_activeScene.each([](Entity entity) {
                     auto& tc = entity.getComponent<TagComponent>();
                     ImGui::Text("%s", tc.tag.c_str());
-                });
+                    });
                 ImGui::End();
             }
 

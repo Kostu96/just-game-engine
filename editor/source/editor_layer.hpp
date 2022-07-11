@@ -22,9 +22,8 @@ namespace jng {
         explicit EditorLayer(const Properties& properties);
 
         void onUpdate(float dt) override;
+        void onImGuiUpdate() override;
     private:
-        void updateGUI();
-
         Ref<Framebuffer> m_viewportFramebuffer;
         glm::vec2 m_viewportWindowSize{};
 
