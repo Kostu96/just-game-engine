@@ -65,7 +65,10 @@ public:
 
         m_texture->bind(0);
         jng::RendererAPI::drawIndexed(6);
+    }
 
+    void onImGuiUpdate() override
+    {
         ImGui::Begin("Framebuffer");
         ImGui::Image(m_framebuffer->getColorAttachmentHandle(), { 400, 300 });
         ImGui::End();

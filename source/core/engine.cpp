@@ -76,13 +76,15 @@ namespace jng {
             std::chrono::duration<double, std::nano> dt = time - m_lastFrameTime;
             m_lastFrameTime = time;
 
-            ImGuiLayer::newFrame();
-
             // TODO: let pause on minimize be controlled by client
             if (!m_window->isMinimized())
                 for (auto layer : m_layerStack)
                     layer->onUpdate(static_cast<float>(dt.count() * NANO_TO_BASE_MULTIPLIER));
 
+            ImGuiLayer::newFrame();
+            if (!m_window->isMinimized())
+                for (auto layer : m_layerStack)
+                    layer->onImGuiUpdate();
             ImGuiLayer::render();
             
             m_window->onUpdate();
@@ -112,6 +114,7 @@ namespace jng {
 
     bool Engine::onWindowResize(WindowResizeEvent& event)
     {
+        // TODO: this should propably be done outside, where framebuffer logic is
         if (!m_window->isMinimized())
             RendererAPI::setViewport(0, 0, event.getWidth(), event.getHeight());
 

@@ -12,6 +12,8 @@ set(EDITOR_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/source/main.cpp
 )
 
+add_subdirectory(source)
+
 add_executable(${EDITOR_TARGET_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
     ${EDITOR_SOURCES}
