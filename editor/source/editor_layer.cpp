@@ -10,7 +10,7 @@ namespace jng {
 
     EditorLayer::EditorLayer(const Properties& properties) :
         m_viewportFramebuffer{ Framebuffer::create({ properties.width, properties.height }) },
-        m_mainCamera{ -(properties.width / 2.f), properties.width / 2.f, -(properties.height / 2.f), properties.height / 2.f }
+        m_mainCamera{ -(properties.width / 20.f), properties.width / 20.f, -(properties.height / 20.f), properties.height / 20.f }
     {
         Entity entity1 = m_activeScene.createEntity();
         entity1.addComponent<SpriteComponent>();
@@ -42,6 +42,7 @@ namespace jng {
         static bool dockspaceOpen = true;
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
         ImGui::Begin("DockSpaceWindow", &dockspaceOpen, window_flags);
+        ImGui::PopStyleVar();
         {
             ImGuiID dockspace_id = ImGui::GetID("MainDockSpace");
             ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_None);
@@ -63,19 +64,32 @@ namespace jng {
                     ImGui::EndMenu();
                 }
 
+                if (ImGui::BeginMenu("Windows"))
+                {
+                    ImGui::MenuItem("Inspector");
+                    ImGui::MenuItem("Scene Hierarchy");
+                    ImGui::MenuItem("Viewport");
+
+                    ImGui::EndMenu();
+                }
+
                 ImGui::EndMenuBar();
             }
 
             // Scene
-            ImGui::Begin("Scene");
+            ImGui::Begin("Scene Hierarchy");
             {
-
+                m_activeScene.each([](Entity entity) {
+                    auto& tc = entity.getComponent<TagComponent>();
+                    ImGui::Text("%s", tc.tag.c_str());
+                });
                 ImGui::End();
             }
 
             // Viewport
             ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
             ImGui::Begin("Viewport");
+            ImGui::PopStyleVar();
             {
                 ImVec2 viewportWindowSize = ImGui::GetContentRegionAvail();
                 ImGui::Image(m_viewportFramebuffer->getColorAttachmentHandle(), { viewportWindowSize.x, viewportWindowSize.y });
@@ -86,7 +100,6 @@ namespace jng {
                 }
 
                 ImGui::End();
-                ImGui::PopStyleVar();
             }
 
             // Inspector
@@ -97,7 +110,6 @@ namespace jng {
             }
 
             ImGui::End();
-            ImGui::PopStyleVar();
         }
     }
 

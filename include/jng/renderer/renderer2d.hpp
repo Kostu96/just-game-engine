@@ -32,8 +32,6 @@ namespace jng {
         static void beginScene(const Camera& camera);
         static void endScene();
 
-        // TODO: static void fillTriangle(const Properties& properties);
-
         static void fillQuad(const Properties& properties);
         static void fillQuad(glm::vec2 position, glm::vec2 size, const glm::vec4& color);
         static void fillQuad(glm::vec2 position, glm::vec2 size, float rotation, const glm::vec4& color);

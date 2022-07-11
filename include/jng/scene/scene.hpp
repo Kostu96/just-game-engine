@@ -17,11 +17,23 @@ namespace jng {
         Scene() = default;
 
         Entity createEntity();
+
         void onUpdate();
+
+        template<typename Func>
+        void each(Func func);
     private:
         entt::registry m_registry;
 
         friend class Entity;
     };
+
+    template<typename Func>
+    void Scene::each(Func func)
+    {
+        m_registry.each([&](entt::entity entityHandle) {
+            func({ entityHandle, *this });
+        });
+    }
 
 } // namespace jng
