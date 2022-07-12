@@ -43,7 +43,6 @@ namespace jng {
     private:
         glm::vec2 m_viewportWindowSize{ 1.f, 1.f };
         Ref<Framebuffer> m_viewportFramebuffer;
-        OrthographicCamera m_mainCamera;
         EditorContext m_context;
 
         InspectorWindow m_inspectorWindow;

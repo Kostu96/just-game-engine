@@ -15,8 +15,9 @@ namespace jng {
         public jng::Engine
     {
     public:
-        static constexpr unsigned int WindowWidth = 1600;
-        static constexpr unsigned int WindowHeight = 900;
+        // These are 16:9
+        static constexpr unsigned int WindowWidth = 1744;
+        static constexpr unsigned int WindowHeight = 981;
 
         EditorApp() :
             Engine({

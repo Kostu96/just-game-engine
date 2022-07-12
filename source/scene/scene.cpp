@@ -35,7 +35,7 @@ namespace jng {
             JNG_CORE_WARN("More than one camera on the scene.");
 
         auto& cameraComponent = view.get<CameraComponent>(*view.begin());
-        Renderer2D::beginScene(cameraComponent.camera);
+        Renderer2D::beginScene(cameraComponent.camera.getVP());
 
         auto group = m_registry.group<TransformComponent>(entt::get<SpriteComponent>);
         for (auto entity : group)

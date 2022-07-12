@@ -6,7 +6,8 @@
 
 #pragma once
 #include "jng/core/base.hpp"
-#include "jng/renderer/camera.hpp"
+
+#include <glm/glm.hpp>
 
 namespace jng {
 
@@ -29,7 +30,7 @@ namespace jng {
         static void init();
         static void shutdown();
 
-        static void beginScene(const Camera& camera);
+        static void beginScene(const glm::mat4& viewProjection);
         static void endScene();
 
         static void fillQuad(const Properties& properties);

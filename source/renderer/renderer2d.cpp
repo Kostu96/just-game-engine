@@ -112,11 +112,11 @@ namespace jng {
         delete[] s_data.quadVBOBase;
     }
 
-    void Renderer2D::beginScene(const Camera& camera)
+    void Renderer2D::beginScene(const glm::mat4& viewProjection)
     {
         JNG_PROFILE_FUNCTION();
 
-        s_data.quadUBO->setData(glm::value_ptr(camera.getVP()), sizeof(glm::mat4));
+        s_data.quadUBO->setData(glm::value_ptr(viewProjection), sizeof(glm::mat4));
 
         s_data.statistics.drawCalls = 0;
         s_data.statistics.quadCount = 0;

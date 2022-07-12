@@ -17,14 +17,21 @@
 
 namespace jng {
 
-    EditorLayer::EditorLayer(const Properties& properties) :
+    EditorLayer::EditorLayer(const Properties& /*properties*/) :
         m_viewportFramebuffer{ Framebuffer::create({ 1, 1 }) },
-        m_mainCamera{ -(properties.width / 50.f), properties.width / 50.f, -(properties.height / 50.f), properties.height / 50.f },
         m_inspectorWindow{ m_context },
         m_sceneHierarchyWindow{ m_context }
     {
-        Entity entity1 = m_context.activeScene.createEntity("Square");
-        entity1.addComponent<SpriteComponent>();
+        Entity camera = m_context.activeScene.createEntity("Main Camera");
+        camera.addComponent<CameraComponent>();
+
+        Entity square1 = m_context.activeScene.createEntity("Green Square");
+        square1.getComponent<TransformComponent>();
+        square1.addComponent<SpriteComponent>().color = { 0.f, 1.f, 0.f, 1.f };
+
+        Entity square2 = m_context.activeScene.createEntity("Red Square");
+        square2.getComponent<TransformComponent>();
+        square2.addComponent<SpriteComponent>().color = { 1.f, 0.f, 0.f, 1.f };
     }
 
     void EditorLayer::onUpdate(float /*dt*/)
@@ -33,12 +40,10 @@ namespace jng {
             m_viewportFramebuffer->resize(static_cast<uint32>(m_viewportWindowSize.x), static_cast<uint32>(m_viewportWindowSize.y));
 
         m_viewportFramebuffer->bind();
-        jng::RendererAPI::clear({ .6f, 0.2f, .6f });
-        Renderer2D::beginScene(m_mainCamera);
+        jng::RendererAPI::clear({ .1f, 0.1f, .4f });
 
         m_context.activeScene.onUpdate();
         
-        Renderer2D::endScene();
         m_viewportFramebuffer->unbind();
     }
 
