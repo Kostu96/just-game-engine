@@ -3,7 +3,7 @@ var searchData=
   ['t_0',['T',['../namespacejng_1_1_key.html#a0d7ad6a389444d1a8b4d5d27cb31794a',1,'jng::Key']]],
   ['tab_1',['Tab',['../namespacejng_1_1_key.html#af2b9f259d95d232ea5b7e6be3295e348',1,'jng::Key']]],
   ['tag_2',['tag',['../structjng_1_1_tag_component.html#afae55424e7514f5ad5b61055f036112a',1,'jng::TagComponent']]],
-  ['tagcomponent_3',['TagComponent',['../structjng_1_1_tag_component.html',1,'jng::TagComponent'],['../structjng_1_1_tag_component.html#ad9666bf7614c5214148dece8ed3f5111',1,'jng::TagComponent::TagComponent()=default'],['../structjng_1_1_tag_component.html#af26cb33cfa61940a2619bda834092fdd',1,'jng::TagComponent::TagComponent(const TagComponent &amp;)=default']]],
+  ['tagcomponent_3',['TagComponent',['../structjng_1_1_tag_component.html',1,'jng::TagComponent'],['../structjng_1_1_tag_component.html#ac550660d3936a52790c24c1b4c62bf47',1,'jng::TagComponent::TagComponent(const std::string &amp;name)'],['../structjng_1_1_tag_component.html#af26cb33cfa61940a2619bda834092fdd',1,'jng::TagComponent::TagComponent(const TagComponent &amp;)=default']]],
   ['texcoord_4',['texCoord',['../structjng_1_1_quad_vertex.html#a9a58c338352dad20598ee70dd5b3e9db',1,'jng::QuadVertex']]],
   ['texindex_5',['texIndex',['../structjng_1_1_quad_vertex.html#a7f40c5378a9f1c531707bca8cee9c5d7',1,'jng::QuadVertex']]],
   ['texture_6',['Texture',['../classjng_1_1_texture.html',1,'jng']]],

@@ -1,6 +1,9 @@
 var searchData=
 [
-  ['layer_0',['Layer',['../classjng_1_1_layer.html#a9233fe69278aaa87b5fc5f7aba691415',1,'jng::Layer']]],
-  ['layerstack_1',['LayerStack',['../classjng_1_1_layer_stack.html#a02203432eaae98d3fec856b251bc8ebb',1,'jng::LayerStack']]],
-  ['layoutelement_2',['LayoutElement',['../structjng_1_1_layout_element.html#a1e5ffa3db3c3cafa0e7c4baaa5cfc9d7',1,'jng::LayoutElement']]]
+  ['indexbufferimpl_0',['IndexBufferImpl',['../classk2d_1_1_index_buffer_impl.html#acdd38fb4f3f5fab6b16165decb1d0e58',1,'k2d::IndexBufferImpl']]],
+  ['init_1',['init',['../classjng_1_1_renderer.html#a4c6510de6cc98a5128855aa491c0f7b8',1,'jng::Renderer::init()'],['../classjng_1_1_renderer2_d.html#ac2678bad367503979c7bcc7b35af04ab',1,'jng::Renderer2D::init()'],['../classjng_1_1_renderer_a_p_i.html#a733c55349ab812e375858bbbcde2d5f9',1,'jng::RendererAPI::init()'],['../classjng_1_1_im_gui_layer.html#aaf5ea9dcc1b8428a83bd889aaf0bd1ed',1,'jng::ImGuiLayer::init()']]],
+  ['ishandled_2',['isHandled',['../classjng_1_1_event.html#a68f723145760a071f1a67807b4def793',1,'jng::Event']]],
+  ['iskeypressed_3',['isKeyPressed',['../classjng_1_1_input.html#a31f845caa33c635129d1c4d930a99098',1,'jng::Input']]],
+  ['isminimized_4',['isMinimized',['../classjng_1_1_window.html#a97aeddab501a974934a634e7cd7b0f43',1,'jng::Window']]],
+  ['ismousebuttonpressed_5',['isMouseButtonPressed',['../classjng_1_1_input.html#a51bfdeecb34b0f3daefa4144b310163c',1,'jng::Input']]]
 ];

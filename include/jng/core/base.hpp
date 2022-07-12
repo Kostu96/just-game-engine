@@ -8,9 +8,8 @@
 #include <ccl/non_copyable.h>
 #include <cstdint>
 #include <memory>
-#include <functional>
 
-#define JNG_BIND_EVENT_FUNC(func) std::bind(&func, this, std::placeholders::_1)
+#define JNG_BIND_EVENT_FUNC(func) [this](auto&& ...args) -> decltype(auto) { return this->func(std::forward<decltype(args)>(args)...); }
 
 namespace jng {
 

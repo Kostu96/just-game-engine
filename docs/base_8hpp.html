@@ -78,7 +78,6 @@ $(function() {
 <div class="textblock"><code>#include &lt;ccl/non_copyable.h&gt;</code><br />
 <code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;functional&gt;</code><br />
 </div>
 <p><a href="base_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -89,7 +88,7 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a626977026d9fab91c0ef70267d4a5005"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="base_8hpp.html#a626977026d9fab91c0ef70267d4a5005">JNG_BIND_EVENT_FUNC</a>(func)&#160;&#160;&#160;std::bind(&amp;func, this, std::placeholders::_1)</td></tr>
+<tr class="memitem:a626977026d9fab91c0ef70267d4a5005"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="base_8hpp.html#a626977026d9fab91c0ef70267d4a5005">JNG_BIND_EVENT_FUNC</a>(func)&#160;&#160;&#160;[this](auto&amp;&amp; ...args) -&gt; decltype(auto) { return this-&gt;func(std::forward&lt;decltype(args)&gt;(args)...); }</td></tr>
 <tr class="separator:a626977026d9fab91c0ef70267d4a5005"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
@@ -152,7 +151,7 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">func</td><td>)</td>
-          <td>&#160;&#160;&#160;std::bind(&amp;func, this, std::placeholders::_1)</td>
+          <td>&#160;&#160;&#160;[this](auto&amp;&amp; ...args) -&gt; decltype(auto) { return this-&gt;func(std::forward&lt;decltype(args)&gt;(args)...); }</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -162,7 +161,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jul 10 2022 17:08:37 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Jul 12 2022 09:31:08 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

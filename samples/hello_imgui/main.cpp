@@ -16,7 +16,10 @@ public:
     void onUpdate(float /*dt*/) override
     {
         jng::RendererAPI::clear({ 0.f, 0.f, 0.f });
+    }
 
+    void onImGuiUpdate() override
+    {
         static bool open = true;
         ImGui::ShowDemoWindow(&open);
     }

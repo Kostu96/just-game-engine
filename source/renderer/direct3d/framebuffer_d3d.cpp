@@ -36,6 +36,12 @@ namespace jng {
 		m_graphicsContext->setCurrentRenderTarget(m_graphicsContext->getDefaultRenderTarget());
 	}
 
+	void Direct3DFramebuffer::resize(uint32 width, uint32 height)
+	{
+		m_properties.width = width;
+		m_properties.height = height;
+	}
+
 	void Direct3DFramebuffer::recreate()
 	{
 		const auto& device = m_graphicsContext->getDevice();

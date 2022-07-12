@@ -4,42 +4,38 @@
  * SPDX-License-Identifier: MIT
  */
 
-#define JNG_DECLARE_MAIN
-#include <jng/jng.hpp>
+#include <jng/core/engine.hpp>
+#include <jng/core/entry_point.hpp>
 
-class EditorLayer :
-    public jng::Layer
-{
-public:
-    EditorLayer() = default;
+#include "editor_layer.hpp"
 
-    void onUpdate(float /*dt*/) override
+namespace jng {
+
+    class EditorApp :
+        public jng::Engine
     {
-        static bool show = true;
-        ImGui::ShowDemoWindow(&show);
-    }
-private:
-};
+    public:
+        static constexpr unsigned int WindowWidth = 1600;
+        static constexpr unsigned int WindowHeight = 900;
 
-class EditorApp :
-    public jng::Engine
-{
-public:
-    static constexpr unsigned int WindowWidth = 1600;
-    static constexpr unsigned int WindowHeight = 900;
+        EditorApp() :
+            Engine({
+                "JNG Editor!",
+                WindowWidth,
+                WindowHeight,
+                RendererType::Renderer3D
+                })
+        {
+            EditorLayer::Properties properties{};
+            properties.width = WindowWidth;
+            properties.height = WindowHeight;
 
-    EditorApp() :
-        Engine({
-            "JNG Editor!",
-            WindowWidth,
-            WindowHeight,
-            RendererType::Renderer3D
-        })
-    {
-        getLayerStack().pushLayer(new EditorLayer{});
-    }
-};
+            getLayerStack().pushLayer(new EditorLayer{ properties });
+        }
+    };
+
+}
 
 jng::Engine* createApp() {
-    return new EditorApp{};
+    return new jng::EditorApp{};
 }

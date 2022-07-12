@@ -20,12 +20,15 @@ namespace jng {
 
 	OpenGLFramebuffer::~OpenGLFramebuffer()
 	{
+		glDeleteTextures(1, &m_colorAttachmentID);
+		glDeleteTextures(1, &m_depthAttachmentID);
 		glDeleteFramebuffers(1, &m_ID);
 	}
 
 	void OpenGLFramebuffer::bind() const
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, m_ID);
+		glViewport(0, 0, m_properties.width, m_properties.height);
 	}
 
 	void OpenGLFramebuffer::unbind() const
@@ -33,8 +36,22 @@ namespace jng {
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
+	void OpenGLFramebuffer::resize(uint32 width, uint32 height)
+	{
+		m_properties.width = width;
+		m_properties.height = height;
+
+		recreate();
+	}
+
 	void OpenGLFramebuffer::recreate()
 	{
+		if (m_ID) {
+			glDeleteTextures(1, &m_colorAttachmentID);
+			glDeleteTextures(1, &m_depthAttachmentID);
+			glDeleteFramebuffers(1, &m_ID);
+		}
+
 		glCreateFramebuffers(1, &m_ID);
 		glBindFramebuffer(GL_FRAMEBUFFER, m_ID);
 

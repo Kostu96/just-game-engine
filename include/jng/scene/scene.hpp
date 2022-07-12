@@ -16,12 +16,24 @@ namespace jng {
     public:
         Scene() = default;
 
-        Entity createEntity();
+        Entity createEntity(const std::string& name);
+
         void onUpdate();
+
+        template<typename Func>
+        void each(Func func);
     private:
         entt::registry m_registry;
 
-        //friend class Entity;
+        friend class Entity;
     };
+
+    template<typename Func>
+    void Scene::each(Func func)
+    {
+        m_registry.each([&](entt::entity entityHandle) {
+            func({ entityHandle, *this });
+        });
+    }
 
 } // namespace jng
