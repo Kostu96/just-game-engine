@@ -14,10 +14,10 @@
 
 namespace jng {
 
-    Entity Scene::createEntity()
+    Entity Scene::createEntity(const std::string& name)
     {
         auto entity = m_registry.create();
-        m_registry.emplace<TagComponent>(entity);
+        m_registry.emplace<TagComponent>(entity, name);
         m_registry.emplace<TransformComponent>(entity);
 
         return Entity{ entity, *this };
@@ -28,7 +28,7 @@ namespace jng {
         auto group = m_registry.group<TransformComponent>(entt::get<SpriteComponent>);
         for (auto entity : group)
         {
-            const auto& [transform, sprite] = group.get<TransformComponent, SpriteComponent>(entity);
+            auto [transform, sprite] = group.get<TransformComponent, SpriteComponent>(entity);
 
             glm::vec3 scale;
             glm::quat rotation;

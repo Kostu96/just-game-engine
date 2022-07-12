@@ -33,6 +33,7 @@ namespace jng {
 		void unbind() const override;
 		void resize(uint32 width, uint32 height) override;
 		void* getColorAttachmentHandle() override { return m_colorAttachmentView.Get(); }
+		const Properties& getProperties() const override { return m_properties; }
 	private:
 		void recreate();
 

@@ -24,8 +24,8 @@ namespace jng {
         void onUpdate(float dt) override;
         void onImGuiUpdate() override;
     private:
+        glm::vec2 m_viewportWindowSize{ 1.f, 1.f };
         Ref<Framebuffer> m_viewportFramebuffer;
-        glm::vec2 m_viewportWindowSize{};
 
         Scene m_activeScene;
         OrthographicCamera m_mainCamera;

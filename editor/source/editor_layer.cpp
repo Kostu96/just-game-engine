@@ -9,15 +9,18 @@
 namespace jng {
 
     EditorLayer::EditorLayer(const Properties& properties) :
-        m_viewportFramebuffer{ Framebuffer::create({ properties.width, properties.height }) },
-        m_mainCamera{ -(properties.width / 20.f), properties.width / 20.f, -(properties.height / 20.f), properties.height / 20.f }
+        m_viewportFramebuffer{ Framebuffer::create({ 1, 1 }) },
+        m_mainCamera{ -(properties.width / 50.f), properties.width / 50.f, -(properties.height / 50.f), properties.height / 50.f }
     {
-        Entity entity1 = m_activeScene.createEntity();
+        Entity entity1 = m_activeScene.createEntity("Square");
         entity1.addComponent<SpriteComponent>();
     }
 
     void EditorLayer::onUpdate(float /*dt*/)
     {
+        if (m_viewportWindowSize.x != m_viewportFramebuffer->getProperties().width || m_viewportWindowSize.y != m_viewportFramebuffer->getProperties().height)
+            m_viewportFramebuffer->resize(static_cast<uint32>(m_viewportWindowSize.x), static_cast<uint32>(m_viewportWindowSize.y));
+
         m_viewportFramebuffer->bind();
         jng::RendererAPI::clear({ .6f, 0.2f, .6f });
         Renderer2D::beginScene(m_mainCamera);
@@ -89,13 +92,10 @@ namespace jng {
             ImGui::Begin("Viewport");
             ImGui::PopStyleVar();
             {
-                ImVec2 viewportWindowSize = ImGui::GetContentRegionAvail();
-                ImGui::Image(m_viewportFramebuffer->getColorAttachmentHandle(), { viewportWindowSize.x, viewportWindowSize.y });
-                if (m_viewportWindowSize.x != viewportWindowSize.x || m_viewportWindowSize.y != viewportWindowSize.y)
-                {
-                    m_viewportWindowSize = { viewportWindowSize.x, viewportWindowSize.y };
-                    m_viewportFramebuffer->resize(static_cast<uint32>(m_viewportWindowSize.x), static_cast<uint32>(m_viewportWindowSize.y));
-                }
+                auto viewportWindowSize = ImGui::GetContentRegionAvail();
+                m_viewportWindowSize.x = viewportWindowSize.x;
+                m_viewportWindowSize.y = viewportWindowSize.y;
+                ImGui::Image(m_viewportFramebuffer->getColorAttachmentHandle(), { m_viewportWindowSize.x, m_viewportWindowSize.y });
 
                 ImGui::End();
             }

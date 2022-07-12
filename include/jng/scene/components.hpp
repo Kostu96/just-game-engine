@@ -27,10 +27,10 @@ namespace jng {
 
     struct TagComponent
     {
-        TagComponent() = default;
+        TagComponent(const std::string& name) : tag{ name } {};
         TagComponent(const TagComponent&) = default;
 
-        std::string tag{ "Unnamed" };
+        std::string tag;
     };
 
     struct TransformComponent
