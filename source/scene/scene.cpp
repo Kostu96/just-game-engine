@@ -27,8 +27,11 @@ namespace jng {
     void Scene::onUpdate()
     {
         auto view = m_registry.view<CameraComponent>();
-        JNG_CORE_ASSERT(view.size() > 0, "Scene has no camera!");
-        if (view.size() > 1)
+        if (view.size() == 0) {
+            //JNG_CORE_WARN("Scene has no camera!");
+            return; // TODO: temp
+        }
+        else if (view.size() > 1)
             JNG_CORE_WARN("More than one camera on the scene.");
 
         auto& cameraComponent = view.get<CameraComponent>(*view.begin());
