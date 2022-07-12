@@ -1,10 +1,10 @@
 var searchData=
 [
   ['r_0',['R',['../namespacejng_1_1_key.html#a3b653d0bd152287a8ffacd1481ca05b9',1,'jng::Key']]],
-  ['rbegin_1',['rbegin',['../classjng_1_1_layer_stack.html#a7b7ac16d5cfb2f01fae63fb539962659',1,'jng::LayerStack::rbegin() const'],['../classjng_1_1_layer_stack.html#aff33e5c2a4f48e51a3d6fdd76dae466d',1,'jng::LayerStack::rbegin()']]],
+  ['rbegin_1',['rbegin',['../classjng_1_1_layer_stack.html#aff33e5c2a4f48e51a3d6fdd76dae466d',1,'jng::LayerStack::rbegin()'],['../classjng_1_1_layer_stack.html#a7b7ac16d5cfb2f01fae63fb539962659',1,'jng::LayerStack::rbegin() const']]],
   ['readme_2emd_2',['README.md',['../_r_e_a_d_m_e_8md.html',1,'']]],
   ['ref_3',['Ref',['../namespacejng.html#ad7198e5df8ee2302d860ff3d5b41d355',1,'jng']]],
-  ['rend_4',['rend',['../classjng_1_1_layer_stack.html#a1b8571133097a39b910fc717c60fa6b8',1,'jng::LayerStack::rend() const'],['../classjng_1_1_layer_stack.html#a47e01336f0f234a1aa3acd69479b49ae',1,'jng::LayerStack::rend()']]],
+  ['rend_4',['rend',['../classjng_1_1_layer_stack.html#a47e01336f0f234a1aa3acd69479b49ae',1,'jng::LayerStack::rend()'],['../classjng_1_1_layer_stack.html#a1b8571133097a39b910fc717c60fa6b8',1,'jng::LayerStack::rend() const']]],
   ['render_5',['render',['../classjng_1_1_im_gui_layer.html#a5fb6d274da9bbd271e61c1ac5cf1541a',1,'jng::ImGuiLayer']]],
   ['renderdata_6',['RenderData',['../structjng_1_1_render_data.html',1,'jng']]],
   ['renderer_7',['Renderer',['../classjng_1_1_renderer.html',1,'jng']]],
@@ -27,12 +27,13 @@ var searchData=
   ['rendererbackend_24',['RendererBackend',['../namespacejng.html#a12ce176de3b33861d2a2f4c90385d499',1,'jng']]],
   ['renderertype_25',['rendererType',['../structjng_1_1_engine_1_1_properties.html#aa53c0074d9faf798f542fcfd0e7e0801',1,'jng::Engine::Properties']]],
   ['renderertype_26',['RendererType',['../classjng_1_1_engine.html#acee4c6dfe14e28482ff2d8a0ecbc985b',1,'jng::Engine']]],
-  ['reverseinterator_27',['ReverseInterator',['../classjng_1_1_layer_stack.html#abbb155fcce5172a2c010a3f4e3f5d8f3',1,'jng::LayerStack']]],
-  ['right_28',['Right',['../namespacejng_1_1_key.html#ac17c414fb2a85eaab36e8e75235d70d0',1,'jng::Key::Right()'],['../namespacejng_1_1_mouse.html#a22394eb5c30ddec2b97728eb195f4d03',1,'jng::Mouse::Right()']]],
-  ['rightalt_29',['RightAlt',['../namespacejng_1_1_key.html#a54ad3cd22b243413d9461ba9c9b3e891',1,'jng::Key']]],
-  ['rightbracket_30',['RightBracket',['../namespacejng_1_1_key.html#a7e378468312ba9f467097bcf1d6c3c5a',1,'jng::Key']]],
-  ['rightcontrol_31',['RightControl',['../namespacejng_1_1_key.html#aaf6dcee9c5d777417d9362561e3bd2de',1,'jng::Key']]],
-  ['rightshift_32',['RightShift',['../namespacejng_1_1_key.html#a20f29a04468a54dad8c539a1f616a0ef',1,'jng::Key']]],
-  ['rightsuper_33',['RightSuper',['../namespacejng_1_1_key.html#a7b2275441fc673904200f7cd5c978e4d',1,'jng::Key']]],
-  ['run_34',['run',['../classjng_1_1_engine.html#a876c22b7567211fed7b98e8071f88a9c',1,'jng::Engine']]]
+  ['resize_27',['resize',['../classjng_1_1_framebuffer.html#a2e435bad1241c67cd02794a2c5265664',1,'jng::Framebuffer::resize()'],['../classjng_1_1_direct3_d_framebuffer.html#afd8ac98f97798963db69ba0ad710123b',1,'jng::Direct3DFramebuffer::resize()'],['../classjng_1_1_open_g_l_framebuffer.html#a985abbf41a6c7cde9a782476177d34e3',1,'jng::OpenGLFramebuffer::resize()']]],
+  ['reverseinterator_28',['ReverseInterator',['../classjng_1_1_layer_stack.html#abbb155fcce5172a2c010a3f4e3f5d8f3',1,'jng::LayerStack']]],
+  ['right_29',['Right',['../namespacejng_1_1_mouse.html#a22394eb5c30ddec2b97728eb195f4d03',1,'jng::Mouse::Right()'],['../namespacejng_1_1_key.html#ac17c414fb2a85eaab36e8e75235d70d0',1,'jng::Key::Right()']]],
+  ['rightalt_30',['RightAlt',['../namespacejng_1_1_key.html#a54ad3cd22b243413d9461ba9c9b3e891',1,'jng::Key']]],
+  ['rightbracket_31',['RightBracket',['../namespacejng_1_1_key.html#a7e378468312ba9f467097bcf1d6c3c5a',1,'jng::Key']]],
+  ['rightcontrol_32',['RightControl',['../namespacejng_1_1_key.html#aaf6dcee9c5d777417d9362561e3bd2de',1,'jng::Key']]],
+  ['rightshift_33',['RightShift',['../namespacejng_1_1_key.html#a20f29a04468a54dad8c539a1f616a0ef',1,'jng::Key']]],
+  ['rightsuper_34',['RightSuper',['../namespacejng_1_1_key.html#a7b2275441fc673904200f7cd5c978e4d',1,'jng::Key']]],
+  ['run_35',['run',['../classjng_1_1_engine.html#a876c22b7567211fed7b98e8071f88a9c',1,'jng::Engine']]]
 ];
