@@ -6,13 +6,24 @@
 
 #include "editor_layer.hpp"
 
+#include <jng/core/engine.hpp>
+#include <jng/scene/components.hpp>
+#include <jng/scene/entity.hpp>
+#include <jng/renderer/framebuffer.hpp>
+#include <jng/renderer/renderer2d.hpp>
+#include <jng/renderer/renderer_api.hpp>
+
+#include <imgui.h>
+
 namespace jng {
 
     EditorLayer::EditorLayer(const Properties& properties) :
         m_viewportFramebuffer{ Framebuffer::create({ 1, 1 }) },
-        m_mainCamera{ -(properties.width / 50.f), properties.width / 50.f, -(properties.height / 50.f), properties.height / 50.f }
+        m_mainCamera{ -(properties.width / 50.f), properties.width / 50.f, -(properties.height / 50.f), properties.height / 50.f },
+        m_inspectorWindow{ m_context },
+        m_sceneHierarchyWindow{ m_context }
     {
-        Entity entity1 = m_activeScene.createEntity("Square");
+        Entity entity1 = m_context.activeScene.createEntity("Square");
         entity1.addComponent<SpriteComponent>();
     }
 
@@ -25,7 +36,7 @@ namespace jng {
         jng::RendererAPI::clear({ .6f, 0.2f, .6f });
         Renderer2D::beginScene(m_mainCamera);
 
-        m_activeScene.onUpdate();
+        m_context.activeScene.onUpdate();
         
         Renderer2D::endScene();
         m_viewportFramebuffer->unbind();
@@ -34,81 +45,55 @@ namespace jng {
     void EditorLayer::onImGuiUpdate()
     {
         // DockSpace
-        ImGuiViewport* viewport = ImGui::GetMainViewport();
-        ImGui::SetNextWindowPos(viewport->Pos);
-        ImGui::SetNextWindowSize(viewport->Size);
-        ImGui::SetNextWindowViewport(viewport->ID);
-        ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoDocking;
+        ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 
-        static bool dockspaceOpen = true;
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-        ImGui::Begin("DockSpaceWindow", &dockspaceOpen, window_flags);
-        ImGui::PopStyleVar();
+        // MainMenuBar
+        if (ImGui::BeginMainMenuBar())
         {
-            ImGuiID dockspace_id = ImGui::GetID("MainDockSpace");
-            ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_None);
-
-            // MenuBar
-            if (ImGui::BeginMenuBar())
+            if (ImGui::BeginMenu("File"))
             {
-                if (ImGui::BeginMenu("File"))
-                {
-                    if (ImGui::MenuItem("Exit")) Engine::get().close();
+                ImGui::MenuItem("New Project", nullptr, nullptr, false);
+                ImGui::MenuItem("Save", "Ctrl + S", nullptr, false);
+                ImGui::MenuItem("Save As", nullptr, nullptr, false);
+                if (ImGui::MenuItem("Exit")) Engine::get().close();
 
-                    ImGui::EndMenu();
-                }
-
-                if (ImGui::BeginMenu("Edit"))
-                {
-                    ImGui::MenuItem("Undo");
-
-                    ImGui::EndMenu();
-                }
-
-                if (ImGui::BeginMenu("Windows"))
-                {
-                    ImGui::MenuItem("Inspector");
-                    ImGui::MenuItem("Scene Hierarchy");
-                    ImGui::MenuItem("Viewport");
-
-                    ImGui::EndMenu();
-                }
-
-                ImGui::EndMenuBar();
+                ImGui::EndMenu();
             }
 
-            // Scene
-            ImGui::Begin("Scene Hierarchy");
+            if (ImGui::BeginMenu("Edit"))
             {
-                m_activeScene.each([](Entity entity) {
-                    auto& tc = entity.getComponent<TagComponent>();
-                    ImGui::Text("%s", tc.tag.c_str());
-                    });
-                ImGui::End();
+                ImGui::MenuItem("Undo", "Ctrl + Z");
+
+                ImGui::EndMenu();
             }
 
-            // Viewport
+            if (ImGui::BeginMenu("View"))
+            {
+                ImGui::MenuItem("Inspector", nullptr, &m_context.isInspectorWindowOpen);
+                ImGui::MenuItem("Scene Hierarchy", nullptr, &m_context.isSceneHierarchyWindowOpen);
+                ImGui::MenuItem("Viewport", nullptr, &m_context.isViewportWindowOpen);
+
+                ImGui::EndMenu();
+            }
+
+            ImGui::EndMainMenuBar();
+        }
+
+        // Viewport
+        if (m_context.isViewportWindowOpen)
+        {
             ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-            ImGui::Begin("Viewport");
+            ImGui::Begin("Viewport", &m_context.isViewportWindowOpen, ImGuiWindowFlags_NoCollapse);
             ImGui::PopStyleVar();
-            {
-                auto viewportWindowSize = ImGui::GetContentRegionAvail();
-                m_viewportWindowSize.x = viewportWindowSize.x;
-                m_viewportWindowSize.y = viewportWindowSize.y;
-                ImGui::Image(m_viewportFramebuffer->getColorAttachmentHandle(), { m_viewportWindowSize.x, m_viewportWindowSize.y });
-
-                ImGui::End();
-            }
-
-            // Inspector
-            ImGui::Begin("Inspector");
-            {
-
-                ImGui::End();
-            }
-
+            auto viewportWindowSize = ImGui::GetContentRegionAvail();
+            m_viewportWindowSize.x = viewportWindowSize.x;
+            m_viewportWindowSize.y = viewportWindowSize.y;
+            ImGui::Image(m_viewportFramebuffer->getColorAttachmentHandle(), { m_viewportWindowSize.x, m_viewportWindowSize.y });
             ImGui::End();
         }
+  
+        m_inspectorWindow.onImGuiUpdate();
+        m_sceneHierarchyWindow.onImGuiUpdate();
     }
 
 }

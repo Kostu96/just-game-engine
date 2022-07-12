@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-#define JNG_DECLARE_MAIN
-#include <jng/jng.hpp>
+#include <jng/core/engine.hpp>
+#include <jng/core/entry_point.hpp>
 
 #include "editor_layer.hpp"
 

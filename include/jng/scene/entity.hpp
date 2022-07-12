@@ -24,6 +24,9 @@ namespace jng {
 
         template<typename T>
         T& getComponent();
+
+        bool operator==(const Entity& other) const { return m_handle == other.m_handle; }
+        bool operator!=(const Entity& other) const { return m_handle != other.m_handle; }
     private:
         Entity(entt::entity handle, Scene& scene);
         

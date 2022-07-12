@@ -8,6 +8,16 @@
 
 namespace jng {
 
+	struct EditorContext;
 
+	class InspectorWindow
+	{
+	public:
+		InspectorWindow(EditorContext& context) : m_context{ context } {}
+
+		void onImGuiUpdate();
+	private:
+		EditorContext& m_context;
+	};
 
 } // namespace jng
