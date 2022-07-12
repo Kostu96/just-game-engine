@@ -12,7 +12,7 @@ namespace jng {
 	class NativeScript
 	{
 	public:
-		NativeScript() = default;
+		explicit NativeScript() = default;
 		virtual ~NativeScript() = default;
 
 		virtual void onCreate() {}

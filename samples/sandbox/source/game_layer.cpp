@@ -15,8 +15,6 @@ class CameraController :
     public jng::NativeScript
 {
 public:
-    CameraController() = default;
-
     void onCreate() override
     {
         //auto& cameraComponent = getComponent<jng::CameraComponent>();
@@ -36,6 +34,9 @@ GameLayer::GameLayer(const GameData& gameData) :
     auto camera = m_activeScene.createEntity("Main Camera");
     camera.addComponent<jng::CameraComponent>();
     camera.addComponent<jng::NativeScriptComponent>().bind<CameraController>();
+
+    auto square = m_activeScene.createEntity("Square");
+    square.addComponent<jng::SpriteComponent>().color = {0.f, 1.f, 0.f, 1.f };
 }
 
 void GameLayer::onEvent(jng::Event& /*event*/)

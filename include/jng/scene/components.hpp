@@ -5,6 +5,8 @@
  */
 
 #pragma once
+#include "jng/renderer/camera.hpp"
+
 #include <glm/glm.hpp>
 #include <type_traits>
 
@@ -30,12 +32,12 @@ namespace jng {
         NativeScript* (*createScript)();
         void (*destroyScript)(NativeScript*&);
 
-        template<typename T>
+        template<typename Script>
         void bind()
         {
-            static_assert(std::is_base_of_v<NativeScript, T>);
+            static_assert(std::is_base_of_v<NativeScript, Script>);
 
-            createScript = []() { return new T{}; };
+            createScript = []() -> NativeScript* { return new Script{}; };
             destroyScript = [](NativeScript*& instance) { delete instance; instance = nullptr; };
         }
     };

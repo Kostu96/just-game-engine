@@ -7,6 +7,7 @@
 #include "renderer/renderer2d.hpp"
 
 #include "core/base_internal.hpp"
+#include "core/engine.hpp"
 #include "renderer/buffers.hpp"
 #include "renderer/renderer_api.hpp"
 #include "renderer/shader.hpp"
@@ -14,6 +15,7 @@
 #include "renderer/vertex_array.hpp"
 
 #include <array>
+#include <filesystem>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -59,7 +61,11 @@ namespace jng {
     {
         JNG_PROFILE_FUNCTION();
 
-        s_data.shader = Shader::create("assets/shaders/basic_vertex.glsl", "assets/shaders/basic_fragment.glsl");
+        std::filesystem::path assetsDir = Engine::get().getProperties().assetsDirectory;
+        s_data.shader = Shader::create(
+            (assetsDir / "shaders/basic_vertex.glsl").string(),
+            (assetsDir / "shaders/basic_fragment.glsl").string()
+        );
         s_data.quadUBO = UniformBuffer::create(sizeof(glm::mat4));
         s_data.quadVBO = VertexBuffer::create(RenderData::MaxVerticesPerBatch * sizeof(QuadVertex));
 
