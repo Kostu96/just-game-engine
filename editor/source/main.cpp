@@ -21,7 +21,7 @@ namespace jng {
 
         EditorApp() :
             Engine({
-                "JNG Editor!",
+                "JNG Editor",
                 WindowWidth,
                 WindowHeight,
                 RendererType::Renderer3D

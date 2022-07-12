@@ -29,6 +29,8 @@ namespace jng {
 
         bool operator==(const Entity& other) const { return m_handle == other.m_handle; }
         bool operator!=(const Entity& other) const { return m_handle != other.m_handle; }
+        operator bool() { return m_handle != entt::null; }
+        operator void*() { return reinterpret_cast<void*>(m_handle); }
     private:
         Entity(entt::entity handle, Scene& scene);
         

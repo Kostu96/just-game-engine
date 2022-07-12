@@ -63,6 +63,9 @@ namespace jng {
         TransformComponent() = default;
         TransformComponent(const TransformComponent&) = default;
 
+        glm::vec3 translation{ 0.f, 0.f, 0.f };
+        glm::vec3 rotation{ 0.f, 0.f, 0.f };
+        glm::vec3 scale{ 1.f, 1.f, 1.f };
         glm::mat4 transform{ 1.f };
     };
 

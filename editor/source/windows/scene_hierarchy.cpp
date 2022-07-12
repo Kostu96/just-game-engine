@@ -21,11 +21,16 @@ namespace jng {
         {
             ImGui::Begin("Scene Hierarchy", &m_context.isSceneHierarchyWindowOpen, ImGuiWindowFlags_NoCollapse);
 
-            m_context.activeScene.each([](Entity entity) {
-                auto& tc = entity.getComponent<TagComponent>();
+            m_context.activeScene.each([this](Entity entity) {
+                auto& tag = entity.getComponent<TagComponent>().tag;
 
-                if (ImGui::TreeNodeEx(tc.tag.c_str(), ImGuiTreeNodeFlags_OpenOnArrow))
+                ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow |
+                    (m_context.selectedEntity == entity ? ImGuiTreeNodeFlags_Selected : 0);
+                if (ImGui::TreeNodeEx(entity, flags, tag.c_str()))
                     ImGui::TreePop();
+
+                if (ImGui::IsItemClicked(ImGuiMouseButton_Left))
+                    m_context.selectedEntity = entity;
 
                 });
 

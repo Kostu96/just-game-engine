@@ -11,6 +11,7 @@
 #include <jng/core/base.hpp>
 #include <jng/core/layer.hpp>
 #include <jng/renderer/camera.hpp>
+#include <jng/scene/entity.hpp>
 #include <jng/scene/scene.hpp>
 
 namespace jng {
@@ -20,6 +21,8 @@ namespace jng {
     struct EditorContext
     {
         Scene activeScene;
+
+        Entity selectedEntity;
 
         bool isInspectorWindowOpen = true;
         bool isSceneHierarchyWindowOpen = true;
