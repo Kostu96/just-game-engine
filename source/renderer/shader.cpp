@@ -46,7 +46,7 @@ namespace jng {
 
 		size_t size;
 		bool success = ccl::readFile(shaderFilename, nullptr, size, true);
-		JNG_CORE_ASSERT(success, "Cannot open filename: {0}", shaderFilename);
+		JNG_CORE_ASSERT(success, "Cannot open filename: ", shaderFilename);
 		char* shaderSource = new char[size + 1];
 		success = ccl::readFile(shaderFilename, shaderSource, size, true);
 		shaderSource[size] = 0;

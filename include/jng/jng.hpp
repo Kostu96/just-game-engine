@@ -32,6 +32,8 @@
 #include "scene/entity.hpp"
 #include "scene/scene.hpp"
 
+#include "scripting/native_script.hpp"
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.inl>
@@ -40,5 +42,3 @@
 #if defined(JNG_DECLARE_MAIN)
 #include "core/entry_point.hpp"
 #endif
-
-// TODO: put ogl, d3d and other stuff inside namespaces and remove name prefixes

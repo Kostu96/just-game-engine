@@ -5,7 +5,10 @@
  */
 
 #pragma once
+#include "jng/renderer/camera.hpp"
+
 #include <glm/glm.hpp>
+#include <type_traits>
 
 namespace jng {
 
@@ -14,7 +17,29 @@ namespace jng {
         CameraComponent() = default;
         CameraComponent(const CameraComponent&) = default;
 
-        Camera camera;
+        Camera camera{ glm::mat4{1.f} };
+    };
+
+    class NativeScript;
+
+    struct NativeScriptComponent
+    {
+        NativeScriptComponent() = default;
+        NativeScriptComponent(const NativeScriptComponent&) = default;
+
+        NativeScript* instance = nullptr;
+
+        NativeScript* (*createScript)();
+        void (*destroyScript)(NativeScript*&);
+
+        template<typename Script>
+        void bind()
+        {
+            static_assert(std::is_base_of_v<NativeScript, Script>);
+
+            createScript = []() -> NativeScript* { return new Script{}; };
+            destroyScript = [](NativeScript*& instance) { delete instance; instance = nullptr; };
+        }
     };
 
     struct SpriteComponent

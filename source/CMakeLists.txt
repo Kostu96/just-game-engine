@@ -7,6 +7,7 @@
 set(JNG_HEADERS
     ${JNG_HEADERS_DIR}/jng.hpp
     ${JNG_HEADERS_DIR}/imconfig.hpp
+    ${JNG_HEADERS_DIR}/scripting/native_script.hpp
 )
 
 set(JNG_SOURCES
