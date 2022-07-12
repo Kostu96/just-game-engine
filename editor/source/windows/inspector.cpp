@@ -15,6 +15,40 @@
 
 namespace jng {
 
+	// TODO: move to shared place (imgui helpers?) so it can be reused
+	static void updateImGuiVec3(const std::string& label, glm::vec3& values)
+	{
+		ImGui::BeginTable(label.c_str(), 2, ImGuiTableFlags_SizingFixedFit);
+		ImGui::TableNextColumn();
+		ImGui::Text(label.c_str());
+		ImGui::TableNextColumn();
+		ImGui::Text("X");
+		ImGui::SameLine();
+		ImGui::DragFloat("##X", &values.x, 0.1f, 0.f, 0.f, "%.2f");
+		ImGui::SameLine();
+		ImGui::Text("Y");
+		ImGui::SameLine();
+		ImGui::DragFloat("##Y", &values.y, 0.1f, 0.f, 0.f, "%.2f");
+		ImGui::SameLine();
+		ImGui::Text("Z");
+		ImGui::SameLine();
+		ImGui::DragFloat("##Y", &values.z, 0.1f, 0.f, 0.f, "%.2f");
+		ImGui::EndTable();
+		// TODO: parameters
+		/*float columnWidth = 10.f;
+
+		ImGui::Columns(2);
+		ImGui::SetColumnWidth(0, columnWidth);
+		ImGui::Text(label.c_str());
+		ImGui::NextColumn();
+		ImGui::PushItemWidth(ImGui::CalcItemWidth());
+		ImGui::Text("X");
+		ImGui::Text("Y");
+		ImGui::Text("Z");
+		ImGui::PopItemWidth();
+		ImGui::Columns(1);*/
+	}
+
 	void InspectorWindow::onImGuiUpdate()
 	{
 		if (m_context.isInspectorWindowOpen)
@@ -41,6 +75,7 @@ namespace jng {
 					{
 						auto& tc = m_context.selectedEntity.getComponent<TransformComponent>();
 
+						updateImGuiVec3("Translation", tc.translation);
 						ImGui::DragFloat3("Translation", glm::value_ptr(tc.translation), 0.1f);
 						ImGui::DragFloat3("Rotation", glm::value_ptr(tc.rotation), 0.1f);
 						ImGui::DragFloat3("Scale", glm::value_ptr(tc.scale), 0.1f);
