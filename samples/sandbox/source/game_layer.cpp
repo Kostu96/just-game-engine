@@ -6,12 +6,22 @@
 
 #include "game_layer.hpp"
 
+#include<jng/scripting/native_script.hpp>
+
 #include <sstream>
+
+class CameraController :
+    public jng::NativeScript
+{
+public:
+
+private:
+
+};
 
 GameLayer::GameLayer(const GameData& gameData) :
     m_gameData{ gameData },
-    m_cameraController{ static_cast<float>(gameData.WindowWidth) / static_cast<float>(gameData.WindowHeight) },
-    m_framebuffer{ jng::Framebuffer::create({ gameData.WindowWidth, gameData.WindowHeight }) },
+    //m_cameraController{ static_cast<float>(gameData.WindowWidth) / static_cast<float>(gameData.WindowHeight) },
     m_texture{ jng::Texture::create("assets/textures/RPGpack_sheet_2X.png") }
 {
     constexpr float x = 7.f, y = 6.f;
@@ -19,18 +29,17 @@ GameLayer::GameLayer(const GameData& gameData) :
     m_stairTexture = jng::makeRef<SubTexture>(m_texture, glm::vec2{ x * spriteW, y * spriteH }, glm::vec2{ (x + 1) * spriteW, (y + 1) * spriteH });
 }
 
-void GameLayer::onEvent(jng::Event& event)
+void GameLayer::onEvent(jng::Event& /*event*/)
 {
-    m_cameraController.onEvent(event);
+    //m_cameraController.onEvent(event);
 }
 
 void GameLayer::onUpdate(float dt)
 {
-    m_cameraController.onUpdate(dt);
+    //m_cameraController.onUpdate(dt);
 
-    m_framebuffer->bind();
     jng::RendererAPI::clear({ 0.1f, 0.07f, 0.07f });
-    jng::Renderer2D::beginScene(m_cameraController.getCamera());
+    //jng::Renderer2D::beginScene(m_cameraController.getCamera());
 
     // test texture atlas
     {
@@ -60,14 +69,6 @@ void GameLayer::onUpdate(float dt)
             }
     }
     jng::Renderer2D::endScene();
-    m_framebuffer->unbind();
-
-    // NOTE: clear second time because first time cleared framebuffer only
-    jng::RendererAPI::clear({ 0.1f, 0.07f, 0.07f });
-    // ImGui
-    ImGui::Begin("Framebuffer");
-    ImGui::Image(m_framebuffer->getColorAttachmentHandle(), { 16 * 60, 9 * 60 });
-    ImGui::End();
 
     static float timer = 0.f;
     static uint32_t frames = 0;

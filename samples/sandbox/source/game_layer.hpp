@@ -5,11 +5,11 @@
  */
 
 #pragma once
-#include "camera_controller.hpp"
+//#include "camera_controller.hpp"
 #include "game_data.hpp"
 #include "subtexture.hpp"
 
-#include <jng/jng.hpp>
+#include <jng/core/layer.hpp>
 
 class GameLayer :
     public jng::Layer
@@ -21,8 +21,7 @@ public:
     void onUpdate(float dt) override;
 private:
     const GameData& m_gameData;
-    CameraController m_cameraController;
-    jng::Ref<jng::Framebuffer> m_framebuffer;
+    //CameraController m_cameraController;
     jng::Ref<jng::Texture> m_texture;
     jng::Ref<SubTexture> m_stairTexture;
 };

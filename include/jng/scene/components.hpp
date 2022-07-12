@@ -17,6 +17,11 @@ namespace jng {
         Camera camera;
     };
 
+    struct NativeScriptComponent
+    {
+
+    };
+
     struct SpriteComponent
     {
         SpriteComponent() = default;
