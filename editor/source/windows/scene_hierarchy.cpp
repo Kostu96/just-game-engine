@@ -34,6 +34,9 @@ namespace jng {
 
                 });
 
+            if (ImGui::IsMouseClicked(ImGuiMouseButton_Left) && ImGui::IsWindowHovered())
+                m_context.selectedEntity = {};
+
             ImGui::End();
         }
 	}

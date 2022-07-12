@@ -50,6 +50,59 @@ namespace jng {
 
 					
 				}
+
+				if (m_context.selectedEntity.hasComponent<CameraComponent>())
+				{
+					if (ImGui::TreeNodeEx(reinterpret_cast<void*>(typeid(CameraComponent).hash_code()), componentTreeNodeFlags, "Camera"))
+					{
+						auto& cc = m_context.selectedEntity.getComponent<CameraComponent>();
+
+						static const char* projectionTypes[] = { "Orthographic", "Perspective" };
+						uint32 selectedIndex = static_cast<uint32>(cc.projectionType);
+						if (ImGui::BeginCombo("Projection", projectionTypes[selectedIndex]))
+						{
+							if (ImGui::Selectable(projectionTypes[0], selectedIndex == 0))
+								cc.projectionType = CameraComponent::ProjectionType::Orthographic;
+
+							if (ImGui::Selectable(projectionTypes[1], selectedIndex == 1))
+								cc.projectionType = CameraComponent::ProjectionType::Perspective;
+
+							ImGui::EndCombo();
+						}
+
+						switch (cc.projectionType)
+						{
+						case CameraComponent::ProjectionType::Orthographic:
+							ImGui::DragFloat("Size", &cc.orthoSize, 0.1f);
+							ImGui::DragFloat("Near", &cc.orthoNear, 0.1f);
+							ImGui::DragFloat("Far", &cc.orthoFar, 0.1f);
+							break;
+						case CameraComponent::ProjectionType::Perspective:
+							ImGui::DragFloat("FOV", &cc.perspectiveFOV, 0.1f);
+							ImGui::DragFloat("Near", &cc.perspectiveNear, 0.1f);
+							ImGui::DragFloat("Far", &cc.perspectiveFar, 0.1f);
+							break;
+						}
+
+						ImGui::TreePop();
+					}
+
+
+				}
+
+				if (m_context.selectedEntity.hasComponent<SpriteComponent>())
+				{
+					if (ImGui::TreeNodeEx(reinterpret_cast<void*>(typeid(SpriteComponent).hash_code()), componentTreeNodeFlags, "Sprite"))
+					{
+						auto& sc = m_context.selectedEntity.getComponent<SpriteComponent>();
+
+						ImGui::ColorEdit4("Color", glm::value_ptr(sc.color));
+
+						ImGui::TreePop();
+					}
+
+
+				}
 			}
 
 			ImGui::End();

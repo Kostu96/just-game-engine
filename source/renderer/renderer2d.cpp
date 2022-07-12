@@ -173,11 +173,6 @@ namespace jng {
         fillQuad(position, size, s_data.whiteTexture, color);
     }
 
-    void Renderer2D::fillQuad(glm::vec2 position, glm::vec2 size, float rotation, const glm::vec4& color)
-    {
-        fillQuad(position, size, rotation, s_data.whiteTexture, color);
-    }
-
     void Renderer2D::fillQuad(glm::vec2 position, glm::vec2 size, const Ref<Texture>& texture, const glm::vec4& color)
     {
         glm::vec2 quadVertexPositions[RenderData::QuadVertexCount];
@@ -203,20 +198,17 @@ namespace jng {
         fillQuad(properties);
     }
 
-    void Renderer2D::fillQuad(glm::vec2 position, glm::vec2 size, float rotation, const Ref<Texture>& texture, const glm::vec4& color)
+    void Renderer2D::fillQuad(glm::mat4 transform, const glm::vec4& color)
+    {
+        fillQuad(transform, s_data.whiteTexture, color);
+    }
+
+    void Renderer2D::fillQuad(glm::mat4 transform, const Ref<Texture>& texture, const glm::vec4& color)
     {
         glm::vec2 quadVertexPositions[RenderData::QuadVertexCount];
 
-        glm::mat4 model =
-            glm::rotate(
-                glm::scale(
-                    glm::translate(glm::mat4(1.f), glm::vec3(position, 0.f)),
-                    glm::vec3(size, 1.0f)),
-                glm::radians(rotation), glm::vec3(0.f, 0.f, 1.f)
-            );
-
         for (uint32 i = 0; i < RenderData::QuadVertexCount; ++i)
-            quadVertexPositions[i] = model * s_data.quadVertexPositions[i];
+            quadVertexPositions[i] = transform * s_data.quadVertexPositions[i];
 
         constexpr glm::vec2 texCoords[RenderData::QuadVertexCount] = {
             { 0.f, 0.f },
