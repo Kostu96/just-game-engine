@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 Konstanty Misiak
+# Copyright (C) 2022 Konstanty Misiak
 #
 # SPDX-License-Identifier: MIT
 #
