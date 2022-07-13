@@ -13,64 +13,57 @@
 
 namespace jng {
 
-    Camera::Camera(const glm::mat4& projection) :
-        m_projection(projection),
-        m_view(1.f),
-        m_vp(m_projection * m_view),
-        m_position(0.f, 0.f) {}
+    void Camera::setOrthographic(float size, float near, float far)
+    {
+        m_projectionType = ProjectionType::Orthographic;
+        m_orthoSize = size;
+        m_orthoNear = near;
+        m_orthoFar = far;
+        recalculateProjection();
+    }
 
-    void Camera::setProjection(const glm::mat4& projection)
+    void Camera::setPerspective(float fov, float near, float far)
+    {
+        m_projectionType = ProjectionType::Perspective;
+        m_perspectiveFOV = fov;
+        m_perspectiveNear = near;
+        m_perspectiveFar = far;
+        recalculateProjection();
+    }
+
+    void Camera::setViewportSize(uint32 width, uint32 height)
+    {
+        JNG_CORE_ASSERT(width > 0 && height > 0, "Viewport area can't be 0!");
+        m_aspectRatio = static_cast<float>(width) / static_cast<float>(height);
+        recalculateProjection();
+    }
+
+    glm::mat4 Camera::getVP(const glm::mat4 transform) const
     {
         JNG_PROFILE_FUNCTION();
 
-        m_projection = projection;
-        m_vp = m_projection * m_view;
+        return m_projection * glm::inverse(transform);
     }
 
-    void Camera::recalculateVP()
+    void Camera::recalculateProjection()
     {
         JNG_PROFILE_FUNCTION();
-        
-        m_view = glm::inverse(glm::translate(glm::mat4{ 1.f }, glm::vec3{ m_position, 0.f }));
 
-        m_vp = m_projection * m_view;
-    }
-
-    OrthographicCamera::OrthographicCamera(float left, float right, float bottom, float top) :
-        Camera{ RendererAPI::getRendererBackend() == RendererBackend::Direct3D ? 
-        glm::orthoRH_ZO(left, right, bottom, top, -1.f, 1.f) :
-        glm::orthoRH_NO(left, right, bottom, top, -1.f, 1.f) }
-    {
-    }
-
-    void OrthographicCamera::setProjection(float left, float right, float bottom, float top)
-    {
-        switch (RendererAPI::getRendererBackend())
+        switch (m_projectionType)
         {
-        case RendererBackend::Direct3D:
-            Camera::setProjection(glm::orthoRH_ZO(left, right, bottom, top, -1.f, 1.f));
-            break;
-        default:
-            Camera::setProjection(glm::orthoRH_NO(left, right, bottom, top, -1.f, 1.f));
-        }
-    }
-
-    PerspectiveCamera::PerspectiveCamera(float fov, float aspect, float near, float far) :
-        Camera{ RendererAPI::getRendererBackend() == RendererBackend::Direct3D ?
-                glm::perspectiveRH_ZO(glm::radians(fov), aspect, near, far) :
-                glm::perspectiveRH_NO(glm::radians(fov), aspect, near, far) }
-    {
-    }
-
-    void PerspectiveCamera::setProjection(float fov, float aspect, float near, float far)
-    {
-        switch (RendererAPI::getRendererBackend())
+        case ProjectionType::Orthographic:
         {
-        case RendererBackend::Direct3D:
-            Camera::setProjection(glm::perspectiveRH_ZO(glm::radians(fov), aspect, near, far));
+            float h = m_orthoSize * m_aspectRatio * .5f;
+            float v = m_orthoSize * .5f;
+            m_projection = RendererAPI::getRendererBackend() == RendererBackend::Direct3D ?
+                glm::orthoRH_ZO(-h, h, -v, v, m_orthoNear, m_orthoFar) :
+                glm::orthoRH_NO(-h, h, -v, v, m_orthoNear, m_orthoFar);
+        } break;
+        case ProjectionType::Perspective:
+            m_projection = RendererAPI::getRendererBackend() == RendererBackend::Direct3D ?
+                glm::perspectiveRH_ZO(glm::radians(m_perspectiveFOV), m_aspectRatio, m_perspectiveNear, m_perspectiveFar) :
+                glm::perspectiveRH_NO(glm::radians(m_perspectiveFOV), m_aspectRatio, m_perspectiveNear, m_perspectiveFar);
             break;
-        default:
-            Camera::setProjection(glm::perspectiveRH_NO(glm::radians(fov), aspect, near, far));
         }
     }
 

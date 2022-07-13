@@ -9,7 +9,6 @@
 CameraController::CameraController(float aspectRatio) :
     m_aspectRatio(aspectRatio),
     m_zoomLevel(1.f),
-    m_camera(-aspectRatio*2.f, aspectRatio*2.f, -2.f, 2.f),
     m_cameraPosition(0.f, 0.f),
     m_cameraMoveSpeed(2.f) {}
 
@@ -29,7 +28,6 @@ void CameraController::onUpdate(float dt)
     {
         move = glm::normalize(move);
         m_cameraPosition += move * dt * m_zoomLevel;
-        m_camera.setPosition(m_cameraPosition);
     }
 }
 
@@ -48,10 +46,10 @@ bool CameraController::onMouseScroll(jng::MouseScrollEvent& event)
     else if (m_zoomLevel > 10.f)
         m_zoomLevel = 10.f;
 
-    m_camera.setProjection(
-        -m_aspectRatio * m_zoomLevel * 2.f, m_aspectRatio * m_zoomLevel * 2.f,
-        -m_zoomLevel * 2.f, m_zoomLevel * 2.f
-    );
+    //m_camera.setProjection(
+    //    -m_aspectRatio * m_zoomLevel * 2.f, m_aspectRatio * m_zoomLevel * 2.f,
+    //    -m_zoomLevel * 2.f, m_zoomLevel * 2.f
+    //);
     
     return true;
 }
@@ -60,9 +58,9 @@ bool CameraController::onWindowResize(jng::WindowResizeEvent& event)
 {
     m_aspectRatio = static_cast<float>(event.getWidth()) / static_cast<float>(event.getHeight());
 
-    m_camera.setProjection(
+    /*m_camera.setProjection(
         -m_aspectRatio * m_zoomLevel * 2.f, m_aspectRatio * m_zoomLevel * 2.f,
         -m_zoomLevel * 2.f, m_zoomLevel * 2.f
-    );
+    );*/
     return false;
 }

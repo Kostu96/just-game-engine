@@ -35,19 +35,20 @@ public:
         m_framebuffer{ jng::Framebuffer::create({WindowWidth, WindowHeight}) },
         m_texture{ jng::Texture::create("assets/hello_framebuffer/textures/test.png")},
         m_shader{ jng::Shader::create("assets/hello_framebuffer/shaders/vertex.glsl", "assets/hello_framebuffer/shaders/fragment.glsl") },
-        m_UBO{ jng::UniformBuffer::create(sizeof(glm::mat4)) },
+        m_cameraUBO{ jng::UniformBuffer::create(sizeof(glm::mat4)) },
         m_VBO{ jng::VertexBuffer::create(vertices, sizeof(vertices)) },
         m_IBO{ jng::IndexBuffer::create(indices, sizeof(indices)) },
-        m_VAO{ jng::VertexArray::create(m_VBO, LAYOUT, m_shader) },
-        m_camera{ -2.f, 2.f, -1.5f, 1.5f }
+        m_VAO{ jng::VertexArray::create(m_VBO, LAYOUT, m_shader) }
     {
         // NOTE: These can be bound once at the begining because they're only one used.
         m_shader->bind();
-        m_UBO->bind(0);
+        m_cameraUBO->bind(0);
         m_VAO->setIndexBuffer(m_IBO);
         m_VAO->bind();
 
-        m_UBO->setData(glm::value_ptr(m_camera.getVP()), sizeof(glm::mat4));
+        m_camera.setViewportSize(400, 300);
+        m_camera.setOrthographicSize(4.f);
+        m_cameraUBO->setData(glm::value_ptr(m_camera.getVP(glm::mat4{ 1.f })), sizeof(glm::mat4));
     }
 
     void onUpdate(float /*dt*/) override
@@ -78,11 +79,11 @@ private:
     jng::Ref<jng::Framebuffer> m_framebuffer;
     jng::Ref<jng::Texture> m_texture;
     jng::Ref<jng::Shader> m_shader;
-    jng::Ref<jng::UniformBuffer> m_UBO;
+    jng::Camera m_camera;
+    jng::Ref<jng::UniformBuffer> m_cameraUBO;
     jng::Ref<jng::VertexBuffer> m_VBO;
     jng::Ref<jng::IndexBuffer> m_IBO;
     jng::Ref<jng::VertexArray> m_VAO;
-    jng::OrthographicCamera m_camera;
 };
 
 const jng::VertexLayout SampleLayer::LAYOUT{

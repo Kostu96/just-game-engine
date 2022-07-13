@@ -16,152 +16,166 @@
 
 namespace jng {
 
-	// TODO: move to shared place (imgui helpers?) so it can be reused
-	/*static void updateImGuiVec3(const std::string& label, glm::vec3& values)
-	{
-		ImGui::BeginTable(label.c_str(), 2);
-		ImGui::TableNextColumn();
-		ImGui::Text(label.c_str());
-		ImGui::TableNextColumn();
-		ImGui::DragFloat3("##", glm::value_ptr(values), 0.1f, 0.f, 0.f, "%.2f");
-		ImGui::EndTable();
-	}*/
+    // TODO: move to shared place (imgui helpers?) so it can be reused
+    /*static void updateImGuiVec3(const std::string& label, glm::vec3& values)
+    {
+        ImGui::BeginTable(label.c_str(), 2);
+        ImGui::TableNextColumn();
+        ImGui::Text(label.c_str());
+        ImGui::TableNextColumn();
+        ImGui::DragFloat3("##", glm::value_ptr(values), 0.1f, 0.f, 0.f, "%.2f");
+        ImGui::EndTable();
+    }*/
 
-	// TODO: check Function type traits
-	template<typename Component, typename Function>
-	static void updateComponent(const char* label, Entity entity, Function function, bool isRemovable = true)
-	{
-		if (entity.hasComponent<Component>())
-		{
-			static ImGuiTreeNodeFlags componentTreeNodeFlags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_AllowItemOverlap;
+    // TODO: check Function type traits
+    template<typename Component, typename Function>
+    static void updateComponent(const char* label, Entity entity, Function function, bool isRemovable = true)
+    {
+        if (entity.hasComponent<Component>())
+        {
+            static ImGuiTreeNodeFlags componentTreeNodeFlags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_AllowItemOverlap;
 
-			ImVec2 contentRegionAvailable = ImGui::GetContentRegionAvail();
+            ImVec2 contentRegionAvailable = ImGui::GetContentRegionAvail();
 
-			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, { 4.f, 4.f });
-			bool open = ImGui::CollapsingHeader(label, componentTreeNodeFlags);
-			ImGui::PopStyleVar();
+            ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, { 4.f, 4.f });
+            bool open = ImGui::CollapsingHeader(label, componentTreeNodeFlags);
+            ImGui::PopStyleVar();
 
-			bool markForDelete = false;
-			if (isRemovable)
-			{
-				std::string str_id{ label };
-				str_id += "ComponenetsSettings";
+            bool markForDelete = false;
+            if (isRemovable)
+            {
+                std::string str_id{ label };
+                str_id += "ComponenetsSettings";
 
-				ImGui::SameLine(contentRegionAvailable.x - 17.f);
-				if (ImGui::Button("...", { 28.f, 28.f }))
-					ImGui::OpenPopup(str_id.c_str());
+                ImGui::SameLine(contentRegionAvailable.x - 14.f);
+                if (ImGui::Button("...", { 26.f, 26.f }))
+                    ImGui::OpenPopup(str_id.c_str());
 
-				if (ImGui::BeginPopup(str_id.c_str())) {
-					if (ImGui::MenuItem("Delete")) {
-						markForDelete = true;
-						ImGui::CloseCurrentPopup();
-					}
+                if (ImGui::BeginPopup(str_id.c_str())) {
+                    if (ImGui::MenuItem("Delete")) {
+                        markForDelete = true;
+                        ImGui::CloseCurrentPopup();
+                    }
 
-					ImGui::EndPopup();
-				}
-			}
+                    ImGui::EndPopup();
+                }
+            }
 
-			if (open)
-			{
-				auto& component = entity.getComponent<Component>();
-				function(component);
+            if (open)
+                function(entity.getComponent<Component>());
 
-				//ImGui::TreePop();
-			}
+            if (markForDelete)
+                entity.removeComponent<Component>();
 
-			if (markForDelete)
-				entity.removeComponent<Component>();
+            ImGui::Separator();
+        }
+    }
 
-			ImGui::Separator();
-		}
-	}
+    void InspectorWindow::onImGuiUpdate()
+    {
+        if (m_context.isInspectorWindowOpen)
+        {
+            static ImGuiTreeNodeFlags componentTreeNodeFlags =
+                ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_AllowItemOverlap | ImGuiTreeNodeFlags_FramePadding;
 
-	void InspectorWindow::onImGuiUpdate()
-	{
-		if (m_context.isInspectorWindowOpen)
-		{
-			static ImGuiTreeNodeFlags componentTreeNodeFlags =
-				ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_AllowItemOverlap | ImGuiTreeNodeFlags_FramePadding;
+            ImGui::SetNextWindowSize({ 320.f, 400.f }); // TODO: temp
+            ImGui::Begin("Inspector", &m_context.isInspectorWindowOpen, ImGuiWindowFlags_NoCollapse);
 
-			ImGui::SetNextWindowSize({ 320.f, 400.f }); // TODO: temp
-			ImGui::Begin("Inspector", &m_context.isInspectorWindowOpen, ImGuiWindowFlags_NoCollapse);
+            if (m_context.selectedEntity)
+            {
+                JNG_USER_ASSERT(m_context.selectedEntity.hasComponent<TagComponent>(), "TagComponent is obligatory!");
+                auto& tag = m_context.selectedEntity.getComponent<TagComponent>().tag;
 
-			if (m_context.selectedEntity)
-			{
-				JNG_USER_ASSERT(m_context.selectedEntity.hasComponent<TagComponent>(), "TagComponent is obligatory!");
-				auto& tag = m_context.selectedEntity.getComponent<TagComponent>().tag;
+                char buffer[128];
+                strcpy_s(buffer, sizeof(buffer), tag.c_str());
+                if (ImGui::InputText("Tag", buffer, sizeof(buffer)))
+                    tag = buffer;
+                ImGui::Separator();
 
-				char buffer[128];
-				strcpy_s(buffer, sizeof(buffer), tag.c_str());
-				if (ImGui::InputText("Tag", buffer, sizeof(buffer)))
-					tag = buffer;
-				ImGui::Separator();
+                updateComponent<TransformComponent>("Transform", m_context.selectedEntity,
+                    [](TransformComponent& tc) {
+                        ImGui::DragFloat3("Translation", glm::value_ptr(tc.translation), 0.1f, 0.f, 0.f, "%.2f");
+                        ImGui::DragFloat3("Rotation", glm::value_ptr(tc.rotation), 0.1f, 0.f, 0.f, "%.2f");
+                        ImGui::DragFloat3("Scale", glm::value_ptr(tc.scale), 0.1f, 0.f, 0.f, "%.2f");
+                    }, false);
 
-				updateComponent<TransformComponent>("Transform", m_context.selectedEntity,
-					[](TransformComponent& tc) {
-						ImGui::DragFloat3("Translation", glm::value_ptr(tc.translation), 0.1f, 0.f, 0.f, "%.2f");
-						ImGui::DragFloat3("Rotation", glm::value_ptr(tc.rotation), 0.1f, 0.f, 0.f, "%.2f");
-						ImGui::DragFloat3("Scale", glm::value_ptr(tc.scale), 0.1f, 0.f, 0.f, "%.2f");
-					}, false);
+                updateComponent<CameraComponent>("Camera", m_context.selectedEntity,
+                    [](CameraComponent& cc) {
+                        Camera::ProjectionType selectedType = cc.camera.getProjectionType();
 
-				updateComponent<CameraComponent>("Camera", m_context.selectedEntity,
-					[](CameraComponent& cc) {
-						static const char* projectionTypes[] = { "Orthographic", "Perspective" };
-						uint32 selectedIndex = static_cast<uint32>(cc.projectionType);
-						if (ImGui::BeginCombo("Projection", projectionTypes[selectedIndex]))
-						{
-							if (ImGui::Selectable(projectionTypes[0], selectedIndex == 0))
-								cc.projectionType = CameraComponent::ProjectionType::Orthographic;
+                        if (ImGui::BeginCombo("Projection",
+                            (selectedType == Camera::ProjectionType::Orthographic) ? "Orthographic" : "Perspective"))
+                        {
+                            if (ImGui::Selectable("Orthographic", selectedType == Camera::ProjectionType::Orthographic))
+                                cc.camera.setProjectionType(Camera::ProjectionType::Orthographic);
 
-							if (ImGui::Selectable(projectionTypes[1], selectedIndex == 1))
-								cc.projectionType = CameraComponent::ProjectionType::Perspective;
+                            if (ImGui::Selectable("Perspective", selectedType == Camera::ProjectionType::Perspective))
+                                cc.camera.setProjectionType(Camera::ProjectionType::Perspective);
 
-							ImGui::EndCombo();
-						}
+                            ImGui::EndCombo();
+                        }
 
-						switch (cc.projectionType)
-						{
-						case CameraComponent::ProjectionType::Orthographic:
-							ImGui::DragFloat("Size", &cc.orthoSize, 0.1f, 0.f, 0.f, "%.2f");
-							ImGui::DragFloat("Near", &cc.orthoNear, 0.1f, 0.f, 0.f, "%.2f");
-							ImGui::DragFloat("Far", &cc.orthoFar, 0.1f);
-							break;
-						case CameraComponent::ProjectionType::Perspective:
-							ImGui::DragFloat("FOV", &cc.perspectiveFOV, 0.1f, 0.f, 0.f, "%.2f");
-							ImGui::DragFloat("Near", &cc.perspectiveNear, 0.1f, 0.f, 0.f, "%.2f");
-							ImGui::DragFloat("Far", &cc.perspectiveFar, 0.1f, 0.f, 0.f, "%.2f");
-							break;
-						}
-					});
+                        switch (selectedType)
+                        {
+                        case Camera::ProjectionType::Orthographic:
+                        {
+                            float orthoSize = cc.camera.getOrthographicSize();
+                            if (ImGui::DragFloat("Size", &orthoSize, 0.1f, 0.f, 0.f, "%.2f"))
+                                cc.camera.setOrthographicSize(orthoSize);
 
-				updateComponent<SpriteComponent>("Sprite", m_context.selectedEntity,
-					[](SpriteComponent& sc) {
-						ImGui::ColorEdit4("Color", glm::value_ptr(sc.color));
-					});
+                            float orthoNear = cc.camera.getOrthographicNear();
+                            if (ImGui::DragFloat("Near", &orthoNear, 0.1f, 0.f, 0.f, "%.2f"))
+                                cc.camera.setOrthographicNear(orthoNear);
 
-				if (ImGui::Button("Add Component"))
-					ImGui::OpenPopup("AddComponent");
+                            float orthoFar = cc.camera.getOrthographicFar();
+                            if (ImGui::DragFloat("Far", &orthoFar, 0.1f, 0.f, 0.f, "%.2f"))
+                                cc.camera.setOrthographicFar(orthoFar);
+                        } break;
+                        case Camera::ProjectionType::Perspective:
+                        {
+                            float perspectiveFOV = cc.camera.getPerspectiveFOV();
+                            if (ImGui::DragFloat("FOV", &perspectiveFOV, 0.1f, 0.f, 0.f, "%.2f"))
+                                cc.camera.setPerspectiveFOV(perspectiveFOV);
 
-				if (ImGui::BeginPopup("AddComponent")) {
-					if (ImGui::MenuItem("Camera")) {
-						m_context.selectedEntity.addComponent<CameraComponent>();
-						ImGui::CloseCurrentPopup();
-					}
-					else if (ImGui::MenuItem("Native Script")) {
-						m_context.selectedEntity.addComponent<NativeScriptComponent>();
-						ImGui::CloseCurrentPopup();
-					}
-					else if (ImGui::MenuItem("Sprite")) {
-						m_context.selectedEntity.addComponent<SpriteComponent>();
-						ImGui::CloseCurrentPopup();
-					}
+                            float perspectiveNear = cc.camera.getPerspectiveNear();
+                            if (ImGui::DragFloat("Near", &perspectiveNear, 0.1f, 0.f, 0.f, "%.2f"))
+                                cc.camera.setPerspectiveNear(perspectiveNear);
 
-					ImGui::EndPopup();
-				}
-			}
+                            float perspectiveFar = cc.camera.getPerspectiveFar();
+                            if (ImGui::DragFloat("Far", &perspectiveFar, 0.1f, 0.f, 0.f, "%.2f"))
+                                cc.camera.setPerspectiveFar(perspectiveFar);
+                        } break;
+                        }
+                    });
 
-			ImGui::End();
-		}
-	}
+                updateComponent<SpriteComponent>("Sprite", m_context.selectedEntity,
+                    [](SpriteComponent& sc) {
+                        ImGui::ColorEdit4("Color", glm::value_ptr(sc.color));
+                    });
+
+                if (ImGui::Button("Add Component"))
+                    ImGui::OpenPopup("AddComponent");
+
+                if (ImGui::BeginPopup("AddComponent")) {
+                    if (ImGui::MenuItem("Camera")) {
+                        m_context.selectedEntity.addComponent<CameraComponent>();
+                        ImGui::CloseCurrentPopup();
+                    }
+                    else if (ImGui::MenuItem("Native Script")) {
+                        m_context.selectedEntity.addComponent<NativeScriptComponent>();
+                        ImGui::CloseCurrentPopup();
+                    }
+                    else if (ImGui::MenuItem("Sprite")) {
+                        m_context.selectedEntity.addComponent<SpriteComponent>();
+                        ImGui::CloseCurrentPopup();
+                    }
+
+                    ImGui::EndPopup();
+                }
+            }
+
+            ImGui::End();
+        }
+    }
 
 } // namespace jng

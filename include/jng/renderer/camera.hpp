@@ -5,46 +5,57 @@
  */
 
 #pragma once
+#include "jng/core//base.hpp"
+
 #include <glm/glm.hpp>
 
 namespace jng {
 
+    // TODO: decide if move to scene folder
     class Camera
     {
     public:
-        Camera(const glm::mat4& projection);
+        enum class ProjectionType { Orthographic = 0, Perspective = 1 };
 
-        void setProjection(const glm::mat4& projection);
+        Camera() { recalculateProjection(); }
+
+        void setOrthographic(float size, float near = -1.f, float far = 1.f);
+        void setPerspective(float fov, float near = 0.01f, float far = 1000.f);
         const glm::mat4& getProjection() const { return m_projection; }
-        const glm::mat4& getView() const { return m_view; }
-        const glm::mat4& getVP() const { return m_vp; }
-        void setPosition(glm::vec2 position) { m_position = position; recalculateVP(); }
-        glm::vec2 getPosition() const { return m_position; }
+
+        void setProjectionType(ProjectionType type) { m_projectionType = type; recalculateProjection(); }
+        ProjectionType getProjectionType() const { return m_projectionType; }
+
+        void setViewportSize(uint32 width, uint32 height);
+        float getAspectRatio() const { return m_aspectRatio; }
+
+        float getOrthographicSize() const { return m_orthoSize; }
+        float getOrthographicNear() const { return m_orthoNear; }
+        float getOrthographicFar() const { return m_orthoFar; }
+        void setOrthographicSize(float size) { m_orthoSize = size; recalculateProjection(); }
+        void setOrthographicNear(float near) { m_orthoNear = near; recalculateProjection(); }
+        void setOrthographicFar(float far) { m_orthoFar = far; recalculateProjection(); }
+
+        float getPerspectiveFOV() const { return m_perspectiveFOV; }
+        float getPerspectiveNear() const { return m_perspectiveNear; }
+        float getPerspectiveFar() const { return m_perspectiveFar; }
+        void setPerspectiveFOV(float fov) { m_perspectiveFOV = fov; recalculateProjection(); }
+        void setPerspectiveNear(float near) { m_perspectiveNear = near; recalculateProjection(); }
+        void setPerspectiveFar(float far) { m_perspectiveFar = far; recalculateProjection(); }
+
+        glm::mat4 getVP(const glm::mat4 transform) const;
     private:
-        void recalculateVP();
+        void recalculateProjection();
 
-        glm::mat4 m_projection;
-        glm::mat4 m_view;
-        glm::mat4 m_vp;
-        glm::vec2 m_position;
-    };
-
-    class OrthographicCamera :
-        public Camera
-    {
-    public:
-        OrthographicCamera(float left, float right, float bottom, float top);
-
-        void setProjection(float left, float right, float bottom, float top);
-    };
-
-    class PerspectiveCamera :
-        public Camera
-    {
-    public:
-        PerspectiveCamera(float fov, float aspect, float near, float far);
-
-        void setProjection(float fov, float aspect, float near, float far);
+        glm::mat4 m_projection{ 1.f };
+        ProjectionType m_projectionType = ProjectionType::Orthographic;
+        float m_aspectRatio{ 0.f };
+        float m_orthoSize{ 10.f };
+        float m_orthoNear{ -1.f };
+        float m_orthoFar{ 1.f };
+        float m_perspectiveFOV{ 45.f };
+        float m_perspectiveNear{ 0.01f };
+        float m_perspectiveFar{ 1000.f };
     };
 
 } // namespace jng
