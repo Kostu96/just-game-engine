@@ -12,6 +12,6 @@ set(EDITOR_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 )
 
-add_subdirectory(windows)
+add_subdirectory(widgets)
 
 set(EDITOR_SOURCES ${EDITOR_SOURCES} PARENT_SCOPE)

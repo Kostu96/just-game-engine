@@ -29,6 +29,18 @@ namespace jng {
         m_registry.destroy(entity.m_handle);
     }
 
+    Camera* Scene::getActiveCamera()
+    {
+        if (!m_camera)
+        {
+            auto view = m_registry.view<CameraComponent>();
+            if (view.size() > 0)
+                m_camera = &view.get<CameraComponent>(view.front()).camera;
+        }
+
+        return m_camera;
+    }
+
     void Scene::onUpdate()
     {
         {
@@ -41,10 +53,6 @@ namespace jng {
                 JNG_CORE_WARN("More than one camera on the scene.");
 
             auto [cc, tc] = group.get<CameraComponent, TransformComponent>(*group.begin());
-
-            if (!m_camera)
-                m_camera = &cc.camera;
-
             Renderer2D::beginScene(cc.camera.getVP(tc.getTransform()));
         }
         {

@@ -20,6 +20,7 @@ add_subdirectory(imgui)
 add_subdirectory(platform)
 add_subdirectory(renderer)
 add_subdirectory(scene)
+add_subdirectory(serializers)
 
 set(JNG_HEADERS ${JNG_HEADERS} PARENT_SCOPE)
 set(JNG_SOURCES ${JNG_SOURCES} PARENT_SCOPE)

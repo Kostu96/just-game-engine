@@ -5,8 +5,9 @@
  */
 
 #pragma once
-#include "windows/inspector.hpp"
-#include "windows/scene_hierarchy.hpp"
+#include "widgets/inspector.hpp"
+#include "widgets/main_menu_bar.hpp"
+#include "widgets/scene_hierarchy.hpp"
 
 #include <jng/core/base.hpp>
 #include <jng/core/layer.hpp>
@@ -20,8 +21,8 @@ namespace jng {
 
     struct EditorContext
     {
-        Scene activeScene;
-
+        glm::vec2 viewportWindowSize{ 1.f, 1.f };
+        Ref<Scene> activeScene;
         Entity selectedEntity;
 
         bool isInspectorWindowOpen = true;
@@ -44,10 +45,10 @@ namespace jng {
         void onUpdate(float dt) override;
         void onImGuiUpdate() override;
     private:
-        glm::vec2 m_viewportWindowSize{ 1.f, 1.f };
         Ref<Framebuffer> m_viewportFramebuffer;
         EditorContext m_context;
 
+        MainMenuBar m_mainMenuBar;
         InspectorWindow m_inspectorWindow;
         SceneHierarchyWindow m_sceneHierarchyWindow;
     };

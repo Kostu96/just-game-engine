@@ -22,7 +22,7 @@ namespace jng {
             ImGui::SetNextWindowSize({ 320.f, 400.f }); // TODO: temp
             ImGui::Begin("Scene Hierarchy", &m_context.isSceneHierarchyWindowOpen, ImGuiWindowFlags_NoCollapse);
 
-            m_context.activeScene.each([this](Entity entity) {
+            m_context.activeScene->each([this](Entity entity) {
                 auto& tag = entity.getComponent<TagComponent>().tag;
 
                 ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth |
@@ -40,7 +40,7 @@ namespace jng {
                         if (m_context.selectedEntity == entity)
                             m_context.selectedEntity = {};
 
-                        m_context.activeScene.destroyEntity(entity);
+                        m_context.activeScene->destroyEntity(entity);
                     }
 
                     ImGui::EndPopup();
@@ -57,7 +57,7 @@ namespace jng {
                 if (ImGui::BeginMenu("Create"))
                 {
                     if (ImGui::MenuItem("Empty Entity"))
-                        m_context.activeScene.createEntity("Empty Entity");
+                        m_context.activeScene->createEntity("Empty Entity");
 
                     ImGui::EndMenu();
                 }

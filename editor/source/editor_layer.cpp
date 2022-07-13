@@ -19,31 +19,34 @@ namespace jng {
 
     EditorLayer::EditorLayer(const Properties& /*properties*/) :
         m_viewportFramebuffer{ Framebuffer::create({ 1, 1 }) },
+        m_mainMenuBar{ m_context },
         m_inspectorWindow{ m_context },
         m_sceneHierarchyWindow{ m_context }
     {
-        Entity camera = m_context.activeScene.createEntity("Main Camera");
+        m_context.activeScene = makeRef<Scene>();
+
+        Entity camera = m_context.activeScene->createEntity("Main Camera");
         camera.addComponent<CameraComponent>();
 
-        Entity square1 = m_context.activeScene.createEntity("Green Square");
+        Entity square1 = m_context.activeScene->createEntity("Green Square");
         square1.getComponent<TransformComponent>().translation.x = -0.2f;
         square1.addComponent<SpriteComponent>().color = { 0.f, 1.f, 0.f, 1.f };
 
-        Entity square2 = m_context.activeScene.createEntity("Red Square");
+        Entity square2 = m_context.activeScene->createEntity("Red Square");
         square2.getComponent<TransformComponent>().translation.y = 0.2f;;
         square2.addComponent<SpriteComponent>().color = { 1.f, 0.f, 0.f, 1.f };
     }
 
     void EditorLayer::onUpdate(float /*dt*/)
     {
-        if (m_viewportWindowSize.x != m_viewportFramebuffer->getProperties().width || m_viewportWindowSize.y != m_viewportFramebuffer->getProperties().height) {
-            uint32 newViewportWidth = static_cast<uint32>(m_viewportWindowSize.x);
-            uint32 newViewportHeight = static_cast<uint32>(m_viewportWindowSize.y);
+        if (m_context.viewportWindowSize.x != m_viewportFramebuffer->getProperties().width || m_context.viewportWindowSize.y != m_viewportFramebuffer->getProperties().height) {
+            uint32 newViewportWidth = static_cast<uint32>(m_context.viewportWindowSize.x);
+            uint32 newViewportHeight = static_cast<uint32>(m_context.viewportWindowSize.y);
             m_viewportFramebuffer->resize(newViewportWidth, newViewportHeight);
             
             // TODO: resize editor camera
 
-            Camera* activeCamera = m_context.activeScene.getActiveCamera();
+            Camera* activeCamera = m_context.activeScene->getActiveCamera();
             if (activeCamera)
                 activeCamera->setViewportSize(newViewportWidth, newViewportHeight);
         }
@@ -51,7 +54,7 @@ namespace jng {
         m_viewportFramebuffer->bind();
         jng::RendererAPI::clear({ .1f, 0.1f, .4f });
 
-        m_context.activeScene.onUpdate();
+        m_context.activeScene->onUpdate();
         
         m_viewportFramebuffer->unbind();
     }
@@ -65,51 +68,7 @@ namespace jng {
         ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
         style.WindowMinSize.x = windowMinSize;
 
-        // MainMenuBar
-        if (ImGui::BeginMainMenuBar())
-        {
-            if (ImGui::BeginMenu("File"))
-            {
-                ImGui::MenuItem("New Project", nullptr, nullptr, false);
-                ImGui::MenuItem("Save", "Ctrl + S", nullptr, false);
-                ImGui::MenuItem("Save As", nullptr, nullptr, false);
-                if (ImGui::MenuItem("Exit")) Engine::get().close();
-
-                ImGui::EndMenu();
-            }
-
-            if (ImGui::BeginMenu("Edit"))
-            {
-                ImGui::MenuItem("Undo", "Ctrl + Z", nullptr, false);
-                ImGui::MenuItem("Redo", "Ctrl + Y", nullptr, false);
-
-                ImGui::EndMenu();
-            }
-
-            if (ImGui::BeginMenu("Scene"))
-            {
-                if (ImGui::BeginMenu("Create"))
-                {
-                    if (ImGui::MenuItem("Empty Entity"))
-                        m_context.activeScene.createEntity("Empty Entity");
-                    
-                    ImGui::EndMenu();
-                }
-
-                ImGui::EndMenu();
-            }
-
-            if (ImGui::BeginMenu("View"))
-            {
-                ImGui::MenuItem("Inspector", nullptr, &m_context.isInspectorWindowOpen);
-                ImGui::MenuItem("Scene Hierarchy", nullptr, &m_context.isSceneHierarchyWindowOpen);
-                ImGui::MenuItem("Viewport", nullptr, &m_context.isViewportWindowOpen);
-
-                ImGui::EndMenu();
-            }
-
-            ImGui::EndMainMenuBar();
-        }
+        m_mainMenuBar.onImGuiUpdate();
 
         // Viewport
         if (m_context.isViewportWindowOpen)
@@ -118,10 +77,8 @@ namespace jng {
             ImGui::SetNextWindowSize({ 160 * 4.f, 90 * 4.f }); // TODO: temp
             ImGui::Begin("Viewport", &m_context.isViewportWindowOpen, ImGuiWindowFlags_NoCollapse);
             ImGui::PopStyleVar();
-            auto viewportWindowSize = ImGui::GetContentRegionAvail();
-            m_viewportWindowSize.x = viewportWindowSize.x;
-            m_viewportWindowSize.y = viewportWindowSize.y;
-            ImGui::Image(m_viewportFramebuffer->getColorAttachmentHandle(), { m_viewportWindowSize.x, m_viewportWindowSize.y });
+            m_context.viewportWindowSize = ImGui::GetContentRegionAvail();
+            ImGui::Image(m_viewportFramebuffer->getColorAttachmentHandle(), m_context.viewportWindowSize);
             ImGui::End();
         }
   

@@ -163,6 +163,9 @@ add_subdirectory(yaml-cpp)
 target_compile_options(yaml-cpp PRIVATE
     $<$<CXX_COMPILER_ID:MSVC>:${COMPILER_FLAGS}>
 )
+target_compile_definitions(yaml-cpp PUBLIC
+    YAML_CPP_STATIC_DEFINE
+)
 #################
 
 set_target_properties(
