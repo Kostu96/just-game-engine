@@ -9,7 +9,7 @@ var searchData=
   ['engine_2ecpp_6',['engine.cpp',['../engine_8cpp.html',1,'']]],
   ['engine_2ehpp_7',['engine.hpp',['../engine_8hpp.html',1,'']]],
   ['enter_8',['Enter',['../namespacejng_1_1_key.html#a6561ae8149ac6f2a83daa6c3ad259014',1,'jng::Key']]],
-  ['entity_9',['Entity',['../classjng_1_1_scene.html#a614439ccac0344926adc4c0165d64060',1,'jng::Scene::Entity()'],['../classjng_1_1_entity.html',1,'jng::Entity']]],
+  ['entity_9',['Entity',['../classjng_1_1_scene.html#a614439ccac0344926adc4c0165d64060',1,'jng::Scene::Entity()'],['../classjng_1_1_entity.html#ac56095a90971db97f708b925ed7bd368',1,'jng::Entity::Entity()'],['../classjng_1_1_entity.html',1,'jng::Entity']]],
   ['entity_2ecpp_10',['entity.cpp',['../entity_8cpp.html',1,'']]],
   ['entity_2ehpp_11',['entity.hpp',['../entity_8hpp.html',1,'']]],
   ['entry_5fpoint_2ehpp_12',['entry_point.hpp',['../entry__point_8hpp.html',1,'']]],

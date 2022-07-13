@@ -21,5 +21,6 @@ var searchData=
   ['createapp_18',['createApp',['../entry__point_8hpp.html#a280447b0c28d73bffcaac601e47159de',1,'entry_point.hpp']]],
   ['createcachedirectoryifneeded_19',['createCacheDirectoryIfNeeded',['../classjng_1_1_shader.html#aea588b1cb7f32c18ed3ab1b2cc48b04e',1,'jng::Shader']]],
   ['createentity_20',['createEntity',['../classjng_1_1_scene.html#a0a2ee71a28456504bed83437841509e5',1,'jng::Scene']]],
-  ['currentquadindexcount_21',['currentQuadIndexCount',['../structjng_1_1_render_data.html#a8c5a5dee33cf265ce403ea399d854358',1,'jng::RenderData']]]
+  ['createscript_21',['createScript',['../structjng_1_1_native_script_component.html#acb51aedf16e4fafd73cc8d0a3e6d3ee4',1,'jng::NativeScriptComponent']]],
+  ['currentquadindexcount_22',['currentQuadIndexCount',['../structjng_1_1_render_data.html#a8c5a5dee33cf265ce403ea399d854358',1,'jng::RenderData']]]
 ];

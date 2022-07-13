@@ -22,7 +22,7 @@ var searchData=
   ['textureslots_19',['textureSlots',['../structjng_1_1_render_data.html#a8d27a75088ecab25f17ab07dd767a4f9',1,'jng::RenderData']]],
   ['title_20',['title',['../structjng_1_1_window_1_1_window_data.html#af01a3e166fc67a5e9dc2ca0a43804379',1,'jng::Window::WindowData']]],
   ['to_5fstring_21',['to_string',['../classjng_1_1_event.html#a87f014489fcb726196911c57c381f4ba',1,'jng::Event']]],
-  ['transform_22',['transform',['../structjng_1_1_transform_component.html#a2c9bb6b852967f5fb16e4595c269aec1',1,'jng::TransformComponent']]],
-  ['transformcomponent_23',['TransformComponent',['../structjng_1_1_transform_component.html',1,'jng::TransformComponent'],['../structjng_1_1_transform_component.html#a6443d0cd472aeef8f4e948fe629f268a',1,'jng::TransformComponent::TransformComponent()=default'],['../structjng_1_1_transform_component.html#a5d73fd4da33dfbe4f4ff385eb91d194e',1,'jng::TransformComponent::TransformComponent(const TransformComponent &amp;)=default']]],
+  ['transformcomponent_22',['TransformComponent',['../structjng_1_1_transform_component.html',1,'jng::TransformComponent'],['../structjng_1_1_transform_component.html#a6443d0cd472aeef8f4e948fe629f268a',1,'jng::TransformComponent::TransformComponent()=default'],['../structjng_1_1_transform_component.html#a5d73fd4da33dfbe4f4ff385eb91d194e',1,'jng::TransformComponent::TransformComponent(const TransformComponent &amp;)=default']]],
+  ['translation_23',['translation',['../structjng_1_1_transform_component.html#adf6643b872158978bd6c7019078aeb5d',1,'jng::TransformComponent']]],
   ['type_24',['Type',['../classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7',1,'jng::Shader::Type()'],['../structjng_1_1_layout_element.html#af18c4397ee72fc97fa25169c465d89d5',1,'jng::LayoutElement::Type()']]]
 ];

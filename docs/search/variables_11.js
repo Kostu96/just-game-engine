@@ -7,5 +7,6 @@ var searchData=
   ['rightbracket_4',['RightBracket',['../namespacejng_1_1_key.html#a7e378468312ba9f467097bcf1d6c3c5a',1,'jng::Key']]],
   ['rightcontrol_5',['RightControl',['../namespacejng_1_1_key.html#aaf6dcee9c5d777417d9362561e3bd2de',1,'jng::Key']]],
   ['rightshift_6',['RightShift',['../namespacejng_1_1_key.html#a20f29a04468a54dad8c539a1f616a0ef',1,'jng::Key']]],
-  ['rightsuper_7',['RightSuper',['../namespacejng_1_1_key.html#a7b2275441fc673904200f7cd5c978e4d',1,'jng::Key']]]
+  ['rightsuper_7',['RightSuper',['../namespacejng_1_1_key.html#a7b2275441fc673904200f7cd5c978e4d',1,'jng::Key']]],
+  ['rotation_8',['rotation',['../structjng_1_1_transform_component.html#a7f654d90b8d4dacdedcd5aaba2776af2',1,'jng::TransformComponent']]]
 ];

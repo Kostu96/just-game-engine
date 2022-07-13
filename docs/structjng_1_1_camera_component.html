@@ -67,6 +67,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structjng_1_1_camera_component-members.html">List of all members</a>  </div>
@@ -76,6 +77,16 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="components_8hpp_source.html">components.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ac5899844ae07931db506d1f1420aa886"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_camera_component.html#ac5899844ae07931db506d1f1420aa886">ProjectionType</a> { <br />
+&#160;&#160;<a class="el" href="structjng_1_1_camera_component.html#ac5899844ae07931db506d1f1420aa886a03424250432f2aa71de95579d2c0eaeb">Orthographic</a> = 0
+, <br />
+&#160;&#160;<a class="el" href="structjng_1_1_camera_component.html#ac5899844ae07931db506d1f1420aa886aa80420eef88d11f77532f1b9cb467fa3">Perspective</a> = 1
+<br />
+ }</td></tr>
+<tr class="separator:ac5899844ae07931db506d1f1420aa886"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ae33255c13356465034b621c018c0f32d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_camera_component.html#ae33255c13356465034b621c018c0f32d">CameraComponent</a> ()=default</td></tr>
@@ -85,9 +96,50 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:abcc207c3f36c84680c6ff7cb5782a373"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classjng_1_1_camera.html">Camera</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_camera_component.html#abcc207c3f36c84680c6ff7cb5782a373">camera</a></td></tr>
+<tr class="memitem:abcc207c3f36c84680c6ff7cb5782a373"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classjng_1_1_camera.html">Camera</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_camera_component.html#abcc207c3f36c84680c6ff7cb5782a373">camera</a> { glm::mat4{1.f} }</td></tr>
 <tr class="separator:abcc207c3f36c84680c6ff7cb5782a373"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a809774276b480bc21a4c790e427a1d33"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_camera_component.html#a809774276b480bc21a4c790e427a1d33">orthoSize</a> { 10.f }</td></tr>
+<tr class="separator:a809774276b480bc21a4c790e427a1d33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c829399f133e97234448e5a7d3b8a20"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_camera_component.html#a5c829399f133e97234448e5a7d3b8a20">orthoNear</a> { -1.f }</td></tr>
+<tr class="separator:a5c829399f133e97234448e5a7d3b8a20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a963276fa71f0976daa03bc7f6f4be42f"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_camera_component.html#a963276fa71f0976daa03bc7f6f4be42f">orthoFar</a> { 1.f }</td></tr>
+<tr class="separator:a963276fa71f0976daa03bc7f6f4be42f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba214773f552994c77c28a8e5054dde5"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_camera_component.html#aba214773f552994c77c28a8e5054dde5">perspectiveFOV</a> { 45.f }</td></tr>
+<tr class="separator:aba214773f552994c77c28a8e5054dde5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab5e4991dece5a88093126be1f8af333"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_camera_component.html#aab5e4991dece5a88093126be1f8af333">perspectiveNear</a> { 0.01f }</td></tr>
+<tr class="separator:aab5e4991dece5a88093126be1f8af333"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a0618efa339fb3d16e83710b1a1d797"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_camera_component.html#a3a0618efa339fb3d16e83710b1a1d797">perspectiveFar</a> { 1000.f }</td></tr>
+<tr class="separator:a3a0618efa339fb3d16e83710b1a1d797"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75a67140eff88ff08194287820641d32"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structjng_1_1_camera_component.html#ac5899844ae07931db506d1f1420aa886">ProjectionType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_camera_component.html#a75a67140eff88ff08194287820641d32">projectionType</a> = <a class="el" href="structjng_1_1_camera_component.html#ac5899844ae07931db506d1f1420aa886a03424250432f2aa71de95579d2c0eaeb">ProjectionType::Orthographic</a></td></tr>
+<tr class="separator:a75a67140eff88ff08194287820641d32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="ac5899844ae07931db506d1f1420aa886" name="ac5899844ae07931db506d1f1420aa886"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5899844ae07931db506d1f1420aa886">&#9670;&nbsp;</a></span>ProjectionType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="structjng_1_1_camera_component.html#ac5899844ae07931db506d1f1420aa886">jng::CameraComponent::ProjectionType</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac5899844ae07931db506d1f1420aa886a03424250432f2aa71de95579d2c0eaeb" name="ac5899844ae07931db506d1f1420aa886a03424250432f2aa71de95579d2c0eaeb"></a>Orthographic&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac5899844ae07931db506d1f1420aa886aa80420eef88d11f77532f1b9cb467fa3" name="ac5899844ae07931db506d1f1420aa886aa80420eef88d11f77532f1b9cb467fa3"></a>Perspective&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae33255c13356465034b621c018c0f32d" name="ae33255c13356465034b621c018c0f32d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae33255c13356465034b621c018c0f32d">&#9670;&nbsp;</a></span>CameraComponent() <span class="overload">[1/2]</span></h2>
@@ -148,7 +200,105 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classjng_1_1_camera.html">Camera</a> jng::CameraComponent::camera</td>
+          <td class="memname"><a class="el" href="classjng_1_1_camera.html">Camera</a> jng::CameraComponent::camera { glm::mat4{1.f} }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a963276fa71f0976daa03bc7f6f4be42f" name="a963276fa71f0976daa03bc7f6f4be42f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a963276fa71f0976daa03bc7f6f4be42f">&#9670;&nbsp;</a></span>orthoFar</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float jng::CameraComponent::orthoFar { 1.f }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5c829399f133e97234448e5a7d3b8a20" name="a5c829399f133e97234448e5a7d3b8a20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c829399f133e97234448e5a7d3b8a20">&#9670;&nbsp;</a></span>orthoNear</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float jng::CameraComponent::orthoNear { -1.f }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a809774276b480bc21a4c790e427a1d33" name="a809774276b480bc21a4c790e427a1d33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a809774276b480bc21a4c790e427a1d33">&#9670;&nbsp;</a></span>orthoSize</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float jng::CameraComponent::orthoSize { 10.f }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3a0618efa339fb3d16e83710b1a1d797" name="a3a0618efa339fb3d16e83710b1a1d797"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a0618efa339fb3d16e83710b1a1d797">&#9670;&nbsp;</a></span>perspectiveFar</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float jng::CameraComponent::perspectiveFar { 1000.f }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aba214773f552994c77c28a8e5054dde5" name="aba214773f552994c77c28a8e5054dde5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba214773f552994c77c28a8e5054dde5">&#9670;&nbsp;</a></span>perspectiveFOV</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float jng::CameraComponent::perspectiveFOV { 45.f }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aab5e4991dece5a88093126be1f8af333" name="aab5e4991dece5a88093126be1f8af333"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab5e4991dece5a88093126be1f8af333">&#9670;&nbsp;</a></span>perspectiveNear</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float jng::CameraComponent::perspectiveNear { 0.01f }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a75a67140eff88ff08194287820641d32" name="a75a67140eff88ff08194287820641d32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75a67140eff88ff08194287820641d32">&#9670;&nbsp;</a></span>projectionType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structjng_1_1_camera_component.html#ac5899844ae07931db506d1f1420aa886">ProjectionType</a> jng::CameraComponent::projectionType = <a class="el" href="structjng_1_1_camera_component.html#ac5899844ae07931db506d1f1420aa886a03424250432f2aa71de95579d2c0eaeb">ProjectionType::Orthographic</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -161,7 +311,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 12 2022 09:31:08 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Jul 13 2022 12:13:37 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

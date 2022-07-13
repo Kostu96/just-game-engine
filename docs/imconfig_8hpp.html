@@ -80,8 +80,44 @@ Macros</h2></td></tr>
 <tr class="separator:a0236697e2c0fbaa8c23c4f0ff76811c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3aa8d7564b80a8ab5c5e1dbc1618b55b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="imconfig_8hpp.html#a3aa8d7564b80a8ab5c5e1dbc1618b55b">IMGUI_DISABLE_DEBUG_TOOLS</a></td></tr>
 <tr class="separator:a3aa8d7564b80a8ab5c5e1dbc1618b55b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2003642a041a4852fe9f75c0787ec26"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="imconfig_8hpp.html#aa2003642a041a4852fe9f75c0787ec26">IM_VEC2_CLASS_EXTRA</a></td></tr>
+<tr class="separator:aa2003642a041a4852fe9f75c0787ec26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef71d1233909fa90cb19ffa2cdeedfa1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="imconfig_8hpp.html#aef71d1233909fa90cb19ffa2cdeedfa1">IM_VEC4_CLASS_EXTRA</a></td></tr>
+<tr class="separator:aef71d1233909fa90cb19ffa2cdeedfa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="aa2003642a041a4852fe9f75c0787ec26" name="aa2003642a041a4852fe9f75c0787ec26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2003642a041a4852fe9f75c0787ec26">&#9670;&nbsp;</a></span>IM_VEC2_CLASS_EXTRA</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IM_VEC2_CLASS_EXTRA</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">        <span class="keyword">constexpr</span> ImVec2(<span class="keyword">const</span> glm::vec2&amp; f) : x(f.x), y(f.y) {} \</div>
+<div class="line">        operator glm::vec2()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> glm::vec2(x,y); }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aef71d1233909fa90cb19ffa2cdeedfa1" name="aef71d1233909fa90cb19ffa2cdeedfa1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef71d1233909fa90cb19ffa2cdeedfa1">&#9670;&nbsp;</a></span>IM_VEC4_CLASS_EXTRA</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IM_VEC4_CLASS_EXTRA</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">        <span class="keyword">constexpr</span> ImVec4(<span class="keyword">const</span> glm::vec4&amp; f) : x(f.x), y(f.y), z(f.z), w(f.w) {} \</div>
+<div class="line">        operator glm::vec4()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> glm::vec4(x,y,z,w); }</div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="a3aa8d7564b80a8ab5c5e1dbc1618b55b" name="a3aa8d7564b80a8ab5c5e1dbc1618b55b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3aa8d7564b80a8ab5c5e1dbc1618b55b">&#9670;&nbsp;</a></span>IMGUI_DISABLE_DEBUG_TOOLS</h2>
 
@@ -113,7 +149,7 @@ Macros</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 12 2022 09:31:08 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Jul 13 2022 12:13:36 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

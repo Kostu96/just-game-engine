@@ -10,6 +10,6 @@ var searchData=
   ['textureslotindex_7',['textureSlotIndex',['../structjng_1_1_render_data.html#ad7b08f0651124fa4281b6b1645b2fede',1,'jng::RenderData']]],
   ['textureslots_8',['textureSlots',['../structjng_1_1_render_data.html#a8d27a75088ecab25f17ab07dd767a4f9',1,'jng::RenderData']]],
   ['title_9',['title',['../structjng_1_1_window_1_1_window_data.html#af01a3e166fc67a5e9dc2ca0a43804379',1,'jng::Window::WindowData']]],
-  ['transform_10',['transform',['../structjng_1_1_transform_component.html#a2c9bb6b852967f5fb16e4595c269aec1',1,'jng::TransformComponent']]],
+  ['translation_10',['translation',['../structjng_1_1_transform_component.html#adf6643b872158978bd6c7019078aeb5d',1,'jng::TransformComponent']]],
   ['type_11',['Type',['../structjng_1_1_layout_element.html#af18c4397ee72fc97fa25169c465d89d5',1,'jng::LayoutElement']]]
 ];

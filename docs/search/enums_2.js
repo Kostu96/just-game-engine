@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['rendererbackend_0',['RendererBackend',['../namespacejng.html#a12ce176de3b33861d2a2f4c90385d499',1,'jng']]],
-  ['renderertype_1',['RendererType',['../classjng_1_1_engine.html#acee4c6dfe14e28482ff2d8a0ecbc985b',1,'jng::Engine']]]
+  ['projectiontype_0',['ProjectionType',['../structjng_1_1_camera_component.html#ac5899844ae07931db506d1f1420aa886',1,'jng::CameraComponent']]]
 ];

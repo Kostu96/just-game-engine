@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['renderer2d_0',['Renderer2D',['../classjng_1_1_engine.html#acee4c6dfe14e28482ff2d8a0ecbc985bacfc786e02161dec13cacafa50533a7ab',1,'jng::Engine']]],
-  ['renderer3d_1',['Renderer3D',['../classjng_1_1_engine.html#acee4c6dfe14e28482ff2d8a0ecbc985ba85e336203853a4899130f8328310d512',1,'jng::Engine']]]
+  ['perspective_0',['Perspective',['../structjng_1_1_camera_component.html#ac5899844ae07931db506d1f1420aa886aa80420eef88d11f77532f1b9cb467fa3',1,'jng::CameraComponent']]]
 ];
