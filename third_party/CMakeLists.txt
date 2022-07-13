@@ -157,6 +157,14 @@ target_compile_options(stb PRIVATE
 )
 ############
 
+### yaml-cpp: ###
+set(YAML_CPP_BUILD_TOOLS OFF CACHE BOOL "" FORCE)
+add_subdirectory(yaml-cpp)
+target_compile_options(yaml-cpp PRIVATE
+    $<$<CXX_COMPILER_ID:MSVC>:${COMPILER_FLAGS}>
+)
+#################
+
 set_target_properties(
     cpp-common-lib
     glad
@@ -165,6 +173,7 @@ set_target_properties(
     imgui
     spdlog
     stb
+    yaml-cpp
     PROPERTIES
     FOLDER third_party
     MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL"
@@ -180,3 +189,14 @@ if (WIN32)
         EXCLUDE_FROM_ALL true
     )
 endif()
+
+set(JNG_THIRD_PARTY_LIBRARIES
+    ${Vulkan_LIBRARIES}
+    cpp-common-lib
+    glad
+    glfw
+    imgui
+    spdlog
+    stb
+    yaml-cpp
+PARENT_SCOPE)
