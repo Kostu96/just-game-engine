@@ -24,6 +24,11 @@ namespace jng {
         return Entity{ entity, *this };
     }
 
+    void Scene::destroyEntity(Entity entity)
+    {
+        m_registry.destroy(entity.m_handle);
+    }
+
     void Scene::onUpdate()
     {
         auto view = m_registry.view<CameraComponent>();

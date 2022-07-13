@@ -38,8 +38,8 @@ namespace jng {
 
         NativeScript* instance = nullptr;
 
-        NativeScript* (*createScript)();
-        void (*destroyScript)(NativeScript*&);
+        NativeScript* (*createScript)() = nullptr;
+        void (*destroyScript)(NativeScript*&) = nullptr;
 
         template<typename Script>
         void bind()

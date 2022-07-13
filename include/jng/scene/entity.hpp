@@ -22,6 +22,9 @@ namespace jng {
         Component& addComponent(Args&& ...args);
 
         template<typename Component>
+        void removeComponent();
+
+        template<typename Component>
         bool hasComponent();
 
         template<typename Component>
@@ -44,6 +47,12 @@ namespace jng {
     Component& Entity::addComponent(Args&& ...args)
     {
         return m_sceneRef->m_registry.emplace<Component>(m_handle, std::forward<Args>(args)...);
+    }
+
+    template<typename Component>
+    void Entity::removeComponent()
+    {
+        m_sceneRef->m_registry.remove<Component>(m_handle);
     }
 
     template<typename Component>
