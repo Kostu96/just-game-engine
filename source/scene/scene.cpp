@@ -31,25 +31,31 @@ namespace jng {
 
     void Scene::onUpdate()
     {
-        auto view = m_registry.view<CameraComponent>();
-        if (view.size() == 0) {
-            //JNG_CORE_WARN("Scene has no camera!");
-            return; // TODO: temp
-        }
-        else if (view.size() > 1)
-            JNG_CORE_WARN("More than one camera on the scene.");
-
-        auto& cameraComponent = view.get<CameraComponent>(*view.begin());
-        Renderer2D::beginScene(cameraComponent.camera.getVP());
-
-        auto group = m_registry.group<TransformComponent>(entt::get<SpriteComponent>);
-        for (auto entity : group)
         {
-            auto [tc, sc] = group.get<TransformComponent, SpriteComponent>(entity);
+            auto group = m_registry.group<CameraComponent>(entt::get<TransformComponent>);
+            if (group.size() == 0) {
+                //JNG_CORE_WARN("Scene has no camera!");
+                return; // TODO: temp
+            }
+            else if (group.size() > 1)
+                JNG_CORE_WARN("More than one camera on the scene.");
 
-            Renderer2D::fillQuad(tc.getTransform(), sc.color);
+            auto [cc, tc] = group.get<CameraComponent, TransformComponent>(*group.begin());
+
+            if (!m_camera)
+                m_camera = &cc.camera;
+
+            Renderer2D::beginScene(cc.camera.getVP(tc.getTransform()));
         }
+        {
+            auto group = m_registry.group<TransformComponent>(entt::get<SpriteComponent>);
+            for (auto entity : group)
+            {
+                auto [tc, sc] = group.get<TransformComponent, SpriteComponent>(entity);
 
+                Renderer2D::fillQuad(tc.getTransform(), sc.color);
+            }
+        }
         Renderer2D::endScene();
     }
 

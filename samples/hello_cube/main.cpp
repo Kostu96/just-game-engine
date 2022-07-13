@@ -7,6 +7,9 @@
 #define JNG_DECLARE_MAIN
 #include <jng/jng.hpp>
 
+static constexpr unsigned int WindowWidth = 800;
+static constexpr unsigned int WindowHeight = 600;
+
 struct Vertex {
     glm::vec3 position;
     glm::vec2 texCoord;
@@ -62,7 +65,6 @@ public:
         m_IBO{ jng::IndexBuffer::create(indices, sizeof(indices)) },
         m_VAO{ jng::VertexArray::create(m_VBO, LAYOUT, m_shader) },
         m_texture{ jng::Texture::create("assets/hello_cube/textures/wall_base_color.jpg") },
-        m_camera{ 45.f, 4.f/3.f, 0.1f, 100.f },
         m_model{ 1.f }
     {
         m_VAO->setIndexBuffer(m_IBO);
@@ -74,8 +76,9 @@ public:
         m_VAO->bind();
         m_texture->bind(0);
 
-        m_cameraUBO->setData(glm::value_ptr(m_camera.getVP()), sizeof(glm::mat4), 0);
-
+        m_camera.setViewportSize(WindowWidth, WindowHeight);
+        m_camera.setPerspective(45.f);
+        m_cameraUBO->setData(glm::value_ptr(m_camera.getVP(glm::mat4{ 1.f })), sizeof(glm::mat4), 0);
         m_model = glm::translate(m_model, glm::vec3{ 0.f, 0.f, -5.f });
     }
 
@@ -97,20 +100,20 @@ public:
 private:
     bool onWindowResize(jng::WindowResizeEvent& event)
     {
-        m_camera.setProjection(45.f, static_cast<float>(event.getWidth()) / static_cast<float>(event.getHeight()), 01.f, 100.f);
-        m_cameraUBO->setData(glm::value_ptr(m_camera.getVP()), sizeof(glm::mat4), 0);
+        m_camera.setViewportSize(event.getWidth(), event.getHeight());
+        m_cameraUBO->setData(glm::value_ptr(m_camera.getVP(glm::mat4{ 1.f })), sizeof(glm::mat4), 0);
         return false;
     }
 
     static const jng::VertexLayout LAYOUT;
     jng::Ref<jng::Shader> m_shader;
+    jng::Camera m_camera;
     jng::Ref<jng::UniformBuffer> m_cameraUBO;
     jng::Ref<jng::UniformBuffer> m_modelUBO;
     jng::Ref<jng::VertexBuffer> m_VBO;
     jng::Ref<jng::IndexBuffer> m_IBO;
     jng::Ref<jng::VertexArray> m_VAO;
     jng::Ref<jng::Texture> m_texture;
-    jng::PerspectiveCamera m_camera;
     glm::mat4 m_model;
 };
 
@@ -123,9 +126,6 @@ class App :
     public jng::Engine
 {
 public:
-    static constexpr unsigned int WindowWidth = 800;
-    static constexpr unsigned int WindowHeight = 600;
-
     App() :
         Engine({
             "Hello Cube!",

@@ -5,6 +5,8 @@
  */
 
 #pragma once
+#include "jng/renderer/camera.hpp"
+
 #include <entt/entt.hpp>
 
 namespace jng {
@@ -19,12 +21,15 @@ namespace jng {
         Entity createEntity(const std::string& name);
         void destroyEntity(Entity entity);
 
+        Camera* getActiveCamera() { return m_camera; }
+
         void onUpdate();
 
         template<typename Func>
         void each(Func func);
     private:
         entt::registry m_registry;
+        Camera* m_camera = nullptr;
 
         friend class Entity;
     };

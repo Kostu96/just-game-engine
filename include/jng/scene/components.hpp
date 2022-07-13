@@ -18,15 +18,7 @@ namespace jng {
         CameraComponent() = default;
         CameraComponent(const CameraComponent&) = default;
 
-        enum class ProjectionType { Orthographic = 0, Perspective = 1 };
-        Camera camera{ glm::mat4{1.f} };
-        float orthoSize{ 10.f };
-        float orthoNear{ -1.f };
-        float orthoFar{ 1.f };
-        float perspectiveFOV{ 45.f };
-        float perspectiveNear{ 0.01f };
-        float perspectiveFar{ 1000.f };
-        ProjectionType projectionType = ProjectionType::Orthographic;
+        Camera camera;
     };
 
     class NativeScript;

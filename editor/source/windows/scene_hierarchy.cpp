@@ -27,6 +27,7 @@ namespace jng {
 
                 ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth |
                     (m_context.selectedEntity == entity ? ImGuiTreeNodeFlags_Selected : 0);
+                flags |= ImGuiTreeNodeFlags_Leaf; // TODO: set unconditionaly until parenting logic
                 if (ImGui::TreeNodeEx(entity, flags, tag.c_str()))
                     ImGui::TreePop();
 
