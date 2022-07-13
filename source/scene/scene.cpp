@@ -24,6 +24,11 @@ namespace jng {
         return Entity{ entity, *this };
     }
 
+    void Scene::destroyEntity(Entity entity)
+    {
+        m_registry.destroy(entity.m_handle);
+    }
+
     void Scene::onUpdate()
     {
         auto view = m_registry.view<CameraComponent>();
@@ -35,20 +40,14 @@ namespace jng {
             JNG_CORE_WARN("More than one camera on the scene.");
 
         auto& cameraComponent = view.get<CameraComponent>(*view.begin());
-        Renderer2D::beginScene(cameraComponent.camera);
+        Renderer2D::beginScene(cameraComponent.camera.getVP());
 
         auto group = m_registry.group<TransformComponent>(entt::get<SpriteComponent>);
         for (auto entity : group)
         {
-            auto [transform, sprite] = group.get<TransformComponent, SpriteComponent>(entity);
+            auto [tc, sc] = group.get<TransformComponent, SpriteComponent>(entity);
 
-            glm::vec3 scale;
-            glm::quat rotation;
-            glm::vec3 translation;
-            glm::vec3 skew;
-            glm::vec4 perspective;
-            glm::decompose(transform.transform, scale, rotation, translation, skew, perspective);
-            Renderer2D::fillQuad(glm::vec2{ translation.x, translation.y }, glm::vec2{ scale.x, scale.y }, sprite.color);
+            Renderer2D::fillQuad(tc.getTransform(), sc.color);
         }
 
         Renderer2D::endScene();

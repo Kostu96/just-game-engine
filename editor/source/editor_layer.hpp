@@ -11,6 +11,7 @@
 #include <jng/core/base.hpp>
 #include <jng/core/layer.hpp>
 #include <jng/renderer/camera.hpp>
+#include <jng/scene/entity.hpp>
 #include <jng/scene/scene.hpp>
 
 namespace jng {
@@ -20,6 +21,8 @@ namespace jng {
     struct EditorContext
     {
         Scene activeScene;
+
+        Entity selectedEntity;
 
         bool isInspectorWindowOpen = true;
         bool isSceneHierarchyWindowOpen = true;
@@ -43,7 +46,6 @@ namespace jng {
     private:
         glm::vec2 m_viewportWindowSize{ 1.f, 1.f };
         Ref<Framebuffer> m_viewportFramebuffer;
-        OrthographicCamera m_mainCamera;
         EditorContext m_context;
 
         InspectorWindow m_inspectorWindow;

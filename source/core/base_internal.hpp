@@ -6,8 +6,6 @@
 
 #pragma once
 #include "core/base.hpp"
-#include "debug/assert.hpp"
-#include "debug/log.hpp"
 #include "debug/profiling.hpp"
 
 namespace jng {

@@ -5,7 +5,7 @@
  */
 
 #pragma once
-#include "debug/log.hpp"
+#include "jng/debug/log.hpp"
 
 #ifdef JNG_DEBUG
 

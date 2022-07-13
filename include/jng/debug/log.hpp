@@ -8,14 +8,14 @@
 
 #ifdef JNG_DEBUG
 
-#include "core/base.hpp"
+#include "jng/core/base.hpp"
 
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
 #include <memory>
 
 namespace jng {
-
+    
     class Log :
         public ccl::NonCopyable
     {

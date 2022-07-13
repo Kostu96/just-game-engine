@@ -9,6 +9,9 @@
 #include <cstdint>
 #include <memory>
 
+#include "jng/debug/assert.hpp"
+#include "jng/debug/log.hpp"
+
 #define JNG_BIND_EVENT_FUNC(func) [this](auto&& ...args) -> decltype(auto) { return this->func(std::forward<decltype(args)>(args)...); }
 
 namespace jng {

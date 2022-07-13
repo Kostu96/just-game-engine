@@ -22,6 +22,9 @@ namespace jng {
         Component& addComponent(Args&& ...args);
 
         template<typename Component>
+        void removeComponent();
+
+        template<typename Component>
         bool hasComponent();
 
         template<typename Component>
@@ -29,6 +32,8 @@ namespace jng {
 
         bool operator==(const Entity& other) const { return m_handle == other.m_handle; }
         bool operator!=(const Entity& other) const { return m_handle != other.m_handle; }
+        operator bool() { return m_handle != entt::null; }
+        operator void*() { return reinterpret_cast<void*>(m_handle); }
     private:
         Entity(entt::entity handle, Scene& scene);
         
@@ -42,6 +47,12 @@ namespace jng {
     Component& Entity::addComponent(Args&& ...args)
     {
         return m_sceneRef->m_registry.emplace<Component>(m_handle, std::forward<Args>(args)...);
+    }
+
+    template<typename Component>
+    void Entity::removeComponent()
+    {
+        m_sceneRef->m_registry.remove<Component>(m_handle);
     }
 
     template<typename Component>

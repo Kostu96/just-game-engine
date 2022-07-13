@@ -17,6 +17,7 @@ namespace jng {
         Scene() = default;
 
         Entity createEntity(const std::string& name);
+        void destroyEntity(Entity entity);
 
         void onUpdate();
 

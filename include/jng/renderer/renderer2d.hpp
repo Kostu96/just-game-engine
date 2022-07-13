@@ -6,7 +6,8 @@
 
 #pragma once
 #include "jng/core/base.hpp"
-#include "jng/renderer/camera.hpp"
+
+#include <glm/glm.hpp>
 
 namespace jng {
 
@@ -29,14 +30,14 @@ namespace jng {
         static void init();
         static void shutdown();
 
-        static void beginScene(const Camera& camera);
+        static void beginScene(const glm::mat4& viewProjection);
         static void endScene();
 
         static void fillQuad(const Properties& properties);
         static void fillQuad(glm::vec2 position, glm::vec2 size, const glm::vec4& color);
-        static void fillQuad(glm::vec2 position, glm::vec2 size, float rotation, const glm::vec4& color);
         static void fillQuad(glm::vec2 position, glm::vec2 size, const Ref<Texture>& texture, const glm::vec4& color = { 1.f, 1.f, 1.f, 1.f });
-        static void fillQuad(glm::vec2 position, glm::vec2 size, float rotation, const Ref<Texture>& texture, const glm::vec4& color = { 1.f, 1.f, 1.f, 1.f });
+        static void fillQuad(glm::mat4 transform, const glm::vec4& color);
+        static void fillQuad(glm::mat4 transform, const Ref<Texture>& texture, const glm::vec4& color = { 1.f, 1.f, 1.f, 1.f });
 
         struct Statistics
         {
