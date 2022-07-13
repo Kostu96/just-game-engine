@@ -41,6 +41,10 @@ namespace jng {
                 JNG_CORE_WARN("More than one camera on the scene.");
 
             auto [cc, tc] = group.get<CameraComponent, TransformComponent>(*group.begin());
+
+            if (!m_camera)
+                m_camera = &cc.camera;
+
             Renderer2D::beginScene(cc.camera.getVP(tc.getTransform()));
         }
         {

@@ -36,8 +36,17 @@ namespace jng {
 
     void EditorLayer::onUpdate(float /*dt*/)
     {
-        if (m_viewportWindowSize.x != m_viewportFramebuffer->getProperties().width || m_viewportWindowSize.y != m_viewportFramebuffer->getProperties().height)
-            m_viewportFramebuffer->resize(static_cast<uint32>(m_viewportWindowSize.x), static_cast<uint32>(m_viewportWindowSize.y));
+        if (m_viewportWindowSize.x != m_viewportFramebuffer->getProperties().width || m_viewportWindowSize.y != m_viewportFramebuffer->getProperties().height) {
+            uint32 newViewportWidth = static_cast<uint32>(m_viewportWindowSize.x);
+            uint32 newViewportHeight = static_cast<uint32>(m_viewportWindowSize.y);
+            m_viewportFramebuffer->resize(newViewportWidth, newViewportHeight);
+            
+            // TODO: resize editor camera
+
+            Camera* activeCamera = m_context.activeScene.getActiveCamera();
+            if (activeCamera)
+                activeCamera->setViewportSize(newViewportWidth, newViewportHeight);
+        }
 
         m_viewportFramebuffer->bind();
         jng::RendererAPI::clear({ .1f, 0.1f, .4f });
