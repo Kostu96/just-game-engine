@@ -11,6 +11,7 @@ list(APPEND JNG_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/graphics_context_d3d.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/graphics_context_d3d.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/graphics_context_ogl.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/platform_win.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/windows_base.hpp
 )
 

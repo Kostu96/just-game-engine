@@ -9,6 +9,7 @@
 #include "../editor_layer.hpp"
 
 #include <jng/core/engine.hpp>
+#include <jng/platform/platform.hpp>
 #include <jng/serializers/scene_serializer.hpp>
 
 #include <imgui.h>
@@ -21,29 +22,48 @@ namespace jng {
         {
             if (ImGui::BeginMenu("File"))
             {
-                ImGui::MenuItem("New Project", nullptr, nullptr, false);
-
-                if (ImGui::MenuItem("Open"))
+                if (ImGui::BeginMenu("New"))
                 {
-                    m_context.selectedEntity = {};
-                    m_context.activeScene = makeRef<Scene>();
-                    SceneSerializer serializer{ m_context.activeScene };
-                    serializer.deserialize("test.yaml");
+                    ImGui::MenuItem("Project", nullptr, nullptr, false);
 
-                    Camera* activeCamera = m_context.activeScene->getActiveCamera();
-                    if (activeCamera)
-                        activeCamera->setViewportSize(
-                            static_cast<uint32>(m_context.viewportWindowSize.x),
-                            static_cast<uint32>(m_context.viewportWindowSize.y));
+                    ImGui::MenuItem("Scene", nullptr, nullptr, false);
+
+                    ImGui::EndMenu();
                 }
 
-                if (ImGui::MenuItem("Save", "Ctrl + S")) 
+                ImGui::Separator();
+
+                if (ImGui::MenuItem("Open...", "Ctrl + O"))
                 {
-                    SceneSerializer serializer{ m_context.activeScene };
-                    serializer.serialize("test.yaml");
+                    std::string path = Platform::openFilenameDialog("JNG Scene (*.yaml;*.yml)\0*.yaml;*.yml\0\0");
+                    if (!path.empty())
+                    {
+                        m_context.selectedEntity = {};
+                        m_context.activeScene = makeRef<Scene>();
+                        SceneSerializer serializer{ m_context.activeScene };
+                        serializer.deserialize(path.c_str());
+
+                        Camera* activeCamera = m_context.activeScene->getActiveCamera();
+                        if (activeCamera)
+                            activeCamera->setViewportSize(
+                                static_cast<uint32>(m_context.viewportWindowSize.x),
+                                static_cast<uint32>(m_context.viewportWindowSize.y));
+                    }
                 }
 
-                ImGui::MenuItem("Save As", nullptr, nullptr, false);
+                if (ImGui::MenuItem("Save...", "Ctrl + S")) 
+                {
+                    std::string path = Platform::saveFilenameDialog("JNG Scene (*.yaml;*.yml)\0*.yaml;*.yml\0\0");
+                    if (!path.empty())
+                    {
+                        SceneSerializer serializer{ m_context.activeScene };
+                        serializer.serialize(path.c_str());
+                    }
+                }
+
+                ImGui::MenuItem("Save As...", "Ctrl + Shift + S", nullptr, false);
+
+                ImGui::Separator();
 
                 if (ImGui::MenuItem("Exit")) Engine::get().close();
 

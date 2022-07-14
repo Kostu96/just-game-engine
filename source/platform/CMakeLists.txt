@@ -10,6 +10,7 @@ list(APPEND JNG_HEADERS
     ${JNG_HEADERS_DIR}/input.hpp
     ${JNG_HEADERS_DIR}/key_codes.hpp
     ${JNG_HEADERS_DIR}/mouse_codes.hpp
+    ${JNG_HEADERS_DIR}/platform.hpp
     ${JNG_HEADERS_DIR}/window.hpp
 )
 
@@ -19,8 +20,6 @@ list(APPEND JNG_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/graphics_context.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/graphics_context_ogl.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/input.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/platform.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/platform.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/window.cpp
 )
 
