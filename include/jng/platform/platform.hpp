@@ -11,14 +11,14 @@
 namespace jng {
     namespace Platform {
 
-        /* Opens an open filename dialog native to the system
+        /** Opens an open filename dialog native to the system
         * 
         * \param filter C-style string that describes the file type filter
         * \return string contaning choosen filepath or an empty string when user canceled
         */
         std::string openFilenameDialog(const char* filter);
 
-        /* Opens a save filename dialog native to the system
+        /** Opens a save filename dialog native to the system
         * 
         * \param filter C-style string that describes the file type filter
         * \return string contaning choosen filepath or an empty string when user canceled

@@ -8,6 +8,5 @@ var searchData=
   ['opengltexture_5',['OpenGLTexture',['../classjng_1_1_open_g_l_texture.html',1,'jng']]],
   ['opengluniformbuffer_6',['OpenGLUniformBuffer',['../classjng_1_1_open_g_l_uniform_buffer.html',1,'jng']]],
   ['openglvertexarray_7',['OpenGLVertexArray',['../classjng_1_1_open_g_l_vertex_array.html',1,'jng']]],
-  ['openglvertexbuffer_8',['OpenGLVertexBuffer',['../classjng_1_1_open_g_l_vertex_buffer.html',1,'jng']]],
-  ['orthographiccamera_9',['OrthographicCamera',['../classjng_1_1_orthographic_camera.html',1,'jng']]]
+  ['openglvertexbuffer_8',['OpenGLVertexBuffer',['../classjng_1_1_open_g_l_vertex_buffer.html',1,'jng']]]
 ];

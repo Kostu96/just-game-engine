@@ -67,6 +67,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classjng_1_1_camera-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">jng::Camera Class Reference</div></div>
@@ -74,56 +75,65 @@ $(function() {
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="camera_8hpp_source.html">camera.hpp</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for jng::Camera:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="classjng_1_1_camera.png" usemap="#jng::Camera_map" alt=""/>
-  <map id="jng::Camera_map" name="jng::Camera_map">
-<area href="classjng_1_1_orthographic_camera.html" alt="jng::OrthographicCamera" shape="rect" coords="0,56,154,80"/>
-<area href="classjng_1_1_perspective_camera.html" alt="jng::PerspectiveCamera" shape="rect" coords="164,56,318,80"/>
-  </map>
-</div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a37cbde0bc426c9a25419985326f3d4ef"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#a37cbde0bc426c9a25419985326f3d4ef">ProjectionType</a> { <br />
+&#160;&#160;<a class="el" href="classjng_1_1_camera.html#a37cbde0bc426c9a25419985326f3d4efa03424250432f2aa71de95579d2c0eaeb">Orthographic</a> = 0
+, <br />
+&#160;&#160;<a class="el" href="classjng_1_1_camera.html#a37cbde0bc426c9a25419985326f3d4efaa80420eef88d11f77532f1b9cb467fa3">Perspective</a> = 1
+<br />
+ }</td></tr>
+<tr class="separator:a37cbde0bc426c9a25419985326f3d4ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a09db8e69ce14ff1eb7595e7f90a83f89"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#a09db8e69ce14ff1eb7595e7f90a83f89">Camera</a> (const glm::mat4 &amp;projection)</td></tr>
-<tr class="separator:a09db8e69ce14ff1eb7595e7f90a83f89"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5d9073b2a194cee5cac17053dfa3f4e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#ad5d9073b2a194cee5cac17053dfa3f4e">setProjection</a> (const glm::mat4 &amp;projection)</td></tr>
-<tr class="separator:ad5d9073b2a194cee5cac17053dfa3f4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78dd97224d033a3163a671b806f4ab06"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#a78dd97224d033a3163a671b806f4ab06">Camera</a> ()</td></tr>
+<tr class="separator:a78dd97224d033a3163a671b806f4ab06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf98a6530bce7a03472960b5d9cdcdb9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#adf98a6530bce7a03472960b5d9cdcdb9">setOrthographic</a> (float size, float near=-1.f, float far=1.f)</td></tr>
+<tr class="separator:adf98a6530bce7a03472960b5d9cdcdb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90561258da06d2d595d7c6ebf1d67760"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#a90561258da06d2d595d7c6ebf1d67760">setPerspective</a> (float fov, float near=0.01f, float far=1000.f)</td></tr>
+<tr class="separator:a90561258da06d2d595d7c6ebf1d67760"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a754b87e54064cb508f750f4f3f4bf73a"><td class="memItemLeft" align="right" valign="top">const glm::mat4 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#a754b87e54064cb508f750f4f3f4bf73a">getProjection</a> () const</td></tr>
 <tr class="separator:a754b87e54064cb508f750f4f3f4bf73a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a516d8a4f1b1658c3d6b4f0f937542903"><td class="memItemLeft" align="right" valign="top">const glm::mat4 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#a516d8a4f1b1658c3d6b4f0f937542903">getView</a> () const</td></tr>
-<tr class="separator:a516d8a4f1b1658c3d6b4f0f937542903"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad541c3957052d29205e59c748f540792"><td class="memItemLeft" align="right" valign="top">const glm::mat4 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#ad541c3957052d29205e59c748f540792">getVP</a> () const</td></tr>
-<tr class="separator:ad541c3957052d29205e59c748f540792"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af95954aeba0ad9653e63f6716c88e0fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#af95954aeba0ad9653e63f6716c88e0fe">setPosition</a> (glm::vec2 position)</td></tr>
-<tr class="separator:af95954aeba0ad9653e63f6716c88e0fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a531fcfc06f6d887eacd758d3d4925685"><td class="memItemLeft" align="right" valign="top">glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#a531fcfc06f6d887eacd758d3d4925685">getPosition</a> () const</td></tr>
-<tr class="separator:a531fcfc06f6d887eacd758d3d4925685"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e197b85957f37280e444229e0117bd3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#a2e197b85957f37280e444229e0117bd3">setProjectionType</a> (<a class="el" href="classjng_1_1_camera.html#a37cbde0bc426c9a25419985326f3d4ef">ProjectionType</a> type)</td></tr>
+<tr class="separator:a2e197b85957f37280e444229e0117bd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a186f7cd4895bb9758d4f93c8143332e3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classjng_1_1_camera.html#a37cbde0bc426c9a25419985326f3d4ef">ProjectionType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#a186f7cd4895bb9758d4f93c8143332e3">getProjectionType</a> () const</td></tr>
+<tr class="separator:a186f7cd4895bb9758d4f93c8143332e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa471af643e86e06d61a7b4fc9685b10c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#aa471af643e86e06d61a7b4fc9685b10c">setViewportSize</a> (<a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> width, <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> height)</td></tr>
+<tr class="separator:aa471af643e86e06d61a7b4fc9685b10c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9854eb870c44320b2cce6335dae5f91a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#a9854eb870c44320b2cce6335dae5f91a">getAspectRatio</a> () const</td></tr>
+<tr class="separator:a9854eb870c44320b2cce6335dae5f91a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa791e10e6cb1e31c671073bd1f12f11a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#aa791e10e6cb1e31c671073bd1f12f11a">getOrthographicSize</a> () const</td></tr>
+<tr class="separator:aa791e10e6cb1e31c671073bd1f12f11a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9250441a6e5cbb2213d9fc7753c5637e"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#a9250441a6e5cbb2213d9fc7753c5637e">getOrthographicNear</a> () const</td></tr>
+<tr class="separator:a9250441a6e5cbb2213d9fc7753c5637e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75a3cf344a743c3b0745eba78ae3c7e4"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#a75a3cf344a743c3b0745eba78ae3c7e4">getOrthographicFar</a> () const</td></tr>
+<tr class="separator:a75a3cf344a743c3b0745eba78ae3c7e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4aab1e70016c6603637b492767f1d4be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#a4aab1e70016c6603637b492767f1d4be">setOrthographicSize</a> (float size)</td></tr>
+<tr class="separator:a4aab1e70016c6603637b492767f1d4be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac906225a1a0d28e0f8443433a14e5af0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#ac906225a1a0d28e0f8443433a14e5af0">setOrthographicNear</a> (float near)</td></tr>
+<tr class="separator:ac906225a1a0d28e0f8443433a14e5af0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4dd8b2dbc31124c43f9bafc4b8079d07"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#a4dd8b2dbc31124c43f9bafc4b8079d07">setOrthographicFar</a> (float far)</td></tr>
+<tr class="separator:a4dd8b2dbc31124c43f9bafc4b8079d07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3361644deae9b68c606011c0c3df3314"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#a3361644deae9b68c606011c0c3df3314">getPerspectiveFOV</a> () const</td></tr>
+<tr class="separator:a3361644deae9b68c606011c0c3df3314"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7dd008773aa3444e31473f957969c281"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#a7dd008773aa3444e31473f957969c281">getPerspectiveNear</a> () const</td></tr>
+<tr class="separator:a7dd008773aa3444e31473f957969c281"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a462f7668ed718010bf671c79e97f8b90"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#a462f7668ed718010bf671c79e97f8b90">getPerspectiveFar</a> () const</td></tr>
+<tr class="separator:a462f7668ed718010bf671c79e97f8b90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95db1295d4326485d03c704975088ff5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#a95db1295d4326485d03c704975088ff5">setPerspectiveFOV</a> (float fov)</td></tr>
+<tr class="separator:a95db1295d4326485d03c704975088ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a296d8472c0204387b57a64ea0ff4ad67"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#a296d8472c0204387b57a64ea0ff4ad67">setPerspectiveNear</a> (float near)</td></tr>
+<tr class="separator:a296d8472c0204387b57a64ea0ff4ad67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9df6cd6e5975c73fdd1c287c78cda8bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#a9df6cd6e5975c73fdd1c287c78cda8bf">setPerspectiveFar</a> (float far)</td></tr>
+<tr class="separator:a9df6cd6e5975c73fdd1c287c78cda8bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42d7255062f821bf7789c110da7a8fdc"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_camera.html#a42d7255062f821bf7789c110da7a8fdc">getVP</a> (const glm::mat4 transform) const</td></tr>
+<tr class="separator:a42d7255062f821bf7789c110da7a8fdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a09db8e69ce14ff1eb7595e7f90a83f89" name="a09db8e69ce14ff1eb7595e7f90a83f89"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09db8e69ce14ff1eb7595e7f90a83f89">&#9670;&nbsp;</a></span>Camera()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">jng::Camera::Camera </td>
-          <td>(</td>
-          <td class="paramtype">const glm::mat4 &amp;&#160;</td>
-          <td class="paramname"><em>projection</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a531fcfc06f6d887eacd758d3d4925685" name="a531fcfc06f6d887eacd758d3d4925685"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a531fcfc06f6d887eacd758d3d4925685">&#9670;&nbsp;</a></span>getPosition()</h2>
+<h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a37cbde0bc426c9a25419985326f3d4ef" name="a37cbde0bc426c9a25419985326f3d4ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37cbde0bc426c9a25419985326f3d4ef">&#9670;&nbsp;</a></span>ProjectionType</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -132,7 +142,210 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">glm::vec2 jng::Camera::getPosition </td>
+          <td class="memname">enum class <a class="el" href="classjng_1_1_camera.html#a37cbde0bc426c9a25419985326f3d4ef">jng::Camera::ProjectionType</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a37cbde0bc426c9a25419985326f3d4efa03424250432f2aa71de95579d2c0eaeb" name="a37cbde0bc426c9a25419985326f3d4efa03424250432f2aa71de95579d2c0eaeb"></a>Orthographic&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a37cbde0bc426c9a25419985326f3d4efaa80420eef88d11f77532f1b9cb467fa3" name="a37cbde0bc426c9a25419985326f3d4efaa80420eef88d11f77532f1b9cb467fa3"></a>Perspective&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a78dd97224d033a3163a671b806f4ab06" name="a78dd97224d033a3163a671b806f4ab06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78dd97224d033a3163a671b806f4ab06">&#9670;&nbsp;</a></span>Camera()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">jng::Camera::Camera </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a9854eb870c44320b2cce6335dae5f91a" name="a9854eb870c44320b2cce6335dae5f91a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9854eb870c44320b2cce6335dae5f91a">&#9670;&nbsp;</a></span>getAspectRatio()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float jng::Camera::getAspectRatio </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a75a3cf344a743c3b0745eba78ae3c7e4" name="a75a3cf344a743c3b0745eba78ae3c7e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75a3cf344a743c3b0745eba78ae3c7e4">&#9670;&nbsp;</a></span>getOrthographicFar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float jng::Camera::getOrthographicFar </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9250441a6e5cbb2213d9fc7753c5637e" name="a9250441a6e5cbb2213d9fc7753c5637e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9250441a6e5cbb2213d9fc7753c5637e">&#9670;&nbsp;</a></span>getOrthographicNear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float jng::Camera::getOrthographicNear </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa791e10e6cb1e31c671073bd1f12f11a" name="aa791e10e6cb1e31c671073bd1f12f11a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa791e10e6cb1e31c671073bd1f12f11a">&#9670;&nbsp;</a></span>getOrthographicSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float jng::Camera::getOrthographicSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a462f7668ed718010bf671c79e97f8b90" name="a462f7668ed718010bf671c79e97f8b90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a462f7668ed718010bf671c79e97f8b90">&#9670;&nbsp;</a></span>getPerspectiveFar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float jng::Camera::getPerspectiveFar </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3361644deae9b68c606011c0c3df3314" name="a3361644deae9b68c606011c0c3df3314"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3361644deae9b68c606011c0c3df3314">&#9670;&nbsp;</a></span>getPerspectiveFOV()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float jng::Camera::getPerspectiveFOV </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7dd008773aa3444e31473f957969c281" name="a7dd008773aa3444e31473f957969c281"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dd008773aa3444e31473f957969c281">&#9670;&nbsp;</a></span>getPerspectiveNear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float jng::Camera::getPerspectiveNear </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -172,8 +385,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a516d8a4f1b1658c3d6b4f0f937542903" name="a516d8a4f1b1658c3d6b4f0f937542903"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a516d8a4f1b1658c3d6b4f0f937542903">&#9670;&nbsp;</a></span>getView()</h2>
+<a id="a186f7cd4895bb9758d4f93c8143332e3" name="a186f7cd4895bb9758d4f93c8143332e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a186f7cd4895bb9758d4f93c8143332e3">&#9670;&nbsp;</a></span>getProjectionType()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -182,7 +395,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const glm::mat4 &amp; jng::Camera::getView </td>
+          <td class="memname"><a class="el" href="classjng_1_1_camera.html#a37cbde0bc426c9a25419985326f3d4ef">ProjectionType</a> jng::Camera::getProjectionType </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -197,33 +410,60 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ad541c3957052d29205e59c748f540792" name="ad541c3957052d29205e59c748f540792"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad541c3957052d29205e59c748f540792">&#9670;&nbsp;</a></span>getVP()</h2>
+<a id="a42d7255062f821bf7789c110da7a8fdc" name="a42d7255062f821bf7789c110da7a8fdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42d7255062f821bf7789c110da7a8fdc">&#9670;&nbsp;</a></span>getVP()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const glm::mat4 &amp; jng::Camera::getVP </td>
+          <td class="memname">glm::mat4 jng::Camera::getVP </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const glm::mat4&#160;</td>
+          <td class="paramname"><em>transform</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="af95954aeba0ad9653e63f6716c88e0fe" name="af95954aeba0ad9653e63f6716c88e0fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af95954aeba0ad9653e63f6716c88e0fe">&#9670;&nbsp;</a></span>setPosition()</h2>
+<a id="adf98a6530bce7a03472960b5d9cdcdb9" name="adf98a6530bce7a03472960b5d9cdcdb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf98a6530bce7a03472960b5d9cdcdb9">&#9670;&nbsp;</a></span>setOrthographic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jng::Camera::setOrthographic </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>near</em> = <code>-1.f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>far</em> = <code>1.f</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4dd8b2dbc31124c43f9bafc4b8079d07" name="a4dd8b2dbc31124c43f9bafc4b8079d07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dd8b2dbc31124c43f9bafc4b8079d07">&#9670;&nbsp;</a></span>setOrthographicFar()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -232,10 +472,10 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void jng::Camera::setPosition </td>
+          <td class="memname">void jng::Camera::setOrthographicFar </td>
           <td>(</td>
-          <td class="paramtype">glm::vec2&#160;</td>
-          <td class="paramname"><em>position</em></td><td>)</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>far</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -248,18 +488,218 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ad5d9073b2a194cee5cac17053dfa3f4e" name="ad5d9073b2a194cee5cac17053dfa3f4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad5d9073b2a194cee5cac17053dfa3f4e">&#9670;&nbsp;</a></span>setProjection()</h2>
+<a id="ac906225a1a0d28e0f8443433a14e5af0" name="ac906225a1a0d28e0f8443433a14e5af0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac906225a1a0d28e0f8443433a14e5af0">&#9670;&nbsp;</a></span>setOrthographicNear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jng::Camera::setOrthographicNear </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>near</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4aab1e70016c6603637b492767f1d4be" name="a4aab1e70016c6603637b492767f1d4be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4aab1e70016c6603637b492767f1d4be">&#9670;&nbsp;</a></span>setOrthographicSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jng::Camera::setOrthographicSize </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a90561258da06d2d595d7c6ebf1d67760" name="a90561258da06d2d595d7c6ebf1d67760"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90561258da06d2d595d7c6ebf1d67760">&#9670;&nbsp;</a></span>setPerspective()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void jng::Camera::setProjection </td>
+          <td class="memname">void jng::Camera::setPerspective </td>
           <td>(</td>
-          <td class="paramtype">const glm::mat4 &amp;&#160;</td>
-          <td class="paramname"><em>projection</em></td><td>)</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>fov</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>near</em> = <code>0.01f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>far</em> = <code>1000.f</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9df6cd6e5975c73fdd1c287c78cda8bf" name="a9df6cd6e5975c73fdd1c287c78cda8bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9df6cd6e5975c73fdd1c287c78cda8bf">&#9670;&nbsp;</a></span>setPerspectiveFar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jng::Camera::setPerspectiveFar </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>far</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a95db1295d4326485d03c704975088ff5" name="a95db1295d4326485d03c704975088ff5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95db1295d4326485d03c704975088ff5">&#9670;&nbsp;</a></span>setPerspectiveFOV()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jng::Camera::setPerspectiveFOV </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>fov</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a296d8472c0204387b57a64ea0ff4ad67" name="a296d8472c0204387b57a64ea0ff4ad67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a296d8472c0204387b57a64ea0ff4ad67">&#9670;&nbsp;</a></span>setPerspectiveNear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jng::Camera::setPerspectiveNear </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>near</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2e197b85957f37280e444229e0117bd3" name="a2e197b85957f37280e444229e0117bd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e197b85957f37280e444229e0117bd3">&#9670;&nbsp;</a></span>setProjectionType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jng::Camera::setProjectionType </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classjng_1_1_camera.html#a37cbde0bc426c9a25419985326f3d4ef">ProjectionType</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa471af643e86e06d61a7b4fc9685b10c" name="aa471af643e86e06d61a7b4fc9685b10c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa471af643e86e06d61a7b4fc9685b10c">&#9670;&nbsp;</a></span>setViewportSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jng::Camera::setViewportSize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a>&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a>&#160;</td>
+          <td class="paramname"><em>height</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -273,7 +713,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 13 2022 12:13:37 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Jul 14 2022 10:12:17 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['camera_0',['Camera',['../classjng_1_1_camera.html#a09db8e69ce14ff1eb7595e7f90a83f89',1,'jng::Camera']]],
+  ['camera_0',['Camera',['../classjng_1_1_camera.html#a78dd97224d033a3163a671b806f4ab06',1,'jng::Camera']]],
   ['cameracomponent_1',['CameraComponent',['../structjng_1_1_camera_component.html#ae33255c13356465034b621c018c0f32d',1,'jng::CameraComponent::CameraComponent()=default'],['../structjng_1_1_camera_component.html#aad05d36619a84da7d862a2bb0dfe5d0d',1,'jng::CameraComponent::CameraComponent(const CameraComponent &amp;)=default']]],
   ['clear_2',['clear',['../structjng_1_1_renderer_a_p_i_1_1_renderer_a_p_i_impl.html#aeea6d28c91e65ca59f982aa244d61867',1,'jng::RendererAPI::RendererAPIImpl::clear()'],['../classjng_1_1_renderer_a_p_i.html#a8534b8d56b0a4e2ba863228ab75c5262',1,'jng::RendererAPI::clear()'],['../classjng_1_1_direct3_d_renderer_a_p_i.html#aab0ceceb5518b138b3396d7dc695578a',1,'jng::Direct3DRendererAPI::clear()'],['../classjng_1_1_open_g_l_renderer_a_p_i.html#adc0a2af95274d716faf93ca4af8f0b4f',1,'jng::OpenGLRendererAPI::clear()'],['../classjng_1_1_renderer_a_p_i_impl.html#ab6982e0a20d554c426954ba2e361efc8',1,'jng::RendererAPIImpl::clear()']]],
   ['close_3',['close',['../classjng_1_1_engine.html#a9a5f16f0739bd31b1e885a816a8dba6b',1,'jng::Engine']]],
