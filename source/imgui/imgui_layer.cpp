@@ -20,6 +20,7 @@
 #include <backends/imgui_impl_dx11.h>
 #endif
 
+#include <glad/glad.h>
 #include <GLFW/glfw3.h> // NOTE: this has to be included after any windows stuff because of APIENTRY redefinition
 #include <filesystem>
 

@@ -29,11 +29,13 @@ namespace jng {
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, m_ID);
 		glViewport(0, 0, m_properties.width, m_properties.height);
+		glClipControl(GL_UPPER_LEFT, GL_ZERO_TO_ONE);
 	}
 
 	void OpenGLFramebuffer::unbind() const
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glClipControl(GL_LOWER_LEFT, GL_ZERO_TO_ONE);
 	}
 
 	void OpenGLFramebuffer::resize(uint32 width, uint32 height)

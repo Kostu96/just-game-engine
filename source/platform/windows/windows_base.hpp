@@ -17,13 +17,13 @@
 #define NOATOM
 #define NOCLIPBOARD
 #define NOCOLOR
-// #define NOCTLMGR
+// #define NOCTLMGR // TODO: this can be enabled again when switched to new Common Item Dialog
 #define NODRAWTEXT
 #define NOKERNEL
 #define NONLS
 #define NOMEMMGR
 #define NOMETAFILE
-#define NOOPENFILE // TODO: this can be enabled again when switched to new Common Item Dialog
+#define NOOPENFILE
 #define NOSCROLL
 #define NOSERVICE
 #define NOSOUND

@@ -140,6 +140,8 @@ namespace jng {
 
         glEnable(GL_CULL_FACE);
         glCullFace(GL_FRONT);
+
+        glClipControl(GL_LOWER_LEFT, GL_ZERO_TO_ONE);
     }
 
     OpenGLGraphicsContext::~OpenGLGraphicsContext()
