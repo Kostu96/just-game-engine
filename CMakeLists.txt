@@ -75,15 +75,7 @@ if (WIN32)
     )
 endif()
 
-target_link_libraries(${JNG_TARGET_NAME} PUBLIC
-    ${Vulkan_LIBRARIES}
-    cpp-common-lib
-    glad
-    glfw
-    imgui
-    spdlog
-    stb
-)
+target_link_libraries(${JNG_TARGET_NAME} PUBLIC ${JNG_THIRD_PARTY_LIBRARIES})
 
 if (WIN32)
     target_link_libraries(${JNG_TARGET_NAME} PUBLIC

@@ -12,6 +12,7 @@
 namespace jng {
 
     class Entity;
+    class SceneSerializer;
 
     class Scene
     {
@@ -21,7 +22,7 @@ namespace jng {
         Entity createEntity(const std::string& name);
         void destroyEntity(Entity entity);
 
-        Camera* getActiveCamera() { return m_camera; }
+        Camera* getActiveCamera();
 
         void onUpdate();
 
@@ -32,6 +33,7 @@ namespace jng {
         Camera* m_camera = nullptr;
 
         friend class Entity;
+        friend class SceneSerializer;
     };
 
     template<typename Func>
