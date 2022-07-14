@@ -7,13 +7,13 @@
 #pragma once
 #include "renderer/vertex_array.hpp"
 
-namespace k2d {
+namespace jng {
 
-    class VertexArrayImpl
+    class VulkanVertexArray
     {
     public:
-        VertexArrayImpl(const Ref<VertexBuffer>& vbo, const VertexLayout& layout, const Ref<Shader>& shader);
-        ~VertexArrayImpl();
+        VulkanVertexArray(const Ref<VertexBuffer>& vbo, const VertexLayout& layout, const Ref<Shader>& shader);
+        ~VulkanVertexArray();
 
         void bind() const;
         void unbind() const;
@@ -27,4 +27,4 @@ namespace k2d {
         Ref<IndexBuffer> m_IBO;
     };
 
-} // namespace k2d
+} // namespace jng

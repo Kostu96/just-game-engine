@@ -6,6 +6,7 @@
 
 #pragma once
 #include "jng/core/engine.hpp"
+#include "jng/debug/log.hpp"
 #include "jng/debug/profiling.hpp"
 #include "jng/renderer/renderer_api.hpp"
 
@@ -13,20 +14,28 @@ extern jng::Engine* createApp();
 
 int main(int argc, char* argv[])
 {
+    using namespace jng;
+
     JNG_PROFILE_BEGIN_SESSION("profiling_init.json");
 
     // TODO: do proper render API choosing
-    jng::RendererBackend backend = jng::RendererBackend::OpenGL;
+    RendererBackend backend = RendererBackend::OpenGL;
     for (int i = 1; i < argc; ++i)
         if (std::strcmp(argv[i], "--backend") == 0) {
-            if (i + 1 >= argc) return -1; // TODO: bad cli args error
+            if (i + 1 >= argc) {
+                JNG_CORE_ERROR("Bad command line arguments");
+                return -1;
+            }
 
-            if (std::strcmp(argv[i + 1], "d3d") == 0)    backend = jng::RendererBackend::Direct3D;
-            else if (std::strcmp(argv[i + 1], "ogl") == 0) backend = jng::RendererBackend::OpenGL;
-            else if (std::strcmp(argv[i + 1], "vlk") == 0) backend = jng::RendererBackend::Vulkan;
-            else return -1; // TODO: bad cli args error
+            if (std::strcmp(argv[i + 1], "d3d") == 0)    backend = RendererBackend::Direct3D;
+            else if (std::strcmp(argv[i + 1], "ogl") == 0) backend = RendererBackend::OpenGL;
+            else if (std::strcmp(argv[i + 1], "vlk") == 0) backend = RendererBackend::Vulkan;
+            else {
+                JNG_CORE_ERROR("Bad command line arguments");
+                return -1;
+            }
         }
-    jng::RendererAPI::init(backend);
+    RendererAPI::init(backend);
 
     auto app = createApp();
 

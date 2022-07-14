@@ -7,14 +7,14 @@
 #pragma once
 #include "renderer/buffers.hpp"
 
-namespace k2d {
+namespace jng {
 
-    class VertexBufferImpl
+    class VulkanVertexBuffer
     {
     public:
-        VertexBufferImpl(const void* vertices, size_t size);
-        VertexBufferImpl(size_t size);
-        ~VertexBufferImpl();
+        VulkanVertexBuffer(const void* vertices, size_t size);
+        VulkanVertexBuffer(size_t size);
+        ~VulkanVertexBuffer();
 
         void bind() const;
         void unbind() const;
@@ -23,11 +23,11 @@ namespace k2d {
         uint32 m_id;
     };
 
-    class IndexBufferImpl
+    class VulkanIndexBuffer
     {
     public:
-        IndexBufferImpl(uint32* indices, uint32 count);
-        ~IndexBufferImpl();
+        VulkanIndexBuffer(uint32* indices, uint32 count);
+        ~VulkanIndexBuffer();
 
         void bind() const;
         void unbind() const;
@@ -37,4 +37,4 @@ namespace k2d {
         uint32 m_count;
     };
 
-} // namespace k2d
+} // namespace jng

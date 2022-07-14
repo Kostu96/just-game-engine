@@ -7,14 +7,15 @@
 #pragma once
 #include "renderer/texture.hpp"
 
-namespace k2d {
+namespace jng {
 
-    class TextureImpl
+    class VulkanTexture :
+        public Texture
     {
     public:
-        TextureImpl(const char* path);
-        TextureImpl(uint32 width, uint32 height);
-        ~TextureImpl();
+        VulkanTexture(const char* path);
+        VulkanTexture(uint32 width, uint32 height);
+        ~VulkanTexture();
 
         void bind(uint32 slot) const;
         void unbind(uint32 slot) const;
@@ -34,4 +35,4 @@ namespace k2d {
         uint32 m_dataFormat;
     };
 
-} // namespace k2d
+} // namespace jng
