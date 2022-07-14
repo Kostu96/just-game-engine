@@ -52,7 +52,7 @@ namespace jng {
         }
 
         m_viewportFramebuffer->bind();
-        jng::RendererAPI::clear({ .1f, 0.1f, .4f });
+        jng::RendererAPI::clear({ 0.1f, 0.15f, 0.2f });
 
         m_context.activeScene->onUpdate();
         

@@ -16,8 +16,8 @@
 
 namespace jng {
 
-	void MainMenuBar::onImGuiUpdate()
-	{
+    void MainMenuBar::onImGuiUpdate()
+    {
         if (ImGui::BeginMainMenuBar())
         {
             if (ImGui::BeginMenu("File"))
@@ -102,6 +102,6 @@ namespace jng {
 
             ImGui::EndMainMenuBar();
         }
-	}
+    }
 
 } // namespace jng
