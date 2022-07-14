@@ -17,7 +17,6 @@
 
 namespace jng {
 
-	// TODO: temp!
 	uint32 Direct3DTexture::s_ID = 0;
 
 	Direct3DTexture::Direct3DTexture(const char* path) :

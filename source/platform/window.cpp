@@ -102,7 +102,6 @@ namespace jng {
 
     void Window::setVSync(bool /*enabled*/)
     {
-        // TODO: move to graphics context
         /*if (enabled)
             glfwSwapInterval(1);
         else
@@ -149,7 +148,7 @@ namespace jng {
 
     Window::~Window()
     {
-        glfwDestroyWindow(m_windowHandle); // TODO: this is not needed as glfwTerminate will destroy it
+        glfwDestroyWindow(m_windowHandle);
     }
 
     struct GLFWInitializer
@@ -163,7 +162,7 @@ namespace jng {
             [[maybe_unused]] int success = glfwInit();
             JNG_CORE_ASSERT(success, "Could not initialize GLFW!");
             
-            // TODO: glfwVulkanSupported()
+            // TODO: checkout glfwVulkanSupported()
         }
 
         ~GLFWInitializer() {

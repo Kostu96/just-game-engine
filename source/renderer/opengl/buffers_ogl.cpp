@@ -67,7 +67,7 @@ namespace jng {
     OpenGLUniformBuffer::OpenGLUniformBuffer(size_t size)
     {
         glCreateBuffers(1, &m_id);
-        glNamedBufferData(m_id, static_cast<GLsizeiptr>(size), nullptr, GL_STATIC_DRAW); // TODO: investigate usage hint
+        glNamedBufferData(m_id, static_cast<GLsizeiptr>(size), nullptr, GL_DYNAMIC_DRAW);
     }
 
     OpenGLUniformBuffer::~OpenGLUniformBuffer()

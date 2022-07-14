@@ -51,7 +51,6 @@ namespace jng {
 		success = ccl::readFile(shaderFilename, shaderSource, size, true);
 		shaderSource[size] = 0;
 
-		// TODO: change md5 data parameter to void*
 		auto checksum = ccl::md5(reinterpret_cast<uint8_t*>(shaderSource), size);
 
 		std::filesystem::path md5Path = cacheDirectory / (shaderFilePath.stem().string() + shaderTypeToMD5FileExtension(type));

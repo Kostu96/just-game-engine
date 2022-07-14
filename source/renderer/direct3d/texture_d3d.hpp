@@ -36,7 +36,6 @@ namespace jng {
         uint32 getHeight() const override { return m_height; }
         void setData(void* data, size_t size) const override;
 
-        // TODO: temp?
         uint32 getID() const override { return m_ID; }
     private:
         void createTexture(void* data);
@@ -46,7 +45,7 @@ namespace jng {
         wrl::ComPtr<ID3D11SamplerState> m_sampler;
         uint32 m_width;
         uint32 m_height;
-        uint32 m_ID; // TODO: temp?
+        uint32 m_ID;
         static uint32 s_ID;
     };
 

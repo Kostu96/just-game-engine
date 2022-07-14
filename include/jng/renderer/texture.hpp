@@ -18,7 +18,6 @@ namespace jng {
         virtual uint32 getHeight() const = 0;
         virtual void setData(void* data, size_t size) const = 0;
 
-        // TODO: temp!
         virtual uint32 getID() const = 0;
 
         static Ref<Texture> create(const char* path);

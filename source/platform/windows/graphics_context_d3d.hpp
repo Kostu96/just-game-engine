@@ -12,7 +12,6 @@
 #include <wrl.h>
 #pragma warning(default:4265)
 
- // TODO: temp
 struct ID3D11Device;
 struct IDXGISwapChain;
 struct ID3D11DeviceContext;
@@ -40,8 +39,6 @@ namespace jng {
 
         void setCurrentRenderTarget(ID3D11RenderTargetView* renderTargetView) const;
     private:
-        // TODO: temp
-        Window& m_window;
         HWND m_windowHandle;
         wrl::ComPtr<ID3D11Device> m_device;
         wrl::ComPtr<IDXGISwapChain> m_swapChain;

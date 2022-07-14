@@ -25,8 +25,8 @@ namespace jng {
     {
         glm::vec2 position;
         glm::vec2 texCoord;
-        glm::vec4 color; // TODO: convert to unorm format
-        float texIndex; // TODO: try to make this uint32 or even uint8 (glVertexAttribIPointer)
+        glm::vec4 color;
+        float texIndex;
     };
 
     struct RenderData

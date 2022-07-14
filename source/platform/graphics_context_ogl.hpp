@@ -7,7 +7,6 @@
 #pragma once
 #include "platform/graphics_context.hpp"
 
-// TODO: temp or not - waiting for linux support to decide
 #if defined(JNG_WINDOWS)
 struct HGLRC__;
 typedef HGLRC__* GraphicsContextHandle;

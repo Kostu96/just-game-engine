@@ -19,7 +19,7 @@ namespace jng {
 	{
         if (m_context.isSceneHierarchyWindowOpen)
         {
-            ImGui::SetNextWindowSize({ 320.f, 400.f }); // TODO: temp
+            ImGui::SetNextWindowSize({ 320.f, 400.f }); // TODO: this is temporary to prevent window being too small when app is started first time
             ImGui::Begin("Scene Hierarchy", &m_context.isSceneHierarchyWindowOpen, ImGuiWindowFlags_NoCollapse);
 
             m_context.activeScene->each([this](Entity entity) {

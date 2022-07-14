@@ -20,7 +20,6 @@
 namespace jng {
 
     Direct3DGraphicsContext::Direct3DGraphicsContext(Window& window) :
-        m_window{ window },
         m_windowHandle{ reinterpret_cast<HWND>(glfwGetWin32Window(window.getNativeWindowHandle())) }
     {
         HRESULT hr;
@@ -32,7 +31,7 @@ namespace jng {
         scd.BufferCount = 1;
         scd.OutputWindow = m_windowHandle;
         scd.Windowed = TRUE;
-        scd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD; // TODO: DXGI_SWAP_EFFECT_FLIP_DISCARD https://devblogs.microsoft.com/directx/dxgi-flip-model/
+        scd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 
         UINT deviceAndSwapChainCreationFlags = 0;
 
@@ -89,7 +88,6 @@ namespace jng {
     void Direct3DGraphicsContext::swapBuffers() const
     {
         HRESULT hr;
-        // TODO: d3d vsync - first arg 1 on, 0 off
         hr = m_swapChain->Present(1, 0);
         JNG_D3D_CHECK_HR_DEVICE_REMOVED(hr, m_device);
     }

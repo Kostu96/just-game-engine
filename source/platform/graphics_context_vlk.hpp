@@ -11,22 +11,23 @@ struct GLFWwindow;
 struct VkInstance_T;
 typedef VkInstance_T* VkInstance;
 
-namespace k2d {
+namespace jng {
 
-    class WindowImpl;
+    class Window;
 
-    class GraphicsContextImpl
+    class VulkanGraphicsContext :
+        public GraphicsContext
     {
     public:
-        GraphicsContextImpl(WindowImpl& window);
-        ~GraphicsContextImpl();
+        VulkanGraphicsContext(Window& window);
+        ~VulkanGraphicsContext();
 
         void makeCurrent() const;
         void swapBuffers() const;
     private:
-        WindowImpl& m_window;
+        Window& m_window;
         GLFWwindow* m_windowHandle;
-        VkInstance m_vkInstance;
+        VkInstance m_vkInstance = nullptr;
     };
 
-} // namespace k2d
+} // namespace jng
