@@ -20,7 +20,6 @@
 #include <backends/imgui_impl_dx11.h>
 #endif
 
-#include <glad/glad.h>
 #include <GLFW/glfw3.h> // NOTE: this has to be included after any windows stuff because of APIENTRY redefinition
 #include <filesystem>
 
@@ -39,10 +38,6 @@ namespace jng {
         //io.ConfigViewportsNoTaskBarIcon = true;
 
         ImGui::StyleColorsDark();
-
-        // Load font
-        std::filesystem::path assetsDir = Engine::get().getProperties().assetsDirectory;
-        io.Fonts->AddFontFromFileTTF((assetsDir / "fonts/lato.ttf").string().c_str(), 18);
 
         // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
         ImGuiStyle& style = ImGui::GetStyle();
