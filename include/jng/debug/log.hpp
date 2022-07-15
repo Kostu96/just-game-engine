@@ -17,7 +17,7 @@
 namespace jng {
     
     class Log :
-        public ccl::NonCopyable
+        public NonCopyable
     {
     public:
         static void init();
