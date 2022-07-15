@@ -46,11 +46,8 @@ namespace jng {
         {
             auto group = m_registry.group<CameraComponent>(entt::get<TransformComponent>);
             if (group.size() == 0) {
-                //JNG_CORE_WARN("Scene has no camera!");
-                return; // TODO: temp
+                return;
             }
-            else if (group.size() > 1)
-                JNG_CORE_WARN("More than one camera on the scene.");
 
             auto [cc, tc] = group.get<CameraComponent, TransformComponent>(*group.begin());
             Renderer2D::beginScene(cc.camera.getVP(tc.getTransform()));

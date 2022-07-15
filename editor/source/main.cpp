@@ -9,6 +9,8 @@
 
 #include "editor_layer.hpp"
 
+#include <imgui.h>
+
 namespace jng {
 
     class EditorApp :
@@ -30,6 +32,8 @@ namespace jng {
             EditorLayer::Properties properties{};
             properties.width = WindowWidth;
             properties.height = WindowHeight;
+
+            ImGui::GetIO().Fonts->AddFontFromFileTTF("assets/fonts/lato.ttf", 18);
 
             getLayerStack().pushLayer(new EditorLayer{ properties });
         }

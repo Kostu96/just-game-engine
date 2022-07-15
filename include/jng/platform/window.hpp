@@ -29,7 +29,6 @@ namespace jng {
         };
 
         void onUpdate();
-        void setVSync(bool enabled);
         GLFWwindow* getNativeWindowHandle() const { return m_windowHandle; }
         void setTitle(const char* title);
         uint32 getWidth() const { return m_windowData.width; }
@@ -37,7 +36,7 @@ namespace jng {
         bool isMinimized() const { return m_windowData.isMinimized; }
         void setEventCallback(const EventCallbackFunc& callback) { m_windowData.eventCallback = callback; }
         const EventCallbackFunc& getEventCallback() const { return m_windowData.eventCallback; }
-        const GraphicsContext* getGraphicsContext() const { return m_graphicsContext.get(); }
+        GraphicsContext* getGraphicsContext() const { return m_graphicsContext.get(); }
 
         static Scope<Window> create(const char* title, uint32 width, uint32 height);
         Window(const char* title, uint32 width, uint32 height);

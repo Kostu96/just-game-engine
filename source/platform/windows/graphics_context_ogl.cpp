@@ -140,12 +140,22 @@ namespace jng {
 
         glEnable(GL_CULL_FACE);
         glCullFace(GL_FRONT);
+
+        glClipControl(GL_LOWER_LEFT, GL_ZERO_TO_ONE);
     }
 
     OpenGLGraphicsContext::~OpenGLGraphicsContext()
     {
         wglMakeCurrent(GetDC(m_windowHandle), nullptr);
         wglDeleteContext(m_graphicsContextHandle);
+    }
+
+    void OpenGLGraphicsContext::setVSync(bool enabled)
+    {
+        if (enabled)
+            glfwSwapInterval(1);
+        else
+            glfwSwapInterval(0);
     }
 
     void OpenGLGraphicsContext::swapBuffers() const

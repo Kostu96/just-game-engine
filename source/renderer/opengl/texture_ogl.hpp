@@ -23,7 +23,6 @@ namespace jng {
         uint32 getHeight() const override { return m_height; }
         void setData(void* data, size_t size) const override;
 
-        // TODO: temp!
         uint32 getID() const override { return m_id; }
     private:
         void createTexture();

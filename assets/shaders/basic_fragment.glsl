@@ -8,7 +8,7 @@
 
 layout(location = 0) in vec2 v_TexCoord;
 layout(location = 1) in vec4 v_Color;
-layout(location = 2) in float v_TexIndex;
+layout(location = 2) flat in uint v_TexIndex;
 
 layout(location = 0) out vec4 fragColor;
 
@@ -18,7 +18,7 @@ void main()
 {
     fragColor = v_Color;
     
-    switch (int(v_TexIndex))
+    switch (v_TexIndex)
     {
     case  0: fragColor *= texture(u_Textures[0], v_TexCoord); break;
     case  1: fragColor *= texture(u_Textures[1], v_TexCoord); break;

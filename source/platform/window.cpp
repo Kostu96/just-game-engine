@@ -100,17 +100,6 @@ namespace jng {
         glfwPollEvents();
     }
 
-    void Window::setVSync(bool /*enabled*/)
-    {
-        // TODO: move to graphics context
-        /*if (enabled)
-            glfwSwapInterval(1);
-        else
-            glfwSwapInterval(0);
-
-        m_isVSyncEnabled = enabled;*/
-    }
-
     void Window::setTitle(const char* title)
     {
         m_windowData.title = title;
@@ -149,7 +138,7 @@ namespace jng {
 
     Window::~Window()
     {
-        glfwDestroyWindow(m_windowHandle); // TODO: this is not needed as glfwTerminate will destroy it
+        glfwDestroyWindow(m_windowHandle);
     }
 
     struct GLFWInitializer
@@ -163,7 +152,7 @@ namespace jng {
             [[maybe_unused]] int success = glfwInit();
             JNG_CORE_ASSERT(success, "Could not initialize GLFW!");
             
-            // TODO: glfwVulkanSupported()
+            // TODO: checkout glfwVulkanSupported()
         }
 
         ~GLFWInitializer() {

@@ -74,7 +74,7 @@ namespace jng {
         if (m_context.isViewportWindowOpen)
         {
             ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-            ImGui::SetNextWindowSize({ 160 * 4.f, 90 * 4.f }); // TODO: temp
+            ImGui::SetNextWindowSize({ 160 * 4.f, 90 * 4.f }); // TODO: this is temporary to prevent window being too small when app is started first time
             ImGui::Begin("Viewport", &m_context.isViewportWindowOpen, ImGuiWindowFlags_NoCollapse);
             ImGui::PopStyleVar();
             m_context.viewportWindowSize = ImGui::GetContentRegionAvail();

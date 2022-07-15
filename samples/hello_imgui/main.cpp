@@ -38,7 +38,7 @@ public:
             "Hello ImGui!",
             WindowWidth,
             WindowHeight,
-            RendererType::None // TODO: temp?
+            RendererType::None
         })
     {
         getLayerStack().pushLayer(new SampleLayer{});

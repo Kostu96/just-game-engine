@@ -34,7 +34,7 @@ list(APPEND JNG_SOURCES
 if(WIN32)
     add_subdirectory(direct3d)
 endif()
-#add_subdirectory(vulkan)
+add_subdirectory(vulkan)
 add_subdirectory(opengl)
 
 set(JNG_HEADERS ${JNG_HEADERS} PARENT_SCOPE)

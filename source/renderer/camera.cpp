@@ -55,14 +55,10 @@ namespace jng {
         {
             float h = m_orthoSize * m_aspectRatio * .5f;
             float v = m_orthoSize * .5f;
-            m_projection = RendererAPI::getRendererBackend() == RendererBackend::Direct3D ?
-                glm::orthoRH_ZO(-h, h, -v, v, m_orthoNear, m_orthoFar) :
-                glm::orthoRH_NO(-h, h, -v, v, m_orthoNear, m_orthoFar);
+            m_projection = glm::orthoRH_ZO(-h, h, -v, v, m_orthoNear, m_orthoFar);
         } break;
         case ProjectionType::Perspective:
-            m_projection = RendererAPI::getRendererBackend() == RendererBackend::Direct3D ?
-                glm::perspectiveRH_ZO(glm::radians(m_perspectiveFOV), m_aspectRatio, m_perspectiveNear, m_perspectiveFar) :
-                glm::perspectiveRH_NO(glm::radians(m_perspectiveFOV), m_aspectRatio, m_perspectiveNear, m_perspectiveFar);
+            m_projection = glm::perspectiveRH_ZO(glm::radians(m_perspectiveFOV), m_aspectRatio, m_perspectiveNear, m_perspectiveFar);
             break;
         }
     }

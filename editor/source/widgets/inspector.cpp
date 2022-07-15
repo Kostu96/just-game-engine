@@ -78,7 +78,7 @@ namespace jng {
             static ImGuiTreeNodeFlags componentTreeNodeFlags =
                 ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_AllowItemOverlap | ImGuiTreeNodeFlags_FramePadding;
 
-            ImGui::SetNextWindowSize({ 320.f, 400.f }); // TODO: temp
+            ImGui::SetNextWindowSize({ 320.f, 400.f }); // TODO: this is temporary to prevent window being too small when app is started first time
             ImGui::Begin("Inspector", &m_context.isInspectorWindowOpen, ImGuiWindowFlags_NoCollapse);
 
             if (m_context.selectedEntity)

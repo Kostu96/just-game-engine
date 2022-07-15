@@ -12,7 +12,6 @@
 #include <wrl.h>
 #pragma warning(default:4265)
 
- // TODO: temp
 struct ID3D11Device;
 struct IDXGISwapChain;
 struct ID3D11DeviceContext;
@@ -31,6 +30,8 @@ namespace jng {
         explicit Direct3DGraphicsContext(Window& window);
         ~Direct3DGraphicsContext();
 
+        void setVSync(bool enabled) override { m_isVSyncEnabled = enabled; }
+
         void swapBuffers() const override;
 
         const wrl::ComPtr<ID3D11Device>& getDevice() const { return m_device; }
@@ -40,14 +41,13 @@ namespace jng {
 
         void setCurrentRenderTarget(ID3D11RenderTargetView* renderTargetView) const;
     private:
-        // TODO: temp
-        Window& m_window;
         HWND m_windowHandle;
         wrl::ComPtr<ID3D11Device> m_device;
         wrl::ComPtr<IDXGISwapChain> m_swapChain;
         wrl::ComPtr<ID3D11DeviceContext> m_deviceContext;
         wrl::ComPtr<ID3D11RenderTargetView> m_defaultRenderTarget;
         mutable ID3D11RenderTargetView* m_currentRenderTarget = nullptr;
+        bool m_isVSyncEnabled = false;
     };
 
 } // namespace jng

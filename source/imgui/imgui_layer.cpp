@@ -39,10 +39,6 @@ namespace jng {
 
         ImGui::StyleColorsDark();
 
-        // Load font
-        std::filesystem::path assetsDir = Engine::get().getProperties().assetsDirectory;
-        io.Fonts->AddFontFromFileTTF((assetsDir / "fonts/lato.ttf").string().c_str(), 18);
-
         // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
         ImGuiStyle& style = ImGui::GetStyle();
         if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
@@ -58,7 +54,6 @@ namespace jng {
 #if defined(JNG_WINDOWS)
         case RendererBackend::Direct3D:
         {
-            // TODO: temp, move thos to impl files
             const auto* graphicsContext = reinterpret_cast<const Direct3DGraphicsContext*>(Engine::get().getWindow().getGraphicsContext());
             const auto& device = graphicsContext->getDevice();
             const auto& deviceContext = graphicsContext->getDeviceContext();
@@ -111,9 +106,6 @@ namespace jng {
             JNG_CORE_ASSERT(false, "API unsupported!");
         }
 
-        // Update and Render additional Platform Windows
-        // (Platform functions may change the current OpenGL context, so we save/restore it to make it easier to paste this code elsewhere.
-        //  For this specific demo app we could also call glfwMakeContextCurrent(window) directly)
         ImGuiIO& io = ImGui::GetIO();
         if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
         {

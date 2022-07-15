@@ -26,13 +26,10 @@ namespace jng {
         case LayoutElement::DataType::Float2: return DXGI_FORMAT_R32G32_FLOAT;
         case LayoutElement::DataType::Float3: return DXGI_FORMAT_R32G32B32_FLOAT;
         case LayoutElement::DataType::Float4: return DXGI_FORMAT_R32G32B32A32_FLOAT;
-        case LayoutElement::DataType::Mat3:   return DXGI_FORMAT_UNKNOWN;
-        case LayoutElement::DataType::Mat4:   return DXGI_FORMAT_UNKNOWN;
-        case LayoutElement::DataType::Int:    return DXGI_FORMAT_UNKNOWN;
-        case LayoutElement::DataType::Int2:   return DXGI_FORMAT_UNKNOWN;
-        case LayoutElement::DataType::Int3:   return DXGI_FORMAT_UNKNOWN;
-        case LayoutElement::DataType::Int4:   return DXGI_FORMAT_UNKNOWN;
-        case LayoutElement::DataType::Bool:   return DXGI_FORMAT_UNKNOWN;
+        case LayoutElement::DataType::UInt:    return DXGI_FORMAT_UNKNOWN;
+        case LayoutElement::DataType::UInt2:   return DXGI_FORMAT_UNKNOWN;
+        case LayoutElement::DataType::UInt3:   return DXGI_FORMAT_UNKNOWN;
+        case LayoutElement::DataType::UInt4:   return DXGI_FORMAT_UNKNOWN;
         }
 
         JNG_CORE_ASSERT(false, "This should never be triggered!")
@@ -47,13 +44,10 @@ namespace jng {
         case BufferElement::DataType::Float2:  return 2;
         case BufferElement::DataType::Float3:  return 3;
         case BufferElement::DataType::Float4:  return 4;
-        case BufferElement::DataType::Mat3:    return 3 * 3;
-        case BufferElement::DataType::Mat4:    return 4 * 4;
-        case BufferElement::DataType::Int:     return 1;
-        case BufferElement::DataType::Int2:    return 2;
-        case BufferElement::DataType::Int3:    return 3;
-        case BufferElement::DataType::Int4:    return 4;
-        case BufferElement::DataType::Bool:    return 1;
+        case BufferElement::DataType::UInt:     return 1;
+        case BufferElement::DataType::UInt2:    return 2;
+        case BufferElement::DataType::UInt3:    return 3;
+        case BufferElement::DataType::UInt4:    return 4;
         }
 
         JNG_CORE_ASSERT(false, "This should never be triggered!")
