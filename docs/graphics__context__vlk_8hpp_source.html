@@ -83,37 +83,40 @@ $(function() {
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">struct </span>VkInstance_T;</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="graphics__context__vlk_8hpp.html#af6d7ae7e5fc71ab7c53f592c0d8391d4">   12</a></span><span class="keyword">typedef</span> VkInstance_T* <a class="code hl_typedef" href="graphics__context__vlk_8hpp.html#af6d7ae7e5fc71ab7c53f592c0d8391d4">VkInstance</a>;</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="namespacek2d.html">   14</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacek2d.html">k2d</a> {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacejng.html">jng</a> {</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">class </span>WindowImpl;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">class </span>Window;</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="classk2d_1_1_graphics_context_impl.html">   18</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classk2d_1_1_graphics_context_impl.html">GraphicsContextImpl</a></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <a class="code hl_function" href="classk2d_1_1_graphics_context_impl.html#aac1f0362dda17f84b4cdeec0b12b44be">GraphicsContextImpl</a>(WindowImpl&amp; window);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <a class="code hl_function" href="classk2d_1_1_graphics_context_impl.html#aca6593df94f6c97e473b0f2197449963">~GraphicsContextImpl</a>();</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classk2d_1_1_graphics_context_impl.html#af99a7b12c22c3c3c58d7cfd8196aa922">makeCurrent</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classk2d_1_1_graphics_context_impl.html#aa8b93bbe29c6f553e40ba706a3dd202f">swapBuffers</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        WindowImpl&amp; m_window;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        GLFWwindow* m_windowHandle;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <a class="code hl_typedef" href="graphics__context__vlk_8hpp.html#af6d7ae7e5fc71ab7c53f592c0d8391d4">VkInstance</a> m_vkInstance;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    };</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>} <span class="comment">// namespace k2d</span></div>
-<div class="ttc" id="aclassk2d_1_1_graphics_context_impl_html"><div class="ttname"><a href="classk2d_1_1_graphics_context_impl.html">k2d::GraphicsContextImpl</a></div><div class="ttdef"><b>Definition:</b> graphics_context_vlk.hpp:19</div></div>
-<div class="ttc" id="aclassk2d_1_1_graphics_context_impl_html_aa8b93bbe29c6f553e40ba706a3dd202f"><div class="ttname"><a href="classk2d_1_1_graphics_context_impl.html#aa8b93bbe29c6f553e40ba706a3dd202f">k2d::GraphicsContextImpl::swapBuffers</a></div><div class="ttdeci">void swapBuffers() const</div><div class="ttdef"><b>Definition:</b> graphics_context_vlk.cpp:56</div></div>
-<div class="ttc" id="aclassk2d_1_1_graphics_context_impl_html_aac1f0362dda17f84b4cdeec0b12b44be"><div class="ttname"><a href="classk2d_1_1_graphics_context_impl.html#aac1f0362dda17f84b4cdeec0b12b44be">k2d::GraphicsContextImpl::GraphicsContextImpl</a></div><div class="ttdeci">GraphicsContextImpl(WindowImpl &amp;window)</div><div class="ttdef"><b>Definition:</b> graphics_context_vlk.cpp:16</div></div>
-<div class="ttc" id="aclassk2d_1_1_graphics_context_impl_html_aca6593df94f6c97e473b0f2197449963"><div class="ttname"><a href="classk2d_1_1_graphics_context_impl.html#aca6593df94f6c97e473b0f2197449963">k2d::GraphicsContextImpl::~GraphicsContextImpl</a></div><div class="ttdeci">~GraphicsContextImpl()</div><div class="ttdef"><b>Definition:</b> graphics_context_vlk.cpp:46</div></div>
-<div class="ttc" id="aclassk2d_1_1_graphics_context_impl_html_af99a7b12c22c3c3c58d7cfd8196aa922"><div class="ttname"><a href="classk2d_1_1_graphics_context_impl.html#af99a7b12c22c3c3c58d7cfd8196aa922">k2d::GraphicsContextImpl::makeCurrent</a></div><div class="ttdeci">void makeCurrent() const</div><div class="ttdef"><b>Definition:</b> graphics_context_vlk.cpp:51</div></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="classjng_1_1_vulkan_graphics_context.html">   18</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classjng_1_1_vulkan_graphics_context.html">VulkanGraphicsContext</a> :</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keyword">public</span> <a class="code hl_class" href="classjng_1_1_graphics_context.html">GraphicsContext</a></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <a class="code hl_function" href="classjng_1_1_vulkan_graphics_context.html#a52fa2b5eae7ddb5e411f895a68024756">VulkanGraphicsContext</a>(<a class="code hl_class" href="classjng_1_1_window.html">Window</a>&amp; window);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <a class="code hl_function" href="classjng_1_1_vulkan_graphics_context.html#a55a9cc46ff403164b74d8562e981c7e3">~VulkanGraphicsContext</a>();</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classjng_1_1_vulkan_graphics_context.html#a035497dcdb9f489514e174a881dfffc9">makeCurrent</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classjng_1_1_vulkan_graphics_context.html#a4e69a2dd729c55619cfee6866dcf0dd4">swapBuffers</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <a class="code hl_class" href="classjng_1_1_window.html">Window</a>&amp; m_window;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        GLFWwindow* m_windowHandle;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <a class="code hl_typedef" href="graphics__context__vlk_8hpp.html#af6d7ae7e5fc71ab7c53f592c0d8391d4">VkInstance</a> m_vkInstance = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    };</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>} <span class="comment">// namespace jng</span></div>
+<div class="ttc" id="aclassjng_1_1_graphics_context_html"><div class="ttname"><a href="classjng_1_1_graphics_context.html">jng::GraphicsContext</a></div><div class="ttdef"><b>Definition:</b> graphics_context.hpp:15</div></div>
+<div class="ttc" id="aclassjng_1_1_vulkan_graphics_context_html"><div class="ttname"><a href="classjng_1_1_vulkan_graphics_context.html">jng::VulkanGraphicsContext</a></div><div class="ttdef"><b>Definition:</b> graphics_context_vlk.hpp:20</div></div>
+<div class="ttc" id="aclassjng_1_1_vulkan_graphics_context_html_a035497dcdb9f489514e174a881dfffc9"><div class="ttname"><a href="classjng_1_1_vulkan_graphics_context.html#a035497dcdb9f489514e174a881dfffc9">jng::VulkanGraphicsContext::makeCurrent</a></div><div class="ttdeci">void makeCurrent() const</div><div class="ttdef"><b>Definition:</b> graphics_context_vlk.cpp:28</div></div>
+<div class="ttc" id="aclassjng_1_1_vulkan_graphics_context_html_a4e69a2dd729c55619cfee6866dcf0dd4"><div class="ttname"><a href="classjng_1_1_vulkan_graphics_context.html#a4e69a2dd729c55619cfee6866dcf0dd4">jng::VulkanGraphicsContext::swapBuffers</a></div><div class="ttdeci">void swapBuffers() const</div><div class="ttdef"><b>Definition:</b> graphics_context_vlk.cpp:33</div></div>
+<div class="ttc" id="aclassjng_1_1_vulkan_graphics_context_html_a52fa2b5eae7ddb5e411f895a68024756"><div class="ttname"><a href="classjng_1_1_vulkan_graphics_context.html#a52fa2b5eae7ddb5e411f895a68024756">jng::VulkanGraphicsContext::VulkanGraphicsContext</a></div><div class="ttdeci">VulkanGraphicsContext(Window &amp;window)</div><div class="ttdef"><b>Definition:</b> graphics_context_vlk.cpp:16</div></div>
+<div class="ttc" id="aclassjng_1_1_vulkan_graphics_context_html_a55a9cc46ff403164b74d8562e981c7e3"><div class="ttname"><a href="classjng_1_1_vulkan_graphics_context.html#a55a9cc46ff403164b74d8562e981c7e3">jng::VulkanGraphicsContext::~VulkanGraphicsContext</a></div><div class="ttdeci">~VulkanGraphicsContext()</div><div class="ttdef"><b>Definition:</b> graphics_context_vlk.cpp:23</div></div>
+<div class="ttc" id="aclassjng_1_1_window_html"><div class="ttname"><a href="classjng_1_1_window.html">jng::Window</a></div><div class="ttdef"><b>Definition:</b> window.hpp:20</div></div>
 <div class="ttc" id="agraphics__context_8hpp_html"><div class="ttname"><a href="graphics__context_8hpp.html">graphics_context.hpp</a></div></div>
 <div class="ttc" id="agraphics__context__vlk_8hpp_html_af6d7ae7e5fc71ab7c53f592c0d8391d4"><div class="ttname"><a href="graphics__context__vlk_8hpp.html#af6d7ae7e5fc71ab7c53f592c0d8391d4">VkInstance</a></div><div class="ttdeci">VkInstance_T * VkInstance</div><div class="ttdef"><b>Definition:</b> graphics_context_vlk.hpp:12</div></div>
-<div class="ttc" id="anamespacek2d_html"><div class="ttname"><a href="namespacek2d.html">k2d</a></div><div class="ttdef"><b>Definition:</b> graphics_context_vlk.hpp:14</div></div>
+<div class="ttc" id="anamespacejng_html"><div class="ttname"><a href="namespacejng.html">jng</a></div><div class="ttdef"><b>Definition:</b> base.hpp:17</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 14 2022 15:38:16 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jul 15 2022 10:07:25 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

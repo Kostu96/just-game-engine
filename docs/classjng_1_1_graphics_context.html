@@ -84,6 +84,7 @@ Inheritance diagram for jng::GraphicsContext:</div>
   <map id="jng::GraphicsContext_map" name="jng::GraphicsContext_map">
 <area href="classjng_1_1_direct3_d_graphics_context.html" alt="jng::Direct3DGraphicsContext" shape="rect" coords="0,56,178,80"/>
 <area href="classjng_1_1_open_g_l_graphics_context.html" alt="jng::OpenGLGraphicsContext" shape="rect" coords="188,56,366,80"/>
+<area href="classjng_1_1_vulkan_graphics_context.html" alt="jng::VulkanGraphicsContext" shape="rect" coords="376,56,554,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -91,6 +92,8 @@ Inheritance diagram for jng::GraphicsContext:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a927bb1037126c1b9264f86af3ceb4ddb"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_graphics_context.html#a927bb1037126c1b9264f86af3ceb4ddb">~GraphicsContext</a> ()=default</td></tr>
 <tr class="separator:a927bb1037126c1b9264f86af3ceb4ddb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48e242ba972e323af11d48e252e428e9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_graphics_context.html#a48e242ba972e323af11d48e252e428e9">setVSync</a> (bool enabled)=0</td></tr>
+<tr class="separator:a48e242ba972e323af11d48e252e428e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f5849866e37829a0e072a5e09f54b3a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_graphics_context.html#a9f5849866e37829a0e072a5e09f54b3a">swapBuffers</a> () const =0</td></tr>
 <tr class="separator:a9f5849866e37829a0e072a5e09f54b3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -152,6 +155,34 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a48e242ba972e323af11d48e252e428e9" name="a48e242ba972e323af11d48e252e428e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48e242ba972e323af11d48e252e428e9">&#9670;&nbsp;</a></span>setVSync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void jng::GraphicsContext::setVSync </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enabled</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classjng_1_1_open_g_l_graphics_context.html#a2f853bc00b448ffd818138f53c17afcf">jng::OpenGLGraphicsContext</a>, and <a class="el" href="classjng_1_1_direct3_d_graphics_context.html#aae815ff8c5b53c9042c244e387f528ab">jng::Direct3DGraphicsContext</a>.</p>
+
+</div>
+</div>
 <a id="a9f5849866e37829a0e072a5e09f54b3a" name="a9f5849866e37829a0e072a5e09f54b3a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9f5849866e37829a0e072a5e09f54b3a">&#9670;&nbsp;</a></span>swapBuffers()</h2>
 
@@ -175,7 +206,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classjng_1_1_open_g_l_graphics_context.html#a5bfe25079332d79f1b0b9cf027973cb6">jng::OpenGLGraphicsContext</a>, and <a class="el" href="classjng_1_1_direct3_d_graphics_context.html#ada4d366d8178f446bef340f644839161">jng::Direct3DGraphicsContext</a>.</p>
+<p>Implemented in <a class="el" href="classjng_1_1_vulkan_graphics_context.html#a4e69a2dd729c55619cfee6866dcf0dd4">jng::VulkanGraphicsContext</a>, <a class="el" href="classjng_1_1_open_g_l_graphics_context.html#a5bfe25079332d79f1b0b9cf027973cb6">jng::OpenGLGraphicsContext</a>, and <a class="el" href="classjng_1_1_direct3_d_graphics_context.html#ada4d366d8178f446bef340f644839161">jng::Direct3DGraphicsContext</a>.</p>
 
 </div>
 </div>
@@ -186,7 +217,7 @@ Static Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 14 2022 15:38:16 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jul 15 2022 10:07:25 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

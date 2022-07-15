@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['opengl_0',['OpenGL',['../namespacejng.html#a12ce176de3b33861d2a2f4c90385d499a760716b590ee7c0adc25f434f577d8be',1,'jng']]],
-  ['orthographic_1',['Orthographic',['../classjng_1_1_camera.html#a37cbde0bc426c9a25419985326f3d4efa03424250432f2aa71de95579d2c0eaeb',1,'jng::Camera']]]
+  ['renderer2d_0',['Renderer2D',['../classjng_1_1_engine.html#acee4c6dfe14e28482ff2d8a0ecbc985bacfc786e02161dec13cacafa50533a7ab',1,'jng::Engine']]],
+  ['renderer3d_1',['Renderer3D',['../classjng_1_1_engine.html#acee4c6dfe14e28482ff2d8a0ecbc985ba85e336203853a4899130f8328310d512',1,'jng::Engine']]]
 ];

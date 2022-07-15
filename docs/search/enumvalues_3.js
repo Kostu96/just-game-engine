@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['gamerender_0',['GameRender',['../namespacejng.html#adb449770efd1c22981a35ae7ab49f8cbade3a7b709f5ee22b079830228c6ee64f',1,'jng']]],
-  ['gametick_1',['GameTick',['../namespacejng.html#adb449770efd1c22981a35ae7ab49f8cba60cf5bcff8ec316d605b0e6cf2a25ead',1,'jng']]],
-  ['gameupdate_2',['GameUpdate',['../namespacejng.html#adb449770efd1c22981a35ae7ab49f8cbaef4fc18ac653054a7c704b887b6563e5',1,'jng']]]
+  ['keypress_0',['KeyPress',['../namespacejng.html#adb449770efd1c22981a35ae7ab49f8cba65a1aa093fcf3acd50b318f1942c02f5',1,'jng']]],
+  ['keyrelease_1',['KeyRelease',['../namespacejng.html#adb449770efd1c22981a35ae7ab49f8cba17ee17cec34ff017c382ba1ce8dc4cdc',1,'jng']]]
 ];

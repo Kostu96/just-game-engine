@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['vertex_0',['Vertex',['../classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7ab22b929ba52471a02d18bb3a4e4472e6',1,'jng::Shader']]],
-  ['vulkan_1',['Vulkan',['../namespacejng.html#a12ce176de3b33861d2a2f4c90385d499a38625270231b647116c80bcbc4f9d1d8',1,'jng']]]
+  ['windowclose_0',['WindowClose',['../namespacejng.html#adb449770efd1c22981a35ae7ab49f8cbac984201d37197ab297a14d19efee4b07',1,'jng']]],
+  ['windowfocus_1',['WindowFocus',['../namespacejng.html#adb449770efd1c22981a35ae7ab49f8cba1c68d5453b28d52622bf5486a5fd95ca',1,'jng']]],
+  ['windowmove_2',['WindowMove',['../namespacejng.html#adb449770efd1c22981a35ae7ab49f8cba3d9774b680140c9501d89e75d321ccfc',1,'jng']]],
+  ['windownotfocus_3',['WindowNotFocus',['../namespacejng.html#adb449770efd1c22981a35ae7ab49f8cba06125c91c22a45dd731ee0721695be36',1,'jng']]],
+  ['windowresize_4',['WindowResize',['../namespacejng.html#adb449770efd1c22981a35ae7ab49f8cba9f8f27bff2915738c4fe1b970e12f89c',1,'jng']]]
 ];
