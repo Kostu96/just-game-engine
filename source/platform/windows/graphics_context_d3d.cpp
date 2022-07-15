@@ -88,7 +88,7 @@ namespace jng {
     void Direct3DGraphicsContext::swapBuffers() const
     {
         HRESULT hr;
-        hr = m_swapChain->Present(1, 0);
+        hr = m_swapChain->Present(m_isVSyncEnabled ? 1 : 0, 0);
         JNG_D3D_CHECK_HR_DEVICE_REMOVED(hr, m_device);
     }
 

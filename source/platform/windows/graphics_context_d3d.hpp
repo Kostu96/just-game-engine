@@ -30,6 +30,8 @@ namespace jng {
         explicit Direct3DGraphicsContext(Window& window);
         ~Direct3DGraphicsContext();
 
+        void setVSync(bool enabled) override { m_isVSyncEnabled = enabled; }
+
         void swapBuffers() const override;
 
         const wrl::ComPtr<ID3D11Device>& getDevice() const { return m_device; }
@@ -45,6 +47,7 @@ namespace jng {
         wrl::ComPtr<ID3D11DeviceContext> m_deviceContext;
         wrl::ComPtr<ID3D11RenderTargetView> m_defaultRenderTarget;
         mutable ID3D11RenderTargetView* m_currentRenderTarget = nullptr;
+        bool m_isVSyncEnabled = false;
     };
 
 } // namespace jng

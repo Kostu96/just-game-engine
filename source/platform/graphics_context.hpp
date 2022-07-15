@@ -16,6 +16,8 @@ namespace jng {
     public:
         virtual ~GraphicsContext() = default;
 
+        virtual void setVSync(bool enabled) = 0;
+
         virtual void swapBuffers() const = 0;
 
         static Scope<GraphicsContext> create(Window& window);

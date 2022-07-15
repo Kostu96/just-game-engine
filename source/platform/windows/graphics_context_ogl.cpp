@@ -150,6 +150,14 @@ namespace jng {
         wglDeleteContext(m_graphicsContextHandle);
     }
 
+    void OpenGLGraphicsContext::setVSync(bool enabled)
+    {
+        if (enabled)
+            glfwSwapInterval(1);
+        else
+            glfwSwapInterval(0);
+    }
+
     void OpenGLGraphicsContext::swapBuffers() const
     {
         SwapBuffers(GetDC(m_windowHandle));

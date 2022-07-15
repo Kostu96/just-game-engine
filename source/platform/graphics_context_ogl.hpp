@@ -29,6 +29,8 @@ namespace jng {
         explicit OpenGLGraphicsContext(Window& window);
         ~OpenGLGraphicsContext();
 
+        void setVSync(bool enabled) override;
+
         void swapBuffers() const override;
     private:
         Window& m_window;

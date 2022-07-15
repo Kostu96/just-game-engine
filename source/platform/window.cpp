@@ -100,16 +100,6 @@ namespace jng {
         glfwPollEvents();
     }
 
-    void Window::setVSync(bool /*enabled*/)
-    {
-        /*if (enabled)
-            glfwSwapInterval(1);
-        else
-            glfwSwapInterval(0);
-
-        m_isVSyncEnabled = enabled;*/
-    }
-
     void Window::setTitle(const char* title)
     {
         m_windowData.title = title;

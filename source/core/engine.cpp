@@ -32,7 +32,7 @@ namespace jng {
 
         m_window = Window::create(properties.windowTitle, properties.windowWidth, properties.windowHeight);
         m_window->setEventCallback(JNG_BIND_EVENT_FUNC(Engine::onEvent));
-        m_window->setVSync(true);
+        m_window->getGraphicsContext()->setVSync(true);
 
         ImGuiLayer::init(m_window.get());
 
