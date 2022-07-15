@@ -6,7 +6,7 @@
 
 #include "renderer/opengl/buffers_ogl.hpp"
 
-#include <glad/glad.h>
+#include <glad/gl.h>
 
 namespace jng {
 

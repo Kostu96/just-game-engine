@@ -11,9 +11,11 @@ set(GLAD_TARGET_NAME glad)
 
 add_library(${GLAD_TARGET_NAME} STATIC
 	${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/glad.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/glad/glad.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/glad/gl.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/glad/wgl.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/KHR/khrplatform.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/gl.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/wgl.c
 )
 
 target_include_directories(${GLAD_TARGET_NAME} SYSTEM PUBLIC

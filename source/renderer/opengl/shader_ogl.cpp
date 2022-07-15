@@ -9,7 +9,7 @@
 #include "core/base_internal.hpp"
 #include "core/engine.hpp"
 
-#include <glad/glad.h>
+#include <glad/gl.h>
 #include <glm/gtc/type_ptr.inl>
 #include <shaderc/shaderc.hpp>
 #include <spirv_cross/spirv_glsl.hpp>
