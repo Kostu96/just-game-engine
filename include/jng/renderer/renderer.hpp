@@ -10,7 +10,7 @@
 namespace jng {
 
     class Renderer :
-        public ccl::NonCopyable
+        public NonCopyable
     {
     public:
         static void init();

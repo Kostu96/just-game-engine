@@ -5,16 +5,22 @@
  */
 
 #pragma once
-#include <ccl/non_copyable.h>
 #include <cstdint>
 #include <memory>
-
-#include "jng/debug/assert.hpp"
-#include "jng/debug/log.hpp"
 
 #define JNG_BIND_EVENT_FUNC(func) [this](auto&& ...args) -> decltype(auto) { return this->func(std::forward<decltype(args)>(args)...); }
 
 namespace jng {
+
+	class NonCopyable
+	{
+	protected:
+		NonCopyable() = default;
+		~NonCopyable() = default;
+	private:
+		NonCopyable(const NonCopyable&) = delete;
+		NonCopyable& operator=(const NonCopyable&) = delete;
+	};
 
 	template<typename T>
 	using Scope = std::unique_ptr<T>;
@@ -49,3 +55,6 @@ namespace jng {
 	};
 
 } // namespace jng
+
+#include "jng/debug/assert.hpp"
+#include "jng/debug/log.hpp"
