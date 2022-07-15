@@ -28,7 +28,7 @@ namespace jng {
         D3D11_SUBRESOURCE_DATA data{};
         data.pSysMem = vertices;
 
-        HRESULT hr = device->CreateBuffer(&bd, &data, &m_buffer);
+        [[ maybe_unused ]] HRESULT hr = device->CreateBuffer(&bd, &data, &m_buffer);
         JNG_D3D_CHECK_HR(hr);
     }
 
@@ -43,7 +43,7 @@ namespace jng {
         bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
         bd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
-        HRESULT hr = device->CreateBuffer(&bd, nullptr, &m_buffer);
+        [[ maybe_unused ]] HRESULT hr = device->CreateBuffer(&bd, nullptr, &m_buffer);
         JNG_D3D_CHECK_HR(hr);
     }
 
@@ -64,7 +64,7 @@ namespace jng {
         const auto& deviceContext = m_graphicsContext->getDeviceContext();
 
         D3D11_MAPPED_SUBRESOURCE mappedResource{};
-        HRESULT hr = deviceContext->Map(m_buffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+        [[ maybe_unused ]] HRESULT hr = deviceContext->Map(m_buffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
         JNG_D3D_CHECK_HR(hr);
         memcpy(mappedResource.pData, data, size);
         deviceContext->Unmap(m_buffer.Get(), 0);
@@ -84,7 +84,7 @@ namespace jng {
         D3D11_SUBRESOURCE_DATA data{};
         data.pSysMem = indices;
 
-        HRESULT hr = device->CreateBuffer(&bd, &data, &m_buffer);
+        [[ maybe_unused ]] HRESULT hr = device->CreateBuffer(&bd, &data, &m_buffer);
         JNG_D3D_CHECK_HR(hr);
     }
 
@@ -110,7 +110,7 @@ namespace jng {
         cbd.StructureByteStride = 0u;
 
         const auto& device = m_graphicsContext->getDevice();
-        HRESULT hr = device->CreateBuffer(&cbd, nullptr, &m_buffer);
+        [[ maybe_unused ]] HRESULT hr = device->CreateBuffer(&cbd, nullptr, &m_buffer);
         JNG_D3D_CHECK_HR(hr);
     }
 
@@ -128,7 +128,7 @@ namespace jng {
         const auto& deviceContext = m_graphicsContext->getDeviceContext();
 
         D3D11_MAPPED_SUBRESOURCE mappedResource{};
-        HRESULT hr = deviceContext->Map(m_buffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+        [[ maybe_unused ]] HRESULT hr = deviceContext->Map(m_buffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
         JNG_D3D_CHECK_HR(hr);
         memcpy(reinterpret_cast<void*>((uintptr_t)mappedResource.pData + (ptrdiff_t)offset), data, size);
         deviceContext->Unmap(m_buffer.Get(), 0);

@@ -8,6 +8,8 @@
 #include "jng/core/base.hpp"
 #include "jng/platform/key_codes.hpp"
 
+#include <string>
+
 namespace jng {
     namespace Platform {
 

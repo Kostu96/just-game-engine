@@ -67,7 +67,7 @@ namespace jng {
 		wrl::ComPtr<ID3D11Resource> resource;
 		m_textureView->GetResource(&resource);
 		D3D11_MAPPED_SUBRESOURCE mappedResource{};
-		HRESULT hr = deviceContext->Map(resource.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+		[[ maybe_unused ]] HRESULT hr = deviceContext->Map(resource.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 		JNG_D3D_CHECK_HR(hr);
 		memcpy(mappedResource.pData, data, size);
 		deviceContext->Unmap(resource.Get(), 0);
@@ -94,7 +94,7 @@ namespace jng {
 		sd.SysMemPitch = m_width * 4;
 
 		wrl::ComPtr<ID3D11Texture2D> pTexture;
-		HRESULT hr = device->CreateTexture2D(&textureDesc, data ? &sd : nullptr, &pTexture);
+		[[ maybe_unused ]] HRESULT hr = device->CreateTexture2D(&textureDesc, data ? &sd : nullptr, &pTexture);
 		JNG_D3D_CHECK_HR(hr);
 
 		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc{};
