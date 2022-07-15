@@ -24,7 +24,7 @@ namespace jng {
             const glm::vec2* quadVertexPositions;
             const glm::vec2* textureCoords;
             const Ref<Texture>& texture;
-            const glm::vec4& color;
+            const uint32 color;
         };
 
         static void init();

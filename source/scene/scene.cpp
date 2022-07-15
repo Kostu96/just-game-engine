@@ -48,7 +48,6 @@ namespace jng {
             if (group.size() == 0) {
                 return;
             }
-            else if (group.size() > 1)
 
             auto [cc, tc] = group.get<CameraComponent, TransformComponent>(*group.begin());
             Renderer2D::beginScene(cc.camera.getVP(tc.getTransform()));

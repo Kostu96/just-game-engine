@@ -17,6 +17,7 @@
 #include <array>
 #include <filesystem>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/packing.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 namespace jng {
@@ -25,8 +26,8 @@ namespace jng {
     {
         glm::vec2 position;
         glm::vec2 texCoord;
-        glm::vec4 color;
-        float texIndex;
+        uint32 color;
+        uint32 texIndex;
     };
 
     struct RenderData
@@ -70,13 +71,13 @@ namespace jng {
         s_data.quadVBO = VertexBuffer::create(RenderData::MaxVerticesPerBatch * sizeof(QuadVertex));
 
         VertexLayout vertexLayout = {
-            { LayoutElement::DataType::Float2, "a_Position" },
-            { LayoutElement::DataType::Float2, "a_TexCoord" },
-            { LayoutElement::DataType::Float4, "a_Color" },
-            { LayoutElement::DataType::Float, "a_TexIndex" }
+            { LayoutElement::DataType::Float2,  "a_Position" },
+            { LayoutElement::DataType::Float2,  "a_TexCoord" },
+            { LayoutElement::DataType::UInt4x8, "a_Color", true, true },
+            { LayoutElement::DataType::UInt,    "a_TexIndex", false }
         };
         s_data.quadVAO = VertexArray::create(s_data.quadVBO, vertexLayout, s_data.shader);
-
+        
         s_data.quadVBOBase = new QuadVertex[s_data.MaxVerticesPerBatch];
         s_data.quadVertexPositions[0] = { -0.5f, -0.5f, 0.0f, 1.0f };
         s_data.quadVertexPositions[1] = {  0.5f, -0.5f, 0.0f, 1.0f };
@@ -159,7 +160,7 @@ namespace jng {
             s_data.quadVBOPtr->position = properties.quadVertexPositions[i];
             s_data.quadVBOPtr->texCoord = properties.textureCoords[i];
             s_data.quadVBOPtr->color = properties.color;
-            s_data.quadVBOPtr->texIndex = static_cast<float>(textureIndex);
+            s_data.quadVBOPtr->texIndex = textureIndex;
             ++s_data.quadVBOPtr;
         }
 
@@ -193,7 +194,7 @@ namespace jng {
             quadVertexPositions,
             texCoords,
             texture,
-            color
+            glm::packUnorm4x8(color)
         };
         fillQuad(properties);
     }
@@ -221,7 +222,7 @@ namespace jng {
             quadVertexPositions,
             texCoords,
             texture,
-            color
+            glm::packUnorm4x8(color)
         };
         fillQuad(properties);
     }

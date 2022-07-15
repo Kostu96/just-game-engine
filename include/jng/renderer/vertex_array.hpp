@@ -21,12 +21,11 @@ namespace jng {
         enum class DataType
         {
             Float, Float2, Float3, Float4,
-            Mat3, Mat4,
-            Int, Int2, Int3, Int4,
-            Bool
+            UInt,  UInt2,  UInt3,  UInt4,
+            UInt4x8
         };
 
-        LayoutElement(DataType type, const char* name, bool normalized = false);
+        LayoutElement(DataType type, const char* name, bool passAsFloat = false, bool normalized = false);
 
         static size_t dataTypeToSize(DataType type);
 
@@ -34,6 +33,7 @@ namespace jng {
         DataType Type;
         size_t Size;
         uintptr_t Offset;
+        bool PassAsFloat;
         bool Normalized;
     };
 

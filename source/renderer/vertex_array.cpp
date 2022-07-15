@@ -9,7 +9,7 @@
 #include "core/base_internal.hpp"
 #include "renderer/renderer_api.hpp"
 #include "renderer/opengl/vertex_array_ogl.hpp"
-//#include "renderer/vulkan/vertex_array_impl_vlk.hpp"
+//#include "renderer/vulkan/vertex_array_vlk.hpp"
 
 #if defined(JNG_WINDOWS)
 #include "renderer/direct3d/vertex_array_d3d.hpp"
@@ -17,28 +17,27 @@
 
 namespace jng {
 
-    LayoutElement::LayoutElement(DataType type, const char* name, bool normalized) :
-        Name(name),
-        Type(type),
-        Size(dataTypeToSize(type)),
-        Offset(0),
-        Normalized(normalized) {}
+    LayoutElement::LayoutElement(DataType type, const char* name, bool passAsFloat, bool normalized) :
+        Name{ name },
+        Type{ type },
+        Size{ dataTypeToSize(type) },
+        Offset{ 0 },
+        PassAsFloat{ passAsFloat },
+        Normalized{ normalized } {}
 
     size_t LayoutElement::dataTypeToSize(DataType type)
     {
         switch (type)
         {
-        case DataType::Float:  return sizeof(float);
-        case DataType::Float2: return sizeof(float) * 2;
-        case DataType::Float3: return sizeof(float) * 3;
-        case DataType::Float4: return sizeof(float) * 4;
-        case DataType::Mat3:   return sizeof(float) * 3 * 3;
-        case DataType::Mat4:   return sizeof(float) * 4 * 4;
-        case DataType::Int:    return sizeof(int);
-        case DataType::Int2:   return sizeof(int) * 2;
-        case DataType::Int3:   return sizeof(int) * 3;
-        case DataType::Int4:   return sizeof(int) * 4;
-        case DataType::Bool:   return sizeof(bool);
+        case DataType::Float:   return sizeof(float);
+        case DataType::Float2:  return sizeof(float) * 2;
+        case DataType::Float3:  return sizeof(float) * 3;
+        case DataType::Float4:  return sizeof(float) * 4;
+        case DataType::UInt:
+        case DataType::UInt4x8: return sizeof(uint32);
+        case DataType::UInt2:   return sizeof(uint32) * 2;
+        case DataType::UInt3:   return sizeof(uint32) * 3;
+        case DataType::UInt4:   return sizeof(uint32) * 4;
         }
 
         JNG_CORE_ASSERT(false, "This should never be triggered!")
