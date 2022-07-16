@@ -91,8 +91,7 @@ namespace jng {
         if (!DXGIGetDebugInterface)
             JNG_CORE_FATAL("GetProcAddress error! DXGIGetDebugInterface definition not found!");
 
-        HRESULT hr;
-        hr = DXGIGetDebugInterface(__uuidof(IDXGIInfoQueue), &m_DXGIInfoQueue);
+        [[ maybe_unused ]] HRESULT hr = DXGIGetDebugInterface(__uuidof(IDXGIInfoQueue), &m_DXGIInfoQueue);
         JNG_D3D_CHECK_HR(hr);
     }
 

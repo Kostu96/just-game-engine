@@ -48,7 +48,7 @@ void GameLayer::onUpdate(float dt)
 {
     jng::RendererAPI::clear({ 0.1f, 0.07f, 0.07f });
 
-    m_activeScene.onUpdate();
+    m_activeScene.onUpdate(dt);
 
     static float timer = 0.f;
     static uint32_t frames = 0;

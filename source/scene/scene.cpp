@@ -10,6 +10,7 @@
 #include "renderer/renderer2d.hpp"
 #include "scene/components.hpp"
 #include "scene/entity.hpp"
+#include "scripting/native_script.hpp"
 
 #include <glm/gtx/matrix_decompose.hpp>
 
@@ -41,8 +42,28 @@ namespace jng {
         return m_camera;
     }
 
-    void Scene::onUpdate()
+    void Scene::onEvent(const Event& event)
     {
+        {
+            auto view = m_registry.view<NativeScriptComponent>();
+            for (auto entity : view)
+            {
+                auto& nsc = view.get<NativeScriptComponent>(entity);
+                nsc.instance->onEvent(event);
+            }
+        }
+    }
+
+    void Scene::onUpdate(float dt)
+    {
+        {
+            auto view = m_registry.view<NativeScriptComponent>();
+            for (auto entity : view)
+            {
+                auto& nsc = view.get<NativeScriptComponent>(entity);
+                nsc.instance->onUpdate(dt);
+            }
+        }
         {
             auto group = m_registry.group<CameraComponent>(entt::get<TransformComponent>);
             if (group.size() == 0) {

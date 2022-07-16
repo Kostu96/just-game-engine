@@ -37,7 +37,7 @@ namespace jng {
         square2.addComponent<SpriteComponent>().color = { 1.f, 0.f, 0.f, 1.f };
     }
 
-    void EditorLayer::onUpdate(float /*dt*/)
+    void EditorLayer::onUpdate(float dt)
     {
         if (m_context.viewportWindowSize.x != m_viewportFramebuffer->getProperties().width || m_context.viewportWindowSize.y != m_viewportFramebuffer->getProperties().height) {
             uint32 newViewportWidth = static_cast<uint32>(m_context.viewportWindowSize.x);
@@ -54,7 +54,7 @@ namespace jng {
         m_viewportFramebuffer->bind();
         jng::RendererAPI::clear({ 0.1f, 0.15f, 0.2f });
 
-        m_context.activeScene->onUpdate();
+        m_context.activeScene->onUpdate(dt);
         
         m_viewportFramebuffer->unbind();
     }

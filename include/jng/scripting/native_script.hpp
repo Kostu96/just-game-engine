@@ -9,6 +9,8 @@
 
 namespace jng {
 
+	class Event;
+
 	class NativeScript
 	{
 	public:
@@ -18,6 +20,7 @@ namespace jng {
 		virtual void onCreate() {}
 		virtual void onDestroy() {}
 		virtual void onUpdate(float /*dt*/) {}
+		virtual void onEvent(const Event& /*event*/) {}
 	protected:
 		template<typename T>
 		T& getComponent() { return m_entity.getComponent<T>(); }

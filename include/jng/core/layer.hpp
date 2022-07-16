@@ -23,7 +23,7 @@ namespace jng {
         // TODO: when Cherno won't have that feature go back to return bool to enable pause layer ???
         virtual void onUpdate(float /*dt*/) {}
         virtual void onImGuiUpdate() {}
-        virtual void onEvent(Event& /*event*/) {}
+        virtual void onEvent(const Event& /*event*/) {}
     };
 
 } // namespace jng

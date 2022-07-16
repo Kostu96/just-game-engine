@@ -8,10 +8,12 @@
 #include "jng/renderer/camera.hpp"
 
 #include <entt/entt.hpp>
+#include <string>
 
 namespace jng {
 
     class Entity;
+    class Event;
     class SceneSerializer;
 
     class Scene
@@ -24,7 +26,8 @@ namespace jng {
 
         Camera* getActiveCamera();
 
-        void onUpdate();
+        void onUpdate(float dt);
+        void onEvent(const Event& event);
 
         template<typename Func>
         void each(Func func);
