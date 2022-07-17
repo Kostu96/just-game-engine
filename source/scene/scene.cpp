@@ -42,6 +42,33 @@ namespace jng {
         return m_camera;
     }
 
+    void Scene::onCreate()
+    {
+        {
+            auto view = m_registry.view<NativeScriptComponent>();
+            for (auto entity : view)
+            {
+                auto& nsc = view.get<NativeScriptComponent>(entity);
+                nsc.instance = nsc.createScript();
+                nsc.instance->m_entity = Entity{ entity, *this };
+                nsc.instance->onCreate();
+            }
+        }
+    }
+
+    void Scene::onDestroy()
+    {
+        {
+            auto view = m_registry.view<NativeScriptComponent>();
+            for (auto entity : view)
+            {
+                auto& nsc = view.get<NativeScriptComponent>(entity);
+                nsc.instance->onDestroy();
+                nsc.destroyScript(nsc.instance);
+            }
+        }
+    }
+
     void Scene::onEvent(Event& event)
     {
         {

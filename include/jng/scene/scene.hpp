@@ -25,7 +25,9 @@ namespace jng {
         void destroyEntity(Entity entity);
 
         Camera* getActiveCamera();
-
+        
+        void onCreate();
+        void onDestroy();
         void onUpdate(float dt);
         void onEvent(Event& event);
 
