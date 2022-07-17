@@ -13,21 +13,21 @@
 
 namespace jng {
 
-    void Camera::setOrthographic(float size, float near, float far)
+    void Camera::setOrthographic(float oSize, float oNear, float oFar)
     {
         m_projectionType = ProjectionType::Orthographic;
-        m_orthoSize = size;
-        m_orthoNear = near;
-        m_orthoFar = far;
+        m_orthoSize = oSize;
+        m_orthoNear = oNear;
+        m_orthoFar = oFar;
         recalculateProjection();
     }
 
-    void Camera::setPerspective(float fov, float near, float far)
+    void Camera::setPerspective(float pFOV, float pNear, float pFar)
     {
         m_projectionType = ProjectionType::Perspective;
-        m_perspectiveFOV = fov;
-        m_perspectiveNear = near;
-        m_perspectiveFar = far;
+        m_perspectiveFOV = pFOV;
+        m_perspectiveNear = pNear;
+        m_perspectiveFar = pFar;
         recalculateProjection();
     }
 

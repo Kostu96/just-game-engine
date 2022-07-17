@@ -27,7 +27,7 @@ namespace jng {
         Camera* getActiveCamera();
 
         void onUpdate(float dt);
-        void onEvent(const Event& event);
+        void onEvent(Event& event);
 
         template<typename Func>
         void each(Func func);

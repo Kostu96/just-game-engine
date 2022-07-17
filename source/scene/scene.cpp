@@ -42,7 +42,7 @@ namespace jng {
         return m_camera;
     }
 
-    void Scene::onEvent(const Event& event)
+    void Scene::onEvent(Event& event)
     {
         {
             auto view = m_registry.view<NativeScriptComponent>();

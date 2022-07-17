@@ -20,7 +20,7 @@ namespace jng {
 		virtual void onCreate() {}
 		virtual void onDestroy() {}
 		virtual void onUpdate(float /*dt*/) {}
-		virtual void onEvent(const Event& /*event*/) {}
+		virtual void onEvent(Event& /*event*/) {}
 	protected:
 		template<typename T>
 		T& getComponent() { return m_entity.getComponent<T>(); }

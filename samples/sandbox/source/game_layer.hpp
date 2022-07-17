@@ -17,8 +17,8 @@ class GameLayer :
 public:
     GameLayer(const GameData& gameData);
 
-    void onEvent(jng::Event& event);
     void onUpdate(float dt) override;
+    void onEvent(jng::Event& event) override;
 private:
     const GameData& m_gameData;
     jng::Scene m_activeScene;
