@@ -22,6 +22,7 @@ robocopy %THIRD_PARTY_DIR%entt\include\entt %PACKAGE_DIR%include\entt /E /NJH /N
 robocopy %THIRD_PARTY_DIR%entt %PACKAGE_DIR%include\entt LICENSE /NJH /NJS
 robocopy %THIRD_PARTY_DIR%glm\glm %PACKAGE_DIR%include\glm *.hpp *.inl /E /NJH /NJS
 robocopy %THIRD_PARTY_DIR%glm %PACKAGE_DIR%include\glm copying.txt /NJH /NJS
+robocopy %THIRD_PARTY_DIR%imgui %PACKAGE_DIR%include\imgui imgui.h LICENSE.txt /NJH /NJS
 robocopy %THIRD_PARTY_DIR%spdlog\include\spdlog %PACKAGE_DIR%include\spdlog /E /NJH /NJS
 robocopy %THIRD_PARTY_DIR%spdlog %PACKAGE_DIR%include\spdlog LICENSE /NJH /NJS
 
