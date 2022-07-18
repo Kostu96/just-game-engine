@@ -25,6 +25,8 @@ namespace jng {
 	protected:
 		template<typename T>
 		T& getComponent() { return m_entity.getComponent<T>(); }
+
+		Entity createEntity(const std::string& name) { return m_entity.getScene()->createEntity(name); }
 	private:
 		Entity m_entity;
 
