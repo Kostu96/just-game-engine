@@ -54,7 +54,11 @@ int main(int argc, char* argv[])
 
 #if defined(JNG_WINDOWS)
 
-#include "platform/windows/windows_base.hpp"
+#define WINAPI __stdcall
+struct HINSTANCE__;
+typedef HINSTANCE__* HINSTANCE;
+typedef wchar_t* LPWSTR;
+typedef char* LPSTR;
 
 #if defined(UNICODE)
 
