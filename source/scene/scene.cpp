@@ -101,11 +101,10 @@ namespace jng {
             Renderer2D::beginScene(cc.camera.getVP(tc.getTransform()));
         }
         {
-            auto group = m_registry.group<TransformComponent>(entt::get<SpriteComponent>);
+            auto group = m_registry.group<SpriteComponent>(entt::get<TransformComponent>);
             for (auto entity : group)
             {
-                auto [tc, sc] = group.get<TransformComponent, SpriteComponent>(entity);
-
+                auto [sc, tc] = group.get<SpriteComponent, TransformComponent>(entity);
                 Renderer2D::fillQuad(tc.getTransform(), sc.color);
             }
         }
