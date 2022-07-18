@@ -5,7 +5,7 @@
  */
 
 #pragma once
-#include "jng/renderer/camera.hpp"
+#include "jng/scene/camera.hpp"
 
 #include <entt/entt.hpp>
 #include <string>

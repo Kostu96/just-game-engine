@@ -19,7 +19,6 @@
 #include "platform/window.hpp"
 
 #include "renderer/buffers.hpp"
-#include "renderer/camera.hpp"
 #include "renderer/framebuffer.hpp"
 #include "renderer/renderer.hpp"
 #include "renderer/renderer_api.hpp"
@@ -28,6 +27,7 @@
 #include "renderer/texture.hpp"
 #include "renderer/vertex_array.hpp"
 
+#include "scene/camera.hpp"
 #include "scene/components.hpp"
 #include "scene/entity.hpp"
 #include "scene/scene.hpp"

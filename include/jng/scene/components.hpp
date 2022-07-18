@@ -5,7 +5,7 @@
  */
 
 #pragma once
-#include "jng/renderer/camera.hpp"
+#include "jng/scene/camera.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-#include "renderer/camera.hpp"
+#include "scene/camera.hpp"
 
 #include "core/base_internal.hpp"
 #include "renderer/renderer_api.hpp"
