@@ -70,6 +70,7 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classjng_1_1_native_script-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">jng::NativeScript Class Reference</div></div>
 </div><!--header-->
@@ -89,12 +90,23 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a3b8e3fa1d746e50e5d506c9379117a52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc3a28c84f459c04c88d5752e19181ac"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_native_script.html#adc3a28c84f459c04c88d5752e19181ac">onUpdate</a> (float)</td></tr>
 <tr class="separator:adc3a28c84f459c04c88d5752e19181ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa503498d7f8e995d77576627ddec68c2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_native_script.html#aa503498d7f8e995d77576627ddec68c2">onEvent</a> (<a class="el" href="classjng_1_1_event.html">Event</a> &amp;)</td></tr>
+<tr class="separator:aa503498d7f8e995d77576627ddec68c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a80993572141dbc12dc14514b7997b1ed"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a80993572141dbc12dc14514b7997b1ed"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classjng_1_1_native_script.html#a80993572141dbc12dc14514b7997b1ed">getComponent</a> ()</td></tr>
 <tr class="separator:a80993572141dbc12dc14514b7997b1ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad39969aa871c618ef687806634fa02c1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classjng_1_1_entity.html">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_native_script.html#ad39969aa871c618ef687806634fa02c1">createEntity</a> (const std::string &amp;name)</td></tr>
+<tr class="separator:ad39969aa871c618ef687806634fa02c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af32965d3da25f3c2ca00f1d39a307872"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_native_script.html#af32965d3da25f3c2ca00f1d39a307872">destroyEntity</a> (<a class="el" href="classjng_1_1_entity.html">Entity</a> entity)</td></tr>
+<tr class="separator:af32965d3da25f3c2ca00f1d39a307872"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a032858ae1fe02d2d1170981c2af2d67c"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_native_script.html#a032858ae1fe02d2d1170981c2af2d67c">Scene</a></td></tr>
+<tr class="separator:a032858ae1fe02d2d1170981c2af2d67c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aeb0600956f3e61f3248a3d5c8e60524c" name="aeb0600956f3e61f3248a3d5c8e60524c"></a>
@@ -148,6 +160,58 @@ Protected Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad39969aa871c618ef687806634fa02c1" name="ad39969aa871c618ef687806634fa02c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad39969aa871c618ef687806634fa02c1">&#9670;&nbsp;</a></span>createEntity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classjng_1_1_entity.html">Entity</a> jng::NativeScript::createEntity </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af32965d3da25f3c2ca00f1d39a307872" name="af32965d3da25f3c2ca00f1d39a307872"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af32965d3da25f3c2ca00f1d39a307872">&#9670;&nbsp;</a></span>destroyEntity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jng::NativeScript::destroyEntity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classjng_1_1_entity.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a80993572141dbc12dc14514b7997b1ed" name="a80993572141dbc12dc14514b7997b1ed"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a80993572141dbc12dc14514b7997b1ed">&#9670;&nbsp;</a></span>getComponent()</h2>
 
@@ -225,6 +289,32 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="aa503498d7f8e995d77576627ddec68c2" name="aa503498d7f8e995d77576627ddec68c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa503498d7f8e995d77576627ddec68c2">&#9670;&nbsp;</a></span>onEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void jng::NativeScript::onEvent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classjng_1_1_event.html">Event</a> &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="adc3a28c84f459c04c88d5752e19181ac" name="adc3a28c84f459c04c88d5752e19181ac"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adc3a28c84f459c04c88d5752e19181ac">&#9670;&nbsp;</a></span>onUpdate()</h2>
 
@@ -251,13 +341,36 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a032858ae1fe02d2d1170981c2af2d67c" name="a032858ae1fe02d2d1170981c2af2d67c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a032858ae1fe02d2d1170981c2af2d67c">&#9670;&nbsp;</a></span>Scene</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classjng_1_1_scene.html">Scene</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/jng/scripting/<a class="el" href="native__script_8hpp_source.html">native_script.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jul 15 2022 10:07:25 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Mon Jul 18 2022 19:01:55 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

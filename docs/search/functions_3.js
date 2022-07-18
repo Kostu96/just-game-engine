@@ -3,7 +3,7 @@ var searchData=
   ['datatypetosize_0',['dataTypeToSize',['../structjng_1_1_layout_element.html#a2b5ee6f7a6232b438a541671f2c75086',1,'jng::LayoutElement']]],
   ['decode_1',['decode',['../struct_y_a_m_l_1_1convert_3_01glm_1_1vec3_01_4.html#a728b087127b10d0ece4ae21148a36f94',1,'YAML::convert&lt; glm::vec3 &gt;::decode()'],['../struct_y_a_m_l_1_1convert_3_01glm_1_1vec4_01_4.html#a935e31dad7403fdefc60995d3bc8a776',1,'YAML::convert&lt; glm::vec4 &gt;::decode()']]],
   ['deserialize_2',['deserialize',['../classjng_1_1_scene_serializer.html#ae658fd70f03a1b05b5bddf2e8df1663d',1,'jng::SceneSerializer']]],
-  ['destroyentity_3',['destroyEntity',['../classjng_1_1_scene.html#a774591255d3d171ce54abb2c61ac8928',1,'jng::Scene']]],
+  ['destroyentity_3',['destroyEntity',['../classjng_1_1_scene.html#a774591255d3d171ce54abb2c61ac8928',1,'jng::Scene::destroyEntity()'],['../classjng_1_1_native_script.html#af32965d3da25f3c2ca00f1d39a307872',1,'jng::NativeScript::destroyEntity()']]],
   ['direct3dframebuffer_4',['Direct3DFramebuffer',['../classjng_1_1_direct3_d_framebuffer.html#a54f02ee3b94a6c77fa00199634d6369c',1,'jng::Direct3DFramebuffer']]],
   ['direct3dgraphicscontext_5',['Direct3DGraphicsContext',['../classjng_1_1_direct3_d_graphics_context.html#a6d8160d86d6d2a50da82c2802e2f0668',1,'jng::Direct3DGraphicsContext']]],
   ['direct3dindexbuffer_6',['Direct3DIndexBuffer',['../classjng_1_1_direct3_d_index_buffer.html#af436b0f7b4762e52ffa1aa92a5496aeb',1,'jng::Direct3DIndexBuffer']]],

@@ -1,12 +1,12 @@
 var searchData=
 [
   ['onattach_0',['onAttach',['../classjng_1_1_layer.html#a6c1346b074c4aa67430e0951c7965552',1,'jng::Layer']]],
-  ['oncreate_1',['onCreate',['../classjng_1_1_native_script.html#a12c7efdc73e7be2107e86da6e7252f4e',1,'jng::NativeScript']]],
-  ['ondestroy_2',['onDestroy',['../classjng_1_1_native_script.html#a3b8e3fa1d746e50e5d506c9379117a52',1,'jng::NativeScript']]],
+  ['oncreate_1',['onCreate',['../classjng_1_1_scene.html#aa16988c805c60376487a3502db2e8fc9',1,'jng::Scene::onCreate()'],['../classjng_1_1_native_script.html#a12c7efdc73e7be2107e86da6e7252f4e',1,'jng::NativeScript::onCreate()']]],
+  ['ondestroy_2',['onDestroy',['../classjng_1_1_scene.html#a4124970be66c7ad506fb66ade3686ebf',1,'jng::Scene::onDestroy()'],['../classjng_1_1_native_script.html#a3b8e3fa1d746e50e5d506c9379117a52',1,'jng::NativeScript::onDestroy()']]],
   ['ondetach_3',['onDetach',['../classjng_1_1_layer.html#a1bd441d8b3bb7a7a61d189cfedea765d',1,'jng::Layer']]],
-  ['onevent_4',['onEvent',['../classjng_1_1_layer.html#a98778927330aed3fe696e3e0c090c9ad',1,'jng::Layer']]],
+  ['onevent_4',['onEvent',['../classjng_1_1_layer.html#a98778927330aed3fe696e3e0c090c9ad',1,'jng::Layer::onEvent()'],['../classjng_1_1_scene.html#a54c8c1eb1a636c0d983bd9fe5ec1a531',1,'jng::Scene::onEvent()'],['../classjng_1_1_native_script.html#aa503498d7f8e995d77576627ddec68c2',1,'jng::NativeScript::onEvent()']]],
   ['onimguiupdate_5',['onImGuiUpdate',['../classjng_1_1_layer.html#ae40ae57173847f299d615001e3cc1ff5',1,'jng::Layer']]],
-  ['onupdate_6',['onUpdate',['../classjng_1_1_layer.html#acc9f94712e940db97a91945a6bfe324d',1,'jng::Layer::onUpdate()'],['../classjng_1_1_window.html#a5919501e3a5b0d74f69399622e74cb4e',1,'jng::Window::onUpdate()'],['../classjng_1_1_scene.html#ad433ef62af62a679c8564f226ed471d4',1,'jng::Scene::onUpdate()'],['../classjng_1_1_native_script.html#adc3a28c84f459c04c88d5752e19181ac',1,'jng::NativeScript::onUpdate()']]],
+  ['onupdate_6',['onUpdate',['../classjng_1_1_layer.html#acc9f94712e940db97a91945a6bfe324d',1,'jng::Layer::onUpdate()'],['../classjng_1_1_window.html#a5919501e3a5b0d74f69399622e74cb4e',1,'jng::Window::onUpdate()'],['../classjng_1_1_scene.html#af6b58865561320648cc57e590e738ac1',1,'jng::Scene::onUpdate()'],['../classjng_1_1_native_script.html#adc3a28c84f459c04c88d5752e19181ac',1,'jng::NativeScript::onUpdate()']]],
   ['openfilenamedialog_7',['openFilenameDialog',['../namespacejng_1_1_platform.html#a6726b971ae5fb7a56d0a00d01485b9c4',1,'jng::Platform']]],
   ['openglframebuffer_8',['OpenGLFramebuffer',['../classjng_1_1_open_g_l_framebuffer.html#aaceba6fd7a14a18350ceee7df4505de0',1,'jng::OpenGLFramebuffer']]],
   ['openglgraphicscontext_9',['OpenGLGraphicsContext',['../classjng_1_1_open_g_l_graphics_context.html#af7c6025877525a7d27179aedef12fe31',1,'jng::OpenGLGraphicsContext']]],
