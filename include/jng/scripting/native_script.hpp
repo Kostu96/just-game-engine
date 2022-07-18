@@ -9,6 +9,9 @@
 
 namespace jng {
 
+	class Event;
+	class Scene;
+
 	class NativeScript
 	{
 	public:
@@ -18,11 +21,17 @@ namespace jng {
 		virtual void onCreate() {}
 		virtual void onDestroy() {}
 		virtual void onUpdate(float /*dt*/) {}
+		virtual void onEvent(Event& /*event*/) {}
 	protected:
 		template<typename T>
 		T& getComponent() { return m_entity.getComponent<T>(); }
+
+		Entity createEntity(const std::string& name) { return m_entity.getScene()->createEntity(name); }
+		void destroyEntity(Entity entity) { return m_entity.getScene()->destroyEntity(entity); }
 	private:
 		Entity m_entity;
+
+		friend class Scene;
 	};
 
 } // namespace jng

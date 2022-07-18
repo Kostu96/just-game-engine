@@ -10,6 +10,7 @@
 #include "renderer/renderer2d.hpp"
 #include "scene/components.hpp"
 #include "scene/entity.hpp"
+#include "scripting/native_script.hpp"
 
 #include <glm/gtx/matrix_decompose.hpp>
 
@@ -41,8 +42,55 @@ namespace jng {
         return m_camera;
     }
 
-    void Scene::onUpdate()
+    void Scene::onCreate()
     {
+        {
+            auto view = m_registry.view<NativeScriptComponent>();
+            for (auto entity : view)
+            {
+                auto& nsc = view.get<NativeScriptComponent>(entity);
+                nsc.instance = nsc.createScript();
+                nsc.instance->m_entity = Entity{ entity, *this };
+                nsc.instance->onCreate();
+            }
+        }
+    }
+
+    void Scene::onDestroy()
+    {
+        {
+            auto view = m_registry.view<NativeScriptComponent>();
+            for (auto entity : view)
+            {
+                auto& nsc = view.get<NativeScriptComponent>(entity);
+                nsc.instance->onDestroy();
+                nsc.destroyScript(nsc.instance);
+            }
+        }
+    }
+
+    void Scene::onEvent(Event& event)
+    {
+        {
+            auto view = m_registry.view<NativeScriptComponent>();
+            for (auto entity : view)
+            {
+                auto& nsc = view.get<NativeScriptComponent>(entity);
+                nsc.instance->onEvent(event);
+            }
+        }
+    }
+
+    void Scene::onUpdate(float dt)
+    {
+        {
+            auto view = m_registry.view<NativeScriptComponent>();
+            for (auto entity : view)
+            {
+                auto& nsc = view.get<NativeScriptComponent>(entity);
+                nsc.instance->onUpdate(dt);
+            }
+        }
         {
             auto group = m_registry.group<CameraComponent>(entt::get<TransformComponent>);
             if (group.size() == 0) {
@@ -53,11 +101,10 @@ namespace jng {
             Renderer2D::beginScene(cc.camera.getVP(tc.getTransform()));
         }
         {
-            auto group = m_registry.group<TransformComponent>(entt::get<SpriteComponent>);
+            auto group = m_registry.group<SpriteComponent>(entt::get<TransformComponent>);
             for (auto entity : group)
             {
-                auto [tc, sc] = group.get<TransformComponent, SpriteComponent>(entity);
-
+                auto [sc, tc] = group.get<SpriteComponent, TransformComponent>(entity);
                 Renderer2D::fillQuad(tc.getTransform(), sc.color);
             }
         }

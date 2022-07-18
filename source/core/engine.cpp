@@ -94,7 +94,7 @@ namespace jng {
     {
         JNG_PROFILE_FUNCTION();
 
-        EventDispatcher dispatcher(event);
+        EventDispatcher dispatcher{ event };
         dispatcher.dispatch<WindowCloseEvent>(JNG_BIND_EVENT_FUNC(Engine::onWindowClose));
         dispatcher.dispatch<WindowResizeEvent>(JNG_BIND_EVENT_FUNC(Engine::onWindowResize));
 

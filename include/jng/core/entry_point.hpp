@@ -52,24 +52,28 @@ int main(int argc, char* argv[])
     return 0;
 }
 
-//#if defined(JNG_WINDOWS)
-//
-//#include "platform/windows/windows_base.hpp"
-//
-//#if defined(UNICODE)
-//
-//int WINAPI wWinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPWSTR, _In_ int)
-//{
-//    return main(__argc, __argv);
-//}
-//
-//#else
-//
-//int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
-//{
-//    return main(__argc, __argv);
-//}
-//
-//#endif
-//
-//#endif
+#if defined(_WIN32)
+
+#define WINAPI __stdcall
+struct HINSTANCE__;
+typedef HINSTANCE__* HINSTANCE;
+typedef wchar_t* LPWSTR;
+typedef char* LPSTR;
+
+#if defined(UNICODE)
+
+int WINAPI wWinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPWSTR, _In_ int)
+{
+    return main(__argc, __argv);
+}
+
+#else
+
+int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
+{
+    return main(__argc, __argv);
+}
+
+#endif
+
+#endif

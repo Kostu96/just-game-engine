@@ -30,6 +30,8 @@ namespace jng {
         template<typename Component>
         Component& getComponent();
 
+        Scene* getScene() { return m_sceneRef; }
+
         bool operator==(const Entity& other) const { return m_handle == other.m_handle; }
         bool operator!=(const Entity& other) const { return m_handle != other.m_handle; }
         operator bool() { return m_handle != entt::null; }

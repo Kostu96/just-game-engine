@@ -9,7 +9,7 @@
 #include "renderer/buffers.hpp"
 #include "renderer/vertex_array.hpp"
 
-#include <glad/glad.h>
+#include <glad/gl.h>
 
 namespace jng {
 

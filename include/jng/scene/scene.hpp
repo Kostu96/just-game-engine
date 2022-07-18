@@ -5,13 +5,15 @@
  */
 
 #pragma once
-#include "jng/renderer/camera.hpp"
+#include "jng/scene/camera.hpp"
 
 #include <entt/entt.hpp>
+#include <string>
 
 namespace jng {
 
     class Entity;
+    class Event;
     class SceneSerializer;
 
     class Scene
@@ -23,8 +25,11 @@ namespace jng {
         void destroyEntity(Entity entity);
 
         Camera* getActiveCamera();
-
-        void onUpdate();
+        
+        void onCreate();
+        void onDestroy();
+        void onUpdate(float dt);
+        void onEvent(Event& event);
 
         template<typename Func>
         void each(Func func);

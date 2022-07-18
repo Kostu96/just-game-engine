@@ -8,7 +8,7 @@
 
 #include "core/base_internal.hpp"
 
-#include <glad/glad.h>
+#include <glad/gl.h>
 
 namespace jng {
 

@@ -5,7 +5,7 @@
  */
 
 #pragma once
-#include "jng/core//base.hpp"
+#include "jng/core/base.hpp"
 
 #include <glm/glm.hpp>
 
@@ -19,8 +19,8 @@ namespace jng {
 
         Camera() { recalculateProjection(); }
 
-        void setOrthographic(float size, float near = -1.f, float far = 1.f);
-        void setPerspective(float fov, float near = 0.01f, float far = 1000.f);
+        void setOrthographic(float oSize, float oNear = -1.f, float oFar = 1.f);
+        void setPerspective(float pFOV, float pNear = 0.01f, float pFar = 1000.f);
         const glm::mat4& getProjection() const { return m_projection; }
 
         void setProjectionType(ProjectionType type) { m_projectionType = type; recalculateProjection(); }
@@ -32,16 +32,16 @@ namespace jng {
         float getOrthographicSize() const { return m_orthoSize; }
         float getOrthographicNear() const { return m_orthoNear; }
         float getOrthographicFar() const { return m_orthoFar; }
-        void setOrthographicSize(float size) { m_orthoSize = size; recalculateProjection(); }
-        void setOrthographicNear(float near) { m_orthoNear = near; recalculateProjection(); }
-        void setOrthographicFar(float far) { m_orthoFar = far; recalculateProjection(); }
+        void setOrthographicSize(float oSize) { m_orthoSize = oSize; recalculateProjection(); }
+        void setOrthographicNear(float oNear) { m_orthoNear = oNear; recalculateProjection(); }
+        void setOrthographicFar(float oFar) { m_orthoFar = oFar; recalculateProjection(); }
 
         float getPerspectiveFOV() const { return m_perspectiveFOV; }
         float getPerspectiveNear() const { return m_perspectiveNear; }
         float getPerspectiveFar() const { return m_perspectiveFar; }
-        void setPerspectiveFOV(float fov) { m_perspectiveFOV = fov; recalculateProjection(); }
-        void setPerspectiveNear(float near) { m_perspectiveNear = near; recalculateProjection(); }
-        void setPerspectiveFar(float far) { m_perspectiveFar = far; recalculateProjection(); }
+        void setPerspectiveFOV(float pFOV) { m_perspectiveFOV = pFOV; recalculateProjection(); }
+        void setPerspectiveNear(float pNear) { m_perspectiveNear = pNear; recalculateProjection(); }
+        void setPerspectiveFar(float pFar) { m_perspectiveFar = pFar; recalculateProjection(); }
 
         glm::mat4 getVP(const glm::mat4 transform) const;
     private:

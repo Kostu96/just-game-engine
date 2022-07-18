@@ -10,7 +10,8 @@
 #include "platform/window.hpp"
 #include "platform/windows/windows_base.hpp"
 
-#include <glad/glad.h>
+#include <glad/gl.h>
+#include <glad/wgl.h>
 #include <GLFW/glfw3.h>
 #define GLFW_EXPOSE_NATIVE_WIN32
 #include <GLFW/glfw3native.h>
@@ -80,9 +81,9 @@ namespace jng {
     }
 #endif
 
-    static void* windowsGLGetProcAddress(const char* name)
+    static GLADapiproc windowsGLGetProcAddress(const char* name)
     {
-        void* p = reinterpret_cast<void*>(wglGetProcAddress(name));
+        GLADapiproc p = reinterpret_cast<GLADapiproc>(wglGetProcAddress(name));
         if (!p)
         {
             HMODULE oglLib = GetModuleHandleA("opengl32.dll");
@@ -91,7 +92,7 @@ namespace jng {
                 return nullptr;
             }
 
-            p = reinterpret_cast<void*>(GetProcAddress(oglLib, name));
+            p = reinterpret_cast<GLADapiproc>(GetProcAddress(oglLib, name));
         }
 
         return p;
@@ -118,8 +119,11 @@ namespace jng {
         m_graphicsContextHandle = wglCreateContext(m_deviceContext);
         wglMakeCurrent(m_deviceContext, m_graphicsContextHandle);
 
-        [[maybe_unused]] int success = gladLoadGLLoader(windowsGLGetProcAddress);
-        JNG_CORE_ASSERT(success, "Could not initialize GLAD!");
+        
+        [[maybe_unused]] int success = gladLoadGL(windowsGLGetProcAddress);
+        JNG_CORE_ASSERT(success, "Could not load GL extensions!");
+        success = gladLoadWGL(m_deviceContext, windowsGLGetProcAddress);
+        JNG_CORE_ASSERT(success, "Could not load WGL extensions!");
 
         JNG_CORE_INFO("OpenGL info:");
         JNG_CORE_INFO("  Vendor: {0}", (const char*)glGetString(GL_VENDOR));
@@ -152,10 +156,7 @@ namespace jng {
 
     void OpenGLGraphicsContext::setVSync(bool enabled)
     {
-        if (enabled)
-            glfwSwapInterval(1);
-        else
-            glfwSwapInterval(0);
+        wglSwapIntervalEXT(enabled ? 1 : 0);
     }
 
     void OpenGLGraphicsContext::swapBuffers() const

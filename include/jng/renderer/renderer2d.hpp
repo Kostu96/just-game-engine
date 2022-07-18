@@ -16,7 +16,7 @@ namespace jng {
     class Texture;
 
     class Renderer2D :
-        public ccl::NonCopyable
+        public NonCopyable
     {
     public:
         struct Properties

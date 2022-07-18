@@ -9,7 +9,7 @@
 #include "core/base_internal.hpp"
 #include "renderer/buffers.hpp"
 
-#include <glad/glad.h>
+#include <glad/gl.h>
 
 namespace jng {
 
