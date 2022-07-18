@@ -27,6 +27,7 @@ namespace jng {
 		T& getComponent() { return m_entity.getComponent<T>(); }
 
 		Entity createEntity(const std::string& name) { return m_entity.getScene()->createEntity(name); }
+		void destroyEntity(Entity entity) { return m_entity.getScene()->destroyEntity(entity); }
 	private:
 		Entity m_entity;
 
