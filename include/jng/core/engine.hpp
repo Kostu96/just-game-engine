@@ -17,6 +17,9 @@ namespace jng {
     class WindowResizeEvent;
     class Window;
 
+    /** Main engine class from which all client applications derive
+    *
+    */
     class Engine
     {
     public:
