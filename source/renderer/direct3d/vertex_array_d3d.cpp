@@ -26,7 +26,7 @@ namespace jng {
         case LayoutElement::DataType::Float2:  return DXGI_FORMAT_R32G32_FLOAT;
         case LayoutElement::DataType::Float3:  return DXGI_FORMAT_R32G32B32_FLOAT;
         case LayoutElement::DataType::Float4:  return DXGI_FORMAT_R32G32B32A32_FLOAT;
-        case LayoutElement::DataType::UInt:    return DXGI_FORMAT_UNKNOWN;
+        case LayoutElement::DataType::UInt:    return DXGI_FORMAT_R32_UINT;
         case LayoutElement::DataType::UInt2:   return DXGI_FORMAT_UNKNOWN;
         case LayoutElement::DataType::UInt3:   return DXGI_FORMAT_UNKNOWN;
         case LayoutElement::DataType::UInt4:   return DXGI_FORMAT_UNKNOWN;
