@@ -36,5 +36,7 @@ robocopy ..\assets %PACKAGE_DIR%bin\assets /E /NJH /NJS
 
 robocopy .. %PACKAGE_DIR% LICENSE /NJH /NJS
 
+@echo package files were put in %cd%\package\
+
 popd
 endlocal
