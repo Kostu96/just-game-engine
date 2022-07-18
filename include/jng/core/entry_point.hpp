@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
     return 0;
 }
 
-#if defined(JNG_WINDOWS)
+#if defined(_WIN32)
 
 #define WINAPI __stdcall
 struct HINSTANCE__;
