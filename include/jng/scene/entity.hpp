@@ -48,7 +48,7 @@ namespace jng {
     template<typename Component, typename ...Args>
     Component& Entity::addComponent(Args&& ...args)
     {
-        JNG_CORE_ASSERT(!hasComponent<Component>(), "Entity can't have more that one of the same component type!");
+        JNG_CORE_ASSERT(!hasComponent<Component>(), "Entity can't have more that one component of the same type!");
         return m_sceneRef->m_registry.emplace<Component>(m_handle, std::forward<Args>(args)...);
     }
 
