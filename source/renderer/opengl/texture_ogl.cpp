@@ -14,39 +14,38 @@
 
 namespace jng {
 
+	static uint32 textureFormatToGLEnum(Texture::Format format)
+	{
+		switch (format)
+		{
+		case Texture::Format::RGBA8: return GL_RGBA8;
+		case Texture::Format::Depth24Stencil8: return GL_DEPTH24_STENCIL8;
+		}
+
+		JNG_CORE_ASSERT(false, "This should never be triggered!");
+		return 0;
+	}
+
 	OpenGLTexture::OpenGLTexture(const char* path)
     {
 		int width, height, channels;
 		stbi_set_flip_vertically_on_load(1);
-		stbi_uc* data = stbi_load(path, &width, &height, &channels, 0);
-		JNG_CORE_ASSERT(data, std::string{ "Failed to load image: " } + path)
+		stbi_uc* data = stbi_load(path, &width, &height, &channels, 4);
+		JNG_CORE_ASSERT(data, std::string{ "Failed to load image: " } + path);
 
-		m_width = static_cast<uint32>(width);
-		m_height = static_cast<uint32>(height);
-
-		m_internalFormat = m_dataFormat = 0;
-		if (channels == 4) {
-			m_internalFormat = GL_RGBA8;
-			m_dataFormat = GL_RGBA;
-		}
-		else if (channels == 3) {
-			m_internalFormat = GL_RGB8;
-			m_dataFormat = GL_RGB;
-		}
+		m_properties.format = Format::RGBA8;
+		m_properties.width = static_cast<uint32>(width);
+		m_properties.height = static_cast<uint32>(height);
 
 		createTexture();
-		glTextureSubImage2D(m_id, 0, 0, 0, static_cast<int>(m_width), static_cast<int>(m_height), m_dataFormat, GL_UNSIGNED_BYTE, data);
+		glTextureSubImage2D(m_id, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data);
 
 		stbi_image_free(data);
     }
 
-	OpenGLTexture::OpenGLTexture(uint32 width, uint32 height) :
-		m_width(width),
-		m_height(height)
+	OpenGLTexture::OpenGLTexture(const Properties& properties) :
+		m_properties{ properties }
 	{
-		m_internalFormat = GL_RGBA8;
-		m_dataFormat = GL_RGBA;
-
 		createTexture();
 	}
 
@@ -67,16 +66,16 @@ namespace jng {
 
 	void OpenGLTexture::setData(void* data, [[maybe_unused]] size_t size) const
 	{
-		JNG_CORE_ASSERT(size == static_cast<size_t>(m_width) * static_cast<size_t>(m_height) * (m_dataFormat == GL_RGBA ? 4 : 3),
+		JNG_CORE_ASSERT(size == static_cast<size_t>(m_properties.width) * static_cast<size_t>(m_properties.height) * 4,
 			"Data must be entire texture!");
 
-		glTextureSubImage2D(m_id, 0, 0, 0, static_cast<int>(m_width), static_cast<int>(m_height), m_dataFormat, GL_UNSIGNED_BYTE, data);
+		glTextureSubImage2D(m_id, 0, 0, 0, static_cast<int>(m_properties.width), static_cast<int>(m_properties.height), GL_RGBA, GL_UNSIGNED_BYTE, data);
 	}
 
 	void OpenGLTexture::createTexture()
 	{
 		glCreateTextures(GL_TEXTURE_2D, 1, &m_id);
-		glTextureStorage2D(m_id, 1, m_internalFormat, static_cast<int>(m_width), static_cast<int>(m_height));
+		glTextureStorage2D(m_id, 1, textureFormatToGLEnum(m_properties.format), static_cast<int>(m_properties.width), static_cast<int>(m_properties.height));
 
 		glTextureParameteri(m_id, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTextureParameteri(m_id, GL_TEXTURE_MAG_FILTER, GL_LINEAR);

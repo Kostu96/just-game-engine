@@ -14,24 +14,20 @@ namespace jng {
     {
     public:
         explicit OpenGLTexture(const char* path);
-        OpenGLTexture(uint32 width, uint32 height);
+        explicit OpenGLTexture(const Properties& properties);
         virtual ~OpenGLTexture();
 
         void bind(uint32 slot) const override;
         void unbind(uint32 slot) const override;
-        uint32 getWidth() const override { return m_width; }
-        uint32 getHeight() const override { return m_height; }
         void setData(void* data, size_t size) const override;
 
         uint32 getID() const override { return m_id; }
+        const Properties& getProperties() const override { return m_properties; }
     private:
         void createTexture();
 
+        Properties m_properties;
         uint32 m_id;
-        uint32 m_width;
-        uint32 m_height;
-        uint32 m_internalFormat;
-        uint32 m_dataFormat;
     };
 
 } // namespace jng
