@@ -157,15 +157,15 @@ namespace jng {
                     ImGui::OpenPopup("AddComponent");
 
                 if (ImGui::BeginPopup("AddComponent")) {
-                    if (ImGui::MenuItem("Camera")) {
+                    if (!m_context.selectedEntity.hasComponent<CameraComponent>() && ImGui::MenuItem("Camera")) {
                         m_context.selectedEntity.addComponent<CameraComponent>();
                         ImGui::CloseCurrentPopup();
                     }
-                    else if (ImGui::MenuItem("Native Script")) {
+                    else if (!m_context.selectedEntity.hasComponent<NativeScriptComponent>() && ImGui::MenuItem("Native Script")) {
                         m_context.selectedEntity.addComponent<NativeScriptComponent>();
                         ImGui::CloseCurrentPopup();
                     }
-                    else if (ImGui::MenuItem("Sprite")) {
+                    else if (!m_context.selectedEntity.hasComponent<SpriteComponent>() && ImGui::MenuItem("Sprite")) {
                         m_context.selectedEntity.addComponent<SpriteComponent>();
                         ImGui::CloseCurrentPopup();
                     }
