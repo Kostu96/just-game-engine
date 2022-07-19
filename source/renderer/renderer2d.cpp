@@ -100,7 +100,7 @@ namespace jng {
         delete[] quadIndices;
 
         Texture::Properties props{
-            Texture::Format::RGBA8,
+            TextureFormat::RGBA8,
             1, 1
         };
         s_data.whiteTexture = Texture::create(props);

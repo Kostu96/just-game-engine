@@ -12,6 +12,20 @@
 
 namespace jng {
 
+	static bool isDepthAttachment(TextureFormat format)
+	{
+		switch (format)
+		{
+		case TextureFormat::RGBA8:
+			return false;
+		case TextureFormat::Depth24Stencil8:
+			return true;
+		}
+
+		JNG_CORE_ASSERT(false, "This should never be triggered!");
+		return false;
+	}
+
 	OpenGLFramebuffer::OpenGLFramebuffer(const Properties& properties) :
 		m_properties{ properties }
 	{
@@ -28,7 +42,7 @@ namespace jng {
 	void OpenGLFramebuffer::bind() const
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, m_ID);
-		glViewport(0, 0, m_properties.width, m_properties.height);
+		glViewport(0, 0, m_properties.Width, m_properties.Height);
 		glClipControl(GL_UPPER_LEFT, GL_ZERO_TO_ONE);
 	}
 
@@ -40,8 +54,8 @@ namespace jng {
 
 	void OpenGLFramebuffer::resize(uint32 width, uint32 height)
 	{
-		m_properties.width = width;
-		m_properties.height = height;
+		m_properties.Width = width;
+		m_properties.Height = height;
 
 		recreate();
 	}
@@ -49,29 +63,25 @@ namespace jng {
 	void OpenGLFramebuffer::recreate()
 	{
 		if (m_ID) {
-			glDeleteTextures(1, &m_colorAttachmentID);
-			glDeleteTextures(1, &m_depthAttachmentID);
+			m_attachments.clear();
 			glDeleteFramebuffers(1, &m_ID);
 		}
 
 		glCreateFramebuffers(1, &m_ID);
 		glBindFramebuffer(GL_FRAMEBUFFER, m_ID);
 
-		glCreateTextures(GL_TEXTURE_2D, 1, &m_colorAttachmentID);
-		glBindTexture(GL_TEXTURE_2D, m_colorAttachmentID);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_properties.width, m_properties.height, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
-		glTextureParameteri(m_colorAttachmentID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTextureParameteri(m_colorAttachmentID, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_colorAttachmentID, 0);
-
-		glCreateTextures(GL_TEXTURE_2D, 1, &m_depthAttachmentID);
-		glBindTexture(GL_TEXTURE_2D, m_depthAttachmentID);
-		glTextureStorage2D(m_depthAttachmentID, 1, GL_DEPTH24_STENCIL8, m_properties.width, m_properties.height);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, m_depthAttachmentID, 0);
+		m_attachments.reserve(m_properties.AttachmentsSpecifications.size());
+		for (uint32 i = 0; i < m_properties.AttachmentsSpecifications.size(); ++i)
+		{
+			m_attachments.push_back(Texture::create({m_properties.AttachmentsSpecifications[i], m_properties.Width, m_properties.Height}));
+			GLenum attachmentTarget = isDepthAttachment(m_properties.AttachmentsSpecifications[i].Format) ?
+				GL_DEPTH_STENCIL_ATTACHMENT :
+				GL_COLOR_ATTACHMENT0 + i;
+			glFramebufferTexture2D(GL_FRAMEBUFFER, attachmentTarget, GL_TEXTURE_2D, m_attachments[i]->getID(), 0);
+		}
 
 		JNG_CORE_ASSERT(glCheckNamedFramebufferStatus(m_ID, GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "Framebuffer uncomplete!");
 
-		glBindTexture(GL_TEXTURE_2D, 0);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 

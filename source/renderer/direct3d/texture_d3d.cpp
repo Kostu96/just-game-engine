@@ -17,12 +17,12 @@
 
 namespace jng {
 
-	static DXGI_FORMAT textureFormatToDXGIFormat(Texture::Format format)
+	static DXGI_FORMAT textureFormatToDXGIFormat(TextureFormat format)
 	{
 		switch (format)
 		{
-		case Texture::Format::RGBA8: return DXGI_FORMAT_R8G8B8A8_UNORM;
-		case Texture::Format::Depth24Stencil8: return DXGI_FORMAT_R24G8_TYPELESS;
+		case TextureFormat::RGBA8: return DXGI_FORMAT_R8G8B8A8_UNORM;
+		case TextureFormat::Depth24Stencil8: return DXGI_FORMAT_R24G8_TYPELESS;
 		}
 
 		JNG_CORE_ASSERT(false, "This should never be triggered!");
@@ -38,9 +38,9 @@ namespace jng {
 		stbi_uc* data = stbi_load(path, &width, &height, &channels, 4);
 		JNG_CORE_ASSERT(data, std::string{ "Failed to load image: " } + path);
 
-		m_properties.format = Format::RGBA8;
-		m_properties.width = static_cast<uint32>(width);
-		m_properties.height = static_cast<uint32>(height);
+		m_properties.Specification.Format = TextureFormat::RGBA8;
+		m_properties.Width = static_cast<uint32>(width);
+		m_properties.Height = static_cast<uint32>(height);
 
 		createTexture(data);
 
@@ -88,11 +88,11 @@ namespace jng {
 		const auto& device = m_graphicsContext->getDevice();
 
 		D3D11_TEXTURE2D_DESC textureDesc{};
-		textureDesc.Width = m_properties.width;
-		textureDesc.Height = m_properties.height;
+		textureDesc.Width = m_properties.Width;
+		textureDesc.Height = m_properties.Height;
 		textureDesc.MipLevels = 1;
 		textureDesc.ArraySize = 1;
-		textureDesc.Format = textureFormatToDXGIFormat(m_properties.format);
+		textureDesc.Format = textureFormatToDXGIFormat(m_properties.Specification.Format);
 		textureDesc.SampleDesc.Count = 1;
 		textureDesc.SampleDesc.Quality = 0;
 		textureDesc.Usage = data ? D3D11_USAGE_DEFAULT : D3D11_USAGE_DYNAMIC;
@@ -101,7 +101,7 @@ namespace jng {
 
 		D3D11_SUBRESOURCE_DATA sd{};
 		sd.pSysMem = data;
-		sd.SysMemPitch = m_properties.width * 4;
+		sd.SysMemPitch = m_properties.Width * 4;
 
 		wrl::ComPtr<ID3D11Texture2D> pTexture;
 		[[ maybe_unused ]] HRESULT hr = device->CreateTexture2D(&textureDesc, data ? &sd : nullptr, &pTexture);

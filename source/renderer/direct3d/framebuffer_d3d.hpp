@@ -9,10 +9,6 @@
 
 #include "platform/windows/windows_base.hpp"
 
-#pragma warning(disable:4265)
-#include <wrl.h>
-#pragma warning(default:4265)
-
 struct ID3D11RenderTargetView;
 struct ID3D11ShaderResourceView;
 

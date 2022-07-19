@@ -38,8 +38,10 @@ namespace jng {
 
 	void Direct3DFramebuffer::resize(uint32 width, uint32 height)
 	{
-		m_properties.width = width;
-		m_properties.height = height;
+		m_properties.Width = width;
+		m_properties.Height = height;
+
+		recreate();
 	}
 
 	void Direct3DFramebuffer::recreate()
@@ -47,8 +49,8 @@ namespace jng {
 		const auto& device = m_graphicsContext->getDevice();
 
 		D3D11_TEXTURE2D_DESC textureDesc{};
-		textureDesc.Width = m_properties.width;
-		textureDesc.Height = m_properties.height;
+		textureDesc.Width = m_properties.Width;
+		textureDesc.Height = m_properties.Height;
 		textureDesc.MipLevels = 1;
 		textureDesc.ArraySize = 1;
 		textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;

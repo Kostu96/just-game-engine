@@ -9,29 +9,40 @@
 
 namespace jng {
 
+    enum class TextureFormat {
+        None,
+
+        RGBA8,
+
+        Depth24Stencil8
+    };
+
+    enum class TextureFilter {
+        Linear,
+        Nearest
+    };
+
+    enum class TextureWrapMode {
+        Clamp,
+        Wrap
+    };
+
+    struct TextureSpecification {
+        TextureFormat Format;
+        TextureFilter MinificationFilter = TextureFilter::Linear;
+        TextureFilter MagnificationFilter = TextureFilter::Linear;
+        TextureWrapMode WrapMode = TextureWrapMode::Clamp;
+
+        TextureSpecification(TextureFormat format) : Format{ format } {}
+    };
+
     class Texture
     {
     public:
-        enum class Format {
-            RGBA8,
-
-            Depth24Stencil8
-        };
-
-        enum class Filter {
-            Nearest,
-            Linear
-        };
-
-        enum class WrapMode {
-            Clamp,
-            Wrap
-        };
-
         struct Properties {
-            Format format;
-            uint32 width;
-            uint32 height;
+            TextureSpecification Specification = TextureFormat::None;
+            uint32 Width;
+            uint32 Height;
         };
 
         virtual void bind(uint32 slot) const = 0;
