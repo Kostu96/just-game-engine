@@ -24,9 +24,16 @@ namespace jng {
             {
                 if (ImGui::BeginMenu("New"))
                 {
-                    ImGui::MenuItem("Project", nullptr, nullptr, false);
+                    if (ImGui::MenuItem("Project", nullptr, nullptr, false))
+                    {
+                        
+                    }
 
-                    ImGui::MenuItem("Scene", nullptr, nullptr, false);
+                    if (ImGui::MenuItem("Scene"))
+                    {
+                        m_context.SelectedEntity = {};
+                        m_context.ActiveScene = makeRef<Scene>();
+                    }
 
                     ImGui::EndMenu();
                 }
@@ -38,16 +45,10 @@ namespace jng {
                     std::string path = Platform::openFilenameDialog("JNG Scene (*.yaml;*.yml)\0*.yaml;*.yml\0\0");
                     if (!path.empty())
                     {
-                        m_context.selectedEntity = {};
-                        m_context.activeScene = makeRef<Scene>();
-                        SceneSerializer serializer{ m_context.activeScene };
+                        m_context.SelectedEntity = {};
+                        m_context.ActiveScene = makeRef<Scene>();
+                        SceneSerializer serializer{ m_context.ActiveScene };
                         serializer.deserialize(path.c_str());
-
-                        Camera* activeCamera = m_context.activeScene->getActiveCamera();
-                        if (activeCamera)
-                            activeCamera->setViewportSize(
-                                static_cast<uint32>(m_context.viewportWindowSize.x),
-                                static_cast<uint32>(m_context.viewportWindowSize.y));
                     }
                 }
 
@@ -56,7 +57,7 @@ namespace jng {
                     std::string path = Platform::saveFilenameDialog("JNG Scene (*.yaml;*.yml)\0*.yaml;*.yml\0\0");
                     if (!path.empty())
                     {
-                        SceneSerializer serializer{ m_context.activeScene };
+                        SceneSerializer serializer{ m_context.ActiveScene };
                         serializer.serialize(path.c_str());
                     }
                 }
@@ -83,7 +84,7 @@ namespace jng {
                 if (ImGui::BeginMenu("Create"))
                 {
                     if (ImGui::MenuItem("Empty Entity"))
-                        m_context.activeScene->createEntity("Empty Entity");
+                        m_context.ActiveScene->createEntity("Empty Entity");
 
                     ImGui::EndMenu();
                 }
@@ -93,9 +94,10 @@ namespace jng {
 
             if (ImGui::BeginMenu("View"))
             {
-                ImGui::MenuItem("Inspector", nullptr, &m_context.isInspectorWindowOpen);
-                ImGui::MenuItem("Scene Hierarchy", nullptr, &m_context.isSceneHierarchyWindowOpen);
-                ImGui::MenuItem("Viewport", nullptr, &m_context.isViewportWindowOpen);
+                ImGui::MenuItem("Inspector", nullptr, &m_context.IsInspectorWindowOpen);
+                ImGui::MenuItem("Scene Hierarchy", nullptr, &m_context.IsSceneHierarchyWindowOpen);
+                ImGui::MenuItem("Viewport", nullptr, &m_context.IsViewportWindowOpen);
+                ImGui::MenuItem("Content Browser", nullptr, &m_context.IsContentBrowserWindowOpen);
 
                 ImGui::EndMenu();
             }

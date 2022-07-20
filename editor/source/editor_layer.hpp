@@ -6,6 +6,7 @@
 
 #pragma once
 #include "editor_camera.hpp"
+#include "widgets/content_browser.hpp"
 #include "widgets/inspector.hpp"
 #include "widgets/main_menu_bar.hpp"
 #include "widgets/scene_hierarchy.hpp"
@@ -16,19 +17,25 @@
 #include <jng/scene/entity.hpp>
 #include <jng/scene/scene.hpp>
 
+#include <filesystem>
+
 namespace jng {
 
     class Framebuffer;
 
     struct EditorContext
     {
-        glm::vec2 viewportWindowSize{ 1.f, 1.f };
-        Ref<Scene> activeScene;
-        Entity selectedEntity;
+        std::filesystem::path ProjectPath{ "." };
 
-        bool isInspectorWindowOpen = true;
-        bool isSceneHierarchyWindowOpen = true;
-        bool isViewportWindowOpen = true;
+        glm::vec2 ViewportWindowSize{ 1.f, 1.f };
+        Ref<Scene> ActiveScene;
+        Entity SelectedEntity;
+
+        bool IsViewportWindowOpen = true;
+        bool IsViewportWindowFocused = false;
+        bool IsInspectorWindowOpen = true;
+        bool IsSceneHierarchyWindowOpen = true;
+        bool IsContentBrowserWindowOpen = true;
     };
 
     class EditorLayer :
@@ -54,6 +61,7 @@ namespace jng {
         MainMenuBar m_mainMenuBar;
         InspectorWindow m_inspectorWindow;
         SceneHierarchyWindow m_sceneHierarchyWindow;
+        ContentBrowserWindow m_contentBrowserWindow;
     };
 
 } // namespace jng

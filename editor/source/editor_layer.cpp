@@ -24,44 +24,43 @@ namespace jng {
         }) },
         m_mainMenuBar{ m_context },
         m_inspectorWindow{ m_context },
-        m_sceneHierarchyWindow{ m_context }
+        m_sceneHierarchyWindow{ m_context },
+        m_contentBrowserWindow{ m_context }
     {
-        m_context.activeScene = makeRef<Scene>();
+        m_context.ActiveScene = makeRef<Scene>();
 
-        Entity camera = m_context.activeScene->createEntity("Main Camera");
+        Entity camera = m_context.ActiveScene->createEntity("Main Camera");
         camera.addComponent<CameraComponent>();
 
-        Entity square1 = m_context.activeScene->createEntity("Green Square");
+        Entity square1 = m_context.ActiveScene->createEntity("Green Square");
         square1.getComponent<TransformComponent>().translation.x = -0.2f;
         square1.addComponent<SpriteComponent>().color = { 0.f, 1.f, 0.f, 1.f };
 
-        Entity square2 = m_context.activeScene->createEntity("Red Square");
+        Entity square2 = m_context.ActiveScene->createEntity("Red Square");
         square2.getComponent<TransformComponent>().translation.y = 0.2f;;
         square2.addComponent<SpriteComponent>().color = { 1.f, 0.f, 0.f, 1.f };
     }
 
     void EditorLayer::onUpdate(float /*dt*/)
     {
-        if (m_context.isViewportWindowOpen)
+        if (m_context.IsViewportWindowOpen)
         {
-            if (m_context.viewportWindowSize.x != m_viewportFramebuffer->getProperties().Width || m_context.viewportWindowSize.y != m_viewportFramebuffer->getProperties().Height) {
-                uint32 newViewportWidth = static_cast<uint32>(m_context.viewportWindowSize.x);
-                uint32 newViewportHeight = static_cast<uint32>(m_context.viewportWindowSize.y);
+            if (m_context.ViewportWindowSize.x != m_viewportFramebuffer->getProperties().Width ||
+                m_context.ViewportWindowSize.y != m_viewportFramebuffer->getProperties().Height) {
+                uint32 newViewportWidth = static_cast<uint32>(m_context.ViewportWindowSize.x);
+                uint32 newViewportHeight = static_cast<uint32>(m_context.ViewportWindowSize.y);
                 m_viewportFramebuffer->resize(newViewportWidth, newViewportHeight);
                 m_editorCamera.setViewportSize(newViewportWidth, newViewportHeight);
-
-                /*Camera* activeCamera = m_context.activeScene->getActiveCamera();
-                if (activeCamera)
-                    activeCamera->setViewportSize(newViewportWidth, newViewportHeight);*/
             }
 
-            m_editorCamera.onUpdate();
+            if (m_context.IsViewportWindowFocused)
+                m_editorCamera.onUpdate();
 
             m_viewportFramebuffer->bind();
             jng::RendererAPI::clear({ 0.1f, 0.15f, 0.2f });
             jng::Renderer2D::beginScene(m_editorCamera.getVP());
             {
-                auto group = m_context.activeScene->m_registry.group<SpriteComponent>(entt::get<TransformComponent>);
+                auto group = m_context.ActiveScene->m_registry.group<SpriteComponent>(entt::get<TransformComponent>);
                 for (auto entity : group)
                 {
                     auto [sc, tc] = group.get<SpriteComponent, TransformComponent>(entity);
@@ -77,32 +76,36 @@ namespace jng {
     {
         // DockSpace
         auto& style = ImGui::GetStyle();
-        float windowMinSize = style.WindowMinSize.x;
+        ImVec2 windowMinSize = style.WindowMinSize;
         style.WindowMinSize.x = 320.f;
+        style.WindowMinSize.y = 200.f;
         ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
-        style.WindowMinSize.x = windowMinSize;
+        style.WindowMinSize = windowMinSize;
 
         m_mainMenuBar.onImGuiUpdate();
 
         // Viewport
-        if (m_context.isViewportWindowOpen)
+        if (m_context.IsViewportWindowOpen)
         {
             ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
             ImGui::SetNextWindowSize({ 160 * 4.f, 90 * 4.f }); // TODO: this is temporary to prevent window being too small when app is started first time
-            ImGui::Begin("Viewport", &m_context.isViewportWindowOpen, ImGuiWindowFlags_NoCollapse);
+            ImGui::Begin("Viewport", &m_context.IsViewportWindowOpen, ImGuiWindowFlags_NoCollapse);
             ImGui::PopStyleVar();
-            m_context.viewportWindowSize = ImGui::GetContentRegionAvail();
-            ImGui::Image(m_viewportFramebuffer->getColorAttachmentHandle(), m_context.viewportWindowSize);
+            m_context.IsViewportWindowFocused = ImGui::IsWindowFocused();
+            m_context.ViewportWindowSize = ImGui::GetContentRegionAvail();
+            ImGui::Image(m_viewportFramebuffer->getColorAttachmentHandle(), m_context.ViewportWindowSize);
             ImGui::End();
         }
   
         m_inspectorWindow.onImGuiUpdate();
         m_sceneHierarchyWindow.onImGuiUpdate();
+        m_contentBrowserWindow.onImGuiUpdate();
     }
 
     void EditorLayer::onEvent(Event& event)
     {
-        m_editorCamera.onEvent(event);
+        if (m_context.IsViewportWindowFocused)
+            m_editorCamera.onEvent(event);
     }
 
 }

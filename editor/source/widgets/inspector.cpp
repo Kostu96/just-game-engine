@@ -73,18 +73,18 @@ namespace jng {
 
     void InspectorWindow::onImGuiUpdate()
     {
-        if (m_context.isInspectorWindowOpen)
+        if (m_context.IsInspectorWindowOpen)
         {
             static ImGuiTreeNodeFlags componentTreeNodeFlags =
                 ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_AllowItemOverlap | ImGuiTreeNodeFlags_FramePadding;
 
             ImGui::SetNextWindowSize({ 320.f, 400.f }); // TODO: this is temporary to prevent window being too small when app is started first time
-            ImGui::Begin("Inspector", &m_context.isInspectorWindowOpen, ImGuiWindowFlags_NoCollapse);
+            ImGui::Begin("Inspector", &m_context.IsInspectorWindowOpen, ImGuiWindowFlags_NoCollapse);
 
-            if (m_context.selectedEntity)
+            if (m_context.SelectedEntity)
             {
-                JNG_USER_ASSERT(m_context.selectedEntity.hasComponent<TagComponent>(), "TagComponent is obligatory!");
-                auto& tag = m_context.selectedEntity.getComponent<TagComponent>().tag;
+                JNG_USER_ASSERT(m_context.SelectedEntity.hasComponent<TagComponent>(), "TagComponent is obligatory!");
+                auto& tag = m_context.SelectedEntity.getComponent<TagComponent>().tag;
 
                 char buffer[128];
                 strcpy_s(buffer, sizeof(buffer), tag.c_str());
@@ -92,14 +92,14 @@ namespace jng {
                     tag = buffer;
                 ImGui::Separator();
 
-                updateComponent<TransformComponent>("Transform", m_context.selectedEntity,
+                updateComponent<TransformComponent>("Transform", m_context.SelectedEntity,
                     [](TransformComponent& tc) {
                         ImGui::DragFloat3("Translation", glm::value_ptr(tc.translation), 0.1f, 0.f, 0.f, "%.2f");
                         ImGui::DragFloat3("Rotation", glm::value_ptr(tc.rotation), 0.1f, 0.f, 0.f, "%.2f");
                         ImGui::DragFloat3("Scale", glm::value_ptr(tc.scale), 0.1f, 0.f, 0.f, "%.2f");
                     }, false);
 
-                updateComponent<CameraComponent>("Camera", m_context.selectedEntity,
+                updateComponent<CameraComponent>("Camera", m_context.SelectedEntity,
                     [](CameraComponent& cc) {
                         Camera::ProjectionType selectedType = cc.camera.getProjectionType();
 
@@ -148,7 +148,7 @@ namespace jng {
                         }
                     });
 
-                updateComponent<SpriteComponent>("Sprite", m_context.selectedEntity,
+                updateComponent<SpriteComponent>("Sprite", m_context.SelectedEntity,
                     [](SpriteComponent& sc) {
                         ImGui::ColorEdit4("Color", glm::value_ptr(sc.color));
                     });
@@ -157,16 +157,16 @@ namespace jng {
                     ImGui::OpenPopup("AddComponent");
 
                 if (ImGui::BeginPopup("AddComponent")) {
-                    if (!m_context.selectedEntity.hasComponent<CameraComponent>() && ImGui::MenuItem("Camera")) {
-                        m_context.selectedEntity.addComponent<CameraComponent>();
+                    if (!m_context.SelectedEntity.hasComponent<CameraComponent>() && ImGui::MenuItem("Camera")) {
+                        m_context.SelectedEntity.addComponent<CameraComponent>();
                         ImGui::CloseCurrentPopup();
                     }
-                    else if (!m_context.selectedEntity.hasComponent<NativeScriptComponent>() && ImGui::MenuItem("Native Script")) {
-                        m_context.selectedEntity.addComponent<NativeScriptComponent>();
+                    else if (!m_context.SelectedEntity.hasComponent<NativeScriptComponent>() && ImGui::MenuItem("Native Script")) {
+                        m_context.SelectedEntity.addComponent<NativeScriptComponent>();
                         ImGui::CloseCurrentPopup();
                     }
-                    else if (!m_context.selectedEntity.hasComponent<SpriteComponent>() && ImGui::MenuItem("Sprite")) {
-                        m_context.selectedEntity.addComponent<SpriteComponent>();
+                    else if (!m_context.SelectedEntity.hasComponent<SpriteComponent>() && ImGui::MenuItem("Sprite")) {
+                        m_context.SelectedEntity.addComponent<SpriteComponent>();
                         ImGui::CloseCurrentPopup();
                     }
 

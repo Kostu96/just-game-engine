@@ -10,10 +10,10 @@ namespace jng {
 
     struct EditorContext;
 
-    class InspectorWindow
+    class ContentBrowserWindow
     {
     public:
-        InspectorWindow(EditorContext& context) : m_context{ context } {}
+        ContentBrowserWindow(EditorContext& context) : m_context{ context } {}
 
         void onImGuiUpdate();
     private:
