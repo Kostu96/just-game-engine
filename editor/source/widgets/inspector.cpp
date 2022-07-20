@@ -71,6 +71,11 @@ namespace jng {
         }
     }
 
+    InspectorWindow::InspectorWindow(EditorContext& context) :
+        m_context{ context },
+        m_checkerboard{ Texture::create("assets/textures/checkerboard.png") }
+    {}
+
     void InspectorWindow::onImGuiUpdate()
     {
         if (m_context.IsInspectorWindowOpen)
@@ -149,8 +154,10 @@ namespace jng {
                     });
 
                 updateComponent<SpriteComponent>("Sprite", m_context.SelectedEntity,
-                    [](SpriteComponent& sc) {
+                    [this](SpriteComponent& sc) {
                         ImGui::ColorEdit4("Color", glm::value_ptr(sc.color));
+                        ImGui::Text("Texture");
+                        ImGui::ImageButton(sc.texture ? sc.texture->getRendererID() : m_checkerboard->getRendererID(), {64.f, 64.f});
                     });
 
                 if (ImGui::Button("Add Component"))

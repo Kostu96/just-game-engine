@@ -59,14 +59,7 @@ namespace jng {
             m_viewportFramebuffer->bind();
             jng::RendererAPI::clear({ 0.1f, 0.15f, 0.2f });
             jng::Renderer2D::beginScene(m_editorCamera.getVP());
-            {
-                auto group = m_context.ActiveScene->m_registry.group<SpriteComponent>(entt::get<TransformComponent>);
-                for (auto entity : group)
-                {
-                    auto [sc, tc] = group.get<SpriteComponent, TransformComponent>(entity);
-                    Renderer2D::fillQuad(tc.getTransform(), sc.color);
-                }
-            }
+            m_context.ActiveScene->drawSprites();
             jng::Renderer2D::endScene();
             m_viewportFramebuffer->unbind();
         }

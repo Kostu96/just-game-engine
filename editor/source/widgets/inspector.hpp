@@ -5,6 +5,7 @@
  */
 
 #pragma once
+#include <jng/renderer/texture.hpp>
 
 namespace jng {
 
@@ -13,11 +14,12 @@ namespace jng {
     class InspectorWindow
     {
     public:
-        InspectorWindow(EditorContext& context) : m_context{ context } {}
+        InspectorWindow(EditorContext& context);
 
         void onImGuiUpdate();
     private:
         EditorContext& m_context;
+        Ref<Texture> m_checkerboard;
     };
 
 } // namespace jng
