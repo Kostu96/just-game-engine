@@ -40,26 +40,37 @@ namespace jng {
         square2.addComponent<SpriteComponent>().color = { 1.f, 0.f, 0.f, 1.f };
     }
 
-    void EditorLayer::onUpdate(float dt)
+    void EditorLayer::onUpdate(float /*dt*/)
     {
-        if (m_context.viewportWindowSize.x != m_viewportFramebuffer->getProperties().Width || m_context.viewportWindowSize.y != m_viewportFramebuffer->getProperties().Height) {
-            uint32 newViewportWidth = static_cast<uint32>(m_context.viewportWindowSize.x);
-            uint32 newViewportHeight = static_cast<uint32>(m_context.viewportWindowSize.y);
-            m_viewportFramebuffer->resize(newViewportWidth, newViewportHeight);
-            
-            // TODO: resize editor camera
+        if (m_context.isViewportWindowOpen)
+        {
+            if (m_context.viewportWindowSize.x != m_viewportFramebuffer->getProperties().Width || m_context.viewportWindowSize.y != m_viewportFramebuffer->getProperties().Height) {
+                uint32 newViewportWidth = static_cast<uint32>(m_context.viewportWindowSize.x);
+                uint32 newViewportHeight = static_cast<uint32>(m_context.viewportWindowSize.y);
+                m_viewportFramebuffer->resize(newViewportWidth, newViewportHeight);
+                m_editorCamera.setViewportSize(newViewportWidth, newViewportHeight);
 
-            Camera* activeCamera = m_context.activeScene->getActiveCamera();
-            if (activeCamera)
-                activeCamera->setViewportSize(newViewportWidth, newViewportHeight);
+                /*Camera* activeCamera = m_context.activeScene->getActiveCamera();
+                if (activeCamera)
+                    activeCamera->setViewportSize(newViewportWidth, newViewportHeight);*/
+            }
+
+            m_editorCamera.onUpdate();
+
+            m_viewportFramebuffer->bind();
+            jng::RendererAPI::clear({ 0.1f, 0.15f, 0.2f });
+            jng::Renderer2D::beginScene(m_editorCamera.getVP());
+            {
+                auto group = m_context.activeScene->m_registry.group<SpriteComponent>(entt::get<TransformComponent>);
+                for (auto entity : group)
+                {
+                    auto [sc, tc] = group.get<SpriteComponent, TransformComponent>(entity);
+                    Renderer2D::fillQuad(tc.getTransform(), sc.color);
+                }
+            }
+            jng::Renderer2D::endScene();
+            m_viewportFramebuffer->unbind();
         }
-
-        m_viewportFramebuffer->bind();
-        jng::RendererAPI::clear({ 0.1f, 0.15f, 0.2f });
-
-        m_context.activeScene->onUpdate(dt);
-        
-        m_viewportFramebuffer->unbind();
     }
 
     void EditorLayer::onImGuiUpdate()
@@ -87,6 +98,11 @@ namespace jng {
   
         m_inspectorWindow.onImGuiUpdate();
         m_sceneHierarchyWindow.onImGuiUpdate();
+    }
+
+    void EditorLayer::onEvent(Event& event)
+    {
+        m_editorCamera.onEvent(event);
     }
 
 }

@@ -24,7 +24,7 @@ namespace jng {
 
     struct QuadVertex
     {
-        glm::vec2 position;
+        glm::vec3 position;
         glm::vec2 texCoord;
         uint32 color;
         uint32 texIndex;
@@ -71,7 +71,7 @@ namespace jng {
         s_data.quadVBO = VertexBuffer::create(RenderData::MaxVerticesPerBatch * sizeof(QuadVertex));
 
         VertexLayout vertexLayout = {
-            { LayoutElement::DataType::Float2,  "a_Position" },
+            { LayoutElement::DataType::Float3,  "a_Position" },
             { LayoutElement::DataType::Float2,  "a_TexCoord" },
             { LayoutElement::DataType::UInt4x8, "a_Color", true, true },
             { LayoutElement::DataType::UInt,    "a_TexIndex", false }
@@ -173,19 +173,19 @@ namespace jng {
         ++s_data.statistics.quadCount;
     }
 
-    void Renderer2D::fillQuad(glm::vec2 position, glm::vec2 size, const glm::vec4& color)
+    void Renderer2D::fillQuad(glm::vec3 position, glm::vec2 size, const glm::vec4& color)
     {
         fillQuad(position, size, s_data.whiteTexture, color);
     }
 
-    void Renderer2D::fillQuad(glm::vec2 position, glm::vec2 size, const Ref<Texture>& texture, const glm::vec4& color)
+    void Renderer2D::fillQuad(glm::vec3 position, glm::vec2 size, const Ref<Texture>& texture, const glm::vec4& color)
     {
-        glm::vec2 quadVertexPositions[RenderData::QuadVertexCount];
+        glm::vec3 quadVertexPositions[RenderData::QuadVertexCount];
 
-        quadVertexPositions[0] = { position.x, position.y };
-        quadVertexPositions[1] = { position.x + size.x, position.y };
-        quadVertexPositions[2] = { position.x + size.x, position.y + size.y };
-        quadVertexPositions[3] = { position.x, position.y + size.y };
+        quadVertexPositions[0] = { position.x,          position.y,          position.z };
+        quadVertexPositions[1] = { position.x + size.x, position.y,          position.z };
+        quadVertexPositions[2] = { position.x + size.x, position.y + size.y, position.z };
+        quadVertexPositions[3] = { position.x,          position.y + size.y, position.z };
 
         constexpr glm::vec2 texCoords[RenderData::QuadVertexCount] = {
             { 0.f, 0.f },
@@ -210,7 +210,7 @@ namespace jng {
 
     void Renderer2D::fillQuad(glm::mat4 transform, const Ref<Texture>& texture, const glm::vec4& color)
     {
-        glm::vec2 quadVertexPositions[RenderData::QuadVertexCount];
+        glm::vec3 quadVertexPositions[RenderData::QuadVertexCount];
 
         for (uint32 i = 0; i < RenderData::QuadVertexCount; ++i)
             quadVertexPositions[i] = transform * s_data.quadVertexPositions[i];

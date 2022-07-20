@@ -12,6 +12,7 @@
 
 namespace jng {
 
+    class EditorLayer;
     class Entity;
     class Event;
     class SceneSerializer;
@@ -37,6 +38,7 @@ namespace jng {
         entt::registry m_registry;
         Camera* m_camera = nullptr;
 
+        friend class EditorLayer;
         friend class Entity;
         friend class SceneSerializer;
     };
