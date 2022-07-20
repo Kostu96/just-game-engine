@@ -5,6 +5,7 @@
  */
 
 #pragma once
+#include "editor_camera.hpp"
 #include "widgets/inspector.hpp"
 #include "widgets/main_menu_bar.hpp"
 #include "widgets/scene_hierarchy.hpp"
@@ -44,8 +45,10 @@ namespace jng {
 
         void onUpdate(float dt) override;
         void onImGuiUpdate() override;
+        void onEvent(Event& event) override;
     private:
         Ref<Framebuffer> m_viewportFramebuffer;
+        EditorCamera m_editorCamera;
         EditorContext m_context;
 
         MainMenuBar m_mainMenuBar;

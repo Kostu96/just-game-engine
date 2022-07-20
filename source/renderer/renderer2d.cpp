@@ -71,7 +71,7 @@ namespace jng {
         s_data.quadVBO = VertexBuffer::create(RenderData::MaxVerticesPerBatch * sizeof(QuadVertex));
 
         VertexLayout vertexLayout = {
-            { LayoutElement::DataType::Float2,  "a_Position" },
+            { LayoutElement::DataType::Float3,  "a_Position" },
             { LayoutElement::DataType::Float2,  "a_TexCoord" },
             { LayoutElement::DataType::UInt4x8, "a_Color", true, true },
             { LayoutElement::DataType::UInt,    "a_TexIndex", false }
@@ -173,12 +173,12 @@ namespace jng {
         ++s_data.statistics.quadCount;
     }
 
-    void Renderer2D::fillQuad(glm::vec2 position, glm::vec2 size, const glm::vec4& color)
+    void Renderer2D::fillQuad(glm::vec3 position, glm::vec2 size, const glm::vec4& color)
     {
         fillQuad(position, size, s_data.whiteTexture, color);
     }
 
-    void Renderer2D::fillQuad(glm::vec2 position, glm::vec2 size, const Ref<Texture>& texture, const glm::vec4& color)
+    void Renderer2D::fillQuad(glm::vec3 position, glm::vec2 size, const Ref<Texture>& texture, const glm::vec4& color)
     {
         glm::vec2 quadVertexPositions[RenderData::QuadVertexCount];
 

@@ -12,8 +12,6 @@
 #include "scene/entity.hpp"
 #include "scripting/native_script.hpp"
 
-#include <glm/gtx/matrix_decompose.hpp>
-
 namespace jng {
 
     Entity Scene::createEntity(const std::string& name)
