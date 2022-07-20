@@ -33,7 +33,10 @@ namespace jng {
 
 	void Direct3DFramebuffer::unbind() const
 	{
-		m_graphicsContext->setCurrentRenderTarget(m_graphicsContext->getDefaultRenderTarget());
+		m_graphicsContext->setCurrentRenderTarget(
+			m_graphicsContext->getDefaultRenderTarget(),
+			m_graphicsContext->getDefaultDepthStencil()
+		);
 	}
 
 	void Direct3DFramebuffer::resize(uint32 width, uint32 height)

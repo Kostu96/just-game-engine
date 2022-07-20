@@ -69,7 +69,37 @@ namespace jng {
         );
         JNG_D3D_CHECK_HR(hr);
 
-        setCurrentRenderTarget(m_defaultRenderTarget.Get());
+        D3D11_DEPTH_STENCIL_DESC dsd{};
+        dsd.DepthEnable = true;
+        dsd.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+        dsd.DepthFunc = D3D11_COMPARISON_LESS;
+        wrl::ComPtr<ID3D11DepthStencilState> depthStencilState;
+        hr = m_device->CreateDepthStencilState(&dsd, &depthStencilState);
+        JNG_D3D_CHECK_HR(hr);
+        m_deviceContext->OMSetDepthStencilState(depthStencilState.Get(), 1);
+
+        D3D11_TEXTURE2D_DESC t2dd{};
+        t2dd.Width = window.getWidth();
+        t2dd.Height = window.getHeight();
+        t2dd.MipLevels = 1;
+        t2dd.ArraySize = 1;
+        t2dd.Format = DXGI_FORMAT_D32_FLOAT;
+        t2dd.SampleDesc.Count = 1;
+        t2dd.SampleDesc.Quality = 0;
+        t2dd.Usage = D3D11_USAGE_DEFAULT;
+        t2dd.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+        wrl::ComPtr<ID3D11Texture2D> depthStencilTexture;
+        hr = m_device->CreateTexture2D(&t2dd, nullptr, &depthStencilTexture);
+        JNG_D3D_CHECK_HR(hr);
+
+        D3D11_DEPTH_STENCIL_VIEW_DESC dsvd{};
+        dsvd.Format = t2dd.Format;
+        dsvd.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+        dsvd.Texture2D.MipSlice = 0;
+        hr = m_device->CreateDepthStencilView(depthStencilTexture.Get(), &dsvd, &m_defaultDepthStencil);
+        JNG_D3D_CHECK_HR(hr);
+
+        setCurrentRenderTarget(m_defaultRenderTarget.Get(), m_defaultDepthStencil.Get());
 
         D3D11_VIEWPORT vp{};
         vp.Width = static_cast<float>(window.getWidth());
@@ -92,10 +122,11 @@ namespace jng {
         JNG_D3D_CHECK_HR_DEVICE_REMOVED(hr, m_device);
     }
 
-    void Direct3DGraphicsContext::setCurrentRenderTarget(ID3D11RenderTargetView* renderTargetView) const
+    void Direct3DGraphicsContext::setCurrentRenderTarget(ID3D11RenderTargetView* renderTargetView, ID3D11DepthStencilView* depthStencilView) const
     {
         m_currentRenderTarget = renderTargetView;
-        m_deviceContext->OMSetRenderTargets(1, &m_currentRenderTarget, nullptr);
+        m_currentDepthStencil = depthStencilView;
+        m_deviceContext->OMSetRenderTargets(1, &m_currentRenderTarget, depthStencilView);
     }
 
 } // namespace jng

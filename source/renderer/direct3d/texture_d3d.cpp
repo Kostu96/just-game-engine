@@ -22,7 +22,7 @@ namespace jng {
 		switch (format)
 		{
 		case TextureFormat::RGBA8: return DXGI_FORMAT_R8G8B8A8_UNORM;
-		case TextureFormat::Depth24Stencil8: return DXGI_FORMAT_R24G8_TYPELESS;
+		case TextureFormat::Depth24Stencil8: return DXGI_FORMAT_D24_UNORM_S8_UINT;
 		}
 
 		JNG_CORE_ASSERT(false, "This should never be triggered!");
