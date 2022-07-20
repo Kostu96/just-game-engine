@@ -104,7 +104,7 @@ namespace jng {
 
     glm::vec2 EditorCamera::panSpeed() const
     {
-        // CREDIT: this quadratic equation coefficients comes from Yan Chernikov (The Cherno) EditorCamera implementation
+        // CREDIT: this quadratic equation coefficients come from Yan Chernikov (The Cherno) EditorCamera implementation
         static constexpr float a = 0.0366f;
         static constexpr float b = 0.1778f;
         static constexpr float c = 0.3021f;
