@@ -23,6 +23,7 @@ namespace jng {
 
         uint32 getID() const override { return m_id; }
         const Properties& getProperties() const override { return m_properties; }
+        void* getRendererID() override { return reinterpret_cast<void*>(static_cast<uint64>(m_id)); }
     private:
         void createTexture();
 

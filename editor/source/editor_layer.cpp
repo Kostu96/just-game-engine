@@ -78,7 +78,7 @@ namespace jng {
         auto& style = ImGui::GetStyle();
         ImVec2 windowMinSize = style.WindowMinSize;
         style.WindowMinSize.x = 320.f;
-        style.WindowMinSize.y = 200.f;
+        style.WindowMinSize.y = 250.f;
         ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
         style.WindowMinSize = windowMinSize;
 

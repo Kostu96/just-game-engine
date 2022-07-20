@@ -51,6 +51,7 @@ namespace jng {
 
         virtual uint32 getID() const = 0;
         virtual const Properties& getProperties() const = 0;
+        virtual void* getRendererID() = 0;
 
         static Ref<Texture> create(const char* path);
         static Ref<Texture> create(const Properties& properties);

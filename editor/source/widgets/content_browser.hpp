@@ -5,6 +5,7 @@
  */
 
 #pragma once
+#include <jng/renderer/texture.hpp>
 
 namespace jng {
 
@@ -13,11 +14,13 @@ namespace jng {
     class ContentBrowserWindow
     {
     public:
-        ContentBrowserWindow(EditorContext& context) : m_context{ context } {}
+        ContentBrowserWindow(EditorContext& context);
 
         void onImGuiUpdate();
     private:
         EditorContext& m_context;
+        Ref<Texture> m_fileIcon;
+        Ref<Texture> m_directoryIcon;
     };
 
 } // namespace jng

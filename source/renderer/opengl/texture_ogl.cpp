@@ -29,7 +29,7 @@ namespace jng {
 	OpenGLTexture::OpenGLTexture(const char* path)
     {
 		int width, height, channels;
-		stbi_set_flip_vertically_on_load(1);
+		//stbi_set_flip_vertically_on_load(1);
 		stbi_uc* data = stbi_load(path, &width, &height, &channels, 4);
 		JNG_CORE_ASSERT(data, std::string{ "Failed to load image: " } + path);
 
