@@ -9,10 +9,6 @@
 
 #include "platform/windows/windows_base.hpp"
 
-#pragma warning(disable:4265)
-#include <wrl.h>
-#pragma warning(default:4265)
-
 struct ID3D11ShaderResourceView;
 struct ID3D11SamplerState;
 
@@ -27,25 +23,24 @@ namespace jng {
     {
     public:
         explicit Direct3DTexture(const char* path);
-        Direct3DTexture(uint32 width, uint32 height);
+        explicit Direct3DTexture(const Properties& properties);
         virtual ~Direct3DTexture();
 
         void bind(uint32 slot) const override;
         void unbind(uint32 slot) const override;
-        uint32 getWidth() const override { return m_width; }
-        uint32 getHeight() const override { return m_height; }
         void setData(void* data, size_t size) const override;
 
         uint32 getID() const override { return m_ID; }
+        const Properties& getProperties() const override { return m_properties; }
     private:
         void createTexture(void* data);
 
+        Properties m_properties;
         const Direct3DGraphicsContext* m_graphicsContext;
         wrl::ComPtr<ID3D11ShaderResourceView> m_textureView;
         wrl::ComPtr<ID3D11SamplerState> m_sampler;
-        uint32 m_width;
-        uint32 m_height;
         uint32 m_ID;
+
         static uint32 s_ID;
     };
 

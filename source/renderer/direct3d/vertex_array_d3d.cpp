@@ -33,8 +33,8 @@ namespace jng {
         case LayoutElement::DataType::UInt4x8: return DXGI_FORMAT_R8G8B8A8_UNORM;
         }
 
-        JNG_CORE_ASSERT(false, "This should never be triggered!")
-            return DXGI_FORMAT_UNKNOWN;
+        JNG_CORE_ASSERT(false, "This should never be triggered!");
+        return DXGI_FORMAT_UNKNOWN;
     }
 
     /*static int dataTypeToCount(BufferElement::DataType type)
@@ -51,8 +51,8 @@ namespace jng {
         case BufferElement::DataType::UInt4:    return 4;
         }
 
-        JNG_CORE_ASSERT(false, "This should never be triggered!")
-            return 0;
+        JNG_CORE_ASSERT(false, "This should never be triggered!");
+        return 0;
     }*/
 
     Direct3DVertexArray::Direct3DVertexArray(const Ref<VertexBuffer>& vbo, const VertexLayout& layout, const Ref<Shader>& shader) :

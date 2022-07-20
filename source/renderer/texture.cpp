@@ -34,16 +34,16 @@ namespace jng {
         }
 	}
 
-    Ref<Texture> Texture::create(uint32 width, uint32 height)
+    Ref<Texture> Texture::create(const Properties& properties)
     {
         JNG_PROFILE_FUNCTION();
 
         switch (RendererAPI::getRendererBackend())
         {
 #if defined(JNG_WINDOWS)
-        case RendererBackend::Direct3D: return makeRef<Direct3DTexture>(width, height);
+        case RendererBackend::Direct3D: return makeRef<Direct3DTexture>(properties);
 #endif
-        case RendererBackend::OpenGL: return makeRef<OpenGLTexture>(width, height);
+        case RendererBackend::OpenGL: return makeRef<OpenGLTexture>(properties);
         default:
             JNG_CORE_ASSERT(false, "API unsupported!");
             return nullptr;

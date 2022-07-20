@@ -32,7 +32,10 @@ class SampleLayer :
 {
 public:
     SampleLayer() :
-        m_framebuffer{ jng::Framebuffer::create({WindowWidth, WindowHeight}) },
+        m_framebuffer{ jng::Framebuffer::create({
+            .Width = WindowWidth, .Height = WindowHeight,
+            .AttachmentsSpecifications = { jng::TextureFormat::RGBA8, jng::TextureFormat::Depth24Stencil8 }
+        }) },
         m_texture{ jng::Texture::create("assets/hello_framebuffer/textures/test.png")},
         m_shader{ jng::Shader::create("assets/hello_framebuffer/shaders/vertex.glsl", "assets/hello_framebuffer/shaders/fragment.glsl") },
         m_cameraUBO{ jng::UniformBuffer::create(sizeof(glm::mat4)) },

@@ -31,8 +31,8 @@ namespace jng {
             return GL_UNSIGNED_BYTE;
         }
 
-        JNG_CORE_ASSERT(false, "This should never be triggered!")
-            return 0;
+        JNG_CORE_ASSERT(false, "This should never be triggered!");
+        return 0;
     }
 
     static int dataTypeToCount(LayoutElement::DataType type)
@@ -50,8 +50,8 @@ namespace jng {
         case LayoutElement::DataType::UInt4x8:  return 4;
         }
 
-        JNG_CORE_ASSERT(false, "This should never be triggered!")
-            return 0;
+        JNG_CORE_ASSERT(false, "This should never be triggered!");
+        return 0;
     }
 
     OpenGLVertexArray::OpenGLVertexArray(const Ref<VertexBuffer>& vbo, const VertexLayout& layout, const Ref<Shader>& /*shader*/)

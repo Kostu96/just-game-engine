@@ -99,7 +99,11 @@ namespace jng {
         s_data.quadVAO->setIndexBuffer(quadIBO);
         delete[] quadIndices;
 
-        s_data.whiteTexture = Texture::create(1, 1);
+        Texture::Properties props{
+            TextureFormat::RGBA8,
+            1, 1
+        };
+        s_data.whiteTexture = Texture::create(props);
         uint32 whiteTextureData = 0xffffffff;
         s_data.whiteTexture->setData(&whiteTextureData, sizeof(uint32));
         s_data.textureSlots[0] = s_data.whiteTexture;

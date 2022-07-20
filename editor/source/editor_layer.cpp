@@ -18,7 +18,10 @@
 namespace jng {
 
     EditorLayer::EditorLayer(const Properties& /*properties*/) :
-        m_viewportFramebuffer{ Framebuffer::create({ 1, 1 }) },
+        m_viewportFramebuffer{ Framebuffer::create({
+            .Width = 1, .Height = 1,
+            .AttachmentsSpecifications = { jng::TextureFormat::RGBA8, jng::TextureFormat::Depth24Stencil8 }
+        }) },
         m_mainMenuBar{ m_context },
         m_inspectorWindow{ m_context },
         m_sceneHierarchyWindow{ m_context }
@@ -39,7 +42,7 @@ namespace jng {
 
     void EditorLayer::onUpdate(float dt)
     {
-        if (m_context.viewportWindowSize.x != m_viewportFramebuffer->getProperties().width || m_context.viewportWindowSize.y != m_viewportFramebuffer->getProperties().height) {
+        if (m_context.viewportWindowSize.x != m_viewportFramebuffer->getProperties().Width || m_context.viewportWindowSize.y != m_viewportFramebuffer->getProperties().Height) {
             uint32 newViewportWidth = static_cast<uint32>(m_context.viewportWindowSize.x);
             uint32 newViewportHeight = static_cast<uint32>(m_context.viewportWindowSize.y);
             m_viewportFramebuffer->resize(newViewportWidth, newViewportHeight);
