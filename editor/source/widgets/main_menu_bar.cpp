@@ -18,16 +18,46 @@ namespace jng {
 
     void MainMenuBar::onImGuiUpdate()
     {
+        static bool showCreateProjectPopup = false;
+
+        if (showCreateProjectPopup)
+        {
+            static ImGuiWindowFlags flags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize;
+            ImGui::SetNextWindowSize({ 600.f, 200.f });
+            ImGui::SetNextWindowPos({ ImGui::GetMainViewport()->GetCenter().x - 300.f, ImGui::GetMainViewport()->GetCenter().y - 200.f });
+            if (ImGui::Begin("Create Project", nullptr, flags))
+            {
+                static std::string directory;
+                static constexpr size_t BUFFER_SIZE = 260;
+                static char buffer[BUFFER_SIZE];
+                if (ImGui::Button("..."))
+                {
+                    directory = Platform::openDirectoryDialog();
+                    if (!directory.empty())
+                        strcpy_s(buffer, BUFFER_SIZE, directory.c_str());
+                }
+                ImGui::SameLine();
+                ImGui::InputText("Directory", buffer, BUFFER_SIZE);
+                if (ImGui::Button("Create"))
+                {
+                    showCreateProjectPopup = false;
+                    m_context.IsProjectOpen = true;
+
+                    m_context.ProjectPath = buffer;
+                    if (!std::filesystem::exists(m_context.ProjectPath))
+                        std::filesystem::create_directories(m_context.ProjectPath);
+                }
+            }
+            ImGui::End();
+        }
+
         if (ImGui::BeginMainMenuBar())
         {
             if (ImGui::BeginMenu("File"))
             {
                 if (ImGui::BeginMenu("New"))
                 {
-                    if (ImGui::MenuItem("Project", nullptr, nullptr, false))
-                    {
-                        
-                    }
+                    if (ImGui::MenuItem("Project")) showCreateProjectPopup = true;
 
                     if (ImGui::MenuItem("Scene"))
                     {

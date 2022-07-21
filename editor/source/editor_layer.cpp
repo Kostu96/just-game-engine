@@ -77,22 +77,25 @@ namespace jng {
 
         m_mainMenuBar.onImGuiUpdate();
 
-        // Viewport
-        if (m_context.IsViewportWindowOpen)
+        if (m_context.IsProjectOpen)
         {
-            ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-            ImGui::SetNextWindowSize({ 160 * 4.f, 90 * 4.f }); // TODO: this is temporary to prevent window being too small when app is started first time
-            ImGui::Begin("Viewport", &m_context.IsViewportWindowOpen, ImGuiWindowFlags_NoCollapse);
-            ImGui::PopStyleVar();
-            m_context.IsViewportWindowFocused = ImGui::IsWindowFocused();
-            m_context.ViewportWindowSize = ImGui::GetContentRegionAvail();
-            ImGui::Image(m_viewportFramebuffer->getColorAttachmentHandle(), m_context.ViewportWindowSize);
-            ImGui::End();
+            // Viewport
+            if (m_context.IsViewportWindowOpen)
+            {
+                ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+                ImGui::SetNextWindowSize({ 160 * 4.f, 90 * 4.f }); // TODO: this is temporary to prevent window being too small when app is started first time
+                ImGui::Begin("Viewport", &m_context.IsViewportWindowOpen, ImGuiWindowFlags_NoCollapse);
+                ImGui::PopStyleVar();
+                m_context.IsViewportWindowFocused = ImGui::IsWindowFocused();
+                m_context.ViewportWindowSize = ImGui::GetContentRegionAvail();
+                ImGui::Image(m_viewportFramebuffer->getColorAttachmentHandle(), m_context.ViewportWindowSize);
+                ImGui::End();
+            }
+
+            m_inspectorWindow.onImGuiUpdate();
+            m_sceneHierarchyWindow.onImGuiUpdate();
+            m_contentBrowserWindow.onImGuiUpdate();
         }
-  
-        m_inspectorWindow.onImGuiUpdate();
-        m_sceneHierarchyWindow.onImGuiUpdate();
-        m_contentBrowserWindow.onImGuiUpdate();
     }
 
     void EditorLayer::onEvent(Event& event)

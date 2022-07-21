@@ -28,9 +28,9 @@ namespace jng {
             ImGui::SetNextWindowSize({ 500.f, 320.f }); // TODO: this is temporary to prevent window being too small when app is started first time
             ImGui::Begin("Content Browser", &m_context.IsContentBrowserWindowOpen, ImGuiWindowFlags_NoCollapse);
 
-            static std::filesystem::path browsedPath = ".";
+            static std::filesystem::path browsedPath = m_context.ProjectPath;
 
-            if (browsedPath != "." && ImGui::Button("<--")) {
+            if (browsedPath != m_context.ProjectPath && ImGui::Button("<--")) {
                 browsedPath = browsedPath.parent_path();
             }
 
