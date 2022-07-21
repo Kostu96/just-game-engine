@@ -25,7 +25,6 @@ namespace jng {
         Entity createEntity(const std::string& name);
         void destroyEntity(Entity entity);
 
-        
         void onCreate();
         void onDestroy();
         void onUpdate(float dt);
