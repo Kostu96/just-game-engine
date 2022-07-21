@@ -26,16 +26,22 @@ namespace jng {
     struct EditorContext
     {
         bool IsProjectOpen = false;
-        std::filesystem::path ProjectPath{ "." };
-
-        glm::vec2 ViewportWindowSize{ 1.f, 1.f };
+        std::filesystem::path ProjectPath;
+        std::filesystem::path AssetsPath;
         Ref<Scene> ActiveScene;
-        Entity SelectedEntity;
 
+        // Viewport state:
+        glm::vec2 ViewportWindowSize{ 1.f, 1.f };
         bool IsViewportWindowOpen = true;
         bool IsViewportWindowFocused = false;
-        bool IsInspectorWindowOpen = true;
+        
+        // Scene Hierachy and Inspector state:
+        Entity SelectedEntity;
         bool IsSceneHierarchyWindowOpen = true;
+        bool IsInspectorWindowOpen = true;
+
+        // Content Browser state:
+        std::filesystem::path BrowsedPath;
         bool IsContentBrowserWindowOpen = true;
     };
 

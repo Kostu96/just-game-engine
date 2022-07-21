@@ -158,6 +158,15 @@ namespace jng {
                         ImGui::ColorEdit4("Color", glm::value_ptr(sc.color));
                         ImGui::Text("Texture");
                         ImGui::ImageButton(sc.texture ? sc.texture->getRendererID() : m_checkerboard->getRendererID(), {64.f, 64.f});
+                        if (ImGui::BeginDragDropTarget())
+                        {
+                            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+                            {
+                                const char* path = reinterpret_cast<const char*>(payload->Data);
+                                sc.texture = Texture::create(path);
+                            }
+                            ImGui::EndDragDropTarget();
+                        }
                     });
 
                 if (ImGui::Button("Add Component"))

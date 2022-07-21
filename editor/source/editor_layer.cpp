@@ -27,18 +27,6 @@ namespace jng {
         m_sceneHierarchyWindow{ m_context },
         m_contentBrowserWindow{ m_context }
     {
-        m_context.ActiveScene = makeRef<Scene>();
-
-        Entity camera = m_context.ActiveScene->createEntity("Main Camera");
-        camera.addComponent<CameraComponent>();
-
-        Entity square1 = m_context.ActiveScene->createEntity("Green Square");
-        square1.getComponent<TransformComponent>().translation.x = -0.2f;
-        square1.addComponent<SpriteComponent>().color = { 0.f, 1.f, 0.f, 1.f };
-
-        Entity square2 = m_context.ActiveScene->createEntity("Red Square");
-        square2.getComponent<TransformComponent>().translation.y = 0.2f;;
-        square2.addComponent<SpriteComponent>().color = { 1.f, 0.f, 0.f, 1.f };
     }
 
     void EditorLayer::onUpdate(float /*dt*/)
@@ -58,9 +46,12 @@ namespace jng {
 
             m_viewportFramebuffer->bind();
             jng::RendererAPI::clear({ 0.1f, 0.15f, 0.2f });
-            jng::Renderer2D::beginScene(m_editorCamera.getVP());
-            m_context.ActiveScene->drawSprites();
-            jng::Renderer2D::endScene();
+            if (m_context.ActiveScene)
+            {
+                jng::Renderer2D::beginScene(m_editorCamera.getVP());
+                m_context.ActiveScene->drawSprites();
+                jng::Renderer2D::endScene();
+            }
             m_viewportFramebuffer->unbind();
         }
     }

@@ -28,10 +28,8 @@ namespace jng {
             ImGui::SetNextWindowSize({ 500.f, 320.f }); // TODO: this is temporary to prevent window being too small when app is started first time
             ImGui::Begin("Content Browser", &m_context.IsContentBrowserWindowOpen, ImGuiWindowFlags_NoCollapse);
 
-            static std::filesystem::path browsedPath = m_context.ProjectPath;
-
-            if (browsedPath != m_context.ProjectPath && ImGui::Button("<--")) {
-                browsedPath = browsedPath.parent_path();
+            if (m_context.BrowsedPath != m_context.AssetsPath && ImGui::Button("<--")) {
+                m_context.BrowsedPath = m_context.BrowsedPath.parent_path();
             }
 
             static float padding = 16.f;
@@ -43,7 +41,7 @@ namespace jng {
 
             if (ImGui::BeginTable("content", columns))
             {
-                for (auto& entry : std::filesystem::directory_iterator(browsedPath))
+                for (auto& entry : std::filesystem::directory_iterator(m_context.BrowsedPath))
                 {
                     ImGui::TableNextColumn();
 
@@ -54,12 +52,22 @@ namespace jng {
                     ImGui::PushStyleColor(ImGuiCol_Button, { 0.f, 0.f, 0.f, 0.f });
                     ImGui::ImageButton(thumbnail->getRendererID(), { thumbnailSize, thumbnailSize });
                     
+                    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 0.f, 0.f });
+                    if (ImGui::BeginDragDropSource())
+                    {
+                        auto payload = entry.path().string();
+                        ImGui::SetDragDropPayload("CONTENT_BROWSER_ITEM", payload.c_str(), payload.size() + 1, ImGuiCond_Once);
+                        ImGui::ImageButton(thumbnail->getRendererID(), { 32.f, 32.f });
+                        ImGui::EndDragDropSource();
+                    }
+                    ImGui::PopStyleVar();
                     ImGui::PopStyleColor();
+
                     if (ImGui::IsItemHovered() &&
                         ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left) &&
                         entry.is_directory())
                     {
-                        browsedPath /= entryFilename;
+                        m_context.BrowsedPath /= entryFilename;
                     }
                     ImGui::TextWrapped(str.c_str());
                 }

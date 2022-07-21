@@ -46,6 +46,10 @@ namespace jng {
                     m_context.ProjectPath = buffer;
                     if (!std::filesystem::exists(m_context.ProjectPath))
                         std::filesystem::create_directories(m_context.ProjectPath);
+                    m_context.AssetsPath = m_context.ProjectPath / "assets";
+                    if (!std::filesystem::exists(m_context.AssetsPath))
+                        std::filesystem::create_directories(m_context.AssetsPath);
+                    m_context.BrowsedPath = m_context.AssetsPath;
                 }
             }
             ImGui::End();
@@ -57,9 +61,9 @@ namespace jng {
             {
                 if (ImGui::BeginMenu("New"))
                 {
-                    if (ImGui::MenuItem("Project")) showCreateProjectPopup = true;
+                    if (ImGui::MenuItem("Project", "Ctrl+Shift+N")) showCreateProjectPopup = true;
 
-                    if (ImGui::MenuItem("Scene"))
+                    if (ImGui::MenuItem("Scene", "Ctrl+N"))
                     {
                         m_context.SelectedEntity = {};
                         m_context.ActiveScene = makeRef<Scene>();
@@ -68,21 +72,44 @@ namespace jng {
                     ImGui::EndMenu();
                 }
 
+                if (ImGui::BeginMenu("Open"))
+                {
+                    if (ImGui::MenuItem("Project...", "Ctrl+Shift+O"))
+                    {
+                        std::string directory = Platform::openDirectoryDialog();
+                        if (!directory.empty())
+                        {
+                            m_context.IsProjectOpen = true;
+
+                            m_context.ProjectPath = directory;
+                            m_context.AssetsPath = m_context.ProjectPath / "assets";
+                            m_context.BrowsedPath = m_context.AssetsPath;
+                        }
+                    }
+
+                    if (ImGui::MenuItem("Scene...", "Ctrl+O"))
+                    {
+                        std::string path = Platform::openFilenameDialog("JNG Scene (*.yaml;*.yml)\0*.yaml;*.yml\0\0");
+                        if (!path.empty())
+                        {
+                            m_context.SelectedEntity = {};
+                            m_context.ActiveScene = makeRef<Scene>();
+                            SceneSerializer serializer{ m_context.ActiveScene };
+                            serializer.deserialize(path.c_str());
+                        }
+                    }
+
+                    ImGui::EndMenu();
+                }
+                
                 ImGui::Separator();
 
-                if (ImGui::MenuItem("Open...", "Ctrl + O"))
+                if (ImGui::MenuItem("Save...", "Ctrl+S", nullptr, false))
                 {
-                    std::string path = Platform::openFilenameDialog("JNG Scene (*.yaml;*.yml)\0*.yaml;*.yml\0\0");
-                    if (!path.empty())
-                    {
-                        m_context.SelectedEntity = {};
-                        m_context.ActiveScene = makeRef<Scene>();
-                        SceneSerializer serializer{ m_context.ActiveScene };
-                        serializer.deserialize(path.c_str());
-                    }
+                    
                 }
 
-                if (ImGui::MenuItem("Save...", "Ctrl + S")) 
+                if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S"))
                 {
                     std::string path = Platform::saveFilenameDialog("JNG Scene (*.yaml;*.yml)\0*.yaml;*.yml\0\0");
                     if (!path.empty())
@@ -91,8 +118,6 @@ namespace jng {
                         serializer.serialize(path.c_str());
                     }
                 }
-
-                ImGui::MenuItem("Save As...", "Ctrl + Shift + S", nullptr, false);
 
                 ImGui::Separator();
 
@@ -103,13 +128,13 @@ namespace jng {
 
             if (ImGui::BeginMenu("Edit"))
             {
-                ImGui::MenuItem("Undo", "Ctrl + Z", nullptr, false);
-                ImGui::MenuItem("Redo", "Ctrl + Y", nullptr, false);
+                ImGui::MenuItem("Undo", "Ctrl+Z", nullptr, false);
+                ImGui::MenuItem("Redo", "Ctrl+Y", nullptr, false);
 
                 ImGui::EndMenu();
             }
 
-            if (ImGui::BeginMenu("Scene"))
+            if (ImGui::BeginMenu("Scene", static_cast<bool>(m_context.ActiveScene)))
             {
                 if (ImGui::BeginMenu("Create"))
                 {
