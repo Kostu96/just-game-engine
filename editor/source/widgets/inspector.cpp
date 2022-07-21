@@ -6,7 +6,7 @@
 
 #include "inspector.hpp"
 
-#include "../editor_layer.hpp"
+#include "../editor_context.hpp"
 
 #include <jng/core/base.hpp>
 #include <jng/scene/components.hpp>

@@ -80,6 +80,17 @@ namespace jng {
                 m_context.IsViewportWindowFocused = ImGui::IsWindowFocused();
                 m_context.ViewportWindowSize = ImGui::GetContentRegionAvail();
                 ImGui::Image(m_viewportFramebuffer->getColorAttachmentHandle(), m_context.ViewportWindowSize);
+
+                if (ImGui::BeginDragDropTarget())
+                {
+                    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+                    {
+                        const char* path = reinterpret_cast<const char*>(payload->Data);
+                        m_context.openScene(path);
+                    }
+                    ImGui::EndDragDropTarget();
+                }
+
                 ImGui::End();
             }
 

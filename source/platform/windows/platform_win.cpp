@@ -73,7 +73,6 @@ namespace jng {
 			if (GetOpenFileName(&openFilename) == TRUE)
 				return openFilename.lpstrFile;
 
-			JNG_CORE_ERROR("openFilenameDialogError");
 			return "";
 		}
 
@@ -93,7 +92,6 @@ namespace jng {
 			if (GetSaveFileName(&openFilename) == TRUE)
 				return openFilename.lpstrFile;
 
-			JNG_CORE_ERROR("saveFilenameDialogError");
 			return "";
 		}
 

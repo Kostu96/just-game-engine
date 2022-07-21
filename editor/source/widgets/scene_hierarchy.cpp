@@ -6,7 +6,7 @@
 
 #include "scene_hierarchy.hpp"
 
-#include "../editor_layer.hpp"
+#include "../editor_context.hpp"
 
 #include <jng/scene/components.hpp>
 #include <jng/scene/entity.hpp>

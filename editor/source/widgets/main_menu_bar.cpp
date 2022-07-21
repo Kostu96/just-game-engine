@@ -6,7 +6,7 @@
 
 #include "main_menu_bar.hpp"
 
-#include "../editor_layer.hpp"
+#include "../editor_context.hpp"
 
 #include <jng/core/engine.hpp>
 #include <jng/platform/platform.hpp>
@@ -93,13 +93,7 @@ namespace jng {
                     if (ImGui::MenuItem("Scene...", "Ctrl+O", nullptr, m_context.IsProjectOpen))
                     {
                         std::string path = Platform::openFilenameDialog("JNG Scene (*.yaml;*.yml)\0*.yaml;*.yml\0\0");
-                        if (!path.empty())
-                        {
-                            m_context.SelectedEntity = {};
-                            m_context.ActiveScene = makeRef<Scene>();
-                            SceneSerializer serializer{ m_context.ActiveScene };
-                            serializer.deserialize(path.c_str());
-                        }
+                        if (!path.empty()) m_context.openScene(path);
                     }
 
                     ImGui::EndMenu();

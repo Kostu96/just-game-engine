@@ -6,7 +6,7 @@
 
 #include "content_browser.hpp"
 
-#include "../editor_layer.hpp"
+#include "../editor_context.hpp"
 
 #include <imgui.h>
 
