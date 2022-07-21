@@ -51,6 +51,9 @@ namespace jng {
                         std::filesystem::create_directories(m_context.AssetsPath);
                     m_context.BrowsedPath = m_context.AssetsPath;
                 }
+                ImGui::SameLine();
+                if (ImGui::Button("Cancel"))
+                    showCreateProjectPopup = false;
             }
             ImGui::End();
         }
@@ -63,7 +66,7 @@ namespace jng {
                 {
                     if (ImGui::MenuItem("Project", "Ctrl+Shift+N")) showCreateProjectPopup = true;
 
-                    if (ImGui::MenuItem("Scene", "Ctrl+N"))
+                    if (ImGui::MenuItem("Scene", "Ctrl+N", nullptr, m_context.IsProjectOpen))
                     {
                         m_context.SelectedEntity = {};
                         m_context.ActiveScene = makeRef<Scene>();
@@ -87,7 +90,7 @@ namespace jng {
                         }
                     }
 
-                    if (ImGui::MenuItem("Scene...", "Ctrl+O"))
+                    if (ImGui::MenuItem("Scene...", "Ctrl+O", nullptr, m_context.IsProjectOpen))
                     {
                         std::string path = Platform::openFilenameDialog("JNG Scene (*.yaml;*.yml)\0*.yaml;*.yml\0\0");
                         if (!path.empty())
