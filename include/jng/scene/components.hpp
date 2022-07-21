@@ -5,6 +5,7 @@
  */
 
 #pragma once
+#include "jng/renderer/texture.hpp"
 #include "jng/scene/camera.hpp"
 
 #include <glm/glm.hpp>
@@ -77,6 +78,7 @@ namespace jng {
         SpriteComponent(const SpriteComponent&) = default;
 
         glm::vec4 color{ 1.f, 1.f, 1.f, 1.f };
+        Ref<Texture> texture;
     };
 
 } // namespace jng

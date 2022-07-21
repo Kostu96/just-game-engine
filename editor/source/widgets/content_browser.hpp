@@ -11,15 +11,16 @@ namespace jng {
 
     struct EditorContext;
 
-    class InspectorWindow
+    class ContentBrowserWindow
     {
     public:
-        InspectorWindow(EditorContext& context);
+        ContentBrowserWindow(EditorContext& context);
 
         void onImGuiUpdate();
     private:
         EditorContext& m_context;
-        Ref<Texture> m_checkerboard;
+        Ref<Texture> m_fileIcon;
+        Ref<Texture> m_directoryIcon;
     };
 
 } // namespace jng

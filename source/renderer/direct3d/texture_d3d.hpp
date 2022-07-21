@@ -32,6 +32,7 @@ namespace jng {
 
         uint32 getID() const override { return m_ID; }
         const Properties& getProperties() const override { return m_properties; }
+        void* getRendererID() override { return m_textureView.Get(); }
     private:
         void createTexture(void* data);
 

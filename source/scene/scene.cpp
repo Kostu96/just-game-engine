@@ -79,6 +79,20 @@ namespace jng {
         }
     }
 
+    void Scene::drawSprites()
+    {
+        auto group = m_registry.group<SpriteComponent>(entt::get<TransformComponent>);
+        for (auto entity : group)
+        {
+            auto [sc, tc] = group.get<SpriteComponent, TransformComponent>(entity);
+
+            if (sc.texture)
+                Renderer2D::fillQuad(tc.getTransform(), sc.texture, sc.color);
+            else
+                Renderer2D::fillQuad(tc.getTransform(), sc.color);
+        }
+    }
+
     void Scene::onUpdate(float dt)
     {
         {
@@ -98,14 +112,7 @@ namespace jng {
             auto [cc, tc] = group.get<CameraComponent, TransformComponent>(*group.begin());
             Renderer2D::beginScene(cc.camera.getVP(tc.getTransform()));
         }
-        {
-            auto group = m_registry.group<SpriteComponent>(entt::get<TransformComponent>);
-            for (auto entity : group)
-            {
-                auto [sc, tc] = group.get<SpriteComponent, TransformComponent>(entity);
-                Renderer2D::fillQuad(tc.getTransform(), sc.color);
-            }
-        }
+        drawSprites();
         Renderer2D::endScene();
     }
 

@@ -35,6 +35,8 @@ namespace jng {
         template<typename Func>
         void each(Func func);
     private:
+        void drawSprites();
+
         entt::registry m_registry;
         Camera* m_camera = nullptr;
 
