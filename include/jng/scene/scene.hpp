@@ -10,6 +10,8 @@
 #include <entt/entt.hpp>
 #include <string>
 
+class b2World;
+
 namespace jng {
 
     class EditorLayer;
@@ -21,6 +23,7 @@ namespace jng {
     {
     public:
         Scene() = default;
+        ~Scene();
 
         Entity createEntity(const std::string& name);
         void destroyEntity(Entity entity);
@@ -33,13 +36,12 @@ namespace jng {
         template<typename Func>
         void each(Func func);
 
-        //Camera* getActiveCamera();
         void setViewportSize(float width, float height);
     private:
         void drawSprites();
 
         entt::registry m_registry;
-        //Camera* m_camera = nullptr;
+        b2World* m_physics2dWorld = nullptr;
 
         friend class EditorLayer;
         friend class Entity;

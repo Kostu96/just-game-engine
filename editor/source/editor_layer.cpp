@@ -104,9 +104,11 @@ namespace jng {
                     {
                     case SceneState::Stopped:
                         m_context.SceneState = SceneState::Playing;
+                        m_context.ActiveScene->onCreate();
                         break;
                     case SceneState::Playing:
                         m_context.SceneState = SceneState::Stopped;
+                        m_context.ActiveScene->onDestroy();
                         break;
                     }
                 }

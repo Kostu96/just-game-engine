@@ -12,7 +12,30 @@
 #include "scene/entity.hpp"
 #include "scripting/native_script.hpp"
 
+#include <box2d/b2_body.h>
+#include <box2d/b2_fixture.h>
+#include <box2d/b2_polygon_shape.h>
+#include <box2d/b2_world.h>
+
 namespace jng {
+
+    static b2BodyType bodyTypeToBox2DBodyType(Rigidbody2DComponent::BodyType type)
+    {
+        switch (type)
+        {
+        case Rigidbody2DComponent::BodyType::Static: return b2BodyType::b2_staticBody;
+        case Rigidbody2DComponent::BodyType::Dynamic: return b2BodyType::b2_dynamicBody;
+        case Rigidbody2DComponent::BodyType::Kinematic: return b2BodyType::b2_kinematicBody;
+        }
+
+        JNG_CORE_ASSERT(false, "This should never be triggered!");
+        return static_cast<b2BodyType>(-1);
+    }
+
+    Scene::~Scene()
+    {
+        delete m_physics2dWorld;
+    }
 
     Entity Scene::createEntity(const std::string& name)
     {
@@ -28,20 +51,41 @@ namespace jng {
         m_registry.destroy(entity.m_handle);
     }
 
-    /*Camera* Scene::getActiveCamera()
-    {
-        if (!m_camera)
-        {
-            auto view = m_registry.view<CameraComponent>();
-            if (view.size() > 0)
-                m_camera = &view.get<CameraComponent>(view.front()).camera;
-        }
-
-        return m_camera;
-    }*/
-
     void Scene::onCreate()
     {
+        m_physics2dWorld = new b2World{ { 0.f, -PHYSICS_GRAVITY_CONSTANT } };
+
+        {
+            auto group = m_registry.group<Rigidbody2DComponent>(entt::get<TransformComponent>);
+            for (auto entity : group)
+            {
+                auto [rbc, tc] = group.get<Rigidbody2DComponent, TransformComponent>(entity);
+
+                b2BodyDef bodyDef{};
+                bodyDef.type = bodyTypeToBox2DBodyType(rbc.Type);
+                bodyDef.position.Set(tc.translation.x, tc.translation.y);
+                bodyDef.angle = tc.rotation.z;
+                b2Body* body = m_physics2dWorld->CreateBody(&bodyDef);
+                rbc.BodyHandle = body;
+
+                Entity jngEntity{ entity, *this };
+                if (jngEntity.hasComponent<BoxCollider2DComponent>())
+                {
+                    auto& bcc = jngEntity.getComponent<BoxCollider2DComponent>();
+
+                    b2PolygonShape shape{};
+                    shape.SetAsBox(bcc.Size.x, bcc.Size.y);
+
+                    b2FixtureDef fixtureDef{};
+                    fixtureDef.shape = &shape;
+                    fixtureDef.density = bcc.Density;
+                    fixtureDef.friction = bcc.Friction;
+                    fixtureDef.restitution = bcc.Restitution;
+                    fixtureDef.restitutionThreshold = bcc.RestitutionThreshold;
+                    bcc.FixtureHandle = body->CreateFixture(&fixtureDef);
+                }
+            }
+        }
         {
             auto view = m_registry.view<NativeScriptComponent>();
             for (auto entity : view)
@@ -65,6 +109,9 @@ namespace jng {
                 nsc.destroyScript(nsc.instance);
             }
         }
+
+        delete m_physics2dWorld;
+        m_physics2dWorld = nullptr;
     }
 
     void Scene::onEvent(Event& event)
@@ -111,6 +158,21 @@ namespace jng {
             {
                 auto& nsc = view.get<NativeScriptComponent>(entity);
                 nsc.instance->onUpdate(dt);
+            }
+        }
+        {
+            m_physics2dWorld->Step(dt, PHYSICS_VEL_ITERATIONS, PHYSICS_POS_ITERATIONS);
+
+            auto group = m_registry.group<Rigidbody2DComponent>(entt::get<TransformComponent>);
+            for (auto entity : group)
+            {
+                auto [rbc, tc] = group.get<Rigidbody2DComponent, TransformComponent>(entity);
+
+                b2Body* body = reinterpret_cast<b2Body*>(rbc.BodyHandle);
+                const auto& pos = body->GetPosition();
+                tc.translation.x = pos.x;
+                tc.translation.y = pos.y;
+                tc.rotation.z = body->GetAngle();
             }
         }
         {

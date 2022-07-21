@@ -48,7 +48,8 @@ namespace jng {
                 str_id += "ComponenetsSettings";
 
                 ImGui::SameLine(contentRegionAvailable.x - 14.f);
-                if (ImGui::Button("...", { 26.f, 26.f }))
+                std::string buttonID = "...##" + str_id;
+                if (ImGui::Button(buttonID.c_str(), {26.f, 26.f}))
                     ImGui::OpenPopup(str_id.c_str());
 
                 if (ImGui::BeginPopup(str_id.c_str())) {
@@ -169,12 +170,42 @@ namespace jng {
                         }
                     });
 
+                updateComponent<BoxCollider2DComponent>("Box Collider 2D", m_context.SelectedEntity,
+                    [](BoxCollider2DComponent& /*bcc*/) {
+                        
+                    });
+
+                updateComponent<Rigidbody2DComponent>("Rigidbody 2D", m_context.SelectedEntity,
+                    [](Rigidbody2DComponent& rbc) {
+                        Rigidbody2DComponent::BodyType selectedType = rbc.Type;
+
+                        if (ImGui::BeginCombo("Body Type",
+                            (selectedType == Camera::ProjectionType::Orthographic) ? "Orthographic" : "Perspective"))
+                        {
+                            if (ImGui::Selectable("Orthographic", selectedType == Camera::ProjectionType::Orthographic))
+                                cc.camera.setProjectionType(Camera::ProjectionType::Orthographic);
+
+                            if (ImGui::Selectable("Perspective", selectedType == Camera::ProjectionType::Perspective))
+                                cc.camera.setProjectionType(Camera::ProjectionType::Perspective);
+
+                            ImGui::EndCombo();
+                        }
+                    });
+
                 if (ImGui::Button("Add Component"))
                     ImGui::OpenPopup("AddComponent");
 
                 if (ImGui::BeginPopup("AddComponent")) {
-                    if (!m_context.SelectedEntity.hasComponent<CameraComponent>() && ImGui::MenuItem("Camera")) {
+                    if (!m_context.SelectedEntity.hasComponent<BoxCollider2DComponent>() && ImGui::MenuItem("Box Collider 2D")) {
+                        m_context.SelectedEntity.addComponent<BoxCollider2DComponent>();
+                        ImGui::CloseCurrentPopup();
+                    }
+                    else if (!m_context.SelectedEntity.hasComponent<CameraComponent>() && ImGui::MenuItem("Camera")) {
                         m_context.SelectedEntity.addComponent<CameraComponent>();
+                        ImGui::CloseCurrentPopup();
+                    }
+                    else if (!m_context.SelectedEntity.hasComponent<Rigidbody2DComponent>() && ImGui::MenuItem("Rigidbody 2D")) {
+                        m_context.SelectedEntity.addComponent<Rigidbody2DComponent>();
                         ImGui::CloseCurrentPopup();
                     }
                     else if (!m_context.SelectedEntity.hasComponent<NativeScriptComponent>() && ImGui::MenuItem("Native Script")) {

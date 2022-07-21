@@ -81,4 +81,28 @@ namespace jng {
         Ref<Texture> texture;
     };
 
+    struct BoxCollider2DComponent
+    {
+        BoxCollider2DComponent() = default;
+        BoxCollider2DComponent(const BoxCollider2DComponent&) = default;
+
+        glm::vec2 Size{ 0.5f, 0.5f };
+        float Density = 1.f;
+        float Friction = 0.5f;
+        float Restitution = 0.0f;
+        float RestitutionThreshold = 0.5f;
+        void* FixtureHandle = nullptr;
+    };
+
+    struct Rigidbody2DComponent
+    {
+        Rigidbody2DComponent() = default;
+        Rigidbody2DComponent(const Rigidbody2DComponent&) = default;
+
+        enum class BodyType { Static, Dynamic, Kinematic };
+
+        BodyType Type = BodyType::Static;
+        void* BodyHandle = nullptr;
+    };
+
 } // namespace jng
