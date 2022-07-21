@@ -70,6 +70,8 @@ namespace jng {
                     {
                         m_context.SelectedEntity = {};
                         m_context.ActiveScene = makeRef<Scene>();
+
+                        m_context.ActiveScene->setViewportSize(m_context.ViewportWindowSize.x, m_context.ViewportWindowSize.y);
                     }
 
                     ImGui::EndMenu();

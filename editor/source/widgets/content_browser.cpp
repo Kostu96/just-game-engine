@@ -41,6 +41,7 @@ namespace jng {
 
             if (ImGui::BeginTable("content", columns))
             {
+                int index = 0;
                 for (auto& entry : std::filesystem::directory_iterator(m_context.BrowsedPath))
                 {
                     ImGui::TableNextColumn();
@@ -50,8 +51,9 @@ namespace jng {
 
                     Ref<Texture> thumbnail = entry.is_directory() ? m_directoryIcon : m_fileIcon;
                     ImGui::PushStyleColor(ImGuiCol_Button, { 0.f, 0.f, 0.f, 0.f });
+                    ImGui::PushID(index++);
                     ImGui::ImageButton(thumbnail->getRendererID(), { thumbnailSize, thumbnailSize });
-                    
+                    ImGui::PopID();
                     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 0.f, 0.f });
                     if (ImGui::BeginDragDropSource())
                     {
