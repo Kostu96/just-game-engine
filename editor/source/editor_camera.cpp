@@ -54,11 +54,11 @@ namespace jng {
         dispatcher.dispatch<MouseScrollEvent>(JNG_BIND_EVENT_FUNC(EditorCamera::OnMouseScroll));
     }
 
-    void EditorCamera::setViewportSize(uint32 width, uint32 height)
+    void EditorCamera::setViewportSize(float width, float height)
     {
         Camera::setViewportSize(width, height);
-        m_viewportWidth = static_cast<float>(width);
-        m_viewportHeight = static_cast<float>(height);
+        m_viewportWidth = width;
+        m_viewportHeight = height;
     }
 
     bool EditorCamera::OnMouseScroll(MouseScrollEvent& event)

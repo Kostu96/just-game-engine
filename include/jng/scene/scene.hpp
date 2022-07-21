@@ -25,7 +25,6 @@ namespace jng {
         Entity createEntity(const std::string& name);
         void destroyEntity(Entity entity);
 
-        Camera* getActiveCamera();
         
         void onCreate();
         void onDestroy();
@@ -34,11 +33,14 @@ namespace jng {
 
         template<typename Func>
         void each(Func func);
+
+        //Camera* getActiveCamera();
+        void setViewportSize(float width, float height);
     private:
         void drawSprites();
 
         entt::registry m_registry;
-        Camera* m_camera = nullptr;
+        //Camera* m_camera = nullptr;
 
         friend class EditorLayer;
         friend class Entity;

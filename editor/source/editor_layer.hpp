@@ -48,6 +48,8 @@ namespace jng {
         InspectorWindow m_inspectorWindow;
         SceneHierarchyWindow m_sceneHierarchyWindow;
         ContentBrowserWindow m_contentBrowserWindow;
+
+        Ref<Texture> m_playIcon, m_stopIcon;
     };
 
 } // namespace jng

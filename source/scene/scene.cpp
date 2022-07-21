@@ -28,7 +28,7 @@ namespace jng {
         m_registry.destroy(entity.m_handle);
     }
 
-    Camera* Scene::getActiveCamera()
+    /*Camera* Scene::getActiveCamera()
     {
         if (!m_camera)
         {
@@ -38,7 +38,7 @@ namespace jng {
         }
 
         return m_camera;
-    }
+    }*/
 
     void Scene::onCreate()
     {
@@ -79,6 +79,16 @@ namespace jng {
         }
     }
 
+    void Scene::setViewportSize(float width, float height)
+    {
+        auto view = m_registry.view<CameraComponent>();
+        for (auto entity : view)
+        {
+            auto& cc = view.get<CameraComponent>(entity);
+            cc.camera.setViewportSize(width, height);
+        }
+    }
+
     void Scene::drawSprites()
     {
         auto group = m_registry.group<SpriteComponent>(entt::get<TransformComponent>);
@@ -106,6 +116,7 @@ namespace jng {
         {
             auto group = m_registry.group<CameraComponent>(entt::get<TransformComponent>);
             if (group.size() == 0) {
+                JNG_CORE_WARN("Scene has no camera!");
                 return;
             }
 

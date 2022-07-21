@@ -16,6 +16,8 @@ namespace jng {
 		ActiveScene = makeRef<Scene>();
 		SceneSerializer serializer{ ActiveScene };
 		serializer.deserialize(path.string().c_str());
+
+		ActiveScene->setViewportSize(ViewportWindowSize.x, ViewportWindowSize.y);
 	}
 
 } // namespace jng
