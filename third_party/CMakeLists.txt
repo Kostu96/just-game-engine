@@ -74,6 +74,12 @@ set(CMAKE_CXX_CPPCHECK "")
 
 set(COMPILER_FLAGS /MP /fp:fast)
 
+### box2d: ###
+set(BOX2D_BUILD_UNIT_TESTS OFF CACHE BOOL "" FORCE)
+set(BOX2D_BUILD_TESTBED OFF CACHE BOOL "" FORCE)
+add_subdirectory(box2d)
+##############
+
 ### dxerr: ###
 if (WIN32)
     add_subdirectory(dxerr)
@@ -169,6 +175,7 @@ target_compile_definitions(yaml-cpp PUBLIC
 #################
 
 set_target_properties(
+    box2d
     cpp-common-lib
     glad
     glfw
@@ -195,6 +202,7 @@ endif()
 
 set(JNG_THIRD_PARTY_LIBRARIES
     ${Vulkan_LIBRARIES}
+    box2d
     cpp-common-lib
     glad
     glfw
