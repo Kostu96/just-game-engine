@@ -19,6 +19,3 @@
 [submodule "doxygen-awesome-css"]
 	path = third_party/doxygen-awesome-css
 	url = https://github.com/jothepro/doxygen-awesome-css.git
-[submodule "box2d"]
-	path = third_party/box2d
-	url = https://github.com/erincatto/box2d.git
