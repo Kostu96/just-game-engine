@@ -99,7 +99,7 @@ namespace jng {
         Rigidbody2DComponent() = default;
         Rigidbody2DComponent(const Rigidbody2DComponent&) = default;
 
-        enum class BodyType { Static, Dynamic, Kinematic };
+        enum class BodyType { Static = 0, Dynamic = 1, Kinematic = 2 };
 
         BodyType Type = BodyType::Static;
         void* BodyHandle = nullptr;

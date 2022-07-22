@@ -64,8 +64,9 @@ namespace jng {
                 b2BodyDef bodyDef{};
                 bodyDef.type = bodyTypeToBox2DBodyType(rbc.Type);
                 bodyDef.position.Set(tc.translation.x, tc.translation.y);
-                bodyDef.angle = tc.rotation.z;
+                bodyDef.angle = glm::radians(tc.rotation.z);
                 b2Body* body = m_physics2dWorld->CreateBody(&bodyDef);
+                body->SetFixedRotation(false);
                 rbc.BodyHandle = body;
 
                 Entity jngEntity{ entity, *this };
@@ -74,7 +75,7 @@ namespace jng {
                     auto& bcc = jngEntity.getComponent<BoxCollider2DComponent>();
 
                     b2PolygonShape shape{};
-                    shape.SetAsBox(bcc.Size.x, bcc.Size.y);
+                    shape.SetAsBox(bcc.Size.x * tc.scale.x, bcc.Size.y * tc.scale.y);
 
                     b2FixtureDef fixtureDef{};
                     fixtureDef.shape = &shape;
@@ -172,7 +173,7 @@ namespace jng {
                 const auto& pos = body->GetPosition();
                 tc.translation.x = pos.x;
                 tc.translation.y = pos.y;
-                tc.rotation.z = body->GetAngle();
+                tc.rotation.z = glm::degrees(body->GetAngle());
             }
         }
         {
