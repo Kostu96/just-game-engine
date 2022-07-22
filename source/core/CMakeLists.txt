@@ -11,6 +11,7 @@ list(APPEND JNG_HEADERS
     ${JNG_HEADERS_DIR}/engine.hpp
     ${JNG_HEADERS_DIR}/entry_point.hpp
     ${JNG_HEADERS_DIR}/event.hpp
+    ${JNG_HEADERS_DIR}/GUID.hpp
     ${JNG_HEADERS_DIR}/key_events.hpp
     ${JNG_HEADERS_DIR}/layer.hpp
     ${JNG_HEADERS_DIR}/layer_stack.hpp
@@ -22,6 +23,7 @@ list(APPEND JNG_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
     ${CMAKE_CURRENT_SOURCE_DIR}/base_internal.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/engine.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/GUID.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/layer_stack.cpp
 )
 

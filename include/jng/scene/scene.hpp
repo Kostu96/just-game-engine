@@ -5,6 +5,7 @@
  */
 
 #pragma once
+#include "jng/core/GUID.hpp"
 #include "jng/scene/camera.hpp"
 
 #include <entt/entt.hpp>
@@ -26,6 +27,7 @@ namespace jng {
         ~Scene();
 
         Entity createEntity(const std::string& name);
+        Entity createEntity(const std::string& name, GUID id);
         void destroyEntity(Entity entity);
 
         void onCreate();

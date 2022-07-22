@@ -5,6 +5,7 @@
  */
 
 #pragma once
+#include "jng/core/GUID.hpp"
 #include "jng/renderer/texture.hpp"
 #include "jng/scene/camera.hpp"
 
@@ -14,6 +15,15 @@
 #include <type_traits>
 
 namespace jng {
+
+    struct IDComponent
+    {
+        IDComponent() = default;
+        IDComponent(GUID id) : ID{ id } {}
+        IDComponent(const IDComponent&) = default;
+
+        GUID ID;
+    };
 
     struct TagComponent
     {
