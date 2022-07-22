@@ -48,7 +48,8 @@ namespace jng {
                 str_id += "ComponenetsSettings";
 
                 ImGui::SameLine(contentRegionAvailable.x - 14.f);
-                if (ImGui::Button("...", { 26.f, 26.f }))
+                std::string buttonID = "...##" + str_id;
+                if (ImGui::Button(buttonID.c_str(), {26.f, 26.f}))
                     ImGui::OpenPopup(str_id.c_str());
 
                 if (ImGui::BeginPopup(str_id.c_str())) {
@@ -169,18 +170,55 @@ namespace jng {
                         }
                     });
 
+                updateComponent<BoxCollider2DComponent>("Box Collider 2D", m_context.SelectedEntity,
+                    [](BoxCollider2DComponent& bcc) {
+                        ImGui::DragFloat2("Size", glm::value_ptr(bcc.Size));
+                        ImGui::DragFloat("Density", &bcc.Density);
+                        ImGui::DragFloat("Friction", &bcc.Friction, 0.05f, 0.f, 1.f);
+                        ImGui::DragFloat("Restitution", &bcc.Restitution, 0.05f, 0.f, 1.f);
+                        ImGui::DragFloat("RestitutionThreshold", &bcc.RestitutionThreshold, 0.1f, 0.f);
+                    });
+
+                updateComponent<Rigidbody2DComponent>("Rigidbody 2D", m_context.SelectedEntity,
+                    [](Rigidbody2DComponent& rbc) {
+                        const char* bodyTypeStrs[] = { "Static", "Dynamic", "Kinematic" };
+                        const char* currentBodyType = bodyTypeStrs[(uint32)rbc.Type];
+
+                        if (ImGui::BeginCombo("Body Type", currentBodyType))
+                        {
+                            for (uint32 i = 0; i < 3; ++i)
+                            {
+                                bool isSelected = currentBodyType == bodyTypeStrs[i];
+                                if (ImGui::Selectable(bodyTypeStrs[i], isSelected))
+                                {
+                                    rbc.Type = static_cast<Rigidbody2DComponent::BodyType>(i);
+                                    currentBodyType = bodyTypeStrs[i];
+                                }
+                            }
+                            ImGui::EndCombo();
+                        }
+                    });
+
                 if (ImGui::Button("Add Component"))
                     ImGui::OpenPopup("AddComponent");
 
                 if (ImGui::BeginPopup("AddComponent")) {
-                    if (!m_context.SelectedEntity.hasComponent<CameraComponent>() && ImGui::MenuItem("Camera")) {
+                    if (!m_context.SelectedEntity.hasComponent<BoxCollider2DComponent>() && ImGui::MenuItem("Box Collider 2D")) {
+                        m_context.SelectedEntity.addComponent<BoxCollider2DComponent>();
+                        ImGui::CloseCurrentPopup();
+                    }
+                    else if (!m_context.SelectedEntity.hasComponent<CameraComponent>() && ImGui::MenuItem("Camera")) {
                         m_context.SelectedEntity.addComponent<CameraComponent>();
                         ImGui::CloseCurrentPopup();
                     }
-                    else if (!m_context.SelectedEntity.hasComponent<NativeScriptComponent>() && ImGui::MenuItem("Native Script")) {
-                        m_context.SelectedEntity.addComponent<NativeScriptComponent>();
+                    else if (!m_context.SelectedEntity.hasComponent<Rigidbody2DComponent>() && ImGui::MenuItem("Rigidbody 2D")) {
+                        m_context.SelectedEntity.addComponent<Rigidbody2DComponent>();
                         ImGui::CloseCurrentPopup();
                     }
+                    /*else if (!m_context.SelectedEntity.hasComponent<NativeScriptComponent>() && ImGui::MenuItem("Native Script")) {
+                        m_context.SelectedEntity.addComponent<NativeScriptComponent>();
+                        ImGui::CloseCurrentPopup();
+                    }*/
                     else if (!m_context.SelectedEntity.hasComponent<SpriteComponent>() && ImGui::MenuItem("Sprite")) {
                         m_context.SelectedEntity.addComponent<SpriteComponent>();
                         ImGui::CloseCurrentPopup();

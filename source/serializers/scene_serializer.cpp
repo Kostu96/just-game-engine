@@ -14,6 +14,13 @@
 
 namespace YAML {
 
+    Emitter& operator<<(Emitter& yaml, const glm::vec2& value)
+    {
+        yaml << Flow;
+        yaml << BeginSeq << value.x << value.y << EndSeq;
+        return yaml;
+    }
+
     Emitter& operator<<(Emitter& yaml, const glm::vec3& value)
     {
         yaml << Flow;
@@ -27,6 +34,28 @@ namespace YAML {
         yaml << BeginSeq << value.x << value.y << value.z << value.w << EndSeq;
         return yaml;
     }
+
+    template<>
+    struct convert<glm::vec2>
+    {
+        static Node encode(const glm::vec2& rhs)
+        {
+            Node node;
+            node.push_back(rhs.x);
+            node.push_back(rhs.y);
+            return node;
+        }
+
+        static bool decode(const Node& node, glm::vec2& rhs)
+        {
+            if (!node.IsSequence() || node.size() != 2)
+                return false;
+
+            rhs.x = node[0].as<float>();
+            rhs.y = node[1].as<float>();
+            return true;
+        }
+    };
 
     template<>
     struct convert<glm::vec3>
@@ -144,13 +173,29 @@ namespace jng {
                     cc.camera.setPerspectiveFar(cameraComponent["PerspectiveFar"].as<float>());
                 }
 
-                // TODO: NativeScriptComponent
-
                 auto spriteComponent = entity["SpriteComponent"];
                 if (spriteComponent)
                 {
                     auto& sc = deserializedEntity.addComponent<SpriteComponent>();
                     sc.color = spriteComponent["Color"].as<glm::vec4>();
+                }
+
+                auto boxCollider2DComponent = entity["BoxCollider2DComponent"];
+                if (boxCollider2DComponent)
+                {
+                    auto& comp = deserializedEntity.addComponent<BoxCollider2DComponent>();
+                    comp.Size = boxCollider2DComponent["Size"].as<glm::vec2>();
+                    comp.Density = boxCollider2DComponent["Density"].as<float>();
+                    comp.Friction = boxCollider2DComponent["Friction"].as<float>();
+                    comp.Restitution = boxCollider2DComponent["Restitution"].as<float>();
+                    comp.RestitutionThreshold = boxCollider2DComponent["RestitutionThreshold"].as<float>();
+                }
+
+                auto rigidbody2DComponent = entity["Rigidbody2DComponent"];
+                if (rigidbody2DComponent)
+                {
+                    auto& comp = deserializedEntity.addComponent<Rigidbody2DComponent>();
+                    comp.Type = (static_cast<Rigidbody2DComponent::BodyType>(rigidbody2DComponent["BodyType"].as<int>()));
                 }
             }
     }
@@ -163,9 +208,9 @@ namespace jng {
         {
             yaml << YAML::Key << "TagComponent" << YAML::Value;
             yaml << YAML::BeginMap; // TagComponent
-            auto& tc = entity.getComponent<TagComponent>();
+            auto& comp = entity.getComponent<TagComponent>();
 
-            yaml << YAML::Key << "Tag" << YAML::Value << tc.tag;
+            yaml << YAML::Key << "Tag" << YAML::Value << comp.tag;
 
             yaml << YAML::EndMap; // TagComponent
         }
@@ -173,11 +218,11 @@ namespace jng {
         {
             yaml << YAML::Key << "TransformComponent" << YAML::Value;
             yaml << YAML::BeginMap; // TransformComponent
-            auto& tc = entity.getComponent<TransformComponent>();
+            auto& comp = entity.getComponent<TransformComponent>();
 
-            yaml << YAML::Key << "Translation" << YAML::Value << tc.translation;
-            yaml << YAML::Key << "Rotation" << YAML::Value << tc.rotation;
-            yaml << YAML::Key << "Scale" << YAML::Value << tc.scale;
+            yaml << YAML::Key << "Translation" << YAML::Value << comp.translation;
+            yaml << YAML::Key << "Rotation" << YAML::Value << comp.rotation;
+            yaml << YAML::Key << "Scale" << YAML::Value << comp.scale;
 
             yaml << YAML::EndMap; // TransformComponent
         }
@@ -186,30 +231,54 @@ namespace jng {
         {
             yaml << YAML::Key << "CameraComponent" << YAML::Value;
             yaml << YAML::BeginMap; // CameraComponent
-            auto& cc = entity.getComponent<CameraComponent>();
+            auto& comp = entity.getComponent<CameraComponent>();
 
-            yaml << YAML::Key << "ProjectionType" << YAML::Value << static_cast<uint32>(cc.camera.getProjectionType());
-            yaml << YAML::Key << "OrthographicSize" << YAML::Value << cc.camera.getOrthographicSize();
-            yaml << YAML::Key << "OrthographicNear" << YAML::Value << cc.camera.getOrthographicNear();
-            yaml << YAML::Key << "OrthographicFar" << YAML::Value << cc.camera.getOrthographicFar();
-            yaml << YAML::Key << "PerspectiveFOV" << YAML::Value << cc.camera.getPerspectiveFOV();
-            yaml << YAML::Key << "PerspectiveNear" << YAML::Value << cc.camera.getPerspectiveNear();
-            yaml << YAML::Key << "PerspectiveFar" << YAML::Value << cc.camera.getPerspectiveFar();
+            yaml << YAML::Key << "ProjectionType" << YAML::Value << static_cast<uint32>(comp.camera.getProjectionType());
+            yaml << YAML::Key << "OrthographicSize" << YAML::Value << comp.camera.getOrthographicSize();
+            yaml << YAML::Key << "OrthographicNear" << YAML::Value << comp.camera.getOrthographicNear();
+            yaml << YAML::Key << "OrthographicFar" << YAML::Value << comp.camera.getOrthographicFar();
+            yaml << YAML::Key << "PerspectiveFOV" << YAML::Value << comp.camera.getPerspectiveFOV();
+            yaml << YAML::Key << "PerspectiveNear" << YAML::Value << comp.camera.getPerspectiveNear();
+            yaml << YAML::Key << "PerspectiveFar" << YAML::Value << comp.camera.getPerspectiveFar();
 
             yaml << YAML::EndMap; // CameraComponent
         }
-
-        // TODO: NativeScriptComponent
 
         if (entity.hasComponent<SpriteComponent>())
         {
             yaml << YAML::Key << "SpriteComponent" << YAML::Value;
             yaml << YAML::BeginMap; // SpriteComponent
-            auto& sc = entity.getComponent<SpriteComponent>();
+            auto& comp = entity.getComponent<SpriteComponent>();
 
-            yaml << YAML::Key << "Color" << YAML::Value << sc.color;
+            yaml << YAML::Key << "Color" << YAML::Value << comp.color;
 
-            yaml << YAML::EndMap; // TagCSpriteComponentomponent
+            yaml << YAML::EndMap; // SpriteComponent
+        }
+
+        if (entity.hasComponent<BoxCollider2DComponent>())
+        {
+            yaml << YAML::Key << "BoxCollider2DComponent" << YAML::Value;
+            yaml << YAML::BeginMap; // BoxCollider2DComponent
+            auto& comp = entity.getComponent<BoxCollider2DComponent>();
+
+            yaml << YAML::Key << "Size" << YAML::Value << comp.Size;
+            yaml << YAML::Key << "Density" << YAML::Value << comp.Density;
+            yaml << YAML::Key << "Friction" << YAML::Value << comp.Friction;
+            yaml << YAML::Key << "Restitution" << YAML::Value << comp.Restitution;
+            yaml << YAML::Key << "RestitutionThreshold" << YAML::Value << comp.RestitutionThreshold;
+
+            yaml << YAML::EndMap; // BoxCollider2DComponent
+        }
+
+        if (entity.hasComponent<Rigidbody2DComponent>())
+        {
+            yaml << YAML::Key << "Rigidbody2DComponent" << YAML::Value;
+            yaml << YAML::BeginMap; // Rigidbody2DComponent
+            auto& comp = entity.getComponent<Rigidbody2DComponent>();
+
+            yaml << YAML::Key << "BodyType" << YAML::Value << static_cast<uint32>(comp.Type);
+
+            yaml << YAML::EndMap; // Rigidbody2DComponent
         }
 
         yaml << YAML::EndMap; // Entity

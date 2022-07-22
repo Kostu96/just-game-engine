@@ -21,7 +21,7 @@ namespace jng {
         void onUpdate();
         void onEvent(Event& event);
 
-        void setViewportSize(uint32 width, uint32 height);
+        void setViewportSize(float width, float height);
 
         glm::mat4 getVP() const { return Camera::getVP(m_transform); }
     private:

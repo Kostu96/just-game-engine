@@ -31,10 +31,10 @@ namespace jng {
         recalculateProjection();
     }
 
-    void Camera::setViewportSize(uint32 width, uint32 height)
+    void Camera::setViewportSize(float width, float height)
     {
-        JNG_CORE_ASSERT(width > 0 && height > 0, "Viewport area can't be 0!");
-        m_aspectRatio = static_cast<float>(width) / static_cast<float>(height);
+        JNG_CORE_ASSERT(width > 0.f && height > 0.f, "Viewport area can't be 0!");
+        m_aspectRatio = width / height;
         recalculateProjection();
     }
 

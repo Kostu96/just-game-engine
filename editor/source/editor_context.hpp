@@ -15,12 +15,19 @@ namespace jng {
     
     class Scene;
 
+    enum class SceneState
+    {
+        Stopped,
+        Playing
+    };
+
     struct EditorContext
     {
         bool IsProjectOpen = false;
         std::filesystem::path ProjectPath;
         std::filesystem::path AssetsPath;
         Ref<Scene> ActiveScene;
+        SceneState SceneState = SceneState::Stopped;
 
         // Viewport state:
         glm::vec2 ViewportWindowSize{ 1.f, 1.f };
