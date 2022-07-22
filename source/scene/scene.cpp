@@ -40,6 +40,17 @@ namespace jng {
     Entity Scene::createEntity(const std::string& name)
     {
         auto entity = m_registry.create();
+        m_registry.emplace<IDComponent>(entity);
+        m_registry.emplace<TagComponent>(entity, name);
+        m_registry.emplace<TransformComponent>(entity);
+
+        return Entity{ entity, *this };
+    }
+
+    Entity Scene::createEntity(const std::string& name, GUID id)
+    {
+        auto entity = m_registry.create();
+        m_registry.emplace<IDComponent>(entity, id);
         m_registry.emplace<TagComponent>(entity, name);
         m_registry.emplace<TransformComponent>(entity);
 

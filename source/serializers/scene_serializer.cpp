@@ -143,13 +143,14 @@ namespace jng {
         if (entities)
             for (auto entity : entities)
             {
+                GUID id{ entity["Entity"].as<uint64>() };
                 std::string name;
                 auto tagComponent = entity["TagComponent"];
                 if (tagComponent) name = tagComponent["Tag"].as<std::string>();
 
                 JNG_CORE_TRACE("  Deserializing entity: {0}", name);
 
-                Entity deserializedEntity = m_scene->createEntity(name);
+                Entity deserializedEntity = m_scene->createEntity(name, id);
 
                 auto transformComponent = entity["TransformComponent"];
                 if (transformComponent)
@@ -203,7 +204,10 @@ namespace jng {
     void SceneSerializer::serializeEntity(Entity entity, YAML::Emitter& yaml)
     {
         yaml << YAML::BeginMap; // Entity
-        yaml << YAML::Key << "Entity" << YAML::Value << "1234567890";
+        {
+            auto& comp = entity.getComponent<IDComponent>();
+            yaml << YAML::Key << "Entity" << YAML::Value << comp.ID;
+        }
 
         {
             yaml << YAML::Key << "TagComponent" << YAML::Value;
