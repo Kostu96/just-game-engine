@@ -1,4 +1,4 @@
-# Just™ Game Engine
+# Just™ game ENgine (JNG)
 A 3D/2D game engine developed as an educational project with hope to be usefull.
 
 ## Prerequisites:

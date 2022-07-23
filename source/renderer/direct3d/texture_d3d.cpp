@@ -17,7 +17,17 @@
 
 namespace jng {
 
-	uint32 Direct3DTexture::s_ID = 0;
+	static DXGI_FORMAT textureFormatToDXGIFormat(TextureFormat format)
+	{
+		switch (format)
+		{
+		case TextureFormat::RGBA8: return DXGI_FORMAT_R8G8B8A8_UNORM;
+		case TextureFormat::Depth24Stencil8: return DXGI_FORMAT_D24_UNORM_S8_UINT;
+		}
+
+		JNG_CORE_ASSERT(false, "This should never be triggered!");
+		return DXGI_FORMAT_UNKNOWN;
+	}
 
 	Direct3DTexture::Direct3DTexture(const char* path) :
 		m_graphicsContext{ reinterpret_cast<const Direct3DGraphicsContext*>(Engine::get().getWindow().getGraphicsContext()) },
@@ -28,18 +38,18 @@ namespace jng {
 		stbi_uc* data = stbi_load(path, &width, &height, &channels, 4);
 		JNG_CORE_ASSERT(data, std::string{ "Failed to load image: " } + path);
 
-		m_width = static_cast<uint32>(width);
-		m_height = static_cast<uint32>(height);
+		m_properties.Specification.Format = TextureFormat::RGBA8;
+		m_properties.Width = static_cast<uint32>(width);
+		m_properties.Height = static_cast<uint32>(height);
 
 		createTexture(data);
 
 		stbi_image_free(data);
 	}
 
-	Direct3DTexture::Direct3DTexture(uint32 width, uint32 height) :
+	Direct3DTexture::Direct3DTexture(const Properties& properties) :
+		m_properties{ properties },
 		m_graphicsContext{ reinterpret_cast<const Direct3DGraphicsContext*>(Engine::get().getWindow().getGraphicsContext()) },
-		m_width{ width },
-		m_height{ height },
 		m_ID{ s_ID++ }
 	{
 		createTexture(nullptr);
@@ -78,11 +88,11 @@ namespace jng {
 		const auto& device = m_graphicsContext->getDevice();
 
 		D3D11_TEXTURE2D_DESC textureDesc{};
-		textureDesc.Width = m_width;
-		textureDesc.Height = m_height;
+		textureDesc.Width = m_properties.Width;
+		textureDesc.Height = m_properties.Height;
 		textureDesc.MipLevels = 1;
 		textureDesc.ArraySize = 1;
-		textureDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+		textureDesc.Format = textureFormatToDXGIFormat(m_properties.Specification.Format);
 		textureDesc.SampleDesc.Count = 1;
 		textureDesc.SampleDesc.Quality = 0;
 		textureDesc.Usage = data ? D3D11_USAGE_DEFAULT : D3D11_USAGE_DYNAMIC;
@@ -91,7 +101,7 @@ namespace jng {
 
 		D3D11_SUBRESOURCE_DATA sd{};
 		sd.pSysMem = data;
-		sd.SysMemPitch = m_width * 4;
+		sd.SysMemPitch = m_properties.Width * 4;
 
 		wrl::ComPtr<ID3D11Texture2D> pTexture;
 		[[ maybe_unused ]] HRESULT hr = device->CreateTexture2D(&textureDesc, data ? &sd : nullptr, &pTexture);
@@ -114,5 +124,7 @@ namespace jng {
 		hr = device->CreateSamplerState(&samplerDesc, &m_sampler);
 		JNG_D3D_CHECK_HR(hr);
 	}
+
+	uint32 Direct3DTexture::s_ID = 0;
 
 } // namespace jng

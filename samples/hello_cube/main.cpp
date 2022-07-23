@@ -100,7 +100,7 @@ public:
 private:
     bool onWindowResize(jng::WindowResizeEvent& event)
     {
-        m_camera.setViewportSize(event.getWidth(), event.getHeight());
+        m_camera.setViewportSize(static_cast<float>(event.getWidth()), static_cast<float>(event.getHeight()));
         m_cameraUBO->setData(glm::value_ptr(m_camera.getVP(glm::mat4{ 1.f })), sizeof(glm::mat4), 0);
         return false;
     }

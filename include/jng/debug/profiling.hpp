@@ -14,7 +14,7 @@
 #include <thread>
 #include <mutex>
 
-namespace k2d {
+namespace jng {
 
     class Profiler
     {
@@ -93,20 +93,20 @@ namespace k2d {
         return std::string(result);
 }
 
-} // namespace k2d
+} // namespace jng
 
 #if defined(__FUNCSIG__)
-#define __K2D_FUNCSIG __FUNCSIG__
+#define __JNG_FUNCSIG __FUNCSIG__
 #else
-#define __K2D_FUNCSIG __PRETTY_FUNCTION__
+#define __JNG_FUNCSIG __PRETTY_FUNCTION__
 #endif
 
-#define K2D_PROFILE_BEGIN_SESSION(filepath) k2d::Profiler::get().beginSession(filepath)
-#define K2D_PROFILE_END_SESSION() k2d::Profiler::get().endSession()
-#define __K2D_CONCAT(x, y) x##y
-#define __K2D_PROFILE_SCOPE(name, line) k2d::ProfilingTimer __K2D_CONCAT(timer, line)(cleanupStringForProfiler(name).c_str())
-#define K2D_PROFILE_SCOPE(name) __K2D_PROFILE_SCOPE(name, __LINE__)
-#define K2D_PROFILE_FUNCTION() K2D_PROFILE_SCOPE(__K2D_FUNCSIG)
+#define JNG_PROFILE_BEGIN_SESSION(filepath) jng::Profiler::get().beginSession(filepath)
+#define JNG_PROFILE_END_SESSION() jng::Profiler::get().endSession()
+#define __JNG_CONCAT(x, y) x##y
+#define __JNG_PROFILE_SCOPE(name, line) jng::ProfilingTimer __JNG_CONCAT(timer, line)(jng::cleanupStringForProfiler(name).c_str())
+#define JNG_PROFILE_SCOPE(name) __JNG_PROFILE_SCOPE(name, __LINE__)
+#define JNG_PROFILE_FUNCTION() JNG_PROFILE_SCOPE(__JNG_FUNCSIG)
 
 #else
 

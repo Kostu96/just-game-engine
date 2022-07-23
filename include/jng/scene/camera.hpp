@@ -26,7 +26,7 @@ namespace jng {
         void setProjectionType(ProjectionType type) { m_projectionType = type; recalculateProjection(); }
         ProjectionType getProjectionType() const { return m_projectionType; }
 
-        void setViewportSize(uint32 width, uint32 height);
+        void setViewportSize(float width, float height);
         float getAspectRatio() const { return m_aspectRatio; }
 
         float getOrthographicSize() const { return m_orthoSize; }

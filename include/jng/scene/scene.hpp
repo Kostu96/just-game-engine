@@ -5,13 +5,17 @@
  */
 
 #pragma once
+#include "jng/core/GUID.hpp"
 #include "jng/scene/camera.hpp"
 
 #include <entt/entt.hpp>
 #include <string>
 
+class b2World;
+
 namespace jng {
 
+    class EditorLayer;
     class Entity;
     class Event;
     class SceneSerializer;
@@ -20,12 +24,12 @@ namespace jng {
     {
     public:
         Scene() = default;
+        ~Scene();
 
         Entity createEntity(const std::string& name);
+        Entity createEntity(const std::string& name, GUID id);
         void destroyEntity(Entity entity);
 
-        Camera* getActiveCamera();
-        
         void onCreate();
         void onDestroy();
         void onUpdate(float dt);
@@ -33,10 +37,15 @@ namespace jng {
 
         template<typename Func>
         void each(Func func);
-    private:
-        entt::registry m_registry;
-        Camera* m_camera = nullptr;
 
+        void setViewportSize(float width, float height);
+    private:
+        void drawSprites();
+
+        entt::registry m_registry;
+        b2World* m_physics2dWorld = nullptr;
+
+        friend class EditorLayer;
         friend class Entity;
         friend class SceneSerializer;
     };

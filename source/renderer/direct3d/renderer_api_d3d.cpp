@@ -31,7 +31,10 @@ namespace jng {
 
         glm::vec4 color4{ color, 1.f };
         deviceContext->ClearRenderTargetView(graphicsContext->getCurrentRenderTarget(), glm::value_ptr(color4));
-        JNG_D3D_CHECK();
+        
+        auto* depthStencilView = graphicsContext->getCurrentDepthStencil();
+        if (depthStencilView)
+            deviceContext->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH, 1.f, 0);
     }
 
     void Direct3DRendererAPI::draw(uint32 count) const

@@ -13,6 +13,12 @@
 namespace jng {
     namespace Platform {
 
+        /** Opens an open directory dialog native to the system
+        *
+        * \return string contaning choosen filepath or an empty string when user canceled
+        */
+        std::string openDirectoryDialog();
+
         /** Opens an open filename dialog native to the system
         * 
         * \param filter C-style string that describes the file type filter

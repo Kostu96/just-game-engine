@@ -10,6 +10,7 @@
 #include "platform/window.hpp"
 #include "platform/windows/windows_base.hpp"
 
+#include <shlobj.h>
 #include <commdlg.h>
 #include <GLFW/glfw3.h>
 #define GLFW_EXPOSE_NATIVE_WIN32
@@ -18,10 +19,47 @@
 namespace jng {
 	namespace Platform
 	{
-		// TODO: checkout new windows Common Item Dialog
+		std::string openDirectoryDialog()
+		{
+			TCHAR previousDir[MAX_PATH]{};
+			GetCurrentDirectory(MAX_PATH, previousDir);
+
+			TCHAR buffer[MAX_PATH]{};
+			BROWSEINFO info{};
+			info.hwndOwner = glfwGetWin32Window(Engine::get().getWindow().getNativeWindowHandle());;
+			info.lpszTitle = TEXT("Browse Directory");
+			info.ulFlags = BIF_RETURNONLYFSDIRS | BIF_USENEWUI;
+			LPITEMIDLIST itemIDList = SHBrowseForFolder(&info);
+
+			if (itemIDList)
+			{
+				// get the name of the folder and put it in path
+				SHGetPathFromIDList(itemIDList, buffer);
+
+				//Set the current directory to path
+				SetCurrentDirectory(buffer);
+
+				//Begin the search
+				//SearchFolder(buffer);
+
+				// free memory used
+				IMalloc* imalloc = 0;
+				if (SUCCEEDED(SHGetMalloc(&imalloc)))
+				{
+					imalloc->Free(itemIDList);
+					imalloc->Release();
+				}
+
+				SetCurrentDirectory(previousDir);
+				return buffer;
+			}
+
+			return "";
+		}
+
 		std::string openFilenameDialog(const char* filter)
 		{
-			TCHAR buffer[256]{};
+			TCHAR buffer[MAX_PATH]{};
 
 			OPENFILENAME openFilename{};
 			openFilename.lStructSize = sizeof(OPENFILENAME);
@@ -35,14 +73,12 @@ namespace jng {
 			if (GetOpenFileName(&openFilename) == TRUE)
 				return openFilename.lpstrFile;
 
-			JNG_CORE_ERROR("openFilenameDialogError");
 			return "";
 		}
 
-		// TODO: checkout new windows Common Item Dialog
 		std::string saveFilenameDialog(const char* filter)
 		{
-			TCHAR buffer[256]{};
+			TCHAR buffer[MAX_PATH]{};
 
 			OPENFILENAME openFilename{};
 			openFilename.lStructSize = sizeof(OPENFILENAME);
@@ -56,7 +92,6 @@ namespace jng {
 			if (GetSaveFileName(&openFilename) == TRUE)
 				return openFilename.lpstrFile;
 
-			JNG_CORE_ERROR("saveFilenameDialogError");
 			return "";
 		}
 

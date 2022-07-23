@@ -9,10 +9,6 @@
 #include "platform/windows/windows_base.hpp"
 #include "platform/windows/graphics_context_d3d.hpp"
 
-#pragma warning(disable:4265)
-#include <wrl.h>
-#pragma warning(default:4265)
-
 struct ID3D11VertexShader;
 struct ID3D11PixelShader;
 struct ID3D10Blob;

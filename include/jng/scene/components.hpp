@@ -5,6 +5,8 @@
  */
 
 #pragma once
+#include "jng/core/GUID.hpp"
+#include "jng/renderer/texture.hpp"
 #include "jng/scene/camera.hpp"
 
 #include <glm/glm.hpp>
@@ -13,6 +15,15 @@
 #include <type_traits>
 
 namespace jng {
+
+    struct IDComponent
+    {
+        IDComponent() = default;
+        IDComponent(GUID id) : ID{ id } {}
+        IDComponent(const IDComponent&) = default;
+
+        GUID ID;
+    };
 
     struct TagComponent
     {
@@ -77,6 +88,31 @@ namespace jng {
         SpriteComponent(const SpriteComponent&) = default;
 
         glm::vec4 color{ 1.f, 1.f, 1.f, 1.f };
+        Ref<Texture> texture;
+    };
+
+    struct BoxCollider2DComponent
+    {
+        BoxCollider2DComponent() = default;
+        BoxCollider2DComponent(const BoxCollider2DComponent&) = default;
+
+        glm::vec2 Size{ 0.5f, 0.5f };
+        float Density = 1.f;
+        float Friction = 0.5f;
+        float Restitution = 0.0f;
+        float RestitutionThreshold = 0.5f;
+        void* FixtureHandle = nullptr;
+    };
+
+    struct Rigidbody2DComponent
+    {
+        Rigidbody2DComponent() = default;
+        Rigidbody2DComponent(const Rigidbody2DComponent&) = default;
+
+        enum class BodyType { Static = 0, Dynamic = 1, Kinematic = 2 };
+
+        BodyType Type = BodyType::Static;
+        void* BodyHandle = nullptr;
     };
 
 } // namespace jng

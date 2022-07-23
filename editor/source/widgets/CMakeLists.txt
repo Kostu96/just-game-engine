@@ -5,6 +5,8 @@
 #
 
 list(APPEND EDITOR_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/content_browser.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/content_browser.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inspector.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inspector.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/main_menu_bar.cpp
