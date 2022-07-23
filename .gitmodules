@@ -22,3 +22,9 @@
 [submodule "box2d"]
 	path = third_party/box2d
 	url = https://github.com/Kostu96/box2d-fork.git
+[submodule "imguizmo"]
+	path = third_party/imguizmo
+	url = https://github.com/CedricGuillemet/ImGuizmo.git
+[submodule "lua"]
+	path = third_party/lua
+	url = https://github.com/Kostu96/lua-5.4.4
