@@ -7,9 +7,6 @@
 [submodule "glfw"]
 	path = engine/third_party/glfw
 	url = https://github.com/glfw/glfw.git
-[submodule "cpp-common-lib"]
-	path = third_party/cpp-common-lib
-	url = https://github.com/Kostu96/cpp-common-lib.git
 [submodule "imgui"]
 	path = engine/third_party/imgui
 	url = https://github.com/ocornut/imgui.git
