@@ -41,5 +41,5 @@ add_custom_command(
     TARGET ${EDITOR_TARGET_NAME}
     POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/assets $<TARGET_FILE_DIR:${EDITOR_TARGET_NAME}>/assets
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/assets $<TARGET_FILE_DIR:${EDITOR_TARGET_NAME}>/assets
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/engine/shaders $<TARGET_FILE_DIR:${EDITOR_TARGET_NAME}>/assets/shaders
 )

@@ -23,8 +23,8 @@ namespace jng {
     {
     public:
         // These are 16:9
-        static constexpr unsigned int WindowWidth = 1728;
-        static constexpr unsigned int WindowHeight = 972;
+        static constexpr unsigned int WindowWidth = 1712;
+        static constexpr unsigned int WindowHeight = 963;
 
         EditorApp() :
             Engine({
