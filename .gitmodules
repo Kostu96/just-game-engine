@@ -23,7 +23,7 @@
 	path = engine/third_party/box2d
 	url = https://github.com/Kostu96/box2d-fork.git
 [submodule "imguizmo"]
-	path = third_party/imguizmo
+	path = editor/third_party/imguizmo
 	url = https://github.com/CedricGuillemet/ImGuizmo.git
 [submodule "lua"]
 	path = engine/third_party/lua
