@@ -7,14 +7,16 @@
 ### Vulkan ###
 find_package(Vulkan REQUIRED)
 if (Vulkan_FOUND)
-    add_library(vulkan-shaderc STATIC IMPORTED GLOBAL)
+    add_library(vulkan-shaderc SHARED IMPORTED GLOBAL)
     add_library(vulkan-spirv-cross-core STATIC IMPORTED GLOBAL)
     add_library(vulkan-spirv-cross-glsl STATIC IMPORTED GLOBAL)
     add_library(vulkan-spirv-cross-hlsl STATIC IMPORTED GLOBAL)
     if (WIN32)
         set_target_properties(vulkan-shaderc PROPERTIES
-            IMPORTED_LOCATION $ENV{VULKAN_SDK}/Lib/shaderc_combined.lib
-            IMPORTED_LOCATION_DEBUG $ENV{VULKAN_SDK}/Lib/shaderc_combinedd.lib
+            IMPORTED_LOCATION $ENV{VULKAN_SDK}/Bin/shaderc_shared.dll
+            IMPORTED_IMPLIB $ENV{VULKAN_SDK}/Lib/shaderc_shared.lib
+            IMPORTED_LOCATION_DEBUG $ENV{VULKAN_SDK}/Bin/shaderc_sharedd.dll
+            IMPORTED_IMPLIB_DEBUG $ENV{VULKAN_SDK}/Lib/shaderc_sharedd.lib
             IMPORTED_CONFIGURATIONS "Release;Debug"
         )
         set_target_properties(vulkan-spirv-cross-core PROPERTIES

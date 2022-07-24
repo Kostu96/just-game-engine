@@ -27,10 +27,10 @@ robocopy %THIRD_PARTY_DIR%spdlog\include\spdlog %PACKAGE_DIR%include\spdlog /E /
 robocopy %THIRD_PARTY_DIR%spdlog %PACKAGE_DIR%include\spdlog LICENSE /NJH /NJS
 
 robocopy %OUTPUT_DIR%debug\lib %PACKAGE_DIR%lib\debug /E /NJH /NJS
-robocopy %VULKAN_SDK%\Lib %PACKAGE_DIR%lib\debug vulkan-1.lib shaderc_combinedd.lib spirv-cross-cored.lib spirv-cross-glsld.lib spirv-cross-hlsld.lib /NJH /NJS
+robocopy %VULKAN_SDK%\Lib %PACKAGE_DIR%lib\debug vulkan-1.lib shaderc_sharedd.lib spirv-cross-cored.lib spirv-cross-glsld.lib spirv-cross-hlsld.lib /NJH /NJS
 
 robocopy %OUTPUT_DIR%release\lib %PACKAGE_DIR%lib\release /E /NJH /NJS
-robocopy %VULKAN_SDK%\Lib %PACKAGE_DIR%lib\release vulkan-1.lib shaderc_combined.lib spirv-cross-core.lib spirv-cross-glsl.lib spirv-cross-hlsl.lib /NJH /NJS
+robocopy %VULKAN_SDK%\Lib %PACKAGE_DIR%lib\release vulkan-1.lib shaderc_shared.lib spirv-cross-core.lib spirv-cross-glsl.lib spirv-cross-hlsl.lib /NJH /NJS
 
 robocopy ..\assets %PACKAGE_DIR%bin\assets /E /NJH /NJS
 
