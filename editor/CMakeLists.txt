@@ -6,11 +6,7 @@
 
 set(EDITOR_TARGET_NAME jng-editor)
 
-set(EDITOR_SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/source/editor_layer.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/source/editor_layer.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/source/main.cpp
-)
+add_subdirectory(third_party)
 
 add_subdirectory(source)
 

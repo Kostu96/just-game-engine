@@ -8,7 +8,6 @@
 
 #include "core/base_internal.hpp"
 #include "renderer/renderer_api.hpp"
-
 #include "renderer/opengl/shader_ogl.hpp"
 //#include "renderer/vulkan/shader_vlk.hpp"
 
@@ -16,8 +15,8 @@
 #include "renderer/direct3d/shader_d3d.hpp"
 #endif
 
-#include <ccl/helper_functions.h>
-#include <ccl/md5.h>
+#include "utilities/file.hpp"
+
 #include <shaderc/shaderc.hpp>
 #include <filesystem>
 
@@ -39,34 +38,32 @@ namespace jng {
         }
 	}
 
-    std::vector<uint32> Shader::compileToVulkanSPIRV(const char* shaderFilename, Type type) const
-    {
+	std::vector<uint32> Shader::compileToVulkanSPIRV(const char* shaderFilename, Type type) const
+	{
 		std::filesystem::path shaderFilePath = shaderFilename;
 		std::filesystem::path cacheDirectory = getCacheDirectory();
 
 		size_t size;
-		bool success = ccl::readFile(shaderFilename, nullptr, size, true);
+		bool success = readFile(shaderFilename, nullptr, size, true);
 		JNG_CORE_ASSERT(success, std::string{ "Cannot open filename: " } + shaderFilename);
 		char* shaderSource = new char[size + 1];
-		success = ccl::readFile(shaderFilename, shaderSource, size, true);
+		success = readFile(shaderFilename, shaderSource, size, true);
 		shaderSource[size] = 0;
 
-		auto checksum = ccl::md5(reinterpret_cast<uint8_t*>(shaderSource), size);
+		std::string shaderSourceString{ shaderSource };
+		size_t shaderSourceHash = std::hash<std::string>{}(shaderSourceString);
 
-		std::filesystem::path md5Path = cacheDirectory / (shaderFilePath.stem().string() + shaderTypeToMD5FileExtension(type));
+		std::filesystem::path hashPath = cacheDirectory / (shaderFilePath.stem().string() + shaderTypeToHashFileExtension(type));
 
 		m_isCacheDirty = false;
-		success = ccl::readFile(md5Path.generic_string().c_str(), nullptr, size, true);
+		success = readFile(hashPath.string().c_str(), nullptr, size, true);
 		if (success) {
-			JNG_CORE_ASSERT(size == 16, "MD5 checksum should always be 16 bytes!");
-			uint32* savedChecksum = new uint32[size / 4];
-			success = ccl::readFile(md5Path.generic_string().c_str(), reinterpret_cast<char*>(savedChecksum), size, true);
+			static_assert(sizeof(size_t) == 8);
+			JNG_CORE_ASSERT(size == 8, "std::hash should always be 8 bytes!");
+			size_t savedHash;
+			success = readFile(hashPath.string().c_str(), reinterpret_cast<char*>(&savedHash), size, true);
 
-			for (size_t i = 0; i < size / 4; ++i)
-				if (savedChecksum[i] != checksum[i]) {
-					m_isCacheDirty = true;
-					break;
-				}
+			if (savedHash != shaderSourceHash) m_isCacheDirty = true;
 		}
 		else
 			m_isCacheDirty = true;
@@ -87,16 +84,16 @@ namespace jng {
 			JNG_CORE_ASSERT(vulkanSpirv.GetCompilationStatus() == shaderc_compilation_status_success, vulkanSpirv.GetErrorMessage());
 			vulkanSpirvData = std::vector<uint32>{ vulkanSpirv.cbegin(), vulkanSpirv.cend() };
 
-			ccl::writeFile(md5Path.generic_string().c_str(), reinterpret_cast<char*>(checksum.data()), checksum.size() * 4, true);
-			ccl::writeFile(cachedPath.generic_string().c_str(), reinterpret_cast<char*>(vulkanSpirvData.data()), vulkanSpirvData.size() * sizeof(uint32), true);
+			writeFile(hashPath.string().c_str(), reinterpret_cast<char*>(&shaderSourceHash), sizeof(size_t), true);
+			writeFile(cachedPath.string().c_str(), reinterpret_cast<char*>(vulkanSpirvData.data()), vulkanSpirvData.size() * sizeof(uint32), true);
 		}
 		else {
 			JNG_CORE_TRACE("Loading Vulkan SPIR-V from cache: {0}",
-				cachedPath.generic_string().c_str());
+				cachedPath.string().c_str());
 
-			success = ccl::readFile(cachedPath.generic_string().c_str(), nullptr, size, true);
+			success = readFile(cachedPath.string().c_str(), nullptr, size, true);
 			vulkanSpirvData.resize(size / sizeof(uint32));
-			success = ccl::readFile(cachedPath.generic_string().c_str(), reinterpret_cast<char*>(vulkanSpirvData.data()), size, true);
+			success = readFile(cachedPath.string().c_str(), reinterpret_cast<char*>(vulkanSpirvData.data()), size, true);
 		}
 
 		delete[] shaderSource;
@@ -113,12 +110,12 @@ namespace jng {
 			std::filesystem::create_directories(cacheDirectory);
 	}
 
-	const char* Shader::shaderTypeToMD5FileExtension(Type type)
+	const char* Shader::shaderTypeToHashFileExtension(Type type)
 	{
 		switch (type)
 		{
-		case Type::Vertex:    return ".md5.vert";
-		case Type::Fragment:  return ".md5.frag";
+		case Type::Vertex:    return ".hash.vert";
+		case Type::Fragment:  return ".hash.frag";
 		}
 		JNG_CORE_ASSERT(false, "");
 		return "";

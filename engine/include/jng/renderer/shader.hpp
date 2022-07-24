@@ -36,7 +36,7 @@ namespace jng {
 
         mutable bool m_isCacheDirty = true;
     private:
-        static const char* shaderTypeToMD5FileExtension(Type type);
+        static const char* shaderTypeToHashFileExtension(Type type);
         static const char* shaderTypeToCachedVlkFileExtension(Type type);
     };
 

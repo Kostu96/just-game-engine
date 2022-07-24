@@ -8,13 +8,13 @@
 
 #include "core/base_internal.hpp"
 #include "core/engine.hpp"
+#include "utilities/file.hpp"
 
 #include <glad/gl.h>
 #include <glm/gtc/type_ptr.inl>
 #include <shaderc/shaderc.hpp>
 #include <spirv_cross/spirv_glsl.hpp>
 #include <filesystem>
-#include <ccl/helper_functions.h>
 #include <vector>
 
 namespace jng {
@@ -94,16 +94,16 @@ namespace jng {
 			JNG_CORE_ASSERT(openGLSpirv.GetCompilationStatus() == shaderc_compilation_status_success, openGLSpirv.GetErrorMessage());
 			openglSpirvData = std::vector<uint32>{ openGLSpirv.cbegin(), openGLSpirv.cend() };
 
-			success = ccl::writeFile(cachedPath.generic_string().c_str(), reinterpret_cast<char*>(openglSpirvData.data()), openglSpirvData.size() * sizeof(uint32), true);
+			success = writeFile(cachedPath.generic_string().c_str(), reinterpret_cast<char*>(openglSpirvData.data()), openglSpirvData.size() * sizeof(uint32), true);
 		}
 		else {
 			JNG_CORE_TRACE("Loading OpenGL SPIR-V from cache: {0}",
 				cachedPath.generic_string().c_str());
 
 			size_t size;
-			success = ccl::readFile(cachedPath.generic_string().c_str(), nullptr, size, true);
+			success = readFile(cachedPath.generic_string().c_str(), nullptr, size, true);
 			openglSpirvData.resize(size / sizeof(uint32));
-			success = ccl::readFile(cachedPath.generic_string().c_str(), reinterpret_cast<char*>(openglSpirvData.data()), size, true);
+			success = readFile(cachedPath.generic_string().c_str(), reinterpret_cast<char*>(openglSpirvData.data()), size, true);
 		}
 
 		uint32 id = glCreateShader(shaderTypeToOGLShaderType(type));

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2020-2022 Konstanty Misiak
+# Copyright (C) 2022 Konstanty Misiak
 #
 # SPDX-License-Identifier: MIT
 #
@@ -86,10 +86,6 @@ if (WIN32)
 endif()
 ##############
 
-### cpp-common-lib ###
-add_subdirectory(cpp-common-lib)
-######################
-
 ### glad: ###
 add_subdirectory(glad)
 target_compile_options(glad PRIVATE
@@ -174,40 +170,32 @@ target_compile_definitions(yaml-cpp PUBLIC
 )
 #################
 
-set_target_properties(
+set(JNG_ENGINE_THIRD_PARTY_LIBRARIES
     box2d
-    cpp-common-lib
     glad
     glfw
-    update_mappings
     imgui
     spdlog
     stb
     yaml-cpp
+)
+
+if (WIN32)
+    list(APPEND JNG_ENGINE_THIRD_PARTY_LIBRARIES
+        dxerr
+    )
+endif()
+
+set_target_properties(
+    ${JNG_ENGINE_THIRD_PARTY_LIBRARIES}
+    update_mappings
     PROPERTIES
     FOLDER third_party
     MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL"
     EXCLUDE_FROM_ALL true
 )
 
-if (WIN32)
-    set_target_properties(
-        dxerr
-        PROPERTIES
-        FOLDER third_party
-        MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL"
-        EXCLUDE_FROM_ALL true
-    )
-endif()
-
-set(JNG_THIRD_PARTY_LIBRARIES
+set(JNG_ENGINE_THIRD_PARTY_LIBRARIES
     ${Vulkan_LIBRARIES}
-    box2d
-    cpp-common-lib
-    glad
-    glfw
-    imgui
-    spdlog
-    stb
-    yaml-cpp
+    ${JNG_ENGINE_THIRD_PARTY_LIBRARIES}
 PARENT_SCOPE)

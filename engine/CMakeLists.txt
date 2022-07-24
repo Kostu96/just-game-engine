@@ -7,6 +7,8 @@
 set(JNG_TARGET_NAME jng)
 set(JNG_TARGET_NAME ${JNG_TARGET_NAME} PARENT_SCOPE)
 
+add_subdirectory(third_party)
+
 set(JNG_HEADERS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/jng)
 add_subdirectory(source)
 
@@ -44,8 +46,8 @@ target_compile_options(${JNG_TARGET_NAME} PRIVATE
 
 target_include_directories(${JNG_TARGET_NAME} SYSTEM
     PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/../third_party/glm
-    ${CMAKE_CURRENT_SOURCE_DIR}/../third_party/entt/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/glm
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/entt/include
     PRIVATE
     ${Vulkan_INCLUDE_DIRS}
 )
@@ -64,10 +66,5 @@ if (WIN32)
     )
 endif()
 
-target_link_libraries(${JNG_TARGET_NAME} PUBLIC ${JNG_THIRD_PARTY_LIBRARIES})
-
-if (WIN32)
-    target_link_libraries(${JNG_TARGET_NAME} PUBLIC
-        $<$<CONFIG:Debug>:dxerr>
-    )
-endif()
+message(STATUS ${JNG_ENGINE_THIRD_PARTY_LIBRARIES})
+target_link_libraries(${JNG_TARGET_NAME} PUBLIC ${JNG_ENGINE_THIRD_PARTY_LIBRARIES})

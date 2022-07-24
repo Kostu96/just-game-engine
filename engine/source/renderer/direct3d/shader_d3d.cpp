@@ -10,6 +10,7 @@
 #include "core/engine.hpp"
 #include "platform/window.hpp"
 #include "platform/windows/error_checks_macros_win.hpp"
+#include "utilities/helpers.hpp"
 
 #include <glm/gtc/type_ptr.inl>
 #include <d3d11.h>
@@ -17,7 +18,6 @@
 #include <shaderc/shaderc.hpp>
 #include <spirv_cross/spirv_hlsl.hpp>
 #include <filesystem>
-#include <ccl/helper_functions.h>
 #include <vector>
 
 #pragma comment(lib, "d3dcompiler.lib")
@@ -104,14 +104,14 @@ namespace jng {
 					JNG_D3D_CHECK_HR(hr);
 			}
 
-			hr = D3DWriteBlobToFile(byteCode.Get(), ccl::stringToWstring(cachedPath.generic_string()).c_str(), TRUE);
+			hr = D3DWriteBlobToFile(byteCode.Get(), stringToWstring(cachedPath.generic_string()).c_str(), TRUE);
 			JNG_D3D_CHECK_HR(hr);
 		}
 		else {
 			JNG_CORE_TRACE("Loading HLSL bytecode from cache: {0}",
 				cachedPath.generic_string().c_str());
 			
-			hr = D3DReadFileToBlob(ccl::stringToWstring(cachedPath.generic_string()).c_str(), &byteCode);
+			hr = D3DReadFileToBlob(stringToWstring(cachedPath.generic_string()).c_str(), &byteCode);
 			JNG_D3D_CHECK_HR(hr);
 		}
 	}
