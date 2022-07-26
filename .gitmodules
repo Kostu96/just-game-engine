@@ -14,7 +14,7 @@
 	path = engine/third_party/yaml-cpp
 	url = https://github.com/jbeder/yaml-cpp.git
 [submodule "doxygen-awesome-css"]
-	path = third_party/doxygen-awesome-css
+	path = docs/doxygen-awesome.css
 	url = https://github.com/jothepro/doxygen-awesome-css.git
 [submodule "box2d"]
 	path = engine/third_party/box2d
