@@ -11,6 +11,11 @@
 
 #include <imgui.h>
 
+extern "C" {
+    _declspec(dllexport) uint32_t NvOptimusEnablement = 1;
+    _declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
+};
+
 namespace jng {
 
     class EditorApp :
@@ -18,8 +23,8 @@ namespace jng {
     {
     public:
         // These are 16:9
-        static constexpr unsigned int WindowWidth = 1744;
-        static constexpr unsigned int WindowHeight = 981;
+        static constexpr unsigned int WindowWidth = 1712;
+        static constexpr unsigned int WindowHeight = 963;
 
         EditorApp() :
             Engine({

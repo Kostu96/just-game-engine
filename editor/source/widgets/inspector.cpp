@@ -6,7 +6,7 @@
 
 #include "inspector.hpp"
 
-#include "../editor_layer.hpp"
+#include "../editor_context.hpp"
 
 #include <jng/core/base.hpp>
 #include <jng/scene/components.hpp>
@@ -48,7 +48,8 @@ namespace jng {
                 str_id += "ComponenetsSettings";
 
                 ImGui::SameLine(contentRegionAvailable.x - 14.f);
-                if (ImGui::Button("...", { 26.f, 26.f }))
+                std::string buttonID = "...##" + str_id;
+                if (ImGui::Button(buttonID.c_str(), {26.f, 26.f}))
                     ImGui::OpenPopup(str_id.c_str());
 
                 if (ImGui::BeginPopup(str_id.c_str())) {
@@ -71,20 +72,25 @@ namespace jng {
         }
     }
 
+    InspectorWindow::InspectorWindow(EditorContext& context) :
+        m_context{ context },
+        m_checkerboard{ Texture::create("assets/textures/checkerboard.png") }
+    {}
+
     void InspectorWindow::onImGuiUpdate()
     {
-        if (m_context.isInspectorWindowOpen)
+        if (m_context.IsInspectorWindowOpen)
         {
             static ImGuiTreeNodeFlags componentTreeNodeFlags =
                 ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_AllowItemOverlap | ImGuiTreeNodeFlags_FramePadding;
 
             ImGui::SetNextWindowSize({ 320.f, 400.f }); // TODO: this is temporary to prevent window being too small when app is started first time
-            ImGui::Begin("Inspector", &m_context.isInspectorWindowOpen, ImGuiWindowFlags_NoCollapse);
+            ImGui::Begin("Inspector", &m_context.IsInspectorWindowOpen, ImGuiWindowFlags_NoCollapse);
 
-            if (m_context.selectedEntity)
+            if (m_context.SelectedEntity)
             {
-                JNG_USER_ASSERT(m_context.selectedEntity.hasComponent<TagComponent>(), "TagComponent is obligatory!");
-                auto& tag = m_context.selectedEntity.getComponent<TagComponent>().tag;
+                JNG_USER_ASSERT(m_context.SelectedEntity.hasComponent<TagComponent>(), "TagComponent is obligatory!");
+                auto& tag = m_context.SelectedEntity.getComponent<TagComponent>().tag;
 
                 char buffer[128];
                 strcpy_s(buffer, sizeof(buffer), tag.c_str());
@@ -92,14 +98,14 @@ namespace jng {
                     tag = buffer;
                 ImGui::Separator();
 
-                updateComponent<TransformComponent>("Transform", m_context.selectedEntity,
+                updateComponent<TransformComponent>("Transform", m_context.SelectedEntity,
                     [](TransformComponent& tc) {
                         ImGui::DragFloat3("Translation", glm::value_ptr(tc.translation), 0.1f, 0.f, 0.f, "%.2f");
                         ImGui::DragFloat3("Rotation", glm::value_ptr(tc.rotation), 0.1f, 0.f, 0.f, "%.2f");
                         ImGui::DragFloat3("Scale", glm::value_ptr(tc.scale), 0.1f, 0.f, 0.f, "%.2f");
                     }, false);
 
-                updateComponent<CameraComponent>("Camera", m_context.selectedEntity,
+                updateComponent<CameraComponent>("Camera", m_context.SelectedEntity,
                     [](CameraComponent& cc) {
                         Camera::ProjectionType selectedType = cc.camera.getProjectionType();
 
@@ -148,25 +154,73 @@ namespace jng {
                         }
                     });
 
-                updateComponent<SpriteComponent>("Sprite", m_context.selectedEntity,
-                    [](SpriteComponent& sc) {
+                updateComponent<SpriteComponent>("Sprite", m_context.SelectedEntity,
+                    [this](SpriteComponent& sc) {
                         ImGui::ColorEdit4("Color", glm::value_ptr(sc.color));
+                        ImGui::Text("Texture");
+                        ImGui::ImageButton(sc.texture ? sc.texture->getRendererID() : m_checkerboard->getRendererID(), {64.f, 64.f});
+                        if (ImGui::BeginDragDropTarget())
+                        {
+                            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+                            {
+                                const char* path = reinterpret_cast<const char*>(payload->Data);
+                                sc.texture = Texture::create(path);
+                            }
+                            ImGui::EndDragDropTarget();
+                        }
+                    });
+
+                updateComponent<BoxCollider2DComponent>("Box Collider 2D", m_context.SelectedEntity,
+                    [](BoxCollider2DComponent& bcc) {
+                        ImGui::DragFloat2("Size", glm::value_ptr(bcc.Size));
+                        ImGui::DragFloat("Density", &bcc.Density);
+                        ImGui::DragFloat("Friction", &bcc.Friction, 0.05f, 0.f, 1.f);
+                        ImGui::DragFloat("Restitution", &bcc.Restitution, 0.05f, 0.f, 1.f);
+                        ImGui::DragFloat("RestitutionThreshold", &bcc.RestitutionThreshold, 0.1f, 0.f);
+                    });
+
+                updateComponent<Rigidbody2DComponent>("Rigidbody 2D", m_context.SelectedEntity,
+                    [](Rigidbody2DComponent& rbc) {
+                        const char* bodyTypeStrs[] = { "Static", "Dynamic", "Kinematic" };
+                        const char* currentBodyType = bodyTypeStrs[(uint32)rbc.Type];
+
+                        if (ImGui::BeginCombo("Body Type", currentBodyType))
+                        {
+                            for (uint32 i = 0; i < 3; ++i)
+                            {
+                                bool isSelected = currentBodyType == bodyTypeStrs[i];
+                                if (ImGui::Selectable(bodyTypeStrs[i], isSelected))
+                                {
+                                    rbc.Type = static_cast<Rigidbody2DComponent::BodyType>(i);
+                                    currentBodyType = bodyTypeStrs[i];
+                                }
+                            }
+                            ImGui::EndCombo();
+                        }
                     });
 
                 if (ImGui::Button("Add Component"))
                     ImGui::OpenPopup("AddComponent");
 
                 if (ImGui::BeginPopup("AddComponent")) {
-                    if (ImGui::MenuItem("Camera")) {
-                        m_context.selectedEntity.addComponent<CameraComponent>();
+                    if (!m_context.SelectedEntity.hasComponent<BoxCollider2DComponent>() && ImGui::MenuItem("Box Collider 2D")) {
+                        m_context.SelectedEntity.addComponent<BoxCollider2DComponent>();
                         ImGui::CloseCurrentPopup();
                     }
-                    else if (ImGui::MenuItem("Native Script")) {
-                        m_context.selectedEntity.addComponent<NativeScriptComponent>();
+                    else if (!m_context.SelectedEntity.hasComponent<CameraComponent>() && ImGui::MenuItem("Camera")) {
+                        m_context.SelectedEntity.addComponent<CameraComponent>();
                         ImGui::CloseCurrentPopup();
                     }
-                    else if (ImGui::MenuItem("Sprite")) {
-                        m_context.selectedEntity.addComponent<SpriteComponent>();
+                    else if (!m_context.SelectedEntity.hasComponent<Rigidbody2DComponent>() && ImGui::MenuItem("Rigidbody 2D")) {
+                        m_context.SelectedEntity.addComponent<Rigidbody2DComponent>();
+                        ImGui::CloseCurrentPopup();
+                    }
+                    /*else if (!m_context.SelectedEntity.hasComponent<NativeScriptComponent>() && ImGui::MenuItem("Native Script")) {
+                        m_context.SelectedEntity.addComponent<NativeScriptComponent>();
+                        ImGui::CloseCurrentPopup();
+                    }*/
+                    else if (!m_context.SelectedEntity.hasComponent<SpriteComponent>() && ImGui::MenuItem("Sprite")) {
+                        m_context.SelectedEntity.addComponent<SpriteComponent>();
                         ImGui::CloseCurrentPopup();
                     }
 

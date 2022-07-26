@@ -6,11 +6,7 @@
 
 set(EDITOR_TARGET_NAME jng-editor)
 
-set(EDITOR_SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/source/editor_layer.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/source/editor_layer.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/source/main.cpp
-)
+add_subdirectory(third_party)
 
 add_subdirectory(source)
 
@@ -41,5 +37,5 @@ add_custom_command(
     TARGET ${EDITOR_TARGET_NAME}
     POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/assets $<TARGET_FILE_DIR:${EDITOR_TARGET_NAME}>/assets
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/assets $<TARGET_FILE_DIR:${EDITOR_TARGET_NAME}>/assets
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/engine/shaders $<TARGET_FILE_DIR:${EDITOR_TARGET_NAME}>/assets/shaders
 )
