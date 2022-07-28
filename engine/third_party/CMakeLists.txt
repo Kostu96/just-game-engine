@@ -78,7 +78,6 @@ set(COMPILER_FLAGS /MP /fp:fast)
 
 ### box2d: ###
 set(BOX2D_BUILD_UNIT_TESTS OFF CACHE BOOL "" FORCE)
-set(BOX2D_BUILD_TESTBED OFF CACHE BOOL "" FORCE)
 add_subdirectory(box2d)
 ##############
 
