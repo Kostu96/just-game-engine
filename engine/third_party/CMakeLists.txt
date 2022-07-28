@@ -77,7 +77,6 @@ set(CMAKE_CXX_CPPCHECK "")
 set(COMPILER_FLAGS /MP /fp:fast)
 
 ### box2d: ###
-set(BOX2D_BUILD_UNIT_TESTS OFF CACHE BOOL "" FORCE)
 add_subdirectory(box2d)
 ##############
 
