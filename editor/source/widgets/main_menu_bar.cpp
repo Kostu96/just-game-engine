@@ -148,10 +148,20 @@ namespace jng {
 
             if (ImGui::BeginMenu("View"))
             {
-                ImGui::MenuItem("Inspector", nullptr, &m_context.IsInspectorWindowOpen);
-                ImGui::MenuItem("Scene Hierarchy", nullptr, &m_context.IsSceneHierarchyWindowOpen);
-                ImGui::MenuItem("Viewport", nullptr, &m_context.IsViewportWindowOpen);
-                ImGui::MenuItem("Content Browser", nullptr, &m_context.IsContentBrowserWindowOpen);
+                if (ImGui::BeginMenu("Windows"))
+                {
+                    ImGui::MenuItem("Inspector", nullptr, &m_context.IsInspectorWindowOpen);
+                    ImGui::MenuItem("Scene Hierarchy", nullptr, &m_context.IsSceneHierarchyWindowOpen);
+                    ImGui::MenuItem("Viewport", nullptr, &m_context.IsViewportWindowOpen);
+                    ImGui::MenuItem("Content Browser", nullptr, &m_context.IsContentBrowserWindowOpen);
+                
+                    ImGui::EndMenu();
+                }
+
+                ImGui::Separator();
+
+                if (ImGui::MenuItem("Reset camera"))
+                    m_context.EditorCamera.reset();
 
                 ImGui::EndMenu();
             }

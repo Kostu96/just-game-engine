@@ -104,7 +104,7 @@ target_compile_options(glfw PRIVATE
 )
 #############
 
-### imgui: ###
+### ImGui: ###
 set(IMGUI_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/imgui/backends/imgui_impl_glfw.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/imgui/backends/imgui_impl_glfw.h

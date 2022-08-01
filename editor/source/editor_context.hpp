@@ -5,6 +5,8 @@
  */
 
 #pragma once
+#include "editor_camera.hpp"
+
 #include <jng/core/base.hpp>
 #include <jng/scene/entity.hpp>
 
@@ -30,6 +32,7 @@ namespace jng {
         SceneState SceneState = SceneState::Stopped;
 
         // Viewport state:
+        EditorCamera EditorCamera;
         glm::vec2 ViewportWindowSize{ 1.f, 1.f };
         bool IsViewportWindowOpen = true;
         bool IsViewportWindowFocused = false;

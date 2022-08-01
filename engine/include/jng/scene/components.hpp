@@ -11,6 +11,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/quaternion.hpp>
 #include <string>
 #include <type_traits>
 
@@ -44,10 +45,7 @@ namespace jng {
 
         glm::mat4 getTransform() const
         {
-            glm::mat4 rotMatrix = glm::rotate(glm::mat4{ 1.f }, glm::radians(rotation.x), { 1.f, 0.f, 0.f }) *
-                glm::rotate(glm::mat4{ 1.f }, glm::radians(rotation.y), { 0.f, 1.f, 0.f }) *
-                glm::rotate(glm::mat4{ 1.f }, glm::radians(rotation.z), { 0.f, 0.f, 1.f });
-
+            glm::mat4 rotMatrix = glm::toMat4(glm::quat(rotation));
             return glm::translate(glm::mat4{ 1.f }, translation) * rotMatrix * glm::scale(glm::mat4{ 1.f }, scale);
         }
     };

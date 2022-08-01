@@ -46,17 +46,17 @@ namespace jng {
         switch (action) {
         case GLFW_RELEASE:
         {
-            KeyReleaseEvent event(key);
+            KeyReleaseEvent event{ static_cast<Key::KeyCode>(key) };
             data->eventCallback(event);
         } break;
         case GLFW_PRESS:
         {
-            KeyPressEvent event(key, 0);
+            KeyPressEvent event{ static_cast<Key::KeyCode>(key), 0 };
             data->eventCallback(event);
         } break;
         case GLFW_REPEAT:
         {
-            KeyPressEvent event(key, 1);
+            KeyPressEvent event{ static_cast<Key::KeyCode>(key), 1 };
             data->eventCallback(event);
         } break;
         }

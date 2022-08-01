@@ -6,15 +6,21 @@
 
 #include "editor_layer.hpp"
 
+#include <jng/core/event.hpp>
 #include <jng/core/engine.hpp>
-#include <jng/scene/components.hpp>
-#include <jng/scene/entity.hpp>
+#include <jng/core/key_events.hpp>
+#include <jng/platform/input.hpp>
 #include <jng/renderer/framebuffer.hpp>
 #include <jng/renderer/renderer2d.hpp>
 #include <jng/renderer/renderer_api.hpp>
+#include <jng/scene/components.hpp>
+#include <jng/scene/entity.hpp>
+#include <jng/utilities/math.hpp>
 
+#include <glm/gtc/type_ptr.hpp>
 #include <imgui.h>
 #include <imgui_internal.h>
+#include <ImGuizmo.h>
 
 namespace jng {
 
@@ -43,14 +49,14 @@ namespace jng {
                     static_cast<uint32>(m_context.ViewportWindowSize.x),
                     static_cast<uint32>(m_context.ViewportWindowSize.y)
                 );
-                m_editorCamera.setViewportSize(m_context.ViewportWindowSize.x, m_context.ViewportWindowSize.y);
+                m_context.EditorCamera.setViewportSize(m_context.ViewportWindowSize.x, m_context.ViewportWindowSize.y);
 
                 if (m_context.ActiveScene)
                     m_context.ActiveScene->setViewportSize(m_context.ViewportWindowSize.x, m_context.ViewportWindowSize.y);
             }
 
             if (m_context.IsViewportWindowFocused)
-                m_editorCamera.onUpdate();
+                m_context.EditorCamera.onUpdate();
 
             m_viewportFramebuffer->bind();
             jng::RendererAPI::clear({ 0.1f, 0.15f, 0.2f });
@@ -59,7 +65,7 @@ namespace jng {
                 switch (m_context.SceneState)
                 {
                 case SceneState::Stopped:
-                    jng::Renderer2D::beginScene(m_editorCamera.getVP());
+                    jng::Renderer2D::beginScene(m_context.EditorCamera.getViewProjection());
                     m_context.ActiveScene->drawSprites();
                     jng::Renderer2D::endScene();
                     break;
@@ -74,6 +80,8 @@ namespace jng {
 
     void EditorLayer::onImGuiUpdate()
     {
+        ImGuizmo::BeginFrame();
+
         // DockSpace
         auto& style = ImGui::GetStyle();
         ImVec2 windowMinSize = style.WindowMinSize;
@@ -133,6 +141,35 @@ namespace jng {
                     ImGui::EndDragDropTarget();
                 }
 
+                // Gizmos
+                if (m_context.SelectedEntity && m_gizmoType != -1)
+                {
+                    ImGuizmo::SetOrthographic(false);
+                    ImGuizmo::SetDrawlist();
+                    ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y,
+                                      ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
+
+                    glm::mat4 cameraView = m_context.EditorCamera.getView();
+                    const glm::mat4& cameraProjection = m_context.EditorCamera.getProjection();
+                    auto& tc = m_context.SelectedEntity.getComponent<TransformComponent>();
+                    glm::mat4 transform = tc.getTransform();
+
+                    bool snap = Input::isKeyPressed(Key::LeftControl);
+                    float snapValue = m_gizmoType == ImGuizmo::OPERATION::ROTATE ? 15.f : 0.5f;
+
+                    ImGuizmo::Manipulate(glm::value_ptr(cameraView), glm::value_ptr(cameraProjection),
+                        static_cast<ImGuizmo::OPERATION>(m_gizmoType), ImGuizmo::MODE::LOCAL, glm::value_ptr(transform),
+                        nullptr, snap ? &snapValue : nullptr);
+
+                    if (ImGuizmo::IsUsing())
+                    {
+                        glm::vec3 rotation;
+                        math::decomposeTransform(transform, tc.translation, rotation, tc.scale);
+                        glm::vec3 rotDelta = rotation - tc.rotation;
+                        tc.rotation += rotDelta;
+                    }
+                }
+
                 ImGui::End();
             }
 
@@ -145,7 +182,31 @@ namespace jng {
     void EditorLayer::onEvent(Event& event)
     {
         if (m_context.IsViewportWindowFocused)
-            m_editorCamera.onEvent(event);
+            m_context.EditorCamera.onEvent(event);
+
+        EventDispatcher dispatcher(event);
+        dispatcher.dispatch<KeyPressEvent>(JNG_BIND_EVENT_FUNC(EditorLayer::onKeyPress));
+    }
+
+    bool EditorLayer::onKeyPress(KeyPressEvent& event)
+    {
+        switch (event.getKeyCode())
+        {
+        case Key::Q:
+            m_gizmoType = -1;
+            break;
+        case Key::W:
+            m_gizmoType = ImGuizmo::OPERATION::TRANSLATE;
+            break;
+        case Key::E:
+            m_gizmoType = ImGuizmo::OPERATION::ROTATE;
+            break;
+        case Key::R:
+            m_gizmoType = ImGuizmo::OPERATION::SCALE;
+            break;
+        }
+
+        return false;
     }
 
 }
