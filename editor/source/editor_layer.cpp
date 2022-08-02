@@ -9,6 +9,7 @@
 #include <jng/core/event.hpp>
 #include <jng/core/engine.hpp>
 #include <jng/core/key_events.hpp>
+#include <jng/core/mouse_events.hpp>
 #include <jng/platform/input.hpp>
 #include <jng/renderer/framebuffer.hpp>
 #include <jng/renderer/renderer2d.hpp>
@@ -79,17 +80,6 @@ namespace jng {
                     m_context.ActiveScene->onUpdate(dt);
                     break;
                 }
-            }
-
-            if (m_context.MousePosWithinViewport.x > 0.f && m_context.MousePosWithinViewport.y > 0.f)
-            {
-                m_viewportFramebuffer->bind();
-                int pixel = m_viewportFramebuffer->readPixel(1,
-                    static_cast<uint32>(m_context.MousePosWithinViewport.x),
-                    static_cast<uint32>(m_context.MousePosWithinViewport.y)
-                );
-                m_viewportFramebuffer->unbind();
-                JNG_USER_WARN("EntityID: {}", pixel);
             }
 
             m_viewportFramebuffer->unbind();
@@ -216,6 +206,7 @@ namespace jng {
 
         EventDispatcher dispatcher(event);
         dispatcher.dispatch<KeyPressEvent>(JNG_BIND_EVENT_FUNC(EditorLayer::onKeyPress));
+        dispatcher.dispatch<MouseButtonPressEvent>(JNG_BIND_EVENT_FUNC(EditorLayer::onMouseButtonPress));
     }
 
     bool EditorLayer::onKeyPress(KeyPressEvent& event)
@@ -234,6 +225,23 @@ namespace jng {
         case Key::R:
             m_gizmoType = ImGuizmo::OPERATION::SCALE;
             break;
+        }
+
+        return false;
+    }
+
+    bool EditorLayer::onMouseButtonPress(MouseButtonPressEvent& event)
+    {
+        if (event.getMouseButton() == Mouse::Left && !ImGuizmo::IsOver() &&
+            m_context.MousePosWithinViewport.x > 0.f && m_context.MousePosWithinViewport.y > 0.f)
+        {
+            m_viewportFramebuffer->bind();
+            int pixel = m_viewportFramebuffer->readPixel(1,
+                static_cast<uint32>(m_context.MousePosWithinViewport.x),
+                static_cast<uint32>(m_context.MousePosWithinViewport.y)
+            );
+            m_viewportFramebuffer->unbind();
+            m_context.SelectedEntity = pixel >= 0 ? Entity{ static_cast<entt::entity>(pixel), *m_context.ActiveScene.get() } : Entity{};
         }
 
         return false;

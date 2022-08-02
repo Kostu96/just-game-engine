@@ -46,17 +46,17 @@ namespace jng {
         switch (action) {
         case GLFW_RELEASE:
         {
-            KeyReleaseEvent event{ static_cast<Key::KeyCode>(key) };
+            KeyReleaseEvent event{ static_cast<Key::Code>(key) };
             data->eventCallback(event);
         } break;
         case GLFW_PRESS:
         {
-            KeyPressEvent event{ static_cast<Key::KeyCode>(key), 0 };
+            KeyPressEvent event{ static_cast<Key::Code>(key), 0 };
             data->eventCallback(event);
         } break;
         case GLFW_REPEAT:
         {
-            KeyPressEvent event{ static_cast<Key::KeyCode>(key), 1 };
+            KeyPressEvent event{ static_cast<Key::Code>(key), 1 };
             data->eventCallback(event);
         } break;
         }
@@ -68,12 +68,12 @@ namespace jng {
         switch (action) {
         case GLFW_RELEASE:
         {
-            MouseButtonReleaseEvent event(button);
+            MouseButtonReleaseEvent event{ static_cast<Mouse::Code>(button) };
             data->eventCallback(event);
         } break;
         case GLFW_PRESS:
         {
-            MouseButtonPressEvent event(button);
+            MouseButtonPressEvent event{ static_cast<Mouse::Code>(button) };
             data->eventCallback(event);
         } break;
         }

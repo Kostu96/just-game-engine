@@ -6,6 +6,7 @@
 
 #pragma once
 #include "jng/core/event.hpp"
+#include "jng/platform/mouse_codes.hpp"
 
 namespace jng {
 
@@ -13,19 +14,19 @@ namespace jng {
         public Event
     {
     public:
-        int getMouseButton() const { return m_button; }
+        Mouse::Code getMouseButton() const { return m_button; }
     protected:
-        MouseButtonEvent(int button)
+        MouseButtonEvent(Mouse::Code button)
             : m_button(button) {}
 
-        int m_button;
+        Mouse::Code m_button;
     };
 
     class MouseButtonPressEvent :
         public MouseButtonEvent
     {
     public:
-        MouseButtonPressEvent(int button)
+        MouseButtonPressEvent(Mouse::Code button)
             : MouseButtonEvent(button) {}
 
         EVENT_CLASS_TYPE(MouseButtonPress)
@@ -35,7 +36,7 @@ namespace jng {
         public MouseButtonEvent
     {
     public:
-        MouseButtonReleaseEvent(int button)
+        MouseButtonReleaseEvent(Mouse::Code button)
             : MouseButtonEvent(button) {}
 
         EVENT_CLASS_TYPE(MouseButtonRelease)

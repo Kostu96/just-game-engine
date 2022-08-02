@@ -23,6 +23,7 @@ namespace jng {
 
     class Framebuffer;
     class KeyPressEvent;
+    class MouseButtonPressEvent;
 
     class EditorLayer :
         public Layer
@@ -40,6 +41,7 @@ namespace jng {
         void onImGuiUpdate() override;
         void onEvent(Event& event) override;
         bool onKeyPress(KeyPressEvent& event);
+        bool onMouseButtonPress(MouseButtonPressEvent& event);
     private:
         Ref<Framebuffer> m_viewportFramebuffer;
 

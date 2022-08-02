@@ -75,7 +75,7 @@ namespace jng {
                 b2BodyDef bodyDef{};
                 bodyDef.type = bodyTypeToBox2DBodyType(rbc.Type);
                 bodyDef.position.Set(tc.Translation.x, tc.Translation.y);
-                bodyDef.angle = glm::radians(tc.Rotation.z);
+                bodyDef.angle = tc.Rotation.z;
                 b2Body* body = m_physics2dWorld->CreateBody(&bodyDef);
                 body->SetFixedRotation(false);
                 rbc.BodyHandle = body;
@@ -180,7 +180,7 @@ namespace jng {
                 const auto& pos = body->GetPosition();
                 tc.Translation.x = pos.x;
                 tc.Translation.y = pos.y;
-                tc.Rotation.z = glm::degrees(body->GetAngle());
+                tc.Rotation.z = body->GetAngle();
             }
         }
         {
