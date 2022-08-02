@@ -32,9 +32,37 @@ namespace jng {
         return static_cast<b2BodyType>(-1);
     }
 
+    template<typename Component>
+    static void copyComponentIfExists(Entity dst, Entity src)
+    {
+        if (src.hasComponent<Component>())
+            dst.addComponent<Component>() = src.getComponent<Component>();
+    }
+
     Scene::~Scene()
     {
         delete m_physics2dWorld;
+    }
+
+    Ref<Scene> Scene::copy(const Ref<Scene>& other)
+    {
+        Ref<Scene> sceneCopy = makeRef<Scene>();
+
+        other->each([&sceneCopy](Entity entity) {
+            std::string tag = entity.getComponent<TagComponent>().Tag;
+            GUID id = entity.getComponent<IDComponent>().ID;
+
+            Entity entityCopy = sceneCopy->createEntity(tag, id);
+            entityCopy.getComponent<TransformComponent>() = entity.getComponent<TransformComponent>();
+
+            copyComponentIfExists<CameraComponent>(entityCopy, entity);
+            copyComponentIfExists<NativeScriptComponent>(entityCopy, entity);
+            copyComponentIfExists<SpriteComponent>(entityCopy, entity);
+            copyComponentIfExists<BoxCollider2DComponent>(entityCopy, entity);
+            copyComponentIfExists<Rigidbody2DComponent>(entityCopy, entity);
+        });
+
+        return sceneCopy;
     }
 
     Entity Scene::createEntity(const std::string& name)
@@ -55,6 +83,21 @@ namespace jng {
         m_registry.emplace<TransformComponent>(entity);
 
         return Entity{ entity, *this };
+    }
+
+    Entity Scene::duplicateEntity(Entity other)
+    {
+        std::string tag = other.getComponent<TagComponent>().Tag + " Copy";
+        Entity entityCopy = createEntity(tag);
+        entityCopy.getComponent<TransformComponent>() = other.getComponent<TransformComponent>();
+
+        copyComponentIfExists<CameraComponent>(entityCopy, other);
+        copyComponentIfExists<NativeScriptComponent>(entityCopy, other);
+        copyComponentIfExists<SpriteComponent>(entityCopy, other);
+        copyComponentIfExists<BoxCollider2DComponent>(entityCopy, other);
+        copyComponentIfExists<Rigidbody2DComponent>(entityCopy, other);
+
+        return entityCopy;
     }
 
     void Scene::destroyEntity(Entity entity)

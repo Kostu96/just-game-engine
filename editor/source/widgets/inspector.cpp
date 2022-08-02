@@ -42,28 +42,34 @@ namespace jng {
             ImGui::PopStyleVar();
 
             bool markForDelete = false;
-            if (isRemovable)
+            std::string str_id{ label };
+            str_id += "ComponenetsSettings";
+
+            ImGui::SameLine(contentRegionAvailable.x - 14.f);
+            std::string buttonID = "...##" + str_id;
+            if (ImGui::Button(buttonID.c_str(), {26.f, 26.f}))
+                ImGui::OpenPopup(str_id.c_str());
+
+            auto& component = entity.getComponent<Component>();
+
+            if (ImGui::BeginPopup(str_id.c_str()))
             {
-                std::string str_id{ label };
-                str_id += "ComponenetsSettings";
-
-                ImGui::SameLine(contentRegionAvailable.x - 14.f);
-                std::string buttonID = "...##" + str_id;
-                if (ImGui::Button(buttonID.c_str(), {26.f, 26.f}))
-                    ImGui::OpenPopup(str_id.c_str());
-
-                if (ImGui::BeginPopup(str_id.c_str())) {
-                    if (ImGui::MenuItem("Delete")) {
-                        markForDelete = true;
-                        ImGui::CloseCurrentPopup();
-                    }
-
-                    ImGui::EndPopup();
+                if (ImGui::MenuItem("Reset"))
+                {
+                    component.reset();
                 }
+
+                if (isRemovable && ImGui::MenuItem("Delete"))
+                {
+                    markForDelete = true;
+                    ImGui::CloseCurrentPopup();
+                }
+
+                ImGui::EndPopup();
             }
 
             if (open)
-                function(entity.getComponent<Component>());
+                function(component);
 
             if (markForDelete)
                 entity.removeComponent<Component>();

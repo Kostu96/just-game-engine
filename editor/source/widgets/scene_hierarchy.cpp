@@ -38,7 +38,13 @@ namespace jng {
 
                     if (ImGui::BeginPopupContextItem(0, ImGuiPopupFlags_MouseButtonRight))
                     {
-                        if (ImGui::MenuItem("Delete")) {
+                        if (ImGui::MenuItem("Duplicate", "Ctrl+D"))
+                        {
+                            m_context.ActiveScene->duplicateEntity(entity);
+                        }
+
+                        if (ImGui::MenuItem("Delete", "Del"))
+                        {
                             if (m_context.SelectedEntity == entity)
                                 m_context.SelectedEntity = {};
 

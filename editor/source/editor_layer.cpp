@@ -118,14 +118,8 @@ namespace jng {
                 {
                     switch (m_context.SceneState)
                     {
-                    case SceneState::Stopped:
-                        m_context.SceneState = SceneState::Playing;
-                        m_context.ActiveScene->onCreate();
-                        break;
-                    case SceneState::Playing:
-                        m_context.SceneState = SceneState::Stopped;
-                        m_context.ActiveScene->onDestroy();
-                        break;
+                    case SceneState::Stopped: m_context.onSceneStart(); break;
+                    case SceneState::Playing: m_context.onSceneStop();  break;
                     }
                 }
                 ImGui::PopStyleColor(3);

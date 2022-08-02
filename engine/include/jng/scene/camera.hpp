@@ -18,6 +18,8 @@ namespace jng {
         enum class ProjectionType { Orthographic = 0, Perspective = 1 };
 
         Camera() { recalculateProjection(); }
+        Camera(const Camera&) = default;
+        void reset() {} // TODO: impl
 
         void setOrthographic(float oSize, float oNear = -1.f, float oFar = 1.f);
         void setPerspective(float pFOV, float pNear = 0.01f, float pFar = 1000.f);

@@ -40,9 +40,10 @@ namespace jng {
         void onUpdate(float dt) override;
         void onImGuiUpdate() override;
         void onEvent(Event& event) override;
+    private:
         bool onKeyPress(KeyPressEvent& event);
         bool onMouseButtonPress(MouseButtonPressEvent& event);
-    private:
+        
         Ref<Framebuffer> m_viewportFramebuffer;
 
         EditorContext m_context;

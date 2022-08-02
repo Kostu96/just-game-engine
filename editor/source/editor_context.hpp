@@ -28,13 +28,15 @@ namespace jng {
         bool IsProjectOpen = false;
         std::filesystem::path ProjectPath;
         std::filesystem::path AssetsPath;
+        std::filesystem::path EditorScenePath;
+        Ref<Scene> EditorScene;
         Ref<Scene> ActiveScene;
         SceneState SceneState = SceneState::Stopped;
 
         // Viewport state:
         EditorCamera EditorCamera;
         glm::vec2 ViewportWindowSize{ 1.f, 1.f };
-        glm::vec2 MousePosWithinViewport;
+        glm::vec2 MousePosWithinViewport{};
         bool IsViewportWindowOpen = true;
         bool IsViewportWindowActive = false;
 
@@ -48,6 +50,10 @@ namespace jng {
         bool IsContentBrowserWindowOpen = true;
 
         void openScene(std::filesystem::path path);
+        void saveScene(std::filesystem::path path);
+
+        void onSceneStart();
+        void onSceneStop();
     };
 
 } // namespace jng

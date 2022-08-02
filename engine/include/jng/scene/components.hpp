@@ -43,6 +43,13 @@ namespace jng {
         glm::vec3 Rotation{ 0.f, 0.f, 0.f };
         glm::vec3 Scale{ 1.f, 1.f, 1.f };
 
+        void reset()
+        {
+            Translation = { 0.f, 0.f, 0.f };
+            Rotation = { 0.f, 0.f, 0.f };
+            Scale = { 1.f, 1.f, 1.f };
+        }
+
         glm::mat4 getTransform() const
         {
             glm::mat4 rotMatrix = glm::toMat4(glm::quat(Rotation));
@@ -56,6 +63,11 @@ namespace jng {
         CameraComponent(const CameraComponent&) = default;
 
         Camera camera;
+        
+        void reset()
+        {
+            camera.reset();
+        }
     };
 
     class NativeScript;
@@ -69,6 +81,11 @@ namespace jng {
 
         NativeScript* (*createScript)() = nullptr;
         void (*destroyScript)(NativeScript*&) = nullptr;
+
+        void reset()
+        {
+            
+        }
 
         template<typename Script>
         void bind()
@@ -87,6 +104,11 @@ namespace jng {
 
         glm::vec4 Color{ 1.f, 1.f, 1.f, 1.f };
         Ref<Texture> texture;
+
+        void reset()
+        {
+            
+        }
     };
 
     struct BoxCollider2DComponent
@@ -99,7 +121,12 @@ namespace jng {
         float Friction = 0.5f;
         float Restitution = 0.0f;
         float RestitutionThreshold = 0.5f;
-        void* FixtureHandle = nullptr;
+        void* FixtureHandle = nullptr; // NOTE: used in runtime only
+
+        void reset()
+        {
+
+        }
     };
 
     struct Rigidbody2DComponent
@@ -110,7 +137,12 @@ namespace jng {
         enum class BodyType { Static = 0, Dynamic = 1, Kinematic = 2 };
 
         BodyType Type = BodyType::Static;
-        void* BodyHandle = nullptr;
+        void* BodyHandle = nullptr; // NOTE: used in runtime only
+
+        void reset()
+        {
+
+        }
     };
 
 } // namespace jng
