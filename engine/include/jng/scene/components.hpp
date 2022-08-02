@@ -28,10 +28,10 @@ namespace jng {
 
     struct TagComponent
     {
-        TagComponent(const std::string& name) : tag{ name } {};
+        TagComponent(const std::string& tag) : Tag{ tag } {};
         TagComponent(const TagComponent&) = default;
 
-        std::string tag;
+        std::string Tag;
     };
 
     struct TransformComponent
@@ -39,14 +39,14 @@ namespace jng {
         TransformComponent() = default;
         TransformComponent(const TransformComponent&) = default;
 
-        glm::vec3 translation{ 0.f, 0.f, 0.f };
-        glm::vec3 rotation{ 0.f, 0.f, 0.f };
-        glm::vec3 scale{ 1.f, 1.f, 1.f };
+        glm::vec3 Translation{ 0.f, 0.f, 0.f };
+        glm::vec3 Rotation{ 0.f, 0.f, 0.f };
+        glm::vec3 Scale{ 1.f, 1.f, 1.f };
 
         glm::mat4 getTransform() const
         {
-            glm::mat4 rotMatrix = glm::toMat4(glm::quat(rotation));
-            return glm::translate(glm::mat4{ 1.f }, translation) * rotMatrix * glm::scale(glm::mat4{ 1.f }, scale);
+            glm::mat4 rotMatrix = glm::toMat4(glm::quat(Rotation));
+            return glm::translate(glm::mat4{ 1.f }, Translation) * rotMatrix * glm::scale(glm::mat4{ 1.f }, Scale);
         }
     };
 
@@ -65,7 +65,7 @@ namespace jng {
         NativeScriptComponent() = default;
         NativeScriptComponent(const NativeScriptComponent&) = default;
 
-        NativeScript* instance = nullptr;
+        NativeScript* Instance = nullptr;
 
         NativeScript* (*createScript)() = nullptr;
         void (*destroyScript)(NativeScript*&) = nullptr;
@@ -85,7 +85,7 @@ namespace jng {
         SpriteComponent() = default;
         SpriteComponent(const SpriteComponent&) = default;
 
-        glm::vec4 color{ 1.f, 1.f, 1.f, 1.f };
+        glm::vec4 Color{ 1.f, 1.f, 1.f, 1.f };
         Ref<Texture> texture;
     };
 

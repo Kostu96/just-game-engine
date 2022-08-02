@@ -156,9 +156,9 @@ namespace jng {
                 if (transformComponent)
                 {
                     auto& tc = deserializedEntity.getComponent<TransformComponent>();
-                    tc.translation = transformComponent["Translation"].as<glm::vec3>();
-                    tc.rotation = transformComponent["Rotation"].as<glm::vec3>();
-                    tc.scale = transformComponent["Scale"].as<glm::vec3>();
+                    tc.Translation = transformComponent["Translation"].as<glm::vec3>();
+                    tc.Rotation = transformComponent["Rotation"].as<glm::vec3>();
+                    tc.Scale = transformComponent["Scale"].as<glm::vec3>();
                 }
 
                 auto cameraComponent = entity["CameraComponent"];
@@ -178,7 +178,7 @@ namespace jng {
                 if (spriteComponent)
                 {
                     auto& sc = deserializedEntity.addComponent<SpriteComponent>();
-                    sc.color = spriteComponent["Color"].as<glm::vec4>();
+                    sc.Color = spriteComponent["Color"].as<glm::vec4>();
                 }
 
                 auto boxCollider2DComponent = entity["BoxCollider2DComponent"];
@@ -214,7 +214,7 @@ namespace jng {
             yaml << YAML::BeginMap; // TagComponent
             auto& comp = entity.getComponent<TagComponent>();
 
-            yaml << YAML::Key << "Tag" << YAML::Value << comp.tag;
+            yaml << YAML::Key << "Tag" << YAML::Value << comp.Tag;
 
             yaml << YAML::EndMap; // TagComponent
         }
@@ -224,9 +224,9 @@ namespace jng {
             yaml << YAML::BeginMap; // TransformComponent
             auto& comp = entity.getComponent<TransformComponent>();
 
-            yaml << YAML::Key << "Translation" << YAML::Value << comp.translation;
-            yaml << YAML::Key << "Rotation" << YAML::Value << comp.rotation;
-            yaml << YAML::Key << "Scale" << YAML::Value << comp.scale;
+            yaml << YAML::Key << "Translation" << YAML::Value << comp.Translation;
+            yaml << YAML::Key << "Rotation" << YAML::Value << comp.Rotation;
+            yaml << YAML::Key << "Scale" << YAML::Value << comp.Scale;
 
             yaml << YAML::EndMap; // TransformComponent
         }
@@ -254,7 +254,7 @@ namespace jng {
             yaml << YAML::BeginMap; // SpriteComponent
             auto& comp = entity.getComponent<SpriteComponent>();
 
-            yaml << YAML::Key << "Color" << YAML::Value << comp.color;
+            yaml << YAML::Key << "Color" << YAML::Value << comp.Color;
 
             yaml << YAML::EndMap; // SpriteComponent
         }

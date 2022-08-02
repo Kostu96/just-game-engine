@@ -25,7 +25,7 @@ namespace jng {
             if (m_context.ActiveScene)
             {
                 m_context.ActiveScene->each([this](Entity entity) {
-                    auto& tag = entity.getComponent<TagComponent>().tag;
+                    auto& tag = entity.getComponent<TagComponent>().Tag;
 
                     ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth |
                         (m_context.SelectedEntity == entity ? ImGuiTreeNodeFlags_Selected : 0);

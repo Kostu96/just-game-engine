@@ -90,7 +90,7 @@ namespace jng {
             if (m_context.SelectedEntity)
             {
                 JNG_USER_ASSERT(m_context.SelectedEntity.hasComponent<TagComponent>(), "TagComponent is obligatory!");
-                auto& tag = m_context.SelectedEntity.getComponent<TagComponent>().tag;
+                auto& tag = m_context.SelectedEntity.getComponent<TagComponent>().Tag;
 
                 char buffer[128];
                 strcpy_s(buffer, sizeof(buffer), tag.c_str());
@@ -100,9 +100,9 @@ namespace jng {
 
                 updateComponent<TransformComponent>("Transform", m_context.SelectedEntity,
                     [](TransformComponent& tc) {
-                        ImGui::DragFloat3("Translation", glm::value_ptr(tc.translation), 0.1f, 0.f, 0.f, "%.2f");
-                        ImGui::DragFloat3("Rotation", glm::value_ptr(tc.rotation), 0.1f, 0.f, 0.f, "%.2f");
-                        ImGui::DragFloat3("Scale", glm::value_ptr(tc.scale), 0.1f, 0.f, 0.f, "%.2f");
+                        ImGui::DragFloat3("Translation", glm::value_ptr(tc.Translation), 0.1f, 0.f, 0.f, "%.2f");
+                        ImGui::DragFloat3("Rotation", glm::value_ptr(tc.Rotation), 0.1f, 0.f, 0.f, "%.2f");
+                        ImGui::DragFloat3("Scale", glm::value_ptr(tc.Scale), 0.1f, 0.f, 0.f, "%.2f");
                     }, false);
 
                 updateComponent<CameraComponent>("Camera", m_context.SelectedEntity,
@@ -156,7 +156,7 @@ namespace jng {
 
                 updateComponent<SpriteComponent>("Sprite", m_context.SelectedEntity,
                     [this](SpriteComponent& sc) {
-                        ImGui::ColorEdit4("Color", glm::value_ptr(sc.color));
+                        ImGui::ColorEdit4("Color", glm::value_ptr(sc.Color));
                         ImGui::Text("Texture");
                         ImGui::ImageButton(sc.texture ? sc.texture->getRendererID() : m_checkerboard->getRendererID(), {64.f, 64.f});
                         if (ImGui::BeginDragDropTarget())

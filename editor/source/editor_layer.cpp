@@ -55,7 +55,7 @@ namespace jng {
                     m_context.ActiveScene->setViewportSize(m_context.ViewportWindowSize.x, m_context.ViewportWindowSize.y);
             }
 
-            if (m_context.IsViewportWindowFocused)
+            if (m_context.IsViewportWindowActive)
                 m_context.EditorCamera.onUpdate();
 
             m_viewportFramebuffer->bind();
@@ -127,7 +127,7 @@ namespace jng {
                 ImGui::SetNextWindowSize({ 160 * 4.f, 90 * 4.f }); // TODO: this is temporary to prevent window being too small when app is started first time
                 ImGui::Begin("Viewport", &m_context.IsViewportWindowOpen, ImGuiWindowFlags_NoCollapse);
                 ImGui::PopStyleVar();
-                m_context.IsViewportWindowFocused = ImGui::IsWindowFocused();
+                m_context.IsViewportWindowActive = ImGui::IsWindowFocused() || ImGui::IsWindowHovered();
                 m_context.ViewportWindowSize = ImGui::GetContentRegionAvail();
                 ImGui::Image(m_viewportFramebuffer->getColorAttachmentHandle(), m_context.ViewportWindowSize);
 
@@ -164,9 +164,9 @@ namespace jng {
                     if (ImGuizmo::IsUsing())
                     {
                         glm::vec3 rotation;
-                        math::decomposeTransform(transform, tc.translation, rotation, tc.scale);
-                        glm::vec3 rotDelta = rotation - tc.rotation;
-                        tc.rotation += rotDelta;
+                        math::decomposeTransform(transform, tc.Translation, rotation, tc.Scale);
+                        glm::vec3 rotDelta = rotation - tc.Rotation;
+                        tc.Rotation += rotDelta;
                     }
                 }
 
@@ -181,7 +181,7 @@ namespace jng {
 
     void EditorLayer::onEvent(Event& event)
     {
-        if (m_context.IsViewportWindowFocused)
+        if (m_context.IsViewportWindowActive)
             m_context.EditorCamera.onEvent(event);
 
         EventDispatcher dispatcher(event);

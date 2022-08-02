@@ -35,7 +35,7 @@ namespace jng {
         EditorCamera EditorCamera;
         glm::vec2 ViewportWindowSize{ 1.f, 1.f };
         bool IsViewportWindowOpen = true;
-        bool IsViewportWindowFocused = false;
+        bool IsViewportWindowActive = false;
 
         // Scene Hierachy and Inspector state:
         Entity SelectedEntity;
