@@ -12,13 +12,44 @@ namespace jng {
 
 	void EditorContext::openScene(std::filesystem::path path)
 	{
-		JNG_USER_WARN(path.string().c_str());
-		SelectedEntity = {};
-		ActiveScene = makeRef<Scene>();
-		SceneSerializer serializer{ ActiveScene };
-		serializer.deserialize(path.string().c_str());
+		if (SceneState != SceneState::Stopped)
+			onSceneStop();
 
-		ActiveScene->setViewportSize(ViewportWindowSize.x, ViewportWindowSize.y);
+		SelectedEntity = {};
+		EditorScene = makeRef<Scene>();
+		SceneSerializer serializer{ EditorScene };
+		serializer.deserialize(path.string().c_str());
+		EditorScenePath = path;
+
+		EditorScene->setViewportSize(ViewportWindowSize.x, ViewportWindowSize.y);
+
+		ActiveScene = EditorScene;
+	}
+
+	void EditorContext::saveScene(std::filesystem::path path)
+	{
+		if (!path.empty())
+		{
+			SceneSerializer serializer{ EditorScene };
+			serializer.serialize(path.string().c_str());
+			EditorScenePath = path;
+		}
+	}
+
+	void EditorContext::onSceneStart()
+	{
+		SceneState = SceneState::Playing;
+		
+		ActiveScene = Scene::copy(EditorScene);
+		ActiveScene->onCreate();
+	}
+
+	void EditorContext::onSceneStop()
+	{
+		SceneState = SceneState::Stopped;
+
+		ActiveScene->onDestroy();
+		ActiveScene = EditorScene;
 	}
 
 } // namespace jng

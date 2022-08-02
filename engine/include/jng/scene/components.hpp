@@ -11,6 +11,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/quaternion.hpp>
 #include <string>
 #include <type_traits>
 
@@ -27,10 +28,10 @@ namespace jng {
 
     struct TagComponent
     {
-        TagComponent(const std::string& name) : tag{ name } {};
+        TagComponent(const std::string& tag) : Tag{ tag } {};
         TagComponent(const TagComponent&) = default;
 
-        std::string tag;
+        std::string Tag;
     };
 
     struct TransformComponent
@@ -38,17 +39,21 @@ namespace jng {
         TransformComponent() = default;
         TransformComponent(const TransformComponent&) = default;
 
-        glm::vec3 translation{ 0.f, 0.f, 0.f };
-        glm::vec3 rotation{ 0.f, 0.f, 0.f };
-        glm::vec3 scale{ 1.f, 1.f, 1.f };
+        glm::vec3 Translation{ 0.f, 0.f, 0.f };
+        glm::vec3 Rotation{ 0.f, 0.f, 0.f };
+        glm::vec3 Scale{ 1.f, 1.f, 1.f };
+
+        void reset()
+        {
+            Translation = { 0.f, 0.f, 0.f };
+            Rotation = { 0.f, 0.f, 0.f };
+            Scale = { 1.f, 1.f, 1.f };
+        }
 
         glm::mat4 getTransform() const
         {
-            glm::mat4 rotMatrix = glm::rotate(glm::mat4{ 1.f }, glm::radians(rotation.x), { 1.f, 0.f, 0.f }) *
-                glm::rotate(glm::mat4{ 1.f }, glm::radians(rotation.y), { 0.f, 1.f, 0.f }) *
-                glm::rotate(glm::mat4{ 1.f }, glm::radians(rotation.z), { 0.f, 0.f, 1.f });
-
-            return glm::translate(glm::mat4{ 1.f }, translation) * rotMatrix * glm::scale(glm::mat4{ 1.f }, scale);
+            glm::mat4 rotMatrix = glm::toMat4(glm::quat(Rotation));
+            return glm::translate(glm::mat4{ 1.f }, Translation) * rotMatrix * glm::scale(glm::mat4{ 1.f }, Scale);
         }
     };
 
@@ -58,6 +63,11 @@ namespace jng {
         CameraComponent(const CameraComponent&) = default;
 
         Camera camera;
+        
+        void reset()
+        {
+            camera.reset();
+        }
     };
 
     class NativeScript;
@@ -67,10 +77,15 @@ namespace jng {
         NativeScriptComponent() = default;
         NativeScriptComponent(const NativeScriptComponent&) = default;
 
-        NativeScript* instance = nullptr;
+        NativeScript* Instance = nullptr;
 
         NativeScript* (*createScript)() = nullptr;
         void (*destroyScript)(NativeScript*&) = nullptr;
+
+        void reset()
+        {
+            
+        }
 
         template<typename Script>
         void bind()
@@ -87,8 +102,13 @@ namespace jng {
         SpriteComponent() = default;
         SpriteComponent(const SpriteComponent&) = default;
 
-        glm::vec4 color{ 1.f, 1.f, 1.f, 1.f };
+        glm::vec4 Color{ 1.f, 1.f, 1.f, 1.f };
         Ref<Texture> texture;
+
+        void reset()
+        {
+            
+        }
     };
 
     struct BoxCollider2DComponent
@@ -101,7 +121,12 @@ namespace jng {
         float Friction = 0.5f;
         float Restitution = 0.0f;
         float RestitutionThreshold = 0.5f;
-        void* FixtureHandle = nullptr;
+        void* FixtureHandle = nullptr; // NOTE: used in runtime only
+
+        void reset()
+        {
+
+        }
     };
 
     struct Rigidbody2DComponent
@@ -112,7 +137,12 @@ namespace jng {
         enum class BodyType { Static = 0, Dynamic = 1, Kinematic = 2 };
 
         BodyType Type = BodyType::Static;
-        void* BodyHandle = nullptr;
+        void* BodyHandle = nullptr; // NOTE: used in runtime only
+
+        void reset()
+        {
+
+        }
     };
 
 } // namespace jng

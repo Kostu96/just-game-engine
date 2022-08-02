@@ -42,28 +42,34 @@ namespace jng {
             ImGui::PopStyleVar();
 
             bool markForDelete = false;
-            if (isRemovable)
+            std::string str_id{ label };
+            str_id += "ComponenetsSettings";
+
+            ImGui::SameLine(contentRegionAvailable.x - 14.f);
+            std::string buttonID = "...##" + str_id;
+            if (ImGui::Button(buttonID.c_str(), {26.f, 26.f}))
+                ImGui::OpenPopup(str_id.c_str());
+
+            auto& component = entity.getComponent<Component>();
+
+            if (ImGui::BeginPopup(str_id.c_str()))
             {
-                std::string str_id{ label };
-                str_id += "ComponenetsSettings";
-
-                ImGui::SameLine(contentRegionAvailable.x - 14.f);
-                std::string buttonID = "...##" + str_id;
-                if (ImGui::Button(buttonID.c_str(), {26.f, 26.f}))
-                    ImGui::OpenPopup(str_id.c_str());
-
-                if (ImGui::BeginPopup(str_id.c_str())) {
-                    if (ImGui::MenuItem("Delete")) {
-                        markForDelete = true;
-                        ImGui::CloseCurrentPopup();
-                    }
-
-                    ImGui::EndPopup();
+                if (ImGui::MenuItem("Reset"))
+                {
+                    component.reset();
                 }
+
+                if (isRemovable && ImGui::MenuItem("Delete"))
+                {
+                    markForDelete = true;
+                    ImGui::CloseCurrentPopup();
+                }
+
+                ImGui::EndPopup();
             }
 
             if (open)
-                function(entity.getComponent<Component>());
+                function(component);
 
             if (markForDelete)
                 entity.removeComponent<Component>();
@@ -90,7 +96,7 @@ namespace jng {
             if (m_context.SelectedEntity)
             {
                 JNG_USER_ASSERT(m_context.SelectedEntity.hasComponent<TagComponent>(), "TagComponent is obligatory!");
-                auto& tag = m_context.SelectedEntity.getComponent<TagComponent>().tag;
+                auto& tag = m_context.SelectedEntity.getComponent<TagComponent>().Tag;
 
                 char buffer[128];
                 strcpy_s(buffer, sizeof(buffer), tag.c_str());
@@ -100,9 +106,11 @@ namespace jng {
 
                 updateComponent<TransformComponent>("Transform", m_context.SelectedEntity,
                     [](TransformComponent& tc) {
-                        ImGui::DragFloat3("Translation", glm::value_ptr(tc.translation), 0.1f, 0.f, 0.f, "%.2f");
-                        ImGui::DragFloat3("Rotation", glm::value_ptr(tc.rotation), 0.1f, 0.f, 0.f, "%.2f");
-                        ImGui::DragFloat3("Scale", glm::value_ptr(tc.scale), 0.1f, 0.f, 0.f, "%.2f");
+                        ImGui::DragFloat3("Translation", glm::value_ptr(tc.Translation), 0.1f, 0.f, 0.f, "%.2f");
+                        glm::vec3 degreesRot = glm::degrees(tc.Rotation);
+                        ImGui::DragFloat3("Rotation", glm::value_ptr(degreesRot), 0.1f, 0.f, 0.f, "%.2f");
+                        tc.Rotation = glm::radians(degreesRot);
+                        ImGui::DragFloat3("Scale", glm::value_ptr(tc.Scale), 0.1f, 0.f, 0.f, "%.2f");
                     }, false);
 
                 updateComponent<CameraComponent>("Camera", m_context.SelectedEntity,
@@ -156,7 +164,7 @@ namespace jng {
 
                 updateComponent<SpriteComponent>("Sprite", m_context.SelectedEntity,
                     [this](SpriteComponent& sc) {
-                        ImGui::ColorEdit4("Color", glm::value_ptr(sc.color));
+                        ImGui::ColorEdit4("Color", glm::value_ptr(sc.Color));
                         ImGui::Text("Texture");
                         ImGui::ImageButton(sc.texture ? sc.texture->getRendererID() : m_checkerboard->getRendererID(), {64.f, 64.f});
                         if (ImGui::BeginDragDropTarget())

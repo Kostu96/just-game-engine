@@ -13,6 +13,7 @@
 #include "renderer/shader.hpp"
 #include "renderer/texture.hpp"
 #include "renderer/vertex_array.hpp"
+#include "scene/components.hpp"
 
 #include <array>
 #include <filesystem>
@@ -28,6 +29,7 @@ namespace jng {
         glm::vec2 texCoord;
         uint32 color;
         uint32 texIndex;
+        int32 entityID;
     };
 
     struct RenderData
@@ -74,7 +76,8 @@ namespace jng {
             { LayoutElement::DataType::Float3,  "a_Position" },
             { LayoutElement::DataType::Float2,  "a_TexCoord" },
             { LayoutElement::DataType::UInt4x8, "a_Color", true, true },
-            { LayoutElement::DataType::UInt,    "a_TexIndex", false }
+            { LayoutElement::DataType::UInt,    "a_TexIndex", false },
+            { LayoutElement::DataType::Int,    "a_EntityID", false }
         };
         s_data.quadVAO = VertexArray::create(s_data.quadVBO, vertexLayout, s_data.shader);
         
@@ -135,6 +138,30 @@ namespace jng {
         endBatch();
     }
 
+    void Renderer2D::drawSprite(const glm::mat4& transform, const SpriteComponent& spriteComponent, int32 entityID)
+    {
+        glm::vec3 quadVertexPositions[RenderData::QuadVertexCount];
+
+        for (uint32 i = 0; i < RenderData::QuadVertexCount; ++i)
+            quadVertexPositions[i] = transform * s_data.quadVertexPositions[i];
+
+        constexpr glm::vec2 texCoords[RenderData::QuadVertexCount] = {
+            { 0.f, 0.f },
+            { 1.f, 0.f },
+            { 1.f, 1.f },
+            { 0.f, 1.f }
+        };
+
+        const Properties properties{
+            quadVertexPositions,
+            texCoords,
+            spriteComponent.texture ? spriteComponent.texture : s_data.whiteTexture,
+            glm::packUnorm4x8(spriteComponent.Color),
+            entityID
+        };
+        fillQuad(properties);
+    }
+
     void Renderer2D::fillQuad(const Properties& properties)
     {
         JNG_PROFILE_FUNCTION();
@@ -165,6 +192,7 @@ namespace jng {
             s_data.quadVBOPtr->texCoord = properties.textureCoords[i];
             s_data.quadVBOPtr->color = properties.color;
             s_data.quadVBOPtr->texIndex = textureIndex;
+            s_data.quadVBOPtr->entityID = properties.entityID;
             ++s_data.quadVBOPtr;
         }
 
@@ -203,12 +231,12 @@ namespace jng {
         fillQuad(properties);
     }
 
-    void Renderer2D::fillQuad(glm::mat4 transform, const glm::vec4& color)
+    void Renderer2D::fillQuad(const glm::mat4& transform, const glm::vec4& color)
     {
         fillQuad(transform, s_data.whiteTexture, color);
     }
 
-    void Renderer2D::fillQuad(glm::mat4 transform, const Ref<Texture>& texture, const glm::vec4& color)
+    void Renderer2D::fillQuad(const glm::mat4& transform, const Ref<Texture>& texture, const glm::vec4& color)
     {
         glm::vec3 quadVertexPositions[RenderData::QuadVertexCount];
 

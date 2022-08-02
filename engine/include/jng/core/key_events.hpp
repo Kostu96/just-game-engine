@@ -6,6 +6,7 @@
 
 #pragma once
 #include "jng/core/event.hpp"
+#include "jng/platform/key_codes.hpp"
 
 namespace jng {
 
@@ -13,19 +14,19 @@ namespace jng {
         public Event
     {
     public:
-        int getKeyCode() const { return m_keyCode; }
+        Key::Code getKeyCode() const { return m_keyCode; }
     protected:
-        explicit KeyEvent(int keyCode) :
+        explicit KeyEvent(Key::Code keyCode) :
             m_keyCode(keyCode) {}
 
-        int m_keyCode;
+        Key::Code m_keyCode;
     };
 
     class KeyPressEvent :
         public KeyEvent
     {
     public:
-        KeyPressEvent(int keyCode, unsigned int repeatCount) :
+        KeyPressEvent(Key::Code keyCode, unsigned int repeatCount) :
             KeyEvent(keyCode),
             m_repeatCount(repeatCount) {}
 
@@ -40,7 +41,7 @@ namespace jng {
         public KeyEvent
     {
     public:
-        explicit KeyReleaseEvent(int keyCode) :
+        explicit KeyReleaseEvent(Key::Code keyCode) :
             KeyEvent(keyCode) {}
     
         EVENT_CLASS_TYPE(KeyRelease)

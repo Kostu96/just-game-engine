@@ -10,13 +10,13 @@
 namespace jng {
 	namespace Mouse {
 		
-		using MouseCode = uint8;
+		using Code = uint8;
 
-		constexpr MouseCode Left = 0;
-		constexpr MouseCode Right = 1;
-		constexpr MouseCode Middle = 2;
-		constexpr MouseCode X1 = 3;
-		constexpr MouseCode X2 = 4;
+		constexpr Code Left = 0;
+		constexpr Code Right = 1;
+		constexpr Code Middle = 2;
+		constexpr Code X1 = 3;
+		constexpr Code X2 = 4;
 
 	} // namespace Mouse
 } // namespace jng

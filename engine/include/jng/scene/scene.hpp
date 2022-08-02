@@ -26,8 +26,11 @@ namespace jng {
         Scene() = default;
         ~Scene();
 
+        static Ref<Scene> copy(const Ref<Scene>& other);
+
         Entity createEntity(const std::string& name);
         Entity createEntity(const std::string& name, GUID id);
+        Entity duplicateEntity(Entity other);
         void destroyEntity(Entity entity);
 
         void onCreate();

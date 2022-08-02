@@ -25,7 +25,7 @@ namespace jng {
             if (m_context.ActiveScene)
             {
                 m_context.ActiveScene->each([this](Entity entity) {
-                    auto& tag = entity.getComponent<TagComponent>().tag;
+                    auto& tag = entity.getComponent<TagComponent>().Tag;
 
                     ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth |
                         (m_context.SelectedEntity == entity ? ImGuiTreeNodeFlags_Selected : 0);
@@ -38,7 +38,13 @@ namespace jng {
 
                     if (ImGui::BeginPopupContextItem(0, ImGuiPopupFlags_MouseButtonRight))
                     {
-                        if (ImGui::MenuItem("Delete")) {
+                        if (ImGui::MenuItem("Duplicate", "Ctrl+D"))
+                        {
+                            m_context.ActiveScene->duplicateEntity(entity);
+                        }
+
+                        if (ImGui::MenuItem("Delete", "Del"))
+                        {
                             if (m_context.SelectedEntity == entity)
                                 m_context.SelectedEntity = {};
 

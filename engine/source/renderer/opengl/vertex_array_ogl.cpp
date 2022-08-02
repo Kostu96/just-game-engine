@@ -29,6 +29,11 @@ namespace jng {
             return GL_UNSIGNED_INT;
         case LayoutElement::DataType::UInt4x8:
             return GL_UNSIGNED_BYTE;
+        case LayoutElement::DataType::Int:
+        case LayoutElement::DataType::Int2:
+        case LayoutElement::DataType::Int3:
+        case LayoutElement::DataType::Int4:
+            return GL_INT;
         }
 
         JNG_CORE_ASSERT(false, "This should never be triggered!");
@@ -48,6 +53,10 @@ namespace jng {
         case LayoutElement::DataType::UInt3:    return 3;
         case LayoutElement::DataType::UInt4:    return 4;
         case LayoutElement::DataType::UInt4x8:  return 4;
+        case LayoutElement::DataType::Int:     return 1;
+        case LayoutElement::DataType::Int2:    return 2;
+        case LayoutElement::DataType::Int3:    return 3;
+        case LayoutElement::DataType::Int4:    return 4;
         }
 
         JNG_CORE_ASSERT(false, "This should never be triggered!");

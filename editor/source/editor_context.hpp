@@ -5,6 +5,8 @@
  */
 
 #pragma once
+#include "editor_camera.hpp"
+
 #include <jng/core/base.hpp>
 #include <jng/scene/entity.hpp>
 
@@ -26,13 +28,17 @@ namespace jng {
         bool IsProjectOpen = false;
         std::filesystem::path ProjectPath;
         std::filesystem::path AssetsPath;
+        std::filesystem::path EditorScenePath;
+        Ref<Scene> EditorScene;
         Ref<Scene> ActiveScene;
         SceneState SceneState = SceneState::Stopped;
 
         // Viewport state:
+        EditorCamera EditorCamera;
         glm::vec2 ViewportWindowSize{ 1.f, 1.f };
+        glm::vec2 MousePosWithinViewport{};
         bool IsViewportWindowOpen = true;
-        bool IsViewportWindowFocused = false;
+        bool IsViewportWindowActive = false;
 
         // Scene Hierachy and Inspector state:
         Entity SelectedEntity;
@@ -44,6 +50,10 @@ namespace jng {
         bool IsContentBrowserWindowOpen = true;
 
         void openScene(std::filesystem::path path);
+        void saveScene(std::filesystem::path path);
+
+        void onSceneStart();
+        void onSceneStop();
     };
 
 } // namespace jng

@@ -74,7 +74,7 @@ public:
     void onImGuiUpdate() override
     {
         ImGui::Begin("Framebuffer");
-        ImGui::Image(m_framebuffer->getColorAttachmentHandle(), { 400, 300 });
+        ImGui::Image(m_framebuffer->getColorAttachments()[0]->getRendererID(), {400, 300});
         ImGui::End();
     }
 private:

@@ -5,7 +5,6 @@
  */
 
 #pragma once
-#include "editor_camera.hpp"
 #include "editor_context.hpp"
 #include "widgets/content_browser.hpp"
 #include "widgets/inspector.hpp"
@@ -23,6 +22,8 @@
 namespace jng {
 
     class Framebuffer;
+    class KeyPressEvent;
+    class MouseButtonPressEvent;
 
     class EditorLayer :
         public Layer
@@ -40,10 +41,14 @@ namespace jng {
         void onImGuiUpdate() override;
         void onEvent(Event& event) override;
     private:
+        bool onKeyPress(KeyPressEvent& event);
+        bool onMouseButtonPress(MouseButtonPressEvent& event);
+        
         Ref<Framebuffer> m_viewportFramebuffer;
-        EditorCamera m_editorCamera;
 
         EditorContext m_context;
+        int m_gizmoType = -1;
+
         MainMenuBar m_mainMenuBar;
         InspectorWindow m_inspectorWindow;
         SceneHierarchyWindow m_sceneHierarchyWindow;

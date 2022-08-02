@@ -68,6 +68,7 @@ namespace jng {
 
                     if (ImGui::MenuItem("Scene", "Ctrl+N", nullptr, m_context.IsProjectOpen))
                     {
+                        m_context.EditorScenePath = std::filesystem::path{};
                         m_context.SelectedEntity = {};
                         m_context.ActiveScene = makeRef<Scene>();
 
@@ -105,17 +106,19 @@ namespace jng {
 
                 if (ImGui::MenuItem("Save...", "Ctrl+S", nullptr, false))
                 {
-                    
+                    if (!m_context.EditorScenePath.empty())
+                        m_context.saveScene(m_context.EditorScenePath);
+                    else
+                    {
+                        std::string path = Platform::saveFilenameDialog("JNG Scene (*.yaml;*.yml)\0*.yaml;*.yml\0\0");
+                        m_context.saveScene(path);
+                    }
                 }
 
                 if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S"))
                 {
                     std::string path = Platform::saveFilenameDialog("JNG Scene (*.yaml;*.yml)\0*.yaml;*.yml\0\0");
-                    if (!path.empty())
-                    {
-                        SceneSerializer serializer{ m_context.ActiveScene };
-                        serializer.serialize(path.c_str());
-                    }
+                    m_context.saveScene(path);
                 }
 
                 ImGui::Separator();
@@ -148,10 +151,27 @@ namespace jng {
 
             if (ImGui::BeginMenu("View"))
             {
-                ImGui::MenuItem("Inspector", nullptr, &m_context.IsInspectorWindowOpen);
-                ImGui::MenuItem("Scene Hierarchy", nullptr, &m_context.IsSceneHierarchyWindowOpen);
-                ImGui::MenuItem("Viewport", nullptr, &m_context.IsViewportWindowOpen);
-                ImGui::MenuItem("Content Browser", nullptr, &m_context.IsContentBrowserWindowOpen);
+                if (ImGui::BeginMenu("Windows"))
+                {
+                    ImGui::MenuItem("Inspector", nullptr, &m_context.IsInspectorWindowOpen);
+                    ImGui::MenuItem("Scene Hierarchy", nullptr, &m_context.IsSceneHierarchyWindowOpen);
+                    ImGui::MenuItem("Viewport", nullptr, &m_context.IsViewportWindowOpen);
+                    ImGui::MenuItem("Content Browser", nullptr, &m_context.IsContentBrowserWindowOpen);
+                
+                    ImGui::EndMenu();
+                }
+
+                ImGui::Separator();
+
+                if (ImGui::MenuItem("Reset camera"))
+                    m_context.EditorCamera.reset();
+
+                ImGui::Separator();
+
+                ImGui::MenuItem("No Gizmo", "Q", nullptr, false);
+                ImGui::MenuItem("Translate", "W", nullptr, false);
+                ImGui::MenuItem("Rotate", "E", nullptr, false);
+                ImGui::MenuItem("Scale", "R", nullptr, false);
 
                 ImGui::EndMenu();
             }

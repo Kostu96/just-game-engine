@@ -17,8 +17,17 @@ namespace jng {
 
     EditorCamera::EditorCamera()
     {
-        setProjectionType(Camera::ProjectionType::Perspective);
+        reset();
+    }
 
+    void EditorCamera::reset()
+    {
+        m_position = { 0.f, 0.f, 0.f };
+        m_focalPoint = { 0.f, 0.f, 0.f };
+        m_distance = 10.f;
+        m_pitch = m_yaw = 0.f;
+
+        setProjectionType(Camera::ProjectionType::Perspective);
         updateTransform();
     }
 
@@ -51,7 +60,7 @@ namespace jng {
     void EditorCamera::onEvent(Event& event)
     {
         EventDispatcher dispatcher(event);
-        dispatcher.dispatch<MouseScrollEvent>(JNG_BIND_EVENT_FUNC(EditorCamera::OnMouseScroll));
+        dispatcher.dispatch<MouseScrollEvent>(JNG_BIND_EVENT_FUNC(EditorCamera::onMouseScroll));
     }
 
     void EditorCamera::setViewportSize(float width, float height)
@@ -61,7 +70,7 @@ namespace jng {
         m_viewportHeight = height;
     }
 
-    bool EditorCamera::OnMouseScroll(MouseScrollEvent& event)
+    bool EditorCamera::onMouseScroll(MouseScrollEvent& event)
     {
         float delta = event.getYOffset() * 0.1f;
         m_distance -= delta * zoomSpeed();

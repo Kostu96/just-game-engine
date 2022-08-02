@@ -17,15 +17,17 @@ namespace jng {
     {
     public:
         EditorCamera();
+        void reset();
 
         void onUpdate();
         void onEvent(Event& event);
 
         void setViewportSize(float width, float height);
 
-        glm::mat4 getVP() const { return Camera::getVP(m_transform); }
+        glm::mat4 getView() const { return glm::inverse(m_transform); }
+        glm::mat4 getViewProjection() const { return Camera::getVP(m_transform); }
     private:
-        bool OnMouseScroll(MouseScrollEvent& event);
+        bool onMouseScroll(MouseScrollEvent& event);
 
         void updateTransform();
         glm::quat getOrientation() const;

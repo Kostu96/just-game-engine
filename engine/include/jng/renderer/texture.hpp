@@ -12,7 +12,8 @@ namespace jng {
     enum class TextureFormat {
         None,
 
-        RGBA8,
+        RGBA8, // normalized integer
+        R32,   // unsigned integer
 
         Depth24Stencil8
     };

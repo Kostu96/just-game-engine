@@ -18,7 +18,8 @@ namespace jng {
 	{
 		switch (format)
 		{
-		case TextureFormat::RGBA8: return GL_RGBA8;
+		case TextureFormat::RGBA8:           return GL_RGBA8;
+		case TextureFormat::R32:             return GL_R32I;
 		case TextureFormat::Depth24Stencil8: return GL_DEPTH24_STENCIL8;
 		}
 
@@ -83,6 +84,9 @@ namespace jng {
 
 		glTextureParameteri(m_id, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTextureParameteri(m_id, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTextureParameteri(m_id, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+		glTextureParameteri(m_id, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTextureParameteri(m_id, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	}
 
 } // namespace jng

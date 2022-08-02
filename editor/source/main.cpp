@@ -23,8 +23,8 @@ namespace jng {
     {
     public:
         // These are 16:9
-        static constexpr unsigned int WindowWidth = 1712;
-        static constexpr unsigned int WindowHeight = 963;
+        static constexpr unsigned int WindowWidth = 1696;
+        static constexpr unsigned int WindowHeight = 954;
 
         EditorApp() :
             Engine({
@@ -38,7 +38,7 @@ namespace jng {
             properties.width = WindowWidth;
             properties.height = WindowHeight;
 
-            ImGui::GetIO().Fonts->AddFontFromFileTTF("assets/fonts/lato.ttf", 18);
+            ImGui::GetIO().Fonts->AddFontFromFileTTF("assets/fonts/lato.ttf", 17);
 
             getLayerStack().pushLayer(new EditorLayer{ properties });
         }

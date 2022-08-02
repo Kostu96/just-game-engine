@@ -42,6 +42,7 @@ namespace jng {
         entt::entity m_handle{ entt::null };
         Scene* m_sceneRef{ nullptr };
 
+        friend class EditorLayer;
         friend class Scene;
     };
 
