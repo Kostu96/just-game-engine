@@ -83,17 +83,19 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6443d0cd472aeef8f4e948fe629f268a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d73fd4da33dfbe4f4ff385eb91d194e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_transform_component.html#a5d73fd4da33dfbe4f4ff385eb91d194e">TransformComponent</a> (const <a class="el" href="structjng_1_1_transform_component.html">TransformComponent</a> &amp;)=default</td></tr>
 <tr class="separator:a5d73fd4da33dfbe4f4ff385eb91d194e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef7a33a3f128432cc214362dfae0a5b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_transform_component.html#aef7a33a3f128432cc214362dfae0a5b7">reset</a> ()</td></tr>
+<tr class="separator:aef7a33a3f128432cc214362dfae0a5b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeafc6db73dfac1a0141422d75579223a"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_transform_component.html#aeafc6db73dfac1a0141422d75579223a">getTransform</a> () const</td></tr>
 <tr class="separator:aeafc6db73dfac1a0141422d75579223a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:adf6643b872158978bd6c7019078aeb5d"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_transform_component.html#adf6643b872158978bd6c7019078aeb5d">translation</a> { 0.f, 0.f, 0.f }</td></tr>
-<tr class="separator:adf6643b872158978bd6c7019078aeb5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f654d90b8d4dacdedcd5aaba2776af2"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_transform_component.html#a7f654d90b8d4dacdedcd5aaba2776af2">rotation</a> { 0.f, 0.f, 0.f }</td></tr>
-<tr class="separator:a7f654d90b8d4dacdedcd5aaba2776af2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71557d62c67cd6269534c78e462dcb86"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_transform_component.html#a71557d62c67cd6269534c78e462dcb86">scale</a> { 1.f, 1.f, 1.f }</td></tr>
-<tr class="separator:a71557d62c67cd6269534c78e462dcb86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d10b440c60d6d17518580f28991534f"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_transform_component.html#a0d10b440c60d6d17518580f28991534f">Translation</a> { 0.f, 0.f, 0.f }</td></tr>
+<tr class="separator:a0d10b440c60d6d17518580f28991534f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cae23e4c38e93e06021faea491a35f3"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_transform_component.html#a4cae23e4c38e93e06021faea491a35f3">Rotation</a> { 0.f, 0.f, 0.f }</td></tr>
+<tr class="separator:a4cae23e4c38e93e06021faea491a35f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11d04aefa67303d040f01d84c7c2a192"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_transform_component.html#a11d04aefa67303d040f01d84c7c2a192">Scale</a> { 1.f, 1.f, 1.f }</td></tr>
+<tr class="separator:a11d04aefa67303d040f01d84c7c2a192"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a6443d0cd472aeef8f4e948fe629f268a" name="a6443d0cd472aeef8f4e948fe629f268a"></a>
@@ -173,43 +175,68 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aef7a33a3f128432cc214362dfae0a5b7" name="aef7a33a3f128432cc214362dfae0a5b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef7a33a3f128432cc214362dfae0a5b7">&#9670;&nbsp;</a></span>reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jng::TransformComponent::reset </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a7f654d90b8d4dacdedcd5aaba2776af2" name="a7f654d90b8d4dacdedcd5aaba2776af2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f654d90b8d4dacdedcd5aaba2776af2">&#9670;&nbsp;</a></span>rotation</h2>
+<a id="a4cae23e4c38e93e06021faea491a35f3" name="a4cae23e4c38e93e06021faea491a35f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cae23e4c38e93e06021faea491a35f3">&#9670;&nbsp;</a></span>Rotation</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">glm::vec3 jng::TransformComponent::rotation { 0.f, 0.f, 0.f }</td>
+          <td class="memname">glm::vec3 jng::TransformComponent::Rotation { 0.f, 0.f, 0.f }</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a71557d62c67cd6269534c78e462dcb86" name="a71557d62c67cd6269534c78e462dcb86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71557d62c67cd6269534c78e462dcb86">&#9670;&nbsp;</a></span>scale</h2>
+<a id="a11d04aefa67303d040f01d84c7c2a192" name="a11d04aefa67303d040f01d84c7c2a192"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11d04aefa67303d040f01d84c7c2a192">&#9670;&nbsp;</a></span>Scale</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">glm::vec3 jng::TransformComponent::scale { 1.f, 1.f, 1.f }</td>
+          <td class="memname">glm::vec3 jng::TransformComponent::Scale { 1.f, 1.f, 1.f }</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="adf6643b872158978bd6c7019078aeb5d" name="adf6643b872158978bd6c7019078aeb5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf6643b872158978bd6c7019078aeb5d">&#9670;&nbsp;</a></span>translation</h2>
+<a id="a0d10b440c60d6d17518580f28991534f" name="a0d10b440c60d6d17518580f28991534f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d10b440c60d6d17518580f28991534f">&#9670;&nbsp;</a></span>Translation</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">glm::vec3 jng::TransformComponent::translation { 0.f, 0.f, 0.f }</td>
+          <td class="memname">glm::vec3 jng::TransformComponent::Translation { 0.f, 0.f, 0.f }</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -222,7 +249,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 26 2022 11:30:22 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Aug 2 2022 20:42:00 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

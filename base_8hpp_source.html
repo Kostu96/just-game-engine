@@ -96,7 +96,7 @@ $(function() {
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="namespacejng.html#a92f21d8acbde37a6866b878a9db5715c">   26</a></span>    <span class="keyword">using </span><a class="code hl_typedef" href="namespacejng.html#a92f21d8acbde37a6866b878a9db5715c">Scope</a> = std::unique_ptr&lt;T&gt;;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> <a class="code hl_variable" href="namespacejng_1_1_key.html#a0d7ad6a389444d1a8b4d5d27cb31794a">T</a>, <span class="keyword">typename</span> ... Args&gt;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> <a class="code hl_variable" href="namespacejng_1_1_key.html#a08f154320aca81a2e1121241f735c9fa">T</a>, <span class="keyword">typename</span> ... Args&gt;</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="namespacejng.html#a0c97bf03c0b6f16cdb402b8ee440a382">   28</a></span>    <span class="keyword">constexpr</span> <a class="code hl_typedef" href="namespacejng.html#a92f21d8acbde37a6866b878a9db5715c">Scope&lt;T&gt;</a> <a class="code hl_function" href="namespacejng.html#a0c97bf03c0b6f16cdb402b8ee440a382">makeScope</a>(Args&amp;&amp; ... args)</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    {</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">return</span> std::make_unique&lt;T&gt;(std::forward&lt;Args&gt;(args)...);</div>
@@ -104,7 +104,7 @@ $(function() {
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="namespacejng.html#ad7198e5df8ee2302d860ff3d5b41d355">   34</a></span>    <span class="keyword">using </span><a class="code hl_typedef" href="namespacejng.html#ad7198e5df8ee2302d860ff3d5b41d355">Ref</a> = std::shared_ptr&lt;T&gt;;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> <a class="code hl_variable" href="namespacejng_1_1_key.html#a0d7ad6a389444d1a8b4d5d27cb31794a">T</a>, <span class="keyword">typename</span> ... Args&gt;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> <a class="code hl_variable" href="namespacejng_1_1_key.html#a08f154320aca81a2e1121241f735c9fa">T</a>, <span class="keyword">typename</span> ... Args&gt;</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="namespacejng.html#a855a5235c64c8d90028fe105645e27ad">   36</a></span>    <span class="keyword">constexpr</span> <a class="code hl_typedef" href="namespacejng.html#ad7198e5df8ee2302d860ff3d5b41d355">Ref&lt;T&gt;</a> <a class="code hl_function" href="namespacejng.html#a855a5235c64c8d90028fe105645e27ad">makeRef</a>(Args&amp;&amp; ... args)</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    {</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordflow">return</span> std::make_shared&lt;T&gt;(std::forward&lt;Args&gt;(args)...);</div>
@@ -135,7 +135,7 @@ $(function() {
 <div class="ttc" id="aclassjng_1_1_non_copyable_html_abe7998c4d3c9ea79055cab363a512e5a"><div class="ttname"><a href="classjng_1_1_non_copyable.html#abe7998c4d3c9ea79055cab363a512e5a">jng::NonCopyable::NonCopyable</a></div><div class="ttdeci">NonCopyable()=default</div></div>
 <div class="ttc" id="aclassjng_1_1_non_copyable_html_af643e4cf2d4bf8d93b82df4f3afa2db1"><div class="ttname"><a href="classjng_1_1_non_copyable.html#af643e4cf2d4bf8d93b82df4f3afa2db1">jng::NonCopyable::~NonCopyable</a></div><div class="ttdeci">~NonCopyable()=default</div></div>
 <div class="ttc" id="alog_8hpp_html"><div class="ttname"><a href="log_8hpp.html">log.hpp</a></div></div>
-<div class="ttc" id="anamespacejng_1_1_key_html_a0d7ad6a389444d1a8b4d5d27cb31794a"><div class="ttname"><a href="namespacejng_1_1_key.html#a0d7ad6a389444d1a8b4d5d27cb31794a">jng::Key::T</a></div><div class="ttdeci">constexpr KeyCode T</div><div class="ttdef"><b>Definition:</b> key_codes.hpp:56</div></div>
+<div class="ttc" id="anamespacejng_1_1_key_html_a08f154320aca81a2e1121241f735c9fa"><div class="ttname"><a href="namespacejng_1_1_key.html#a08f154320aca81a2e1121241f735c9fa">jng::Key::T</a></div><div class="ttdeci">constexpr Code T</div><div class="ttdef"><b>Definition:</b> key_codes.hpp:56</div></div>
 <div class="ttc" id="anamespacejng_html"><div class="ttname"><a href="namespacejng.html">jng</a></div><div class="ttdef"><b>Definition:</b> base.hpp:13</div></div>
 <div class="ttc" id="anamespacejng_html_a0c97bf03c0b6f16cdb402b8ee440a382"><div class="ttname"><a href="namespacejng.html#a0c97bf03c0b6f16cdb402b8ee440a382">jng::makeScope</a></div><div class="ttdeci">constexpr Scope&lt; T &gt; makeScope(Args &amp;&amp;... args)</div><div class="ttdef"><b>Definition:</b> base.hpp:28</div></div>
 <div class="ttc" id="anamespacejng_html_a12ce176de3b33861d2a2f4c90385d499"><div class="ttname"><a href="namespacejng.html#a12ce176de3b33861d2a2f4c90385d499">jng::RendererBackend</a></div><div class="ttdeci">RendererBackend</div><div class="ttdef"><b>Definition:</b> base.hpp:50</div></div>
@@ -157,7 +157,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 26 2022 11:30:22 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Aug 2 2022 20:42:00 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

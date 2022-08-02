@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['t_0',['T',['../namespacejng_1_1_key.html#a0d7ad6a389444d1a8b4d5d27cb31794a',1,'jng::Key']]],
-  ['tab_1',['Tab',['../namespacejng_1_1_key.html#af2b9f259d95d232ea5b7e6be3295e348',1,'jng::Key']]],
-  ['tag_2',['tag',['../structjng_1_1_tag_component.html#afae55424e7514f5ad5b61055f036112a',1,'jng::TagComponent']]],
-  ['tagcomponent_3',['TagComponent',['../structjng_1_1_tag_component.html',1,'jng::TagComponent'],['../structjng_1_1_tag_component.html#af26cb33cfa61940a2619bda834092fdd',1,'jng::TagComponent::TagComponent(const TagComponent &amp;)=default'],['../structjng_1_1_tag_component.html#ac550660d3936a52790c24c1b4c62bf47',1,'jng::TagComponent::TagComponent(const std::string &amp;name)']]],
+  ['t_0',['T',['../namespacejng_1_1_key.html#a08f154320aca81a2e1121241f735c9fa',1,'jng::Key']]],
+  ['tab_1',['Tab',['../namespacejng_1_1_key.html#abf6c1e8fea758321de82dfff5dd74e85',1,'jng::Key']]],
+  ['tag_2',['Tag',['../structjng_1_1_tag_component.html#a542f51df9a03a25b74db5cd9773dc3f5',1,'jng::TagComponent']]],
+  ['tagcomponent_3',['TagComponent',['../structjng_1_1_tag_component.html',1,'jng::TagComponent'],['../structjng_1_1_tag_component.html#af26cb33cfa61940a2619bda834092fdd',1,'jng::TagComponent::TagComponent(const TagComponent &amp;)=default'],['../structjng_1_1_tag_component.html#a84589ec3ef5baf58dd3c162dc2238cdd',1,'jng::TagComponent::TagComponent(const std::string &amp;tag)']]],
   ['texcoord_4',['texCoord',['../structjng_1_1_quad_vertex.html#a9a58c338352dad20598ee70dd5b3e9db',1,'jng::QuadVertex']]],
   ['texindex_5',['texIndex',['../structjng_1_1_quad_vertex.html#aca77c78e74520777e8bc0fca9ff9a566',1,'jng::QuadVertex']]],
   ['texture_6',['Texture',['../classjng_1_1_texture.html',1,'jng']]],
@@ -26,6 +26,6 @@ var searchData=
   ['title_23',['title',['../structjng_1_1_window_1_1_window_data.html#af01a3e166fc67a5e9dc2ca0a43804379',1,'jng::Window::WindowData']]],
   ['to_5fstring_24',['to_string',['../classjng_1_1_event.html#a87f014489fcb726196911c57c381f4ba',1,'jng::Event']]],
   ['transformcomponent_25',['TransformComponent',['../structjng_1_1_transform_component.html',1,'jng::TransformComponent'],['../structjng_1_1_transform_component.html#a5d73fd4da33dfbe4f4ff385eb91d194e',1,'jng::TransformComponent::TransformComponent(const TransformComponent &amp;)=default'],['../structjng_1_1_transform_component.html#a6443d0cd472aeef8f4e948fe629f268a',1,'jng::TransformComponent::TransformComponent()=default']]],
-  ['translation_26',['translation',['../structjng_1_1_transform_component.html#adf6643b872158978bd6c7019078aeb5d',1,'jng::TransformComponent']]],
+  ['translation_26',['Translation',['../structjng_1_1_transform_component.html#a0d10b440c60d6d17518580f28991534f',1,'jng::TransformComponent']]],
   ['type_27',['Type',['../classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7',1,'jng::Shader::Type()'],['../structjng_1_1_layout_element.html#af18c4397ee72fc97fa25169c465d89d5',1,'jng::LayoutElement::Type()'],['../structjng_1_1_rigidbody2_d_component.html#a95fe5b22113ebd66a21758a2f0bd528f',1,'jng::Rigidbody2DComponent::Type()']]]
 ];

@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['b_0',['B',['../namespacejng_1_1_key.html#a67a4aa3b7b4400436eca210edf0260ee',1,'jng::Key']]],
-  ['backslash_1',['Backslash',['../namespacejng_1_1_key.html#ab9c2be1b4aade7aa11bd6c3bf94ff526',1,'jng::Key']]],
-  ['backspace_2',['Backspace',['../namespacejng_1_1_key.html#afa2b28b499024b56092953d9aea3de9d',1,'jng::Key']]],
+  ['b_0',['B',['../namespacejng_1_1_key.html#a3c7ca0b4c9405bdcbd86d558dbc63d1c',1,'jng::Key']]],
+  ['backslash_1',['Backslash',['../namespacejng_1_1_key.html#a79681ff33cb591962cb92598a0e374e1',1,'jng::Key']]],
+  ['backspace_2',['Backspace',['../namespacejng_1_1_key.html#a8e04f6211b85a135721b05f382dc6d73',1,'jng::Key']]],
   ['base_2ehpp_3',['base.hpp',['../base_8hpp.html',1,'']]],
   ['base_5finternal_2ehpp_4',['base_internal.hpp',['../base__internal_8hpp.html',1,'']]],
   ['begin_5',['begin',['../classjng_1_1_vertex_layout.html#a1aff10a51661760cfadb7c671d1b8b08',1,'jng::VertexLayout::begin()'],['../classjng_1_1_layer_stack.html#ad6c13dc6129365cee4c55253c111d379',1,'jng::LayerStack::begin() const'],['../classjng_1_1_layer_stack.html#af000c053862678baf59f29d535307639',1,'jng::LayerStack::begin()']]],

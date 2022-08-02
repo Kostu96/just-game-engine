@@ -69,6 +69,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="classjng_1_1_scene-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">jng::Scene Class Reference</div></div>
@@ -87,6 +88,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a0a2ee71a28456504bed83437841509e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af236550dc0fb07d26906576262e0ca52"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classjng_1_1_entity.html">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_scene.html#af236550dc0fb07d26906576262e0ca52">createEntity</a> (const std::string &amp;name, <a class="el" href="classjng_1_1_g_u_i_d.html">GUID</a> id)</td></tr>
 <tr class="separator:af236550dc0fb07d26906576262e0ca52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cbc4e7db3244a73db7e6e8daa5852d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classjng_1_1_entity.html">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_scene.html#a0cbc4e7db3244a73db7e6e8daa5852d0">duplicateEntity</a> (<a class="el" href="classjng_1_1_entity.html">Entity</a> other)</td></tr>
+<tr class="separator:a0cbc4e7db3244a73db7e6e8daa5852d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a774591255d3d171ce54abb2c61ac8928"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_scene.html#a774591255d3d171ce54abb2c61ac8928">destroyEntity</a> (<a class="el" href="classjng_1_1_entity.html">Entity</a> entity)</td></tr>
 <tr class="separator:a774591255d3d171ce54abb2c61ac8928"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa16988c805c60376487a3502db2e8fc9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_scene.html#aa16988c805c60376487a3502db2e8fc9">onCreate</a> ()</td></tr>
@@ -102,6 +105,11 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a83904914eaafe3f2084de65e6b3c071a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a291f2d7a2a0aba65e24b7a6bdfe9e5f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_scene.html#a291f2d7a2a0aba65e24b7a6bdfe9e5f7">setViewportSize</a> (float width, float height)</td></tr>
 <tr class="separator:a291f2d7a2a0aba65e24b7a6bdfe9e5f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:acbd112cb85b17d1a1077b28ecbcf4189"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespacejng.html#ad7198e5df8ee2302d860ff3d5b41d355">Ref</a>&lt; <a class="el" href="classjng_1_1_scene.html">Scene</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_scene.html#acbd112cb85b17d1a1077b28ecbcf4189">copy</a> (const <a class="el" href="namespacejng.html#ad7198e5df8ee2302d860ff3d5b41d355">Ref</a>&lt; <a class="el" href="classjng_1_1_scene.html">Scene</a> &gt; &amp;other)</td></tr>
+<tr class="separator:acbd112cb85b17d1a1077b28ecbcf4189"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -156,6 +164,32 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="acbd112cb85b17d1a1077b28ecbcf4189" name="acbd112cb85b17d1a1077b28ecbcf4189"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbd112cb85b17d1a1077b28ecbcf4189">&#9670;&nbsp;</a></span>copy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacejng.html#ad7198e5df8ee2302d860ff3d5b41d355">Ref</a>&lt; <a class="el" href="classjng_1_1_scene.html">Scene</a> &gt; jng::Scene::copy </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacejng.html#ad7198e5df8ee2302d860ff3d5b41d355">Ref</a>&lt; <a class="el" href="classjng_1_1_scene.html">Scene</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a0a2ee71a28456504bed83437841509e5" name="a0a2ee71a28456504bed83437841509e5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0a2ee71a28456504bed83437841509e5">&#9670;&nbsp;</a></span>createEntity() <span class="overload">[1/2]</span></h2>
 
@@ -213,6 +247,24 @@ Friends</h2></td></tr>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classjng_1_1_entity.html">Entity</a>&#160;</td>
           <td class="paramname"><em>entity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0cbc4e7db3244a73db7e6e8daa5852d0" name="a0cbc4e7db3244a73db7e6e8daa5852d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cbc4e7db3244a73db7e6e8daa5852d0">&#9670;&nbsp;</a></span>duplicateEntity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classjng_1_1_entity.html">Entity</a> jng::Scene::duplicateEntity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classjng_1_1_entity.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -412,7 +464,7 @@ template&lt;typename Func &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 26 2022 11:30:22 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Aug 2 2022 20:42:00 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

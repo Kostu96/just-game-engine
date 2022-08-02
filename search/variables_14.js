@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['u_0',['U',['../namespacejng_1_1_key.html#a2e6f8bc00875926ff45dad3959799f35',1,'jng::Key']]],
-  ['up_1',['Up',['../namespacejng_1_1_key.html#a436104894dca27f232a666f52a6490e3',1,'jng::Key']]]
+  ['u_0',['U',['../namespacejng_1_1_key.html#a5710ce927faaa2d9365492499430e8e4',1,'jng::Key']]],
+  ['up_1',['Up',['../namespacejng_1_1_key.html#a63e4bbc41f7e5899adc8c93c36eb35cc',1,'jng::Key']]]
 ];

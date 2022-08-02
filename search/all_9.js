@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['j_0',['J',['../namespacejng_1_1_key.html#a3a156240110e17d67f1b125d36d4abd9',1,'jng::Key']]],
+  ['j_0',['J',['../namespacejng_1_1_key.html#a5125bbddeb3c28859a2b084173d44977',1,'jng::Key']]],
   ['jng_1',['jng',['../namespacejng.html',1,'']]],
   ['jng_2ehpp_2',['jng.hpp',['../jng_8hpp.html',1,'']]],
   ['jng_5fbind_5fevent_5ffunc_3',['JNG_BIND_EVENT_FUNC',['../base_8hpp.html#a626977026d9fab91c0ef70267d4a5005',1,'base.hpp']]],
@@ -28,6 +28,7 @@ var searchData=
   ['jng_5fwnd_5flast_5ferror_25',['JNG_WND_LAST_ERROR',['../error__checks__macros__win_8hpp.html#a725f8b8de90a6bc24ee19f04c5da4322',1,'error_checks_macros_win.hpp']]],
   ['just™_20game_20engine_20_28jng_29_26',['Just™ game ENgine (JNG)',['../index.html',1,'']]],
   ['key_27',['Key',['../namespacejng_1_1_key.html',1,'jng']]],
-  ['mouse_28',['Mouse',['../namespacejng_1_1_mouse.html',1,'jng']]],
-  ['platform_29',['Platform',['../namespacejng_1_1_platform.html',1,'jng']]]
+  ['math_28',['math',['../namespacejng_1_1math.html',1,'jng']]],
+  ['mouse_29',['Mouse',['../namespacejng_1_1_mouse.html',1,'jng']]],
+  ['platform_30',['Platform',['../namespacejng_1_1_platform.html',1,'jng']]]
 ];

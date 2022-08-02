@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['scope_0',['Scope',['../namespacejng.html#a92f21d8acbde37a6866b878a9db5715c',1,'jng']]]
+  ['vkinstance_0',['VkInstance',['../graphics__context__vlk_8hpp.html#af6d7ae7e5fc71ab7c53f592c0d8391d4',1,'graphics_context_vlk.hpp']]]
 ];
