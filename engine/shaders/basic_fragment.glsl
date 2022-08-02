@@ -11,6 +11,7 @@ layout(location = 1) in vec4 v_Color;
 layout(location = 2) flat in uint v_TexIndex;
 
 layout(location = 0) out vec4 fragColor;
+layout(location = 1) out int redColor;
 
 layout(binding = 0) uniform sampler2D u_Textures[16];
 
@@ -37,4 +38,6 @@ void main()
     case 14: fragColor *= texture(u_Textures[14], v_TexCoord); break;
     case 15: fragColor *= texture(u_Textures[15], v_TexCoord); break;
     }
+
+    redColor = 0;
 }

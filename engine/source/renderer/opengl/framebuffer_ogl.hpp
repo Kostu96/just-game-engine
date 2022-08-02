@@ -19,7 +19,8 @@ namespace jng {
 		void bind() const override;
 		void unbind() const override;
 		void resize(uint32 width, uint32 height) override;
-		void* getColorAttachmentHandle() override { return m_attachments[0]->getRendererID(); }
+		uint32 readPixel(uint32 colorAttachmentIndex, uint32 x, uint32 y) const override;
+		const std::vector<Ref<Texture>>& getColorAttachments() const override { return m_attachments; }
 		const Properties& getProperties() const override { return m_properties; }
 	private:
 		void recreate();

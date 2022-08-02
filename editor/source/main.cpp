@@ -38,7 +38,7 @@ namespace jng {
             properties.width = WindowWidth;
             properties.height = WindowHeight;
 
-            ImGui::GetIO().Fonts->AddFontFromFileTTF("assets/fonts/lato.ttf", 18);
+            ImGui::GetIO().Fonts->AddFontFromFileTTF("assets/fonts/lato.ttf", 17);
 
             getLayerStack().pushLayer(new EditorLayer{ properties });
         }

@@ -27,7 +27,11 @@ namespace jng {
     EditorLayer::EditorLayer(const Properties& /*properties*/) :
         m_viewportFramebuffer{ Framebuffer::create({
             .Width = 1, .Height = 1,
-            .AttachmentsSpecifications = { jng::TextureFormat::RGBA8, jng::TextureFormat::Depth24Stencil8 }
+            .AttachmentsSpecifications = {
+                jng::TextureFormat::RGBA8,
+                jng::TextureFormat::R32,
+                jng::TextureFormat::Depth24Stencil8
+            }
         }) },
         m_mainMenuBar{ m_context },
         m_inspectorWindow{ m_context },
@@ -127,9 +131,33 @@ namespace jng {
                 ImGui::SetNextWindowSize({ 160 * 4.f, 90 * 4.f }); // TODO: this is temporary to prevent window being too small when app is started first time
                 ImGui::Begin("Viewport", &m_context.IsViewportWindowOpen, ImGuiWindowFlags_NoCollapse);
                 ImGui::PopStyleVar();
+
                 m_context.IsViewportWindowActive = ImGui::IsWindowFocused() || ImGui::IsWindowHovered();
+
+                glm::vec2 viewportOffset = ImGui::GetCursorPos();
+                glm::vec2 mousePos = ImGui::GetMousePos();
+                glm::vec2 viewportPos = ImGui::GetWindowPos();
+
                 m_context.ViewportWindowSize = ImGui::GetContentRegionAvail();
-                ImGui::Image(m_viewportFramebuffer->getColorAttachmentHandle(), m_context.ViewportWindowSize);
+                ImGui::Image(m_viewportFramebuffer->getColorAttachments()[0]->getRendererID(), m_context.ViewportWindowSize);
+
+                glm::vec2 mousePosWithinViewport = mousePos - viewportPos - viewportOffset;
+                if (mousePosWithinViewport.x > m_context.ViewportWindowSize.x)
+                    mousePosWithinViewport.x = -1.f;
+                if (mousePosWithinViewport.y > m_context.ViewportWindowSize.y)
+                    mousePosWithinViewport.y = -1.f;
+
+                if (mousePosWithinViewport.x > 0.f && mousePosWithinViewport.y > 0.f)
+                {
+                    JNG_USER_WARN("X: {} Y: {}", mousePosWithinViewport.x, mousePosWithinViewport.y);
+                    m_viewportFramebuffer->bind();
+                    uint32 pixel = m_viewportFramebuffer->readPixel(1,
+                        static_cast<uint32>(mousePosWithinViewport.x),
+                        static_cast<uint32>(mousePosWithinViewport.y)
+                    );
+                    m_viewportFramebuffer->unbind();
+                    JNG_USER_WARN("pixel: {}", pixel);
+                }
 
                 if (ImGui::BeginDragDropTarget())
                 {

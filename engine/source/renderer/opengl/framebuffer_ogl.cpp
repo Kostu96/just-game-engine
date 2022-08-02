@@ -17,6 +17,7 @@ namespace jng {
         switch (format)
         {
         case TextureFormat::RGBA8:
+        case TextureFormat::R32:
             return false;
         case TextureFormat::Depth24Stencil8:
             return true;
@@ -60,6 +61,17 @@ namespace jng {
         recreate();
     }
 
+    uint32 OpenGLFramebuffer::readPixel(uint32 colorAttachmentIndex, uint32 x, uint32 y) const
+    {
+        JNG_CORE_ASSERT(colorAttachmentIndex < m_attachments.size(), "Index out of bounds!"); // NOTE: includes depth attachment
+        glReadBuffer(GL_COLOR_ATTACHMENT0 + colorAttachmentIndex);
+
+        uint32 pixelData;
+        glReadPixels(x, y, 1, 1, GL_RED_INTEGER, GL_INT, &pixelData);
+
+        return pixelData;
+    }
+
     void OpenGLFramebuffer::recreate()
     {
         if (m_ID) {
@@ -71,18 +83,22 @@ namespace jng {
         glBindFramebuffer(GL_FRAMEBUFFER, m_ID);
 
         m_attachments.reserve(m_properties.AttachmentsSpecifications.size());
+        uint32 numColorAtachments = 0;
         for (uint32 i = 0; i < m_properties.AttachmentsSpecifications.size(); ++i)
         {
+            bool isDepth = isDepthAttachment(m_properties.AttachmentsSpecifications[i].Format);
+            if (!isDepth) numColorAtachments++;
             m_attachments.push_back(Texture::create({m_properties.AttachmentsSpecifications[i], m_properties.Width, m_properties.Height}));
-            GLenum attachmentTarget = isDepthAttachment(m_properties.AttachmentsSpecifications[i].Format) ?
-                GL_DEPTH_STENCIL_ATTACHMENT :
-                GL_COLOR_ATTACHMENT0 + i;
+            GLenum attachmentTarget =  isDepth ? GL_DEPTH_STENCIL_ATTACHMENT : GL_COLOR_ATTACHMENT0 + i;
             glFramebufferTexture2D(GL_FRAMEBUFFER, attachmentTarget, GL_TEXTURE_2D, m_attachments[i]->getID(), 0);
         }
 
         JNG_CORE_ASSERT(glCheckNamedFramebufferStatus(m_ID, GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "Framebuffer uncomplete!");
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+        GLenum buffers[4] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3 };
+        glNamedFramebufferDrawBuffers(m_ID, numColorAtachments, buffers);
     }
 
 } // namespace jng
