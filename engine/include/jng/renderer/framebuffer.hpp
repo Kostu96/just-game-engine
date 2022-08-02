@@ -26,6 +26,9 @@ namespace jng {
         virtual void unbind() const = 0;
         virtual void resize(uint32 width, uint32 height) = 0;
         virtual uint32 readPixel(uint32 colorAttachmentIndex, uint32 x, uint32 y) const = 0;
+        virtual void clearAttachment(uint32 attachmentIndex, int value) const = 0;
+        virtual void clearAttachment(uint32 attachmentIndex, float value) const = 0;
+        
         virtual const std::vector<Ref<Texture>>& getColorAttachments() const = 0;
         virtual const Properties& getProperties() const = 0;
 

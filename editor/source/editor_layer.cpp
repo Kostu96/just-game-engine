@@ -44,7 +44,7 @@ namespace jng {
 
     void EditorLayer::onUpdate(float dt)
     {
-        if (m_context.IsViewportWindowOpen)
+        if (m_context.IsViewportWindowOpen && m_context.IsProjectOpen)
         {
             if (m_context.ViewportWindowSize.x != m_viewportFramebuffer->getProperties().Width ||
                 m_context.ViewportWindowSize.y != m_viewportFramebuffer->getProperties().Height)
@@ -64,6 +64,8 @@ namespace jng {
 
             m_viewportFramebuffer->bind();
             jng::RendererAPI::clear({ 0.1f, 0.15f, 0.2f });
+            m_viewportFramebuffer->clearAttachment(1, -1);
+
             if (m_context.ActiveScene)
             {
                 switch (m_context.SceneState)
@@ -78,6 +80,18 @@ namespace jng {
                     break;
                 }
             }
+
+            if (m_context.MousePosWithinViewport.x > 0.f && m_context.MousePosWithinViewport.y > 0.f)
+            {
+                m_viewportFramebuffer->bind();
+                int pixel = m_viewportFramebuffer->readPixel(1,
+                    static_cast<uint32>(m_context.MousePosWithinViewport.x),
+                    static_cast<uint32>(m_context.MousePosWithinViewport.y)
+                );
+                m_viewportFramebuffer->unbind();
+                JNG_USER_WARN("EntityID: {}", pixel);
+            }
+
             m_viewportFramebuffer->unbind();
         }
     }
@@ -141,23 +155,11 @@ namespace jng {
                 m_context.ViewportWindowSize = ImGui::GetContentRegionAvail();
                 ImGui::Image(m_viewportFramebuffer->getColorAttachments()[0]->getRendererID(), m_context.ViewportWindowSize);
 
-                glm::vec2 mousePosWithinViewport = mousePos - viewportPos - viewportOffset;
-                if (mousePosWithinViewport.x > m_context.ViewportWindowSize.x)
-                    mousePosWithinViewport.x = -1.f;
-                if (mousePosWithinViewport.y > m_context.ViewportWindowSize.y)
-                    mousePosWithinViewport.y = -1.f;
-
-                if (mousePosWithinViewport.x > 0.f && mousePosWithinViewport.y > 0.f)
-                {
-                    JNG_USER_WARN("X: {} Y: {}", mousePosWithinViewport.x, mousePosWithinViewport.y);
-                    m_viewportFramebuffer->bind();
-                    uint32 pixel = m_viewportFramebuffer->readPixel(1,
-                        static_cast<uint32>(mousePosWithinViewport.x),
-                        static_cast<uint32>(mousePosWithinViewport.y)
-                    );
-                    m_viewportFramebuffer->unbind();
-                    JNG_USER_WARN("pixel: {}", pixel);
-                }
+                m_context.MousePosWithinViewport = mousePos - viewportPos - viewportOffset;
+                if (m_context.MousePosWithinViewport.x > m_context.ViewportWindowSize.x)
+                    m_context.MousePosWithinViewport.x = -1.f;
+                if (m_context.MousePosWithinViewport.y > m_context.ViewportWindowSize.y)
+                    m_context.MousePosWithinViewport.y = -1.f;
 
                 if (ImGui::BeginDragDropTarget())
                 {

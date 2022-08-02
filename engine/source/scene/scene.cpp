@@ -154,11 +154,7 @@ namespace jng {
         for (auto entity : group)
         {
             auto [sc, tc] = group.get<SpriteComponent, TransformComponent>(entity);
-
-            if (sc.texture)
-                Renderer2D::fillQuad(tc.getTransform(), sc.texture, sc.Color);
-            else
-                Renderer2D::fillQuad(tc.getTransform(), sc.Color);
+            Renderer2D::drawSprite(tc.getTransform(), sc, static_cast<int32>(entity));
         }
     }
 

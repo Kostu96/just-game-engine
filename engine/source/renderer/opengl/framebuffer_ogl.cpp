@@ -12,6 +12,18 @@
 
 namespace jng {
 
+    static uint32 textureFormatToGLEnum(TextureFormat format)
+    {
+        switch (format)
+        {
+        case TextureFormat::RGBA8:           return GL_RGBA8;
+        case TextureFormat::R32:             return GL_RED_INTEGER;
+        }
+
+        JNG_CORE_ASSERT(false, "This should never be triggered!");
+        return 0;
+    }
+
     static bool isDepthAttachment(TextureFormat format)
     {
         switch (format)
@@ -67,9 +79,35 @@ namespace jng {
         glReadBuffer(GL_COLOR_ATTACHMENT0 + colorAttachmentIndex);
 
         uint32 pixelData;
-        glReadPixels(x, y, 1, 1, GL_RED_INTEGER, GL_INT, &pixelData);
+        glReadPixels(x, y, 1, 1, textureFormatToGLEnum(m_attachments[colorAttachmentIndex]->getProperties().Specification.Format), GL_INT, &pixelData);
 
         return pixelData;
+    }
+
+    void OpenGLFramebuffer::clearAttachment(uint32 attachmentIndex, int value) const
+    {
+        const Ref<Texture>& attachment = m_attachments[attachmentIndex];
+        int data[]{ value };
+        glClearTexImage(
+            static_cast<GLuint>(reinterpret_cast<uint64>(attachment->getRendererID())),
+            0,
+            textureFormatToGLEnum(attachment->getProperties().Specification.Format),
+            GL_INT,
+            data
+        );
+    }
+
+    void OpenGLFramebuffer::clearAttachment(uint32 attachmentIndex, float value) const
+    {
+        const Ref<Texture>& attachment = m_attachments[attachmentIndex];
+        float data[]{ value };
+        glClearTexImage(
+            static_cast<GLuint>(reinterpret_cast<uint64>(attachment->getRendererID())),
+            1,
+            textureFormatToGLEnum(attachment->getProperties().Specification.Format),
+            GL_FLOAT,
+            data
+        );
     }
 
     void OpenGLFramebuffer::recreate()

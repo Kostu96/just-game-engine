@@ -34,6 +34,7 @@ namespace jng {
         // Viewport state:
         EditorCamera EditorCamera;
         glm::vec2 ViewportWindowSize{ 1.f, 1.f };
+        glm::vec2 MousePosWithinViewport;
         bool IsViewportWindowOpen = true;
         bool IsViewportWindowActive = false;
 

@@ -38,6 +38,10 @@ namespace jng {
         case DataType::UInt2:   return sizeof(uint32) * 2;
         case DataType::UInt3:   return sizeof(uint32) * 3;
         case DataType::UInt4:   return sizeof(uint32) * 4;
+        case DataType::Int:     return sizeof(int32);
+        case DataType::Int2:    return sizeof(int32) * 2;
+        case DataType::Int3:    return sizeof(int32) * 3;
+        case DataType::Int4:    return sizeof(int32) * 4;
         }
 
         JNG_CORE_ASSERT(false, "This should never be triggered!")

@@ -101,7 +101,9 @@ namespace jng {
                 updateComponent<TransformComponent>("Transform", m_context.SelectedEntity,
                     [](TransformComponent& tc) {
                         ImGui::DragFloat3("Translation", glm::value_ptr(tc.Translation), 0.1f, 0.f, 0.f, "%.2f");
-                        ImGui::DragFloat3("Rotation", glm::value_ptr(tc.Rotation), 0.1f, 0.f, 0.f, "%.2f");
+                        glm::vec3 degreesRot = glm::degrees(tc.Rotation);
+                        ImGui::DragFloat3("Rotation", glm::value_ptr(degreesRot), 0.1f, 0.f, 0.f, "%.2f");
+                        tc.Rotation = glm::radians(degreesRot);
                         ImGui::DragFloat3("Scale", glm::value_ptr(tc.Scale), 0.1f, 0.f, 0.f, "%.2f");
                     }, false);
 

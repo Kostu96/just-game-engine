@@ -21,6 +21,7 @@ namespace jng {
         enum class DataType
         {
             Float, Float2, Float3, Float4,
+            Int,   Int2,   Int3,   Int4,
             UInt,  UInt2,  UInt3,  UInt4,
             UInt4x8
         };
