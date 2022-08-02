@@ -13,14 +13,14 @@
 
 namespace jng {
 
-    bool Input::isKeyPressed(Key::KeyCode key)
+    bool Input::isKeyPressed(Key::Code key)
     {
         GLFWwindow* window = Engine::get().getWindow().getNativeWindowHandle();
         int state = glfwGetKey(window, static_cast<int>(key));
         return state == GLFW_PRESS || state == GLFW_REPEAT;
     }
 
-    bool Input::isMouseButtonPressed(Mouse::MouseCode button)
+    bool Input::isMouseButtonPressed(Mouse::Code button)
     {
         GLFWwindow* window = Engine::get().getWindow().getNativeWindowHandle();
         int state = glfwGetMouseButton(window, button);

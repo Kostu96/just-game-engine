@@ -36,7 +36,7 @@ GameLayer::GameLayer(const GameData& gameData) :
     camera.addComponent<jng::NativeScriptComponent>().bind<CameraController>();
 
     auto square = m_activeScene.createEntity("Square");
-    square.addComponent<jng::SpriteComponent>().color = {0.f, 1.f, 0.f, 1.f };
+    square.addComponent<jng::SpriteComponent>().Color = {0.f, 1.f, 0.f, 1.f };
 }
 
 void GameLayer::onEvent(jng::Event& /*event*/)

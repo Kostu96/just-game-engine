@@ -14,6 +14,7 @@ namespace jng {
     class VertexArray;
     class RendererAPI;
     class Texture;
+    struct SpriteComponent;
 
     class Renderer2D :
         public NonCopyable
@@ -24,7 +25,8 @@ namespace jng {
             const glm::vec3* quadVertexPositions;
             const glm::vec2* textureCoords;
             const Ref<Texture>& texture;
-            const uint32 color;
+            uint32 color;
+            int32 entityID = -1;
         };
 
         static void init();
@@ -33,11 +35,12 @@ namespace jng {
         static void beginScene(const glm::mat4& viewProjection);
         static void endScene();
 
+        static void drawSprite(const glm::mat4& transform, const SpriteComponent& spriteComponent, int32 entityID);
         static void fillQuad(const Properties& properties);
         static void fillQuad(glm::vec3 position, glm::vec2 size, const glm::vec4& color);
         static void fillQuad(glm::vec3 position, glm::vec2 size, const Ref<Texture>& texture, const glm::vec4& color = { 1.f, 1.f, 1.f, 1.f });
-        static void fillQuad(glm::mat4 transform, const glm::vec4& color);
-        static void fillQuad(glm::mat4 transform, const Ref<Texture>& texture, const glm::vec4& color = { 1.f, 1.f, 1.f, 1.f });
+        static void fillQuad(const glm::mat4& transform, const glm::vec4& color);
+        static void fillQuad(const glm::mat4& transform, const Ref<Texture>& texture, const glm::vec4& color = { 1.f, 1.f, 1.f, 1.f });
 
         struct Statistics
         {

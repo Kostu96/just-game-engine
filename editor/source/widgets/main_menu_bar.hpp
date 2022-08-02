@@ -8,16 +8,16 @@
 
 namespace jng {
 
-	struct EditorContext;
+    struct EditorContext;
 
-	class MainMenuBar
-	{
-	public:
-		MainMenuBar(EditorContext& context) : m_context{ context } {}
+    class MainMenuBar
+    {
+    public:
+        MainMenuBar(EditorContext& context) : m_context{ context } {}
 
-		void onImGuiUpdate();
-	private:
-		EditorContext& m_context;
-	};
+        void onImGuiUpdate();
+    private:
+        EditorContext& m_context;
+    };
 
 } // namespace jng

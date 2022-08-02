@@ -32,9 +32,37 @@ namespace jng {
         return static_cast<b2BodyType>(-1);
     }
 
+    template<typename Component>
+    static void copyComponentIfExists(Entity dst, Entity src)
+    {
+        if (src.hasComponent<Component>())
+            dst.addComponent<Component>() = src.getComponent<Component>();
+    }
+
     Scene::~Scene()
     {
         delete m_physics2dWorld;
+    }
+
+    Ref<Scene> Scene::copy(const Ref<Scene>& other)
+    {
+        Ref<Scene> sceneCopy = makeRef<Scene>();
+
+        other->each([&sceneCopy](Entity entity) {
+            std::string tag = entity.getComponent<TagComponent>().Tag;
+            GUID id = entity.getComponent<IDComponent>().ID;
+
+            Entity entityCopy = sceneCopy->createEntity(tag, id);
+            entityCopy.getComponent<TransformComponent>() = entity.getComponent<TransformComponent>();
+
+            copyComponentIfExists<CameraComponent>(entityCopy, entity);
+            copyComponentIfExists<NativeScriptComponent>(entityCopy, entity);
+            copyComponentIfExists<SpriteComponent>(entityCopy, entity);
+            copyComponentIfExists<BoxCollider2DComponent>(entityCopy, entity);
+            copyComponentIfExists<Rigidbody2DComponent>(entityCopy, entity);
+        });
+
+        return sceneCopy;
     }
 
     Entity Scene::createEntity(const std::string& name)
@@ -57,6 +85,21 @@ namespace jng {
         return Entity{ entity, *this };
     }
 
+    Entity Scene::duplicateEntity(Entity other)
+    {
+        std::string tag = other.getComponent<TagComponent>().Tag + " Copy";
+        Entity entityCopy = createEntity(tag);
+        entityCopy.getComponent<TransformComponent>() = other.getComponent<TransformComponent>();
+
+        copyComponentIfExists<CameraComponent>(entityCopy, other);
+        copyComponentIfExists<NativeScriptComponent>(entityCopy, other);
+        copyComponentIfExists<SpriteComponent>(entityCopy, other);
+        copyComponentIfExists<BoxCollider2DComponent>(entityCopy, other);
+        copyComponentIfExists<Rigidbody2DComponent>(entityCopy, other);
+
+        return entityCopy;
+    }
+
     void Scene::destroyEntity(Entity entity)
     {
         m_registry.destroy(entity.m_handle);
@@ -74,8 +117,8 @@ namespace jng {
 
                 b2BodyDef bodyDef{};
                 bodyDef.type = bodyTypeToBox2DBodyType(rbc.Type);
-                bodyDef.position.Set(tc.translation.x, tc.translation.y);
-                bodyDef.angle = glm::radians(tc.rotation.z);
+                bodyDef.position.Set(tc.Translation.x, tc.Translation.y);
+                bodyDef.angle = tc.Rotation.z;
                 b2Body* body = m_physics2dWorld->CreateBody(&bodyDef);
                 body->SetFixedRotation(false);
                 rbc.BodyHandle = body;
@@ -86,7 +129,7 @@ namespace jng {
                     auto& bcc = jngEntity.getComponent<BoxCollider2DComponent>();
 
                     b2PolygonShape shape{};
-                    shape.SetAsBox(bcc.Size.x * tc.scale.x, bcc.Size.y * tc.scale.y);
+                    shape.SetAsBox(bcc.Size.x * tc.Scale.x, bcc.Size.y * tc.Scale.y);
 
                     b2FixtureDef fixtureDef{};
                     fixtureDef.shape = &shape;
@@ -103,9 +146,9 @@ namespace jng {
             for (auto entity : view)
             {
                 auto& nsc = view.get<NativeScriptComponent>(entity);
-                nsc.instance = nsc.createScript();
-                nsc.instance->m_entity = Entity{ entity, *this };
-                nsc.instance->onCreate();
+                nsc.Instance = nsc.createScript();
+                nsc.Instance->m_entity = Entity{ entity, *this };
+                nsc.Instance->onCreate();
             }
         }
     }
@@ -117,8 +160,8 @@ namespace jng {
             for (auto entity : view)
             {
                 auto& nsc = view.get<NativeScriptComponent>(entity);
-                nsc.instance->onDestroy();
-                nsc.destroyScript(nsc.instance);
+                nsc.Instance->onDestroy();
+                nsc.destroyScript(nsc.Instance);
             }
         }
 
@@ -133,7 +176,7 @@ namespace jng {
             for (auto entity : view)
             {
                 auto& nsc = view.get<NativeScriptComponent>(entity);
-                nsc.instance->onEvent(event);
+                nsc.Instance->onEvent(event);
             }
         }
     }
@@ -154,11 +197,7 @@ namespace jng {
         for (auto entity : group)
         {
             auto [sc, tc] = group.get<SpriteComponent, TransformComponent>(entity);
-
-            if (sc.texture)
-                Renderer2D::fillQuad(tc.getTransform(), sc.texture, sc.color);
-            else
-                Renderer2D::fillQuad(tc.getTransform(), sc.color);
+            Renderer2D::drawSprite(tc.getTransform(), sc, static_cast<int32>(entity));
         }
     }
 
@@ -169,7 +208,7 @@ namespace jng {
             for (auto entity : view)
             {
                 auto& nsc = view.get<NativeScriptComponent>(entity);
-                nsc.instance->onUpdate(dt);
+                nsc.Instance->onUpdate(dt);
             }
         }
         {
@@ -182,9 +221,9 @@ namespace jng {
 
                 b2Body* body = reinterpret_cast<b2Body*>(rbc.BodyHandle);
                 const auto& pos = body->GetPosition();
-                tc.translation.x = pos.x;
-                tc.translation.y = pos.y;
-                tc.rotation.z = glm::degrees(body->GetAngle());
+                tc.Translation.x = pos.x;
+                tc.Translation.y = pos.y;
+                tc.Rotation.z = body->GetAngle();
             }
         }
         {

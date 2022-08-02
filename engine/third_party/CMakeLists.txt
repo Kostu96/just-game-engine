@@ -77,8 +77,6 @@ set(CMAKE_CXX_CPPCHECK "")
 set(COMPILER_FLAGS /MP /fp:fast)
 
 ### box2d: ###
-set(BOX2D_BUILD_UNIT_TESTS OFF CACHE BOOL "" FORCE)
-set(BOX2D_BUILD_TESTBED OFF CACHE BOOL "" FORCE)
 add_subdirectory(box2d)
 ##############
 
@@ -106,7 +104,7 @@ target_compile_options(glfw PRIVATE
 )
 #############
 
-### imgui: ###
+### ImGui: ###
 set(IMGUI_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/imgui/backends/imgui_impl_glfw.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/imgui/backends/imgui_impl_glfw.h

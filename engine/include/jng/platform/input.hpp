@@ -16,8 +16,8 @@ namespace jng {
     class Input
     {
     public:
-        static bool isKeyPressed(Key::KeyCode key);
-        static bool isMouseButtonPressed(Mouse::MouseCode button);
+        static bool isKeyPressed(Key::Code key);
+        static bool isMouseButtonPressed(Mouse::Code button);
         static glm::vec2 getMousePosition();
     private:
         Input() = default;

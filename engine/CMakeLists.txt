@@ -66,5 +66,4 @@ if (WIN32)
     )
 endif()
 
-message(STATUS ${JNG_ENGINE_THIRD_PARTY_LIBRARIES})
 target_link_libraries(${JNG_TARGET_NAME} PUBLIC ${JNG_ENGINE_THIRD_PARTY_LIBRARIES})
