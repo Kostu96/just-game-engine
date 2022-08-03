@@ -13,6 +13,8 @@
 #include <jng/serializers/scene_serializer.hpp>
 
 #include <imgui.h>
+#include <yaml-cpp/yaml.h>
+#include <fstream>
 
 namespace jng {
 
@@ -46,6 +48,24 @@ namespace jng {
                     m_context.ProjectPath = buffer;
                     if (!std::filesystem::exists(m_context.ProjectPath))
                         std::filesystem::create_directories(m_context.ProjectPath);
+
+                    // TODO: move from here
+                    {
+                        std::filesystem::path filename = m_context.ProjectPath / m_context.ProjectPath.filename();
+                        filename += ".jngproj.yaml";
+                        YAML::Emitter yaml;
+
+                        yaml << YAML::BeginMap;
+
+                        yaml << YAML::Key << "Project" << YAML::Value << m_context.ProjectPath.filename().string();
+
+                        yaml << YAML::EndMap;
+
+                        std::ofstream fout{ filename };
+                        fout << yaml.c_str();
+                        fout.close();
+                    }
+
                     m_context.AssetsPath = m_context.ProjectPath / "assets";
                     if (!std::filesystem::exists(m_context.AssetsPath))
                         std::filesystem::create_directories(m_context.AssetsPath);
@@ -70,7 +90,8 @@ namespace jng {
                     {
                         m_context.EditorScenePath = std::filesystem::path{};
                         m_context.SelectedEntity = {};
-                        m_context.ActiveScene = makeRef<Scene>();
+                        m_context.EditorScene = makeRef<Scene>();
+                        m_context.ActiveScene = m_context.EditorScene;
 
                         m_context.ActiveScene->setViewportSize(m_context.ViewportWindowSize.x, m_context.ViewportWindowSize.y);
                     }

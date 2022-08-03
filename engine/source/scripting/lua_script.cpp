@@ -6,8 +6,6 @@
 
 #include "scripting/lua_script.hpp"
 
-#include "utilities/file.hpp"
-
 #include <lua/lua.hpp>
 
 namespace jng {
@@ -18,13 +16,6 @@ namespace jng {
 
         luaScript->m_luaState = luaL_newstate();
         lua_State* L = luaScript->m_luaState;
-
-        std::string pathAsString = path.string();
-        size_t size;
-        readFile(pathAsString.c_str(), nullptr, size);
-        char* scriptSource = new char[size + 1];
-        readFile(pathAsString.c_str(), scriptSource, size);
-        scriptSource[size] = 0;
         
         auto logFunc = [](lua_State* L) -> int {
             const char* message = lua_tostring(L, -1);
@@ -36,10 +27,8 @@ namespace jng {
         lua_pushcfunction(L, logFunc);
         lua_setglobal(L, "log");
 
-        luaL_dostring(L, scriptSource);
+        luaL_dofile(L, path.string().c_str());
         
-        
-
         lua_getglobal(L, "test");
         
         if (lua_isfunction(L, -1))
