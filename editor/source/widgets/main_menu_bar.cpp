@@ -18,6 +18,8 @@
 
 namespace jng {
 
+    constexpr static const char* SCENE_FILE_FILTER = "JNG Scene (*.scene.yml)\0*scene.yml\0";
+
     void MainMenuBar::onImGuiUpdate()
     {
         static bool showCreateProjectPopup = false;
@@ -52,7 +54,7 @@ namespace jng {
                     // TODO: move from here
                     {
                         std::filesystem::path filename = m_context.ProjectPath / m_context.ProjectPath.filename();
-                        filename += ".jngproj.yaml";
+                        filename += ".proj.yml";
                         YAML::Emitter yaml;
 
                         yaml << YAML::BeginMap;
@@ -116,7 +118,7 @@ namespace jng {
 
                     if (ImGui::MenuItem("Scene...", "Ctrl+O", nullptr, m_context.IsProjectOpen))
                     {
-                        std::string path = Platform::openFilenameDialog("JNG Scene (*.yaml;*.yml)\0*.yaml;*.yml\0\0");
+                        std::string path = Platform::openFilenameDialog(SCENE_FILE_FILTER);
                         if (!path.empty()) m_context.openScene(path);
                     }
 
@@ -125,20 +127,20 @@ namespace jng {
                 
                 ImGui::Separator();
 
-                if (ImGui::MenuItem("Save...", "Ctrl+S", nullptr, false))
+                if (ImGui::MenuItem("Save...", "Ctrl+S"))
                 {
                     if (!m_context.EditorScenePath.empty())
                         m_context.saveScene(m_context.EditorScenePath);
                     else
                     {
-                        std::string path = Platform::saveFilenameDialog("JNG Scene (*.yaml;*.yml)\0*.yaml;*.yml\0\0");
+                        std::string path = Platform::saveFilenameDialog(SCENE_FILE_FILTER);
                         m_context.saveScene(path);
                     }
                 }
 
                 if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S"))
                 {
-                    std::string path = Platform::saveFilenameDialog("JNG Scene (*.yaml;*.yml)\0*.yaml;*.yml\0\0");
+                    std::string path = Platform::saveFilenameDialog(SCENE_FILE_FILTER);
                     m_context.saveScene(path);
                 }
 

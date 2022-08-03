@@ -162,17 +162,24 @@ namespace jng {
                         }
                     });
 
-                updateComponent<SpriteComponent>("Sprite", m_context.SelectedEntity,
-                    [this](SpriteComponent& sc) {
-                        ImGui::ColorEdit4("Color", glm::value_ptr(sc.Color));
+                updateComponent<CircleRendererComponent>("Circle Renderer", m_context.SelectedEntity,
+                    [this](CircleRendererComponent& crc) {
+                        ImGui::ColorEdit4("Color", glm::value_ptr(crc.color));
+                        ImGui::DragFloat("Thickness", &crc.thickness, 0.025f, 0.025f, 1.f);
+                        ImGui::DragFloat("Fade", &crc.fade, 0.001f, 0.001f);
+                    });
+
+                updateComponent<SpriteRendererComponent>("Sprite Renderer", m_context.SelectedEntity,
+                    [this](SpriteRendererComponent& src) {
+                        ImGui::ColorEdit4("Color", glm::value_ptr(src.Color));
                         ImGui::Text("Texture");
-                        ImGui::ImageButton(sc.texture ? sc.texture->getRendererID() : m_checkerboard->getRendererID(), {64.f, 64.f});
+                        ImGui::ImageButton(src.texture ? src.texture->getRendererID() : m_checkerboard->getRendererID(), {64.f, 64.f});
                         if (ImGui::BeginDragDropTarget())
                         {
                             if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
                             {
                                 const char* path = reinterpret_cast<const char*>(payload->Data);
-                                sc.texture = Texture::create(path);
+                                src.texture = Texture::create(path);
                             }
                             ImGui::EndDragDropTarget();
                         }
@@ -227,24 +234,35 @@ namespace jng {
                 if (ImGui::Button("Add Component"))
                     ImGui::OpenPopup("AddComponent");
 
-                if (ImGui::BeginPopup("AddComponent")) {
-                    if (!m_context.SelectedEntity.hasComponent<CameraComponent>() && ImGui::MenuItem("Camera")) {
+                if (ImGui::BeginPopup("AddComponent"))
+                {
+                    if (!m_context.SelectedEntity.hasComponent<CameraComponent>() && ImGui::MenuItem("Camera"))
+                    {
                         m_context.SelectedEntity.addComponent<CameraComponent>();
                         ImGui::CloseCurrentPopup();
                     }
-                    else if (!m_context.SelectedEntity.hasComponent<SpriteComponent>() && ImGui::MenuItem("Sprite")) {
-                        m_context.SelectedEntity.addComponent<SpriteComponent>();
+                    else if (!m_context.SelectedEntity.hasComponent<CircleRendererComponent>() && ImGui::MenuItem("Circle Renderer"))
+                    {
+                        m_context.SelectedEntity.addComponent<CircleRendererComponent>();
                         ImGui::CloseCurrentPopup();
                     }
-                    else if (!m_context.SelectedEntity.hasComponent<BoxCollider2DComponent>() && ImGui::MenuItem("Box Collider 2D")) {
+                    else if (!m_context.SelectedEntity.hasComponent<SpriteRendererComponent>() && ImGui::MenuItem("Sprite Renderer"))
+                    {
+                        m_context.SelectedEntity.addComponent<SpriteRendererComponent>();
+                        ImGui::CloseCurrentPopup();
+                    }
+                    else if (!m_context.SelectedEntity.hasComponent<BoxCollider2DComponent>() && ImGui::MenuItem("Box Collider 2D"))
+                    {
                         m_context.SelectedEntity.addComponent<BoxCollider2DComponent>();
                         ImGui::CloseCurrentPopup();
                     }
-                    else if (!m_context.SelectedEntity.hasComponent<Rigidbody2DComponent>() && ImGui::MenuItem("Rigidbody 2D")) {
+                    else if (!m_context.SelectedEntity.hasComponent<Rigidbody2DComponent>() && ImGui::MenuItem("Rigidbody 2D"))
+                    {
                         m_context.SelectedEntity.addComponent<Rigidbody2DComponent>();
                         ImGui::CloseCurrentPopup();
                     }
-                    else if (!m_context.SelectedEntity.hasComponent<LuaScriptComponent>() && ImGui::MenuItem("Lua Script")) {
+                    else if (!m_context.SelectedEntity.hasComponent<LuaScriptComponent>() && ImGui::MenuItem("Lua Script"))
+                    {
                         m_context.SelectedEntity.addComponent<LuaScriptComponent>();
                         ImGui::CloseCurrentPopup();
                     }

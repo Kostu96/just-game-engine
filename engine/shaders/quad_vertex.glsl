@@ -28,5 +28,6 @@ void main()
     v_Color = a_Color;
     v_TexIndex = a_TexIndex;
     v_EntityID = a_EntityID;
+
     gl_Position = u_VP * vec4(a_Position, 1.0);
 }

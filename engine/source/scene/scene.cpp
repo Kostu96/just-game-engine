@@ -39,6 +39,16 @@ namespace jng {
             dst.addComponent<Component>() = src.getComponent<Component>();
     }
 
+    static void copyOptionalComponents(Entity dst, Entity src)
+    {
+        copyComponentIfExists<CameraComponent>(dst, src);
+        copyComponentIfExists<CircleRendererComponent>(dst, src);
+        copyComponentIfExists<SpriteRendererComponent>(dst, src);
+        copyComponentIfExists<BoxCollider2DComponent>(dst, src);
+        copyComponentIfExists<Rigidbody2DComponent>(dst, src);
+        copyComponentIfExists<LuaScriptComponent>(dst, src);
+    }
+
     Scene::~Scene()
     {
         delete m_physics2dWorld;
@@ -54,12 +64,7 @@ namespace jng {
 
             Entity entityCopy = sceneCopy->createEntity(tag, id);
             entityCopy.getComponent<TransformComponent>() = entity.getComponent<TransformComponent>();
-
-            copyComponentIfExists<CameraComponent>(entityCopy, entity);
-            copyComponentIfExists<SpriteComponent>(entityCopy, entity);
-            copyComponentIfExists<BoxCollider2DComponent>(entityCopy, entity);
-            copyComponentIfExists<Rigidbody2DComponent>(entityCopy, entity);
-            copyComponentIfExists<LuaScriptComponent>(entityCopy, entity);
+            copyOptionalComponents(entityCopy, entity);
         });
 
         return sceneCopy;
@@ -90,12 +95,7 @@ namespace jng {
         std::string tag = other.getComponent<TagComponent>().Tag + " Copy";
         Entity entityCopy = createEntity(tag);
         entityCopy.getComponent<TransformComponent>() = other.getComponent<TransformComponent>();
-
-        copyComponentIfExists<CameraComponent>(entityCopy, other);
-        copyComponentIfExists<SpriteComponent>(entityCopy, other);
-        copyComponentIfExists<BoxCollider2DComponent>(entityCopy, other);
-        copyComponentIfExists<Rigidbody2DComponent>(entityCopy, other);
-        copyComponentIfExists<LuaScriptComponent>(entityCopy, other);
+        copyOptionalComponents(entityCopy, other);
 
         return entityCopy;
     }
@@ -189,13 +189,20 @@ namespace jng {
         }
     }
 
-    void Scene::drawSprites()
+    void Scene::drawRenderables()
     {
-        auto group = m_registry.group<SpriteComponent>(entt::get<TransformComponent>);
-        for (auto entity : group)
+        auto spriteGroup = m_registry.group<SpriteRendererComponent>(entt::get<TransformComponent>);
+        for (auto entity : spriteGroup)
         {
-            auto [sc, tc] = group.get<SpriteComponent, TransformComponent>(entity);
-            Renderer2D::drawSprite(tc.getTransform(), sc, static_cast<int32>(entity));
+            auto [src, tc] = spriteGroup.get<SpriteRendererComponent, TransformComponent>(entity);
+            Renderer2D::drawSprite(tc.getTransform(), src, static_cast<int32>(entity));
+        }
+
+        auto circleGroup = m_registry.group<CircleRendererComponent>(entt::get<TransformComponent>);
+        for (auto entity : circleGroup)
+        {
+            auto [crc, tc] = circleGroup.get<CircleRendererComponent, TransformComponent>(entity);
+            Renderer2D::drawCircle(tc.getTransform(), crc, static_cast<int32>(entity));
         }
     }
 
@@ -234,7 +241,7 @@ namespace jng {
             auto [cc, tc] = group.get<CameraComponent, TransformComponent>(*group.begin());
             Renderer2D::beginScene(cc.camera.getVP(tc.getTransform()));
         }
-        drawSprites();
+        drawRenderables();
         Renderer2D::endScene();
     }
 

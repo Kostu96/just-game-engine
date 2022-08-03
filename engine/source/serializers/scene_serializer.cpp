@@ -174,10 +174,10 @@ namespace jng {
                     cc.camera.setPerspectiveFar(cameraComponent["PerspectiveFar"].as<float>());
                 }
 
-                auto spriteComponent = entity["SpriteComponent"];
+                auto spriteComponent = entity["SpriteRendererComponent"];
                 if (spriteComponent)
                 {
-                    auto& sc = deserializedEntity.addComponent<SpriteComponent>();
+                    auto& sc = deserializedEntity.addComponent<SpriteRendererComponent>();
                     sc.Color = spriteComponent["Color"].as<glm::vec4>();
                 }
 
@@ -248,11 +248,11 @@ namespace jng {
             yaml << YAML::EndMap; // CameraComponent
         }
 
-        if (entity.hasComponent<SpriteComponent>())
+        if (entity.hasComponent<SpriteRendererComponent>())
         {
-            yaml << YAML::Key << "SpriteComponent" << YAML::Value;
+            yaml << YAML::Key << "SpriteRendererComponent" << YAML::Value;
             yaml << YAML::BeginMap; // SpriteComponent
-            auto& comp = entity.getComponent<SpriteComponent>();
+            auto& comp = entity.getComponent<SpriteRendererComponent>();
 
             yaml << YAML::Key << "Color" << YAML::Value << comp.Color;
 

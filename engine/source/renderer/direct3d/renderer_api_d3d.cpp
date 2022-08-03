@@ -46,11 +46,6 @@ namespace jng {
         JNG_D3D_CHECK();
     }
 
-    void Direct3DRendererAPI::drawIndexed(const Ref<VertexArray>& vao) const
-    {
-        drawIndexed(vao->getIndexBuffer()->getCount());
-    }
-
     void Direct3DRendererAPI::drawIndexed(uint32 count) const
     {
         const auto* graphicsContext = reinterpret_cast<const Direct3DGraphicsContext*>(Engine::get().getWindow().getGraphicsContext());

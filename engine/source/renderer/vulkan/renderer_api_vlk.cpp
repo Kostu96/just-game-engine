@@ -25,11 +25,6 @@ namespace jng {
     {
     }
 
-    void VulkanRendererAPI::drawIndexed(const Ref<VertexArray>& /*vao*/) const
-    {
-        
-    }
-
     void VulkanRendererAPI::drawIndexed(uint32 /*count*/) const
     {
         

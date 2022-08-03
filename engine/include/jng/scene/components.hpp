@@ -71,17 +71,35 @@ namespace jng {
         }
     };
 
-    struct SpriteComponent
+    struct CircleRendererComponent
     {
-        SpriteComponent() = default;
-        SpriteComponent(const SpriteComponent&) = default;
+        CircleRendererComponent() = default;
+        CircleRendererComponent(const CircleRendererComponent&) = default;
+
+        glm::vec4 color{ 1.f, 1.f, 1.f, 1.f };
+        float thickness = 0.5f;
+        float fade = 0.001f;
+
+        void reset()
+        {
+            color = { 1.f, 1.f, 1.f, 1.f };
+            thickness = 1.f;
+            fade = 0.001f;
+        }
+    };
+
+    struct SpriteRendererComponent
+    {
+        SpriteRendererComponent() = default;
+        SpriteRendererComponent(const SpriteRendererComponent&) = default;
 
         glm::vec4 Color{ 1.f, 1.f, 1.f, 1.f };
         Ref<Texture> texture;
 
         void reset()
         {
-            
+            Color = { 1.f, 1.f, 1.f, 1.f };
+            texture = {};
         }
     };
 

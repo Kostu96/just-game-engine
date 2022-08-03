@@ -21,7 +21,6 @@ namespace jng {
         virtual ~VertexBuffer() = default;
     };
 
-    // TODO: support for less than 32bit ibos
     class IndexBuffer
     {
     public:

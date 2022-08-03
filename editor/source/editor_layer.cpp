@@ -73,7 +73,7 @@ namespace jng {
                 {
                 case SceneState::Stopped:
                     jng::Renderer2D::beginScene(m_context.EditorCamera.getViewProjection());
-                    m_context.ActiveScene->drawSprites();
+                    m_context.ActiveScene->drawRenderables();
                     jng::Renderer2D::endScene();
                     break;
                 case SceneState::Playing:

@@ -89,7 +89,7 @@ public:
         m_model = glm::rotate(m_model, dt, glm::vec3{ 1.f, 0.7f, 0.f });
         m_modelUBO->setData(glm::value_ptr(m_model), sizeof(glm::mat4), 0);
 
-        jng::RendererAPI::drawIndexed(m_VAO);
+        jng::RendererAPI::drawIndexed(m_VAO->getIndexBuffer()->getCount());
     }
 
     void onEvent(jng::Event& event) override
