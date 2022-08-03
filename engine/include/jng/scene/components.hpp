@@ -12,6 +12,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/quaternion.hpp>
+#include <filesystem>
 #include <string>
 #include <type_traits>
 
@@ -70,33 +71,6 @@ namespace jng {
         }
     };
 
-    class NativeScript;
-
-    struct NativeScriptComponent
-    {
-        NativeScriptComponent() = default;
-        NativeScriptComponent(const NativeScriptComponent&) = default;
-
-        NativeScript* Instance = nullptr;
-
-        NativeScript* (*createScript)() = nullptr;
-        void (*destroyScript)(NativeScript*&) = nullptr;
-
-        void reset()
-        {
-            
-        }
-
-        template<typename Script>
-        void bind()
-        {
-            static_assert(std::is_base_of_v<NativeScript, Script>);
-
-            createScript = []() -> NativeScript* { return new Script{}; };
-            destroyScript = [](NativeScript*& instance) { delete instance; instance = nullptr; };
-        }
-    };
-
     struct SpriteComponent
     {
         SpriteComponent() = default;
@@ -123,10 +97,7 @@ namespace jng {
         float RestitutionThreshold = 0.5f;
         void* FixtureHandle = nullptr; // NOTE: used in runtime only
 
-        void reset()
-        {
-
-        }
+        void reset() {}
     };
 
     struct Rigidbody2DComponent
@@ -139,10 +110,22 @@ namespace jng {
         BodyType Type = BodyType::Static;
         void* BodyHandle = nullptr; // NOTE: used in runtime only
 
-        void reset()
-        {
+        void reset() {}
+    };
 
-        }
+    class LuaScript;
+
+    struct LuaScriptComponent
+    {
+        LuaScriptComponent() = default;
+        LuaScriptComponent(const LuaScriptComponent&) = default;
+
+        std::filesystem::path path;
+
+        // TODO: scope or ref pointer here
+        LuaScript* instance = nullptr; // NOTE: used in runtime only
+
+        void reset() {}
     };
 
 } // namespace jng

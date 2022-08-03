@@ -10,7 +10,7 @@
 #include "renderer/renderer2d.hpp"
 #include "scene/components.hpp"
 #include "scene/entity.hpp"
-#include "scripting/native_script.hpp"
+#include "scripting/lua_script.hpp"
 
 #include <box2d/b2_body.h>
 #include <box2d/b2_fixture.h>
@@ -56,10 +56,10 @@ namespace jng {
             entityCopy.getComponent<TransformComponent>() = entity.getComponent<TransformComponent>();
 
             copyComponentIfExists<CameraComponent>(entityCopy, entity);
-            copyComponentIfExists<NativeScriptComponent>(entityCopy, entity);
             copyComponentIfExists<SpriteComponent>(entityCopy, entity);
             copyComponentIfExists<BoxCollider2DComponent>(entityCopy, entity);
             copyComponentIfExists<Rigidbody2DComponent>(entityCopy, entity);
+            copyComponentIfExists<LuaScriptComponent>(entityCopy, entity);
         });
 
         return sceneCopy;
@@ -92,10 +92,10 @@ namespace jng {
         entityCopy.getComponent<TransformComponent>() = other.getComponent<TransformComponent>();
 
         copyComponentIfExists<CameraComponent>(entityCopy, other);
-        copyComponentIfExists<NativeScriptComponent>(entityCopy, other);
         copyComponentIfExists<SpriteComponent>(entityCopy, other);
         copyComponentIfExists<BoxCollider2DComponent>(entityCopy, other);
         copyComponentIfExists<Rigidbody2DComponent>(entityCopy, other);
+        copyComponentIfExists<LuaScriptComponent>(entityCopy, other);
 
         return entityCopy;
     }
@@ -142,13 +142,12 @@ namespace jng {
             }
         }
         {
-            auto view = m_registry.view<NativeScriptComponent>();
+            auto view = m_registry.view<LuaScriptComponent>();
             for (auto entity : view)
             {
-                auto& nsc = view.get<NativeScriptComponent>(entity);
-                nsc.Instance = nsc.createScript();
-                nsc.Instance->m_entity = Entity{ entity, *this };
-                nsc.Instance->onCreate();
+                auto& lsc = view.get<LuaScriptComponent>(entity);
+                lsc.instance = LuaScript::create(lsc.path);
+                lsc.instance->m_entity = Entity{ entity, *this };
             }
         }
     }
@@ -156,12 +155,11 @@ namespace jng {
     void Scene::onDestroy()
     {
         {
-            auto view = m_registry.view<NativeScriptComponent>();
+            auto view = m_registry.view<LuaScriptComponent>();
             for (auto entity : view)
             {
-                auto& nsc = view.get<NativeScriptComponent>(entity);
-                nsc.Instance->onDestroy();
-                nsc.destroyScript(nsc.Instance);
+                auto& lsc = view.get<LuaScriptComponent>(entity);
+                LuaScript::destroy(lsc.instance);
             }
         }
 
@@ -169,16 +167,16 @@ namespace jng {
         m_physics2dWorld = nullptr;
     }
 
-    void Scene::onEvent(Event& event)
+    void Scene::onEvent(Event& /*event*/)
     {
-        {
+        /*{
             auto view = m_registry.view<NativeScriptComponent>();
             for (auto entity : view)
             {
                 auto& nsc = view.get<NativeScriptComponent>(entity);
                 nsc.Instance->onEvent(event);
             }
-        }
+        }*/
     }
 
     void Scene::setViewportSize(float width, float height)
@@ -203,14 +201,14 @@ namespace jng {
 
     void Scene::onUpdate(float dt)
     {
-        {
+        /*{
             auto view = m_registry.view<NativeScriptComponent>();
             for (auto entity : view)
             {
                 auto& nsc = view.get<NativeScriptComponent>(entity);
                 nsc.Instance->onUpdate(dt);
             }
-        }
+        }*/
         {
             m_physics2dWorld->Step(dt, PHYSICS_VEL_ITERATIONS, PHYSICS_POS_ITERATIONS);
 
