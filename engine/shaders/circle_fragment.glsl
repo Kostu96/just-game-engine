@@ -20,11 +20,14 @@ layout(binding = 0) uniform sampler2D u_Textures[16];
 void main()
 {
     float radius = 1.0 - length(v_LocalPosition);
-    float circleAlpha = smoothstep(0.0, v_Fade, radius);
-    circleAlpha *= smoothstep(v_Thickness + v_Fade, v_Thickness, radius);
+    float alpha = smoothstep(0.0, v_Fade, radius);
+    alpha *= smoothstep(v_Thickness + v_Fade, v_Thickness, radius);
+
+    if (alpha == 0.0)
+        discard;
 
     o_fragColor = v_Color;
-    o_fragColor.a *= circleAlpha;
+    o_fragColor.a *= alpha;
 
     o_entityID = v_EntityID;
 }

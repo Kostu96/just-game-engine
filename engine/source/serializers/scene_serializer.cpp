@@ -174,11 +174,20 @@ namespace jng {
                     cc.camera.setPerspectiveFar(cameraComponent["PerspectiveFar"].as<float>());
                 }
 
-                auto spriteComponent = entity["SpriteRendererComponent"];
-                if (spriteComponent)
+                auto circleRendererComponent = entity["CircleRendererComponent"];
+                if (circleRendererComponent)
                 {
-                    auto& sc = deserializedEntity.addComponent<SpriteRendererComponent>();
-                    sc.Color = spriteComponent["Color"].as<glm::vec4>();
+                    auto& crc = deserializedEntity.addComponent<CircleRendererComponent>();
+                    crc.color = circleRendererComponent["Color"].as<glm::vec4>();
+                    crc.thickness = circleRendererComponent["Thickness"].as<float>();
+                    crc.fade = circleRendererComponent["Fade"].as<float>();
+                }
+
+                auto spriteRendererComponent = entity["SpriteRendererComponent"];
+                if (spriteRendererComponent)
+                {
+                    auto& src = deserializedEntity.addComponent<SpriteRendererComponent>();
+                    src.Color = spriteRendererComponent["Color"].as<glm::vec4>();
                 }
 
                 auto boxCollider2DComponent = entity["BoxCollider2DComponent"];
@@ -248,15 +257,28 @@ namespace jng {
             yaml << YAML::EndMap; // CameraComponent
         }
 
+        if (entity.hasComponent<CircleRendererComponent>())
+        {
+            yaml << YAML::Key << "CircleRendererComponent" << YAML::Value;
+            yaml << YAML::BeginMap; // CircleRendererComponent
+            auto& comp = entity.getComponent<CircleRendererComponent>();
+
+            yaml << YAML::Key << "Color" << YAML::Value << comp.color;
+            yaml << YAML::Key << "Thickness" << YAML::Value << comp.thickness;
+            yaml << YAML::Key << "Fade" << YAML::Value << comp.fade;
+
+            yaml << YAML::EndMap; // CircleRendererComponent
+        }
+
         if (entity.hasComponent<SpriteRendererComponent>())
         {
             yaml << YAML::Key << "SpriteRendererComponent" << YAML::Value;
-            yaml << YAML::BeginMap; // SpriteComponent
+            yaml << YAML::BeginMap; // SpriteRendererComponent
             auto& comp = entity.getComponent<SpriteRendererComponent>();
 
             yaml << YAML::Key << "Color" << YAML::Value << comp.Color;
 
-            yaml << YAML::EndMap; // SpriteComponent
+            yaml << YAML::EndMap; // SpriteRendererComponent
         }
 
         if (entity.hasComponent<BoxCollider2DComponent>())
