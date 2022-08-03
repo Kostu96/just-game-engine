@@ -213,6 +213,15 @@ namespace jng {
                         strcpy_s(buffer, sizeof(buffer), lsc.path.string().c_str());
                         if (ImGui::InputText("Script Path", buffer, sizeof(buffer)))
                             lsc.path = buffer;
+
+                        if (ImGui::BeginDragDropTarget())
+                        {
+                            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+                            {
+                                lsc.path = reinterpret_cast<const char*>(payload->Data);
+                            }
+                            ImGui::EndDragDropTarget();
+                        }
                     });
 
                 if (ImGui::Button("Add Component"))
@@ -235,7 +244,7 @@ namespace jng {
                         m_context.SelectedEntity.addComponent<Rigidbody2DComponent>();
                         ImGui::CloseCurrentPopup();
                     }
-                    else if (!m_context.SelectedEntity.hasComponent<LuaScriptComponent>() && ImGui::MenuItem("Native Script")) {
+                    else if (!m_context.SelectedEntity.hasComponent<LuaScriptComponent>() && ImGui::MenuItem("Lua Script")) {
                         m_context.SelectedEntity.addComponent<LuaScriptComponent>();
                         ImGui::CloseCurrentPopup();
                     }

@@ -1,6 +1,5 @@
-
 function test()
 
-print("Hello Lua!\n")
+    log("Hello Lua!")
 
 end
