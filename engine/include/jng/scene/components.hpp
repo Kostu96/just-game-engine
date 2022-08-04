@@ -77,7 +77,7 @@ namespace jng {
         CircleRendererComponent(const CircleRendererComponent&) = default;
 
         glm::vec4 color{ 1.f, 1.f, 1.f, 1.f };
-        float thickness = 0.5f;
+        float thickness = 1.f;
         float fade = 0.001f;
 
         void reset()
@@ -113,9 +113,17 @@ namespace jng {
         float Friction = 0.5f;
         float Restitution = 0.0f;
         float RestitutionThreshold = 0.5f;
+
         void* FixtureHandle = nullptr; // NOTE: used in runtime only
 
-        void reset() {}
+        void reset()
+        {
+            Size = { 0.5f, 0.5f };
+            Density = 1.f;
+            Friction = 0.5f;
+            Restitution = 0.0f;
+            RestitutionThreshold = 0.5f;
+        }
     };
 
     struct CircleCollider2DComponent
@@ -129,9 +137,18 @@ namespace jng {
         float Friction = 0.5f;
         float Restitution = 0.0f;
         float RestitutionThreshold = 0.5f;
+
         void* FixtureHandle = nullptr; // NOTE: used in runtime only
 
-        void reset() {}
+        void reset()
+        {
+            radius = 0.5f;
+            offset = { 0.f, 0.f };
+            Density = 1.f;
+            Friction = 0.5f;
+            Restitution = 0.0f;
+            RestitutionThreshold = 0.5f;
+        }
     };
 
     struct Rigidbody2DComponent
@@ -142,9 +159,13 @@ namespace jng {
         enum class BodyType { Static = 0, Dynamic = 1, Kinematic = 2 };
 
         BodyType Type = BodyType::Static;
+
         void* BodyHandle = nullptr; // NOTE: used in runtime only
 
-        void reset() {}
+        void reset()
+        {
+            Type = BodyType::Static;
+        }
     };
 
     class LuaScript;
@@ -155,11 +176,13 @@ namespace jng {
         LuaScriptComponent(const LuaScriptComponent&) = default;
 
         std::filesystem::path path;
+        Ref<LuaScript> instance;
 
-        // TODO: scope or ref pointer here
-        LuaScript* instance = nullptr; // NOTE: used in runtime only
-
-        void reset() {}
+        void reset()
+        {
+            path = std::filesystem::path{};
+            instance = {};
+        }
     };
 
 } // namespace jng

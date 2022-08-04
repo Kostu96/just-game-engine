@@ -8,6 +8,7 @@
 
 #include "scene/components.hpp"
 #include "scene/entity.hpp"
+#include "scripting/lua_script.hpp"
 
 #include <yaml-cpp/yaml.h>
 #include <fstream>
@@ -240,6 +241,7 @@ namespace jng {
                 {
                     auto& comp = deserializedEntity.addComponent<LuaScriptComponent>();
                     comp.path = luaScriptComponent["Path"].as<std::string>();
+                    comp.instance = LuaScript::create(comp.path);
                 }
 #pragma endregion
             }

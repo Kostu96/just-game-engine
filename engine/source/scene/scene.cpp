@@ -162,25 +162,25 @@ namespace jng {
             }
         }
         {
-            auto view = m_registry.view<LuaScriptComponent>();
-            for (auto entity : view)
-            {
-                auto& lsc = view.get<LuaScriptComponent>(entity);
-                lsc.instance = LuaScript::create(lsc.path);
-                lsc.instance->m_entity = Entity{ entity, *this };
-            }
+            //auto view = m_registry.view<LuaScriptComponent>();
+            //for (auto entity : view)
+            //{
+            //    //auto& lsc = view.get<LuaScriptComponent>(entity);
+            //    //lsc.instance = LuaScript::create(lsc.path, lsc.name.c_str());
+            //    //lsc.instance->m_entity = Entity{ entity, *this };
+            //}
         }
     }
 
     void Scene::onDestroy()
     {
         {
-            auto view = m_registry.view<LuaScriptComponent>();
-            for (auto entity : view)
-            {
-                auto& lsc = view.get<LuaScriptComponent>(entity);
-                LuaScript::destroy(lsc.instance);
-            }
+            //auto view = m_registry.view<LuaScriptComponent>();
+            //for (auto entity : view)
+            //{
+            //    //auto& lsc = view.get<LuaScriptComponent>(entity);
+            //    //LuaScript::destroy(lsc.instance);
+            //}
         }
 
         delete m_physics2dWorld;

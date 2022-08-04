@@ -19,15 +19,12 @@ namespace jng {
     class LuaScript
     {
     public:
-        LuaScript() = default;
+        explicit LuaScript(std::filesystem::path path);
+        ~LuaScript();
 
-        static LuaScript* create(std::filesystem::path path);
-        static void destroy(LuaScript* instance);
+        const std::string& getName() const { return m_name; }
 
-        //virtual void onCreate() {}
-        //virtual void onDestroy() {}
-        //virtual void onUpdate(float /*dt*/) {}
-        //virtual void onEvent(Event& /*event*/) {}
+        static Ref<LuaScript> create(std::filesystem::path path);
     protected:
         template<typename T>
         T& getComponent() { return m_entity.getComponent<T>(); }
@@ -35,6 +32,7 @@ namespace jng {
         Entity createEntity(const std::string& name) { return m_entity.getScene()->createEntity(name); }
         void destroyEntity(Entity entity) { return m_entity.getScene()->destroyEntity(entity); }
     private:
+        std::string m_name;
         lua_State* m_luaState = nullptr;
         Entity m_entity;
 
