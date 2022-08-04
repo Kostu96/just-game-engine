@@ -194,6 +194,16 @@ namespace jng {
                         ImGui::DragFloat("RestitutionThreshold", &bcc.RestitutionThreshold, 0.1f, 0.f);
                     });
 
+                updateComponent<CircleCollider2DComponent>("Circle Collider 2D", m_context.SelectedEntity,
+                    [](CircleCollider2DComponent& ccc) {
+                        ImGui::DragFloat("Radius", &ccc.radius);
+                        ImGui::DragFloat2("Offset", glm::value_ptr(ccc.offset));
+                        ImGui::DragFloat("Density", &ccc.Density);
+                        ImGui::DragFloat("Friction", &ccc.Friction, 0.05f, 0.f, 1.f);
+                        ImGui::DragFloat("Restitution", &ccc.Restitution, 0.05f, 0.f, 1.f);
+                        ImGui::DragFloat("RestitutionThreshold", &ccc.RestitutionThreshold, 0.1f, 0.f);
+                    });
+
                 updateComponent<Rigidbody2DComponent>("Rigidbody 2D", m_context.SelectedEntity,
                     [](Rigidbody2DComponent& rbc) {
                         const char* bodyTypeStrs[] = { "Static", "Dynamic", "Kinematic" };
@@ -254,6 +264,11 @@ namespace jng {
                     else if (!m_context.SelectedEntity.hasComponent<BoxCollider2DComponent>() && ImGui::MenuItem("Box Collider 2D"))
                     {
                         m_context.SelectedEntity.addComponent<BoxCollider2DComponent>();
+                        ImGui::CloseCurrentPopup();
+                    }
+                    else if (!m_context.SelectedEntity.hasComponent<CircleCollider2DComponent>() && ImGui::MenuItem("Circle Collider 2D"))
+                    {
+                        m_context.SelectedEntity.addComponent<CircleCollider2DComponent>();
                         ImGui::CloseCurrentPopup();
                     }
                     else if (!m_context.SelectedEntity.hasComponent<Rigidbody2DComponent>() && ImGui::MenuItem("Rigidbody 2D"))

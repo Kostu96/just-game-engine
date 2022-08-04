@@ -201,6 +201,18 @@ namespace jng {
                     comp.RestitutionThreshold = boxCollider2DComponent["RestitutionThreshold"].as<float>();
                 }
 
+                auto circleCollider2DComponent = entity["CircleCollider2DComponent"];
+                if (circleCollider2DComponent)
+                {
+                    auto& comp = deserializedEntity.addComponent<CircleCollider2DComponent>();
+                    comp.radius = circleCollider2DComponent["Radius"].as<float>();
+                    comp.offset = circleCollider2DComponent["Offset"].as<glm::vec2>();
+                    comp.Density = circleCollider2DComponent["Density"].as<float>();
+                    comp.Friction = circleCollider2DComponent["Friction"].as<float>();
+                    comp.Restitution = circleCollider2DComponent["Restitution"].as<float>();
+                    comp.RestitutionThreshold = circleCollider2DComponent["RestitutionThreshold"].as<float>();
+                }
+
                 auto rigidbody2DComponent = entity["Rigidbody2DComponent"];
                 if (rigidbody2DComponent)
                 {
@@ -294,6 +306,22 @@ namespace jng {
             yaml << YAML::Key << "RestitutionThreshold" << YAML::Value << comp.RestitutionThreshold;
 
             yaml << YAML::EndMap; // BoxCollider2DComponent
+        }
+
+        if (entity.hasComponent<CircleCollider2DComponent>())
+        {
+            yaml << YAML::Key << "CircleCollider2DComponent" << YAML::Value;
+            yaml << YAML::BeginMap; // CircleCollider2DComponent
+            auto& comp = entity.getComponent<CircleCollider2DComponent>();
+
+            yaml << YAML::Key << "Radius" << YAML::Value << comp.radius;
+            yaml << YAML::Key << "Offset" << YAML::Value << comp.offset;
+            yaml << YAML::Key << "Density" << YAML::Value << comp.Density;
+            yaml << YAML::Key << "Friction" << YAML::Value << comp.Friction;
+            yaml << YAML::Key << "Restitution" << YAML::Value << comp.Restitution;
+            yaml << YAML::Key << "RestitutionThreshold" << YAML::Value << comp.RestitutionThreshold;
+
+            yaml << YAML::EndMap; // CircleCollider2DComponent
         }
 
         if (entity.hasComponent<Rigidbody2DComponent>())

@@ -118,6 +118,22 @@ namespace jng {
         void reset() {}
     };
 
+    struct CircleCollider2DComponent
+    {
+        CircleCollider2DComponent() = default;
+        CircleCollider2DComponent(const CircleCollider2DComponent&) = default;
+
+        float radius = 0.5f;
+        glm::vec2 offset{ 0.f, 0.f };
+        float Density = 1.f;
+        float Friction = 0.5f;
+        float Restitution = 0.0f;
+        float RestitutionThreshold = 0.5f;
+        void* FixtureHandle = nullptr; // NOTE: used in runtime only
+
+        void reset() {}
+    };
+
     struct Rigidbody2DComponent
     {
         Rigidbody2DComponent() = default;

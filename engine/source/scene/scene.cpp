@@ -15,6 +15,7 @@
 #include <box2d/b2_body.h>
 #include <box2d/b2_fixture.h>
 #include <box2d/b2_polygon_shape.h>
+#include <box2d/b2_circle_shape.h>
 #include <box2d/b2_world.h>
 
 namespace jng {
@@ -45,6 +46,7 @@ namespace jng {
         copyComponentIfExists<CircleRendererComponent>(dst, src);
         copyComponentIfExists<SpriteRendererComponent>(dst, src);
         copyComponentIfExists<BoxCollider2DComponent>(dst, src);
+        copyComponentIfExists<CircleCollider2DComponent>(dst, src);
         copyComponentIfExists<Rigidbody2DComponent>(dst, src);
         copyComponentIfExists<LuaScriptComponent>(dst, src);
     }
@@ -124,6 +126,7 @@ namespace jng {
                 rbc.BodyHandle = body;
 
                 Entity jngEntity{ entity, *this };
+
                 if (jngEntity.hasComponent<BoxCollider2DComponent>())
                 {
                     auto& bcc = jngEntity.getComponent<BoxCollider2DComponent>();
@@ -138,6 +141,23 @@ namespace jng {
                     fixtureDef.restitution = bcc.Restitution;
                     fixtureDef.restitutionThreshold = bcc.RestitutionThreshold;
                     bcc.FixtureHandle = body->CreateFixture(&fixtureDef);
+                }
+
+                if (jngEntity.hasComponent<CircleCollider2DComponent>())
+                {
+                    auto& ccc = jngEntity.getComponent<CircleCollider2DComponent>();
+
+                    b2CircleShape shape{};
+                    shape.m_p.Set(ccc.offset.x, ccc.offset.y);
+                    shape.m_radius = ccc.radius * std::max(tc.Scale.x, tc.Scale.y);
+
+                    b2FixtureDef fixtureDef{};
+                    fixtureDef.shape = &shape;
+                    fixtureDef.density = ccc.Density;
+                    fixtureDef.friction = ccc.Friction;
+                    fixtureDef.restitution = ccc.Restitution;
+                    fixtureDef.restitutionThreshold = ccc.RestitutionThreshold;
+                    ccc.FixtureHandle = body->CreateFixture(&fixtureDef);
                 }
             }
         }
@@ -203,7 +223,6 @@ namespace jng {
         {
             auto [crc, tc] = circleGroup.get<CircleRendererComponent, TransformComponent>(entity);
             Renderer2D::drawCircle(tc.getTransform(), crc, static_cast<int32>(entity));
-            Renderer2D::drawRect(tc.getTransform(), { 0.25f, 1.f, 0.f, 1.f });
         }
 
     }
