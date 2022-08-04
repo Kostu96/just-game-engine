@@ -38,6 +38,7 @@ namespace jng {
         m_inspectorWindow{ m_context },
         m_sceneHierarchyWindow{ m_context },
         m_contentBrowserWindow{ m_context },
+        m_statisticsWindow{ m_context },
         m_playIcon{ Texture::create("assets/textures/play_icon.png") },
         m_stopIcon{ Texture::create("assets/textures/stop_icon.png") }
     {
@@ -217,6 +218,7 @@ namespace jng {
             m_inspectorWindow.onImGuiUpdate();
             m_sceneHierarchyWindow.onImGuiUpdate();
             m_contentBrowserWindow.onImGuiUpdate();
+            m_statisticsWindow.onImGuiUpdate();
         }
     }
 

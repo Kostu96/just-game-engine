@@ -49,6 +49,9 @@ namespace jng {
         std::filesystem::path BrowsedPath;
         bool IsContentBrowserWindowOpen = true;
 
+        // Statistics state:
+        bool isStatisticsWindowOpen = true;
+
         void openScene(std::filesystem::path path);
         void saveScene(std::filesystem::path path);
 

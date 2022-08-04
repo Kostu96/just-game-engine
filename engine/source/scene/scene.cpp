@@ -224,7 +224,6 @@ namespace jng {
             auto [crc, tc] = circleGroup.get<CircleRendererComponent, TransformComponent>(entity);
             Renderer2D::drawCircle(tc.getTransform(), crc, static_cast<int32>(entity));
         }
-
     }
 
     void Scene::onUpdate(float dt)

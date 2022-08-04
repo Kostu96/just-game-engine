@@ -173,6 +173,7 @@ namespace jng {
                     [this](SpriteRendererComponent& src) {
                         ImGui::ColorEdit4("Color", glm::value_ptr(src.Color));
                         ImGui::Text("Texture");
+                        ImGui::SameLine();
                         ImGui::ImageButton(src.texture ? src.texture->getRendererID() : m_checkerboard->getRendererID(), {64.f, 64.f});
                         if (ImGui::BeginDragDropTarget())
                         {
