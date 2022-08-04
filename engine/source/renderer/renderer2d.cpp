@@ -278,6 +278,28 @@ namespace jng {
         drawCircle(properties);
     }
 
+    void Renderer2D::drawCircle(const glm::mat4& transform, const glm::vec4& color, float thickness, float fade)
+    {
+        glm::vec3 circleVertexPositions[RenderData::QuadAndCircleVertexCount];
+        glm::vec2 circleVertexLocalPositions[RenderData::QuadAndCircleVertexCount];
+
+        for (uint32 i = 0; i < RenderData::QuadAndCircleVertexCount; ++i)
+        {
+            circleVertexPositions[i] = transform * s_data.quadAndCircleVertexPositions[i];
+            circleVertexLocalPositions[i] = s_data.quadAndCircleVertexPositions[i] * 2.f;
+        }
+
+        const DrawCircleProperties properties{
+            circleVertexPositions,
+            circleVertexLocalPositions,
+            thickness,
+            fade,
+            glm::packUnorm4x8(color),
+            -1
+        };
+        drawCircle(properties);
+    }
+
     void Renderer2D::drawQuad(const DrawQuadProperties& properties)
     {
         JNG_PROFILE_FUNCTION();

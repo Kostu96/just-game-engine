@@ -72,10 +72,37 @@ namespace jng {
                 switch (m_context.SceneState)
                 {
                 case SceneState::Stopped:
+                {
                     jng::Renderer2D::beginScene(m_context.EditorCamera.getViewProjection());
                     m_context.ActiveScene->drawRenderables();
+
+                    // Draw colliders
+                    auto& registry = m_context.ActiveScene->m_registry;
+                    {
+                        auto group = registry.group<BoxCollider2DComponent>(entt::get<TransformComponent>);
+                        for (auto entity : group)
+                        {
+                            auto [bcc, tc] = group.get<BoxCollider2DComponent, TransformComponent>(entity);
+                            glm::vec3 translation = tc.Translation;
+                            glm::vec3 scale = tc.Scale;
+                            glm::mat4 transform = glm::translate(glm::mat4{ 1.f }, translation) * glm::scale(glm::mat4{ 1.f }, scale);
+                            Renderer2D::drawRect(transform, { 0.25f, 1.f, 0.f, 1.f });
+                        }
+                    }
+                    {
+                        auto group = registry.group<CircleCollider2DComponent>(entt::get<TransformComponent>);
+                        for (auto entity : group)
+                        {
+                            auto [ccc, tc] = group.get<CircleCollider2DComponent, TransformComponent>(entity);
+                            glm::vec3 translation = tc.Translation + glm::vec3{ ccc.offset, 0.001f };
+                            glm::vec3 scale = tc.Scale * ccc.radius * 2.f;
+                            glm::mat4 transform = glm::translate(glm::mat4{ 1.f }, translation) * glm::scale(glm::mat4{ 1.f }, scale);
+                            Renderer2D::drawCircle(transform, { 0.25f, 1.f, 0.f, 1.f }, 0.05f);
+                        }
+                    }
+
                     jng::Renderer2D::endScene();
-                    break;
+                }   break;
                 case SceneState::Playing:
                     m_context.ActiveScene->onUpdate(dt);
                     break;

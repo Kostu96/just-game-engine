@@ -146,6 +146,9 @@ namespace jng {
         glCullFace(GL_FRONT);
 
         glClipControl(GL_LOWER_LEFT, GL_ZERO_TO_ONE);
+
+        // TODO: temporary:
+        glLineWidth(3.f);
     }
 
     OpenGLGraphicsContext::~OpenGLGraphicsContext()
