@@ -81,9 +81,9 @@ add_subdirectory(box2d)
 ##############
 
 ### dxerr: ###
-if (WIN32)
-    add_subdirectory(dxerr)
-endif()
+#if (WIN32)
+#    add_subdirectory(dxerr)
+#endif()
 ##############
 
 ### glad: ###
@@ -185,11 +185,11 @@ set(JNG_ENGINE_THIRD_PARTY_LIBRARIES
     yaml-cpp
 )
 
-if (WIN32)
-    list(APPEND JNG_ENGINE_THIRD_PARTY_LIBRARIES
-        dxerr
-    )
-endif()
+#if (WIN32)
+#    list(APPEND JNG_ENGINE_THIRD_PARTY_LIBRARIES
+#        dxerr
+#    )
+#endif()
 
 set_target_properties(
     ${JNG_ENGINE_THIRD_PARTY_LIBRARIES}

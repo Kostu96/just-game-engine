@@ -10,11 +10,13 @@
 
 #include "debug/log.hpp"
 
+#if 0
 #include <d3d11.h>
 #include <dxerr.h>
 #include <dxgidebug.h>
 
 #pragma comment(lib, "dxguid.lib")
+#endif
 
 namespace jng {
 
@@ -34,6 +36,7 @@ namespace jng {
         LocalFree(message);
     }
 
+#if 0
     void gfx_check_error(HRESULT hr, const char* file, int line)
     {
         char description[512];
@@ -96,6 +99,7 @@ namespace jng {
     }
 
     DXGIInfoManager DXGIInfoManager::s_instance;
+#endif
 
 } // namespace jng
 
