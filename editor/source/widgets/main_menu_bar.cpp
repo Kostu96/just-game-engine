@@ -13,8 +13,12 @@
 #include <jng/serializers/scene_serializer.hpp>
 
 #include <imgui.h>
+#include <yaml-cpp/yaml.h>
+#include <fstream>
 
 namespace jng {
+
+    constexpr static const char* SCENE_FILE_FILTER = "JNG Scene (*.scene.yml)\0*scene.yml\0";
 
     void MainMenuBar::onImGuiUpdate()
     {
@@ -46,6 +50,24 @@ namespace jng {
                     m_context.ProjectPath = buffer;
                     if (!std::filesystem::exists(m_context.ProjectPath))
                         std::filesystem::create_directories(m_context.ProjectPath);
+
+                    // TODO: move from here
+                    {
+                        std::filesystem::path filename = m_context.ProjectPath / m_context.ProjectPath.filename();
+                        filename += ".proj.yml";
+                        YAML::Emitter yaml;
+
+                        yaml << YAML::BeginMap;
+
+                        yaml << YAML::Key << "Project" << YAML::Value << m_context.ProjectPath.filename().string();
+
+                        yaml << YAML::EndMap;
+
+                        std::ofstream fout{ filename };
+                        fout << yaml.c_str();
+                        fout.close();
+                    }
+
                     m_context.AssetsPath = m_context.ProjectPath / "assets";
                     if (!std::filesystem::exists(m_context.AssetsPath))
                         std::filesystem::create_directories(m_context.AssetsPath);
@@ -70,7 +92,8 @@ namespace jng {
                     {
                         m_context.EditorScenePath = std::filesystem::path{};
                         m_context.SelectedEntity = {};
-                        m_context.ActiveScene = makeRef<Scene>();
+                        m_context.EditorScene = makeRef<Scene>();
+                        m_context.ActiveScene = m_context.EditorScene;
 
                         m_context.ActiveScene->setViewportSize(m_context.ViewportWindowSize.x, m_context.ViewportWindowSize.y);
                     }
@@ -95,7 +118,7 @@ namespace jng {
 
                     if (ImGui::MenuItem("Scene...", "Ctrl+O", nullptr, m_context.IsProjectOpen))
                     {
-                        std::string path = Platform::openFilenameDialog("JNG Scene (*.yaml;*.yml)\0*.yaml;*.yml\0\0");
+                        std::string path = Platform::openFilenameDialog(SCENE_FILE_FILTER);
                         if (!path.empty()) m_context.openScene(path);
                     }
 
@@ -104,20 +127,20 @@ namespace jng {
                 
                 ImGui::Separator();
 
-                if (ImGui::MenuItem("Save...", "Ctrl+S", nullptr, false))
+                if (ImGui::MenuItem("Save...", "Ctrl+S"))
                 {
                     if (!m_context.EditorScenePath.empty())
                         m_context.saveScene(m_context.EditorScenePath);
                     else
                     {
-                        std::string path = Platform::saveFilenameDialog("JNG Scene (*.yaml;*.yml)\0*.yaml;*.yml\0\0");
+                        std::string path = Platform::saveFilenameDialog(SCENE_FILE_FILTER);
                         m_context.saveScene(path);
                     }
                 }
 
                 if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S"))
                 {
-                    std::string path = Platform::saveFilenameDialog("JNG Scene (*.yaml;*.yml)\0*.yaml;*.yml\0\0");
+                    std::string path = Platform::saveFilenameDialog(SCENE_FILE_FILTER);
                     m_context.saveScene(path);
                 }
 

@@ -10,11 +10,12 @@
 #include "renderer/renderer2d.hpp"
 #include "scene/components.hpp"
 #include "scene/entity.hpp"
-#include "scripting/native_script.hpp"
+#include "scripting/lua_script.hpp"
 
 #include <box2d/b2_body.h>
 #include <box2d/b2_fixture.h>
 #include <box2d/b2_polygon_shape.h>
+#include <box2d/b2_circle_shape.h>
 #include <box2d/b2_world.h>
 
 namespace jng {
@@ -39,6 +40,17 @@ namespace jng {
             dst.addComponent<Component>() = src.getComponent<Component>();
     }
 
+    static void copyOptionalComponents(Entity dst, Entity src)
+    {
+        copyComponentIfExists<CameraComponent>(dst, src);
+        copyComponentIfExists<CircleRendererComponent>(dst, src);
+        copyComponentIfExists<SpriteRendererComponent>(dst, src);
+        copyComponentIfExists<BoxCollider2DComponent>(dst, src);
+        copyComponentIfExists<CircleCollider2DComponent>(dst, src);
+        copyComponentIfExists<Rigidbody2DComponent>(dst, src);
+        copyComponentIfExists<LuaScriptComponent>(dst, src);
+    }
+
     Scene::~Scene()
     {
         delete m_physics2dWorld;
@@ -54,12 +66,7 @@ namespace jng {
 
             Entity entityCopy = sceneCopy->createEntity(tag, id);
             entityCopy.getComponent<TransformComponent>() = entity.getComponent<TransformComponent>();
-
-            copyComponentIfExists<CameraComponent>(entityCopy, entity);
-            copyComponentIfExists<NativeScriptComponent>(entityCopy, entity);
-            copyComponentIfExists<SpriteComponent>(entityCopy, entity);
-            copyComponentIfExists<BoxCollider2DComponent>(entityCopy, entity);
-            copyComponentIfExists<Rigidbody2DComponent>(entityCopy, entity);
+            copyOptionalComponents(entityCopy, entity);
         });
 
         return sceneCopy;
@@ -90,12 +97,7 @@ namespace jng {
         std::string tag = other.getComponent<TagComponent>().Tag + " Copy";
         Entity entityCopy = createEntity(tag);
         entityCopy.getComponent<TransformComponent>() = other.getComponent<TransformComponent>();
-
-        copyComponentIfExists<CameraComponent>(entityCopy, other);
-        copyComponentIfExists<NativeScriptComponent>(entityCopy, other);
-        copyComponentIfExists<SpriteComponent>(entityCopy, other);
-        copyComponentIfExists<BoxCollider2DComponent>(entityCopy, other);
-        copyComponentIfExists<Rigidbody2DComponent>(entityCopy, other);
+        copyOptionalComponents(entityCopy, other);
 
         return entityCopy;
     }
@@ -124,6 +126,7 @@ namespace jng {
                 rbc.BodyHandle = body;
 
                 Entity jngEntity{ entity, *this };
+
                 if (jngEntity.hasComponent<BoxCollider2DComponent>())
                 {
                     auto& bcc = jngEntity.getComponent<BoxCollider2DComponent>();
@@ -139,16 +142,32 @@ namespace jng {
                     fixtureDef.restitutionThreshold = bcc.RestitutionThreshold;
                     bcc.FixtureHandle = body->CreateFixture(&fixtureDef);
                 }
+
+                if (jngEntity.hasComponent<CircleCollider2DComponent>())
+                {
+                    auto& ccc = jngEntity.getComponent<CircleCollider2DComponent>();
+
+                    b2CircleShape shape{};
+                    shape.m_p.Set(ccc.offset.x, ccc.offset.y);
+                    shape.m_radius = ccc.radius * std::max(tc.Scale.x, tc.Scale.y);
+
+                    b2FixtureDef fixtureDef{};
+                    fixtureDef.shape = &shape;
+                    fixtureDef.density = ccc.Density;
+                    fixtureDef.friction = ccc.Friction;
+                    fixtureDef.restitution = ccc.Restitution;
+                    fixtureDef.restitutionThreshold = ccc.RestitutionThreshold;
+                    ccc.FixtureHandle = body->CreateFixture(&fixtureDef);
+                }
             }
         }
         {
-            auto view = m_registry.view<NativeScriptComponent>();
+            auto view = m_registry.view<LuaScriptComponent>();
             for (auto entity : view)
             {
-                auto& nsc = view.get<NativeScriptComponent>(entity);
-                nsc.Instance = nsc.createScript();
-                nsc.Instance->m_entity = Entity{ entity, *this };
-                nsc.Instance->onCreate();
+                auto& lsc = view.get<LuaScriptComponent>(entity);
+                lsc.instance = LuaScript::create(lsc.path);
+                lsc.instance->m_entity = Entity{ entity, *this };
             }
         }
     }
@@ -156,12 +175,11 @@ namespace jng {
     void Scene::onDestroy()
     {
         {
-            auto view = m_registry.view<NativeScriptComponent>();
+            auto view = m_registry.view<LuaScriptComponent>();
             for (auto entity : view)
             {
-                auto& nsc = view.get<NativeScriptComponent>(entity);
-                nsc.Instance->onDestroy();
-                nsc.destroyScript(nsc.Instance);
+                auto& lsc = view.get<LuaScriptComponent>(entity);
+                LuaScript::destroy(lsc.instance);
             }
         }
 
@@ -169,16 +187,16 @@ namespace jng {
         m_physics2dWorld = nullptr;
     }
 
-    void Scene::onEvent(Event& event)
+    void Scene::onEvent(Event& /*event*/)
     {
-        {
+        /*{
             auto view = m_registry.view<NativeScriptComponent>();
             for (auto entity : view)
             {
                 auto& nsc = view.get<NativeScriptComponent>(entity);
                 nsc.Instance->onEvent(event);
             }
-        }
+        }*/
     }
 
     void Scene::setViewportSize(float width, float height)
@@ -191,26 +209,33 @@ namespace jng {
         }
     }
 
-    void Scene::drawSprites()
+    void Scene::drawRenderables()
     {
-        auto group = m_registry.group<SpriteComponent>(entt::get<TransformComponent>);
-        for (auto entity : group)
+        auto spriteGroup = m_registry.group<SpriteRendererComponent>(entt::get<TransformComponent>);
+        for (auto entity : spriteGroup)
         {
-            auto [sc, tc] = group.get<SpriteComponent, TransformComponent>(entity);
-            Renderer2D::drawSprite(tc.getTransform(), sc, static_cast<int32>(entity));
+            auto [src, tc] = spriteGroup.get<SpriteRendererComponent, TransformComponent>(entity);
+            Renderer2D::drawSprite(tc.getTransform(), src, static_cast<int32>(entity));
+        }
+
+        auto circleGroup = m_registry.group<CircleRendererComponent>(entt::get<TransformComponent>);
+        for (auto entity : circleGroup)
+        {
+            auto [crc, tc] = circleGroup.get<CircleRendererComponent, TransformComponent>(entity);
+            Renderer2D::drawCircle(tc.getTransform(), crc, static_cast<int32>(entity));
         }
     }
 
     void Scene::onUpdate(float dt)
     {
-        {
+        /*{
             auto view = m_registry.view<NativeScriptComponent>();
             for (auto entity : view)
             {
                 auto& nsc = view.get<NativeScriptComponent>(entity);
                 nsc.Instance->onUpdate(dt);
             }
-        }
+        }*/
         {
             m_physics2dWorld->Step(dt, PHYSICS_VEL_ITERATIONS, PHYSICS_POS_ITERATIONS);
 
@@ -236,7 +261,7 @@ namespace jng {
             auto [cc, tc] = group.get<CameraComponent, TransformComponent>(*group.begin());
             Renderer2D::beginScene(cc.camera.getVP(tc.getTransform()));
         }
-        drawSprites();
+        drawRenderables();
         Renderer2D::endScene();
     }
 

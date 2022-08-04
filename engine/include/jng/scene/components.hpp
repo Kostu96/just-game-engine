@@ -12,6 +12,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/quaternion.hpp>
+#include <filesystem>
 #include <string>
 #include <type_traits>
 
@@ -70,44 +71,35 @@ namespace jng {
         }
     };
 
-    class NativeScript;
-
-    struct NativeScriptComponent
+    struct CircleRendererComponent
     {
-        NativeScriptComponent() = default;
-        NativeScriptComponent(const NativeScriptComponent&) = default;
+        CircleRendererComponent() = default;
+        CircleRendererComponent(const CircleRendererComponent&) = default;
 
-        NativeScript* Instance = nullptr;
-
-        NativeScript* (*createScript)() = nullptr;
-        void (*destroyScript)(NativeScript*&) = nullptr;
+        glm::vec4 color{ 1.f, 1.f, 1.f, 1.f };
+        float thickness = 0.5f;
+        float fade = 0.001f;
 
         void reset()
         {
-            
-        }
-
-        template<typename Script>
-        void bind()
-        {
-            static_assert(std::is_base_of_v<NativeScript, Script>);
-
-            createScript = []() -> NativeScript* { return new Script{}; };
-            destroyScript = [](NativeScript*& instance) { delete instance; instance = nullptr; };
+            color = { 1.f, 1.f, 1.f, 1.f };
+            thickness = 1.f;
+            fade = 0.001f;
         }
     };
 
-    struct SpriteComponent
+    struct SpriteRendererComponent
     {
-        SpriteComponent() = default;
-        SpriteComponent(const SpriteComponent&) = default;
+        SpriteRendererComponent() = default;
+        SpriteRendererComponent(const SpriteRendererComponent&) = default;
 
         glm::vec4 Color{ 1.f, 1.f, 1.f, 1.f };
         Ref<Texture> texture;
 
         void reset()
         {
-            
+            Color = { 1.f, 1.f, 1.f, 1.f };
+            texture = {};
         }
     };
 
@@ -123,10 +115,23 @@ namespace jng {
         float RestitutionThreshold = 0.5f;
         void* FixtureHandle = nullptr; // NOTE: used in runtime only
 
-        void reset()
-        {
+        void reset() {}
+    };
 
-        }
+    struct CircleCollider2DComponent
+    {
+        CircleCollider2DComponent() = default;
+        CircleCollider2DComponent(const CircleCollider2DComponent&) = default;
+
+        float radius = 0.5f;
+        glm::vec2 offset{ 0.f, 0.f };
+        float Density = 1.f;
+        float Friction = 0.5f;
+        float Restitution = 0.0f;
+        float RestitutionThreshold = 0.5f;
+        void* FixtureHandle = nullptr; // NOTE: used in runtime only
+
+        void reset() {}
     };
 
     struct Rigidbody2DComponent
@@ -139,10 +144,22 @@ namespace jng {
         BodyType Type = BodyType::Static;
         void* BodyHandle = nullptr; // NOTE: used in runtime only
 
-        void reset()
-        {
+        void reset() {}
+    };
 
-        }
+    class LuaScript;
+
+    struct LuaScriptComponent
+    {
+        LuaScriptComponent() = default;
+        LuaScriptComponent(const LuaScriptComponent&) = default;
+
+        std::filesystem::path path;
+
+        // TODO: scope or ref pointer here
+        LuaScript* instance = nullptr; // NOTE: used in runtime only
+
+        void reset() {}
     };
 
 } // namespace jng

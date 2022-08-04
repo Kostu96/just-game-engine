@@ -22,7 +22,7 @@ Entities:
       Translation: [-1.89999998, -1.20000005, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
-    SpriteComponent:
+    SpriteRendererComponent:
       Color: [0, 1, 0, 1]
   - Entity: 15346625625685970642
     TagComponent:
@@ -31,5 +31,5 @@ Entities:
       Translation: [0, 0, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
-    SpriteComponent:
+    SpriteRendererComponent:
       Color: [1, 0, 0, 1]

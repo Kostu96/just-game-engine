@@ -145,6 +145,10 @@ target_link_libraries(imgui PUBLIC
 )
 ##############
 
+### Lua ###
+add_subdirectory(lua)
+###########
+
 ### spdlog: ###
 add_subdirectory(spdlog)
 target_compile_options(spdlog PRIVATE
@@ -175,6 +179,7 @@ set(JNG_ENGINE_THIRD_PARTY_LIBRARIES
     glad
     glfw
     imgui
+    lua
     spdlog
     stb
     yaml-cpp

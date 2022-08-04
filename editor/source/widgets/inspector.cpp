@@ -162,17 +162,25 @@ namespace jng {
                         }
                     });
 
-                updateComponent<SpriteComponent>("Sprite", m_context.SelectedEntity,
-                    [this](SpriteComponent& sc) {
-                        ImGui::ColorEdit4("Color", glm::value_ptr(sc.Color));
+                updateComponent<CircleRendererComponent>("Circle Renderer", m_context.SelectedEntity,
+                    [this](CircleRendererComponent& crc) {
+                        ImGui::ColorEdit4("Color", glm::value_ptr(crc.color));
+                        ImGui::DragFloat("Thickness", &crc.thickness, 0.025f, 0.025f, 1.f);
+                        ImGui::DragFloat("Fade", &crc.fade, 0.001f, 0.001f);
+                    });
+
+                updateComponent<SpriteRendererComponent>("Sprite Renderer", m_context.SelectedEntity,
+                    [this](SpriteRendererComponent& src) {
+                        ImGui::ColorEdit4("Color", glm::value_ptr(src.Color));
                         ImGui::Text("Texture");
-                        ImGui::ImageButton(sc.texture ? sc.texture->getRendererID() : m_checkerboard->getRendererID(), {64.f, 64.f});
+                        ImGui::SameLine();
+                        ImGui::ImageButton(src.texture ? src.texture->getRendererID() : m_checkerboard->getRendererID(), {64.f, 64.f});
                         if (ImGui::BeginDragDropTarget())
                         {
                             if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
                             {
                                 const char* path = reinterpret_cast<const char*>(payload->Data);
-                                sc.texture = Texture::create(path);
+                                src.texture = Texture::create(path);
                             }
                             ImGui::EndDragDropTarget();
                         }
@@ -185,6 +193,16 @@ namespace jng {
                         ImGui::DragFloat("Friction", &bcc.Friction, 0.05f, 0.f, 1.f);
                         ImGui::DragFloat("Restitution", &bcc.Restitution, 0.05f, 0.f, 1.f);
                         ImGui::DragFloat("RestitutionThreshold", &bcc.RestitutionThreshold, 0.1f, 0.f);
+                    });
+
+                updateComponent<CircleCollider2DComponent>("Circle Collider 2D", m_context.SelectedEntity,
+                    [](CircleCollider2DComponent& ccc) {
+                        ImGui::DragFloat("Radius", &ccc.radius);
+                        ImGui::DragFloat2("Offset", glm::value_ptr(ccc.offset));
+                        ImGui::DragFloat("Density", &ccc.Density);
+                        ImGui::DragFloat("Friction", &ccc.Friction, 0.05f, 0.f, 1.f);
+                        ImGui::DragFloat("Restitution", &ccc.Restitution, 0.05f, 0.f, 1.f);
+                        ImGui::DragFloat("RestitutionThreshold", &ccc.RestitutionThreshold, 0.1f, 0.f);
                     });
 
                 updateComponent<Rigidbody2DComponent>("Rigidbody 2D", m_context.SelectedEntity,
@@ -207,28 +225,61 @@ namespace jng {
                         }
                     });
 
+                updateComponent<LuaScriptComponent>("Lua Script", m_context.SelectedEntity,
+                    [](LuaScriptComponent& lsc) {
+                        char buffer[256];
+                        strcpy_s(buffer, sizeof(buffer), lsc.path.string().c_str());
+                        if (ImGui::InputText("Script Path", buffer, sizeof(buffer)))
+                            lsc.path = buffer;
+
+                        if (ImGui::BeginDragDropTarget())
+                        {
+                            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+                            {
+                                lsc.path = reinterpret_cast<const char*>(payload->Data);
+                            }
+                            ImGui::EndDragDropTarget();
+                        }
+                    });
+
                 if (ImGui::Button("Add Component"))
                     ImGui::OpenPopup("AddComponent");
 
-                if (ImGui::BeginPopup("AddComponent")) {
-                    if (!m_context.SelectedEntity.hasComponent<BoxCollider2DComponent>() && ImGui::MenuItem("Box Collider 2D")) {
-                        m_context.SelectedEntity.addComponent<BoxCollider2DComponent>();
-                        ImGui::CloseCurrentPopup();
-                    }
-                    else if (!m_context.SelectedEntity.hasComponent<CameraComponent>() && ImGui::MenuItem("Camera")) {
+                if (ImGui::BeginPopup("AddComponent"))
+                {
+                    if (!m_context.SelectedEntity.hasComponent<CameraComponent>() && ImGui::MenuItem("Camera"))
+                    {
                         m_context.SelectedEntity.addComponent<CameraComponent>();
                         ImGui::CloseCurrentPopup();
                     }
-                    else if (!m_context.SelectedEntity.hasComponent<Rigidbody2DComponent>() && ImGui::MenuItem("Rigidbody 2D")) {
+                    else if (!m_context.SelectedEntity.hasComponent<CircleRendererComponent>() && ImGui::MenuItem("Circle Renderer"))
+                    {
+                        m_context.SelectedEntity.addComponent<CircleRendererComponent>();
+                        ImGui::CloseCurrentPopup();
+                    }
+                    else if (!m_context.SelectedEntity.hasComponent<SpriteRendererComponent>() && ImGui::MenuItem("Sprite Renderer"))
+                    {
+                        m_context.SelectedEntity.addComponent<SpriteRendererComponent>();
+                        ImGui::CloseCurrentPopup();
+                    }
+                    else if (!m_context.SelectedEntity.hasComponent<BoxCollider2DComponent>() && ImGui::MenuItem("Box Collider 2D"))
+                    {
+                        m_context.SelectedEntity.addComponent<BoxCollider2DComponent>();
+                        ImGui::CloseCurrentPopup();
+                    }
+                    else if (!m_context.SelectedEntity.hasComponent<CircleCollider2DComponent>() && ImGui::MenuItem("Circle Collider 2D"))
+                    {
+                        m_context.SelectedEntity.addComponent<CircleCollider2DComponent>();
+                        ImGui::CloseCurrentPopup();
+                    }
+                    else if (!m_context.SelectedEntity.hasComponent<Rigidbody2DComponent>() && ImGui::MenuItem("Rigidbody 2D"))
+                    {
                         m_context.SelectedEntity.addComponent<Rigidbody2DComponent>();
                         ImGui::CloseCurrentPopup();
                     }
-                    /*else if (!m_context.SelectedEntity.hasComponent<NativeScriptComponent>() && ImGui::MenuItem("Native Script")) {
-                        m_context.SelectedEntity.addComponent<NativeScriptComponent>();
-                        ImGui::CloseCurrentPopup();
-                    }*/
-                    else if (!m_context.SelectedEntity.hasComponent<SpriteComponent>() && ImGui::MenuItem("Sprite")) {
-                        m_context.SelectedEntity.addComponent<SpriteComponent>();
+                    else if (!m_context.SelectedEntity.hasComponent<LuaScriptComponent>() && ImGui::MenuItem("Lua Script"))
+                    {
+                        m_context.SelectedEntity.addComponent<LuaScriptComponent>();
                         ImGui::CloseCurrentPopup();
                     }
 

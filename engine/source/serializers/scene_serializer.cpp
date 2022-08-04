@@ -152,6 +152,7 @@ namespace jng {
 
                 Entity deserializedEntity = m_scene->createEntity(name, id);
 
+#pragma region DeserializeTransformComponent
                 auto transformComponent = entity["TransformComponent"];
                 if (transformComponent)
                 {
@@ -160,7 +161,9 @@ namespace jng {
                     tc.Rotation = transformComponent["Rotation"].as<glm::vec3>();
                     tc.Scale = transformComponent["Scale"].as<glm::vec3>();
                 }
+#pragma endregion
 
+#pragma region DeserializeCameraComponent
                 auto cameraComponent = entity["CameraComponent"];
                 if (cameraComponent)
                 {
@@ -173,14 +176,29 @@ namespace jng {
                     cc.camera.setPerspectiveNear(cameraComponent["PerspectiveNear"].as<float>());
                     cc.camera.setPerspectiveFar(cameraComponent["PerspectiveFar"].as<float>());
                 }
+#pragma endregion
 
-                auto spriteComponent = entity["SpriteComponent"];
-                if (spriteComponent)
+#pragma region DeserializeCircleRendererComponent
+                auto circleRendererComponent = entity["CircleRendererComponent"];
+                if (circleRendererComponent)
                 {
-                    auto& sc = deserializedEntity.addComponent<SpriteComponent>();
-                    sc.Color = spriteComponent["Color"].as<glm::vec4>();
+                    auto& crc = deserializedEntity.addComponent<CircleRendererComponent>();
+                    crc.color = circleRendererComponent["Color"].as<glm::vec4>();
+                    crc.thickness = circleRendererComponent["Thickness"].as<float>();
+                    crc.fade = circleRendererComponent["Fade"].as<float>();
                 }
+#pragma endregion
 
+#pragma region DeserializeSpriteRendererComponent
+                auto spriteRendererComponent = entity["SpriteRendererComponent"];
+                if (spriteRendererComponent)
+                {
+                    auto& src = deserializedEntity.addComponent<SpriteRendererComponent>();
+                    src.Color = spriteRendererComponent["Color"].as<glm::vec4>();
+                }
+#pragma endregion
+
+#pragma region DeserializeBoxCollider2DComponent
                 auto boxCollider2DComponent = entity["BoxCollider2DComponent"];
                 if (boxCollider2DComponent)
                 {
@@ -191,13 +209,39 @@ namespace jng {
                     comp.Restitution = boxCollider2DComponent["Restitution"].as<float>();
                     comp.RestitutionThreshold = boxCollider2DComponent["RestitutionThreshold"].as<float>();
                 }
+#pragma endregion
 
+#pragma region DeserializeCircleCollider2DComponent
+                auto circleCollider2DComponent = entity["CircleCollider2DComponent"];
+                if (circleCollider2DComponent)
+                {
+                    auto& comp = deserializedEntity.addComponent<CircleCollider2DComponent>();
+                    comp.radius = circleCollider2DComponent["Radius"].as<float>();
+                    comp.offset = circleCollider2DComponent["Offset"].as<glm::vec2>();
+                    comp.Density = circleCollider2DComponent["Density"].as<float>();
+                    comp.Friction = circleCollider2DComponent["Friction"].as<float>();
+                    comp.Restitution = circleCollider2DComponent["Restitution"].as<float>();
+                    comp.RestitutionThreshold = circleCollider2DComponent["RestitutionThreshold"].as<float>();
+                }
+#pragma endregion
+
+#pragma region DeserializeRigidbody2DComponent
                 auto rigidbody2DComponent = entity["Rigidbody2DComponent"];
                 if (rigidbody2DComponent)
                 {
                     auto& comp = deserializedEntity.addComponent<Rigidbody2DComponent>();
                     comp.Type = (static_cast<Rigidbody2DComponent::BodyType>(rigidbody2DComponent["BodyType"].as<int>()));
                 }
+#pragma endregion
+            
+#pragma region DeserializeLuaSriptComponent
+                auto luaScriptComponent = entity["LuaScriptComponent"];
+                if (luaScriptComponent)
+                {
+                    auto& comp = deserializedEntity.addComponent<LuaScriptComponent>();
+                    comp.path = luaScriptComponent["Path"].as<std::string>();
+                }
+#pragma endregion
             }
     }
 
@@ -209,32 +253,37 @@ namespace jng {
             yaml << YAML::Key << "Entity" << YAML::Value << comp.ID;
         }
 
+#pragma region SerializeTagComponent
         {
             yaml << YAML::Key << "TagComponent" << YAML::Value;
-            yaml << YAML::BeginMap; // TagComponent
+            yaml << YAML::BeginMap;
             auto& comp = entity.getComponent<TagComponent>();
 
             yaml << YAML::Key << "Tag" << YAML::Value << comp.Tag;
 
-            yaml << YAML::EndMap; // TagComponent
+            yaml << YAML::EndMap;
         }
+#pragma endregion
 
+#pragma region SerializeTransformComponent
         {
             yaml << YAML::Key << "TransformComponent" << YAML::Value;
-            yaml << YAML::BeginMap; // TransformComponent
+            yaml << YAML::BeginMap;
             auto& comp = entity.getComponent<TransformComponent>();
 
             yaml << YAML::Key << "Translation" << YAML::Value << comp.Translation;
             yaml << YAML::Key << "Rotation" << YAML::Value << comp.Rotation;
             yaml << YAML::Key << "Scale" << YAML::Value << comp.Scale;
 
-            yaml << YAML::EndMap; // TransformComponent
+            yaml << YAML::EndMap;
         }
+#pragma endregion
 
+#pragma region SerializeCameraComponent
         if (entity.hasComponent<CameraComponent>())
         {
             yaml << YAML::Key << "CameraComponent" << YAML::Value;
-            yaml << YAML::BeginMap; // CameraComponent
+            yaml << YAML::BeginMap;
             auto& comp = entity.getComponent<CameraComponent>();
 
             yaml << YAML::Key << "ProjectionType" << YAML::Value << static_cast<uint32>(comp.camera.getProjectionType());
@@ -245,24 +294,43 @@ namespace jng {
             yaml << YAML::Key << "PerspectiveNear" << YAML::Value << comp.camera.getPerspectiveNear();
             yaml << YAML::Key << "PerspectiveFar" << YAML::Value << comp.camera.getPerspectiveFar();
 
-            yaml << YAML::EndMap; // CameraComponent
+            yaml << YAML::EndMap;
         }
+#pragma endregion
 
-        if (entity.hasComponent<SpriteComponent>())
+#pragma region SerializeCircleRendererComponent
+        if (entity.hasComponent<CircleRendererComponent>())
         {
-            yaml << YAML::Key << "SpriteComponent" << YAML::Value;
-            yaml << YAML::BeginMap; // SpriteComponent
-            auto& comp = entity.getComponent<SpriteComponent>();
+            yaml << YAML::Key << "CircleRendererComponent" << YAML::Value;
+            yaml << YAML::BeginMap;
+            auto& comp = entity.getComponent<CircleRendererComponent>();
+
+            yaml << YAML::Key << "Color" << YAML::Value << comp.color;
+            yaml << YAML::Key << "Thickness" << YAML::Value << comp.thickness;
+            yaml << YAML::Key << "Fade" << YAML::Value << comp.fade;
+
+            yaml << YAML::EndMap;
+        }
+#pragma endregion
+
+#pragma region SerializeSpriteRendererComponent
+        if (entity.hasComponent<SpriteRendererComponent>())
+        {
+            yaml << YAML::Key << "SpriteRendererComponent" << YAML::Value;
+            yaml << YAML::BeginMap;
+            auto& comp = entity.getComponent<SpriteRendererComponent>();
 
             yaml << YAML::Key << "Color" << YAML::Value << comp.Color;
 
-            yaml << YAML::EndMap; // SpriteComponent
+            yaml << YAML::EndMap;
         }
+#pragma endregion
 
+#pragma region SerializeBoxCollider2DComponent
         if (entity.hasComponent<BoxCollider2DComponent>())
         {
             yaml << YAML::Key << "BoxCollider2DComponent" << YAML::Value;
-            yaml << YAML::BeginMap; // BoxCollider2DComponent
+            yaml << YAML::BeginMap;
             auto& comp = entity.getComponent<BoxCollider2DComponent>();
 
             yaml << YAML::Key << "Size" << YAML::Value << comp.Size;
@@ -271,19 +339,53 @@ namespace jng {
             yaml << YAML::Key << "Restitution" << YAML::Value << comp.Restitution;
             yaml << YAML::Key << "RestitutionThreshold" << YAML::Value << comp.RestitutionThreshold;
 
-            yaml << YAML::EndMap; // BoxCollider2DComponent
+            yaml << YAML::EndMap;
         }
+#pragma endregion
 
+#pragma region SerializeCircleCollider2DComponent
+        if (entity.hasComponent<CircleCollider2DComponent>())
+        {
+            yaml << YAML::Key << "CircleCollider2DComponent" << YAML::Value;
+            yaml << YAML::BeginMap; 
+            auto& comp = entity.getComponent<CircleCollider2DComponent>();
+
+            yaml << YAML::Key << "Radius" << YAML::Value << comp.radius;
+            yaml << YAML::Key << "Offset" << YAML::Value << comp.offset;
+            yaml << YAML::Key << "Density" << YAML::Value << comp.Density;
+            yaml << YAML::Key << "Friction" << YAML::Value << comp.Friction;
+            yaml << YAML::Key << "Restitution" << YAML::Value << comp.Restitution;
+            yaml << YAML::Key << "RestitutionThreshold" << YAML::Value << comp.RestitutionThreshold;
+
+            yaml << YAML::EndMap;
+        }
+#pragma endregion
+
+#pragma region SerializeRigidbody2DComponent
         if (entity.hasComponent<Rigidbody2DComponent>())
         {
             yaml << YAML::Key << "Rigidbody2DComponent" << YAML::Value;
-            yaml << YAML::BeginMap; // Rigidbody2DComponent
+            yaml << YAML::BeginMap;
             auto& comp = entity.getComponent<Rigidbody2DComponent>();
 
             yaml << YAML::Key << "BodyType" << YAML::Value << static_cast<uint32>(comp.Type);
 
-            yaml << YAML::EndMap; // Rigidbody2DComponent
+            yaml << YAML::EndMap;
         }
+#pragma endregion
+
+#pragma region SerializeLuaSriptComponent
+        if (entity.hasComponent<LuaScriptComponent>())
+        {
+            yaml << YAML::Key << "LuaScriptComponent" << YAML::Value;
+            yaml << YAML::BeginMap;
+            auto& comp = entity.getComponent<LuaScriptComponent>();
+
+            yaml << YAML::Key << "Path" << YAML::Value << comp.path.string();
+
+            yaml << YAML::EndMap;
+        }
+#pragma endregion
 
         yaml << YAML::EndMap; // Entity
     }

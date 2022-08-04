@@ -43,7 +43,7 @@ namespace jng {
 
         void setViewportSize(float width, float height);
     private:
-        void drawSprites();
+        void drawRenderables();
 
         entt::registry m_registry;
         b2World* m_physics2dWorld = nullptr;

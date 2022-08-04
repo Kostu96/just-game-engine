@@ -21,13 +21,8 @@ namespace jng {
         
     }
 
-    void VulkanRendererAPI::draw(uint32 /*count*/) const
+    void VulkanRendererAPI::draw(uint32 /*count*/, RendererAPI::PrimitiveType /*primitiveType*/) const
     {
-    }
-
-    void VulkanRendererAPI::drawIndexed(const Ref<VertexArray>& /*vao*/) const
-    {
-        
     }
 
     void VulkanRendererAPI::drawIndexed(uint32 /*count*/) const

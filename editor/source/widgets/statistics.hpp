@@ -10,10 +10,10 @@ namespace jng {
 
     struct EditorContext;
 
-    class SceneHierarchyWindow
+    class StatisticsWindow
     {
     public:
-        SceneHierarchyWindow(EditorContext& context) : m_context{ context } {}
+        StatisticsWindow(EditorContext& context) : m_context{ context } {}
 
         void onImGuiUpdate();
     private:

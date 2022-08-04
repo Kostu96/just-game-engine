@@ -10,46 +10,46 @@
 
 namespace jng {
 
-	void EditorContext::openScene(std::filesystem::path path)
-	{
-		if (SceneState != SceneState::Stopped)
-			onSceneStop();
+    void EditorContext::openScene(std::filesystem::path path)
+    {
+        if (SceneState != SceneState::Stopped)
+            onSceneStop();
 
-		SelectedEntity = {};
-		EditorScene = makeRef<Scene>();
-		SceneSerializer serializer{ EditorScene };
-		serializer.deserialize(path.string().c_str());
-		EditorScenePath = path;
+        SelectedEntity = {};
+        EditorScene = makeRef<Scene>();
+        SceneSerializer serializer{ EditorScene };
+        serializer.deserialize(path.string().c_str());
+        EditorScenePath = path;
 
-		EditorScene->setViewportSize(ViewportWindowSize.x, ViewportWindowSize.y);
+        EditorScene->setViewportSize(ViewportWindowSize.x, ViewportWindowSize.y);
 
-		ActiveScene = EditorScene;
-	}
+        ActiveScene = EditorScene;
+    }
 
-	void EditorContext::saveScene(std::filesystem::path path)
-	{
-		if (!path.empty())
-		{
-			SceneSerializer serializer{ EditorScene };
-			serializer.serialize(path.string().c_str());
-			EditorScenePath = path;
-		}
-	}
+    void EditorContext::saveScene(std::filesystem::path path)
+    {
+        if (!path.empty())
+        {
+            SceneSerializer serializer{ EditorScene };
+            serializer.serialize(path.string().c_str());
+            EditorScenePath = path;
+        }
+    }
 
-	void EditorContext::onSceneStart()
-	{
-		SceneState = SceneState::Playing;
-		
-		ActiveScene = Scene::copy(EditorScene);
-		ActiveScene->onCreate();
-	}
+    void EditorContext::onSceneStart()
+    {
+        SceneState = SceneState::Playing;
+        
+        ActiveScene = Scene::copy(EditorScene);
+        ActiveScene->onCreate();
+    }
 
-	void EditorContext::onSceneStop()
-	{
-		SceneState = SceneState::Stopped;
+    void EditorContext::onSceneStop()
+    {
+        SceneState = SceneState::Stopped;
 
-		ActiveScene->onDestroy();
-		ActiveScene = EditorScene;
-	}
+        ActiveScene->onDestroy();
+        ActiveScene = EditorScene;
+    }
 
 } // namespace jng
