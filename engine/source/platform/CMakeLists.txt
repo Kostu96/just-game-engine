@@ -19,8 +19,8 @@ list(APPEND JNG_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/graphics_context.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/graphics_context.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/graphics_context_ogl.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/graphics_context_vlk.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/graphics_context_vlk.hpp
+    #${CMAKE_CURRENT_SOURCE_DIR}/graphics_context_vlk.cpp
+    #${CMAKE_CURRENT_SOURCE_DIR}/graphics_context_vlk.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/input.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/window.cpp
 )
@@ -28,7 +28,7 @@ list(APPEND JNG_SOURCES
 if (WIN32)
     add_subdirectory(windows)
 else()
-    add_subdirectory(linux)
+    #add_subdirectory(linux)
 endif()
 
 set(JNG_HEADERS ${JNG_HEADERS} PARENT_SCOPE)

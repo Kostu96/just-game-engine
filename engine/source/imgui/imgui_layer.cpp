@@ -14,10 +14,12 @@
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
 
+#if 0
 #if defined(JNG_WINDOWS)
 #include "platform/windows/graphics_context_d3d.hpp"
 
 #include <backends/imgui_impl_dx11.h>
+#endif
 #endif
 
 #include <GLFW/glfw3.h> // NOTE: this has to be included after any windows stuff because of APIENTRY redefinition
@@ -25,8 +27,8 @@
 
 namespace jng {
 
-	void ImGuiLayer::init(const Window* window)
-	{
+    void ImGuiLayer::init(const Window* window)
+    {
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
         ImGuiIO& io = ImGui::GetIO();
@@ -51,6 +53,7 @@ namespace jng {
 
         switch (RendererAPI::getRendererBackend())
         {
+#if 0
 #if defined(JNG_WINDOWS)
         case RendererBackend::Direct3D:
         {
@@ -60,22 +63,25 @@ namespace jng {
             ImGui_ImplDX11_Init(device.Get(), deviceContext.Get());
         } break;
 #endif
+#endif
         case RendererBackend::OpenGL:
             ImGui_ImplOpenGL3_Init("#version 450");
             break;
         default:
             JNG_CORE_ASSERT(false, "API unsupported!");
         }
-	}
+    }
 
     void ImGuiLayer::newFrame()
     {
         switch (RendererAPI::getRendererBackend())
         {
+#if 0
 #if defined(JNG_WINDOWS)
         case RendererBackend::Direct3D:
             ImGui_ImplDX11_NewFrame();
             break;
+#endif
 #endif
         case RendererBackend::OpenGL:
             ImGui_ImplOpenGL3_NewFrame();
@@ -94,10 +100,12 @@ namespace jng {
         
         switch (RendererAPI::getRendererBackend())
         {
+#if 0
 #if defined(JNG_WINDOWS)
         case RendererBackend::Direct3D:
             ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
             break;
+#endif
 #endif
         case RendererBackend::OpenGL:
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

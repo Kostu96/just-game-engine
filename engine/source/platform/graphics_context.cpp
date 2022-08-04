@@ -10,8 +10,10 @@
 #include "renderer/renderer_api.hpp"
 #include "platform/graphics_context_ogl.hpp"
 
+#if 0
 #if defined(JNG_WINDOWS)
 #include "platform/windows/graphics_context_d3d.hpp"
+#endif
 #endif
 
 namespace jng {
@@ -22,8 +24,10 @@ namespace jng {
 
         switch (RendererAPI::getRendererBackend())
         {
+#if 0
 #if defined(JNG_WINDOWS)
         case RendererBackend::Direct3D: return makeScope<Direct3DGraphicsContext>(window);
+#endif
 #endif
         case RendererBackend::OpenGL: return makeScope<OpenGLGraphicsContext>(window);
         default:

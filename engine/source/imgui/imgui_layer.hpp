@@ -9,16 +9,16 @@
 
 namespace jng
 {
-	class Window;
+    class Window;
 
-	class ImGuiLayer
-	{
-	public:
-		static void init(const Window* window);
-		static void newFrame();
-		static void render();
-	private:
-		ImGuiLayer() = delete;
-	};
+    class ImGuiLayer
+    {
+    public:
+        static void init(const Window* window);
+        static void newFrame();
+        static void render();
+    private:
+        ImGuiLayer() = delete;
+    };
 
 } // jng

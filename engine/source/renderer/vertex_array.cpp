@@ -9,10 +9,11 @@
 #include "core/base_internal.hpp"
 #include "renderer/renderer_api.hpp"
 #include "renderer/opengl/vertex_array_ogl.hpp"
-//#include "renderer/vulkan/vertex_array_vlk.hpp"
 
+#if 0
 #if defined(JNG_WINDOWS)
 #include "renderer/direct3d/vertex_array_d3d.hpp"
+#endif
 #endif
 
 namespace jng {
@@ -71,8 +72,10 @@ namespace jng {
 
         switch (RendererAPI::getRendererBackend())
         {
+#if 0
 #if defined(JNG_WINDOWS)
         case RendererBackend::Direct3D: return makeRef<Direct3DVertexArray>(vbo, layout, shader);
+#endif
 #endif
         case RendererBackend::OpenGL: return makeRef<OpenGLVertexArray>(vbo, layout, shader);
         default:

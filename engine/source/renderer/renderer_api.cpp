@@ -9,8 +9,10 @@
 #include "core/base_internal.hpp"
 #include "renderer/opengl/renderer_api_ogl.hpp"
 
+#if 0
 #if defined(JNG_WINDOWS)
 #include "renderer/direct3d/renderer_api_d3d.hpp"
+#endif
 #endif
 
 namespace jng {
@@ -21,10 +23,12 @@ namespace jng {
 
         switch (backend)
         {
+#if 0
 #if defined(JNG_WINDOWS)
         case RendererBackend::Direct3D:
             s_implementation = makeScope<Direct3DRendererAPI>();
             break;
+#endif
 #endif
         case RendererBackend::OpenGL:
             s_implementation = makeScope<OpenGLRendererAPI>();

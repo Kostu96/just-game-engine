@@ -17,83 +17,83 @@
 #include <GLFW/glfw3native.h>
 
 namespace jng {
-	namespace Platform
-	{
-		std::string openDirectoryDialog()
-		{
-			TCHAR previousDir[MAX_PATH]{};
-			GetCurrentDirectory(MAX_PATH, previousDir);
+    namespace Platform
+    {
+        std::string openDirectoryDialog()
+        {
+            TCHAR previousDir[MAX_PATH]{};
+            GetCurrentDirectory(MAX_PATH, previousDir);
 
-			TCHAR buffer[MAX_PATH]{};
-			BROWSEINFO info{};
-			info.hwndOwner = glfwGetWin32Window(Engine::get().getWindow().getNativeWindowHandle());;
-			info.lpszTitle = TEXT("Browse Directory");
-			info.ulFlags = BIF_RETURNONLYFSDIRS | BIF_USENEWUI;
-			LPITEMIDLIST itemIDList = SHBrowseForFolder(&info);
+            TCHAR buffer[MAX_PATH]{};
+            BROWSEINFO info{};
+            info.hwndOwner = glfwGetWin32Window(Engine::get().getWindow().getNativeWindowHandle());;
+            info.lpszTitle = TEXT("Browse Directory");
+            info.ulFlags = BIF_RETURNONLYFSDIRS | BIF_USENEWUI;
+            LPITEMIDLIST itemIDList = SHBrowseForFolder(&info);
 
-			if (itemIDList)
-			{
-				// get the name of the folder and put it in path
-				SHGetPathFromIDList(itemIDList, buffer);
+            if (itemIDList)
+            {
+                // get the name of the folder and put it in path
+                SHGetPathFromIDList(itemIDList, buffer);
 
-				//Set the current directory to path
-				SetCurrentDirectory(buffer);
+                //Set the current directory to path
+                SetCurrentDirectory(buffer);
 
-				//Begin the search
-				//SearchFolder(buffer);
+                //Begin the search
+                //SearchFolder(buffer);
 
-				// free memory used
-				IMalloc* imalloc = 0;
-				if (SUCCEEDED(SHGetMalloc(&imalloc)))
-				{
-					imalloc->Free(itemIDList);
-					imalloc->Release();
-				}
+                // free memory used
+                IMalloc* imalloc = 0;
+                if (SUCCEEDED(SHGetMalloc(&imalloc)))
+                {
+                    imalloc->Free(itemIDList);
+                    imalloc->Release();
+                }
 
-				SetCurrentDirectory(previousDir);
-				return buffer;
-			}
+                SetCurrentDirectory(previousDir);
+                return buffer;
+            }
 
-			return "";
-		}
+            return "";
+        }
 
-		std::string openFilenameDialog(const char* filter)
-		{
-			TCHAR buffer[MAX_PATH]{};
+        std::string openFilenameDialog(const char* filter)
+        {
+            TCHAR buffer[MAX_PATH]{};
 
-			OPENFILENAME openFilename{};
-			openFilename.lStructSize = sizeof(OPENFILENAME);
-			openFilename.hwndOwner = glfwGetWin32Window(Engine::get().getWindow().getNativeWindowHandle());
-			openFilename.lpstrFilter = filter;
-			openFilename.nFilterIndex = 1;
-			openFilename.lpstrFile = buffer;
-			openFilename.nMaxFile = sizeof(buffer);
-			openFilename.Flags = OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_NOCHANGEDIR;
+            OPENFILENAME openFilename{};
+            openFilename.lStructSize = sizeof(OPENFILENAME);
+            openFilename.hwndOwner = glfwGetWin32Window(Engine::get().getWindow().getNativeWindowHandle());
+            openFilename.lpstrFilter = filter;
+            openFilename.nFilterIndex = 1;
+            openFilename.lpstrFile = buffer;
+            openFilename.nMaxFile = sizeof(buffer);
+            openFilename.Flags = OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_NOCHANGEDIR;
 
-			if (GetOpenFileName(&openFilename) == TRUE)
-				return openFilename.lpstrFile;
+            if (GetOpenFileName(&openFilename) == TRUE)
+                return openFilename.lpstrFile;
 
-			return "";
-		}
+            return "";
+        }
 
-		std::string saveFilenameDialog(const char* filter)
-		{
-			TCHAR buffer[MAX_PATH]{};
+        std::string saveFilenameDialog(const char* filter)
+        {
+            TCHAR buffer[MAX_PATH]{};
 
-			OPENFILENAME openFilename{};
-			openFilename.lStructSize = sizeof(OPENFILENAME);
-			openFilename.hwndOwner = glfwGetWin32Window(Engine::get().getWindow().getNativeWindowHandle());
-			openFilename.lpstrFilter = filter;
-			openFilename.nFilterIndex = 1;
-			openFilename.lpstrFile = buffer;
-			openFilename.nMaxFile = sizeof(buffer);
-			openFilename.Flags = OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_NOCHANGEDIR;
+            OPENFILENAME openFilename{};
+            openFilename.lStructSize = sizeof(OPENFILENAME);
+            openFilename.hwndOwner = glfwGetWin32Window(Engine::get().getWindow().getNativeWindowHandle());
+            openFilename.lpstrFilter = filter;
+            openFilename.nFilterIndex = 1;
+            openFilename.lpstrFile = buffer;
+            openFilename.nMaxFile = sizeof(buffer);
+            openFilename.Flags = OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_NOCHANGEDIR;
 
-			if (GetSaveFileName(&openFilename) == TRUE)
-				return openFilename.lpstrFile;
+            if (GetSaveFileName(&openFilename) == TRUE)
+                return openFilename.lpstrFile;
 
-			return "";
-		}
+            return "";
+        }
 
-	} // namespace Platform
+    } // namespace Platform
 } // namespace jng

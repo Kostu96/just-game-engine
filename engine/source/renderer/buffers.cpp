@@ -9,10 +9,11 @@
 #include "core/base_internal.hpp"
 #include "renderer/renderer_api.hpp"
 #include "renderer/opengl/buffers_ogl.hpp"
-//#include "renderer/vulkan/buffers_vlk.hpp"
 
+#if 0
 #if defined(JNG_WINDOWS)
 #include "renderer/direct3d/buffers_d3d.hpp"
+#endif
 #endif
 
 namespace jng {
@@ -23,8 +24,10 @@ namespace jng {
 
         switch (RendererAPI::getRendererBackend())
         {
+#if 0
 #if defined(JNG_WINDOWS)
         case RendererBackend::Direct3D: return makeRef<Direct3DVertexBuffer>(vertices, size);
+#endif
 #endif
         case RendererBackend::OpenGL: return makeRef<OpenGLVertexBuffer>(vertices, size);
         default:
@@ -39,8 +42,10 @@ namespace jng {
 
         switch (RendererAPI::getRendererBackend())
         {
+#if 0
 #if defined(JNG_WINDOWS)
         case RendererBackend::Direct3D: return makeRef<Direct3DVertexBuffer>(size);
+#endif
 #endif
         case RendererBackend::OpenGL: return makeRef<OpenGLVertexBuffer>(size);
         default:
@@ -55,8 +60,10 @@ namespace jng {
 
         switch (RendererAPI::getRendererBackend())
         {
+#if 0
 #if defined(JNG_WINDOWS)
         case RendererBackend::Direct3D: return makeRef<Direct3DIndexBuffer>(indices, count);
+#endif
 #endif
         case RendererBackend::OpenGL: return makeRef<OpenGLIndexBuffer>(indices, count);
         default:
@@ -71,8 +78,10 @@ namespace jng {
 
         switch (RendererAPI::getRendererBackend())
         {
+#if 0
 #if defined(JNG_WINDOWS)
         case RendererBackend::Direct3D: return makeRef<Direct3DUniformBuffer>(size);
+#endif
 #endif
         case RendererBackend::OpenGL: return makeRef<OpenGLUniformBuffer>(size);
         default:
