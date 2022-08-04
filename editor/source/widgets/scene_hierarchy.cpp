@@ -15,8 +15,8 @@
 
 namespace jng {
 
-	void SceneHierarchyWindow::onImGuiUpdate()
-	{
+    void SceneHierarchyWindow::onImGuiUpdate()
+    {
         if (m_context.IsSceneHierarchyWindowOpen)
         {
             ImGui::SetNextWindowSize({ 320.f, 400.f }); // TODO: this is temporary to prevent window being too small when app is started first time
@@ -75,6 +75,6 @@ namespace jng {
 
             ImGui::End();
         }
-	}
+    }
 
 } // namespace jng
