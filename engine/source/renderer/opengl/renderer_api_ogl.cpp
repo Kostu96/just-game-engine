@@ -13,6 +13,18 @@
 
 namespace jng {
 
+    static GLenum primitiveTypeToGLenum(RendererAPI::PrimitiveType primitiveType)
+    {
+        switch (primitiveType)
+        {
+        case RendererAPI::PrimitiveType::Lines:     return GL_LINES;
+        case RendererAPI::PrimitiveType::Triangles: return GL_TRIANGLES;
+        }
+
+        JNG_CORE_ASSERT(false, "This should never be triggered!");
+        return static_cast<GLenum>(-1);
+    }
+
     void OpenGLRendererAPI::setViewport(uint32 x, uint32 y, uint32 width, uint32 height) const
     {
         glViewport(static_cast<int>(x), static_cast<int>(y), static_cast<int>(width), static_cast<int>(height));
@@ -24,9 +36,9 @@ namespace jng {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
-    void OpenGLRendererAPI::draw(uint32 count) const
+    void OpenGLRendererAPI::draw(uint32 count, RendererAPI::PrimitiveType primitiveType) const
     {
-        glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(count));
+        glDrawArrays(primitiveTypeToGLenum(primitiveType), 0, static_cast<GLsizei>(count));
     }
 
     void OpenGLRendererAPI::drawIndexed(uint32 count) const

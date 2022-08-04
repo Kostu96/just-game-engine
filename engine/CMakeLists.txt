@@ -15,6 +15,8 @@ add_subdirectory(source)
 set(JNG_SHADER_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/shaders/circle_fragment.glsl
     ${CMAKE_CURRENT_SOURCE_DIR}/shaders/circle_vertex.glsl
+    ${CMAKE_CURRENT_SOURCE_DIR}/shaders/line_fragment.glsl
+    ${CMAKE_CURRENT_SOURCE_DIR}/shaders/line_vertex.glsl
     ${CMAKE_CURRENT_SOURCE_DIR}/shaders/quad_fragment.glsl
     ${CMAKE_CURRENT_SOURCE_DIR}/shaders/quad_vertex.glsl
 )

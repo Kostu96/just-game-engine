@@ -15,8 +15,6 @@ layout(location = 4) flat in int v_EntityID;
 layout(location = 0) out vec4 o_fragColor;
 layout(location = 1) out int o_entityID;
 
-layout(binding = 0) uniform sampler2D u_Textures[16];
-
 void main()
 {
     float radius = 1.0 - length(v_LocalPosition);

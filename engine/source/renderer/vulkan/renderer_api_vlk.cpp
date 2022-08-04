@@ -21,7 +21,7 @@ namespace jng {
         
     }
 
-    void VulkanRendererAPI::draw(uint32 /*count*/) const
+    void VulkanRendererAPI::draw(uint32 /*count*/, RendererAPI::PrimitiveType /*primitiveType*/) const
     {
     }
 

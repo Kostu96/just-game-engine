@@ -42,20 +42,31 @@ namespace jng {
         int32 entityID;
     };
 
+    struct LineVertex
+    {
+        glm::vec3 position;
+        uint32 color;
+    };
+
     struct RenderData
     {
-        static constexpr uint32 MaxQuadsPerBatch = 1000;  //
-        static constexpr uint32 MaxCirclesPerBatch = 500; // NOTE: arbitrarily choosen values
+        static constexpr uint32 MaxQuadsPerBatch =   1000; //
+        static constexpr uint32 MaxCirclesPerBatch = 500;  //
+        static constexpr uint32 MaxLinesPerBatch =   2000; // NOTE: arbitrarily choosen values
         static constexpr uint32 QuadAndCircleVertexCount = 4;
+        static constexpr uint32 LineVertexCount = 2;
         static constexpr uint32 QuadAndCircleIndexCount = 6;
         static constexpr uint32 MaxQuadVerticesPerBatch = QuadAndCircleVertexCount * MaxQuadsPerBatch;
         static constexpr uint32 MaxQuadIndicesPerBatch = QuadAndCircleIndexCount * MaxQuadsPerBatch;
         static constexpr uint32 MaxCircleVerticesPerBatch = QuadAndCircleVertexCount * MaxCirclesPerBatch;
         static constexpr uint32 MaxCircleIndicesPerBatch = QuadAndCircleIndexCount * MaxCirclesPerBatch;
+        static constexpr uint32 MaxLineVerticesPerBatch = LineVertexCount * MaxLinesPerBatch;
         static constexpr uint32 MaxTextureSlots = 16; // TODO: render caps
 
         Ref<UniformBuffer> cameraUBO;
         Ref<Texture> whiteTexture;
+
+        glm::vec4 quadAndCircleVertexPositions[4]{};
 
         Ref<Shader> quadShader;
         Ref<VertexBuffer> quadVBO;
@@ -71,7 +82,12 @@ namespace jng {
         CircleVertex* circleVBOBase = nullptr;
         CircleVertex* circleVBOPtr = nullptr;
         
-        glm::vec4 quadAndCircleVertexPositions[4]{};
+        Ref<Shader> lineShader;
+        Ref<VertexBuffer> lineVBO;
+        Ref<VertexArray> lineVAO;
+        uint32 currentLineVertexCount = 0;
+        LineVertex* lineVBOBase = nullptr;
+        LineVertex* lineVBOPtr = nullptr;
 
         std::array<Ref<Texture>, MaxTextureSlots> textureSlots;
         uint8 textureSlotIndex = 1; // 0 = white texture
@@ -97,6 +113,11 @@ namespace jng {
         uint32 whiteTextureData = 0xffffffff;
         s_data.whiteTexture->setData(&whiteTextureData, sizeof(uint32));
         s_data.textureSlots[0] = s_data.whiteTexture;
+
+        s_data.quadAndCircleVertexPositions[0] = { -0.5f, -0.5f, 0.0f, 1.0f };
+        s_data.quadAndCircleVertexPositions[1] = {  0.5f, -0.5f, 0.0f, 1.0f };
+        s_data.quadAndCircleVertexPositions[2] = {  0.5f,  0.5f, 0.0f, 1.0f };
+        s_data.quadAndCircleVertexPositions[3] = { -0.5f,  0.5f, 0.0f, 1.0f };
 
         // Quad
         s_data.quadShader = Shader::create(
@@ -162,11 +183,20 @@ namespace jng {
         auto circleIBO = IndexBuffer::create(circleIndices, RenderData::MaxCircleIndicesPerBatch);
         s_data.circleVAO->setIndexBuffer(circleIBO); // TODO: Use the same index buffer as for quads?
         delete[] circleIndices;
-        
-        s_data.quadAndCircleVertexPositions[0] = { -0.5f, -0.5f, 0.0f, 1.0f };
-        s_data.quadAndCircleVertexPositions[1] = {  0.5f, -0.5f, 0.0f, 1.0f };
-        s_data.quadAndCircleVertexPositions[2] = {  0.5f,  0.5f, 0.0f, 1.0f };
-        s_data.quadAndCircleVertexPositions[3] = { -0.5f,  0.5f, 0.0f, 1.0f };
+
+        // Line
+        s_data.lineShader = Shader::create(
+            (assetsDir / "shaders/line_vertex.glsl").string(),
+            (assetsDir / "shaders/line_fragment.glsl").string()
+        );
+        s_data.lineVBO = VertexBuffer::create(RenderData::MaxLineVerticesPerBatch * sizeof(LineVertex));
+
+        VertexLayout lineVertexLayout = {
+            { LayoutElement::DataType::Float3,  "a_Position" },
+            { LayoutElement::DataType::UInt4x8, "a_Color", true, true }
+        };
+        s_data.lineVAO = VertexArray::create(s_data.lineVBO, lineVertexLayout, s_data.lineShader);
+        s_data.lineVBOBase = new LineVertex[s_data.MaxLineVerticesPerBatch];
 
         s_data.cameraUBO->bind(0);
     }
@@ -175,6 +205,7 @@ namespace jng {
     {
         delete[] s_data.quadVBOBase;
         delete[] s_data.circleVBOBase;
+        delete[] s_data.lineVBOBase;
     }
 
     void Renderer2D::beginScene(const glm::mat4& viewProjection)
@@ -186,8 +217,10 @@ namespace jng {
         s_data.statistics.drawCalls = 0;
         s_data.statistics.quadCount = 0;
         s_data.statistics.circleCount = 0;
+        s_data.statistics.lineCount = 0;
         beginQuadBatch();
         beginCircleBatch();
+        beginLineBatch();
     }
 
     void Renderer2D::endScene()
@@ -196,6 +229,7 @@ namespace jng {
 
         endQuadBatch();
         endCircleBatch();
+        endLineBatch();
     }
 
     void Renderer2D::drawSprite(const glm::mat4& transform, const SpriteRendererComponent& src, int32 entityID)
@@ -309,6 +343,41 @@ namespace jng {
         ++s_data.statistics.circleCount;
     }
 
+    void Renderer2D::drawLine(const glm::vec3& p0, const glm::vec3& p1, const glm::vec4& color)
+    {
+        JNG_PROFILE_FUNCTION();
+
+        if (s_data.currentLineVertexCount >= RenderData::MaxLineVerticesPerBatch)
+        {
+            endLineBatch();
+            beginLineBatch();
+        }
+
+        s_data.lineVBOPtr->position = p0;
+        s_data.lineVBOPtr->color = glm::packUnorm4x8(color);
+        s_data.lineVBOPtr++;
+        s_data.lineVBOPtr->position = p1;
+        s_data.lineVBOPtr->color = glm::packUnorm4x8(color);
+        s_data.lineVBOPtr++;
+
+        s_data.currentLineVertexCount += RenderData::LineVertexCount;
+
+        ++s_data.statistics.lineCount;
+    }
+
+    void Renderer2D::drawRect(const glm::mat4& transform, const glm::vec4& color)
+    {
+        glm::vec3 p0 = transform * s_data.quadAndCircleVertexPositions[0];
+        glm::vec3 p1 = transform * s_data.quadAndCircleVertexPositions[1];
+        glm::vec3 p2 = transform * s_data.quadAndCircleVertexPositions[2];
+        glm::vec3 p3 = transform * s_data.quadAndCircleVertexPositions[3];
+
+        drawLine(p0, p1, color);
+        drawLine(p1, p2, color);
+        drawLine(p2, p3, color);
+        drawLine(p3, p0, color);
+    }
+
     void Renderer2D::fillQuad(glm::vec3 position, glm::vec2 size, const glm::vec4& color)
     {
         fillQuad(position, size, s_data.whiteTexture, color);
@@ -384,6 +453,7 @@ namespace jng {
         for (uint32 i = 0; i < s_data.textureSlotIndex; ++i)
             s_data.textureSlots[i]->bind(i);
 
+        // TODO: check if ptrdiff_t will be the same here
         size_t dataSize = static_cast<size_t>(
             reinterpret_cast<uint8*>(s_data.quadVBOPtr) -
             reinterpret_cast<uint8*>(s_data.quadVBOBase)
@@ -415,6 +485,28 @@ namespace jng {
         s_data.circleVAO->bind();
         s_data.circleShader->bind();
         RendererAPI::drawIndexed(s_data.currentCircleIndexCount);
+
+        ++s_data.statistics.drawCalls;
+    }
+
+    void Renderer2D::beginLineBatch()
+    {
+        s_data.currentLineVertexCount = 0;
+        s_data.lineVBOPtr = s_data.lineVBOBase;
+    }
+
+    void Renderer2D::endLineBatch()
+    {
+        // TODO: check if ptrdiff_t will be the same here
+        size_t dataSize = static_cast<size_t>(
+            reinterpret_cast<uint8*>(s_data.lineVBOPtr) -
+            reinterpret_cast<uint8*>(s_data.lineVBOBase)
+            );
+        s_data.lineVBO->setData(s_data.lineVBOBase, dataSize);
+
+        s_data.lineVAO->bind();
+        s_data.lineShader->bind();
+        RendererAPI::draw(s_data.currentLineVertexCount, RendererAPI::PrimitiveType::Lines);
 
         ++s_data.statistics.drawCalls;
     }
