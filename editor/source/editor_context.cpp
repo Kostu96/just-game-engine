@@ -41,7 +41,7 @@ namespace jng {
         SceneState = SceneState::Playing;
         
         ActiveScene = Scene::copy(EditorScene);
-        ActiveScene->onCreate();
+        ActiveScene->onCreate(physicsGravity);
     }
 
     void EditorContext::onSceneStop()

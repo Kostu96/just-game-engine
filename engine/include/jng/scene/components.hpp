@@ -121,9 +121,12 @@ namespace jng {
         Rigidbody2DComponent() = default;
         Rigidbody2DComponent(const Rigidbody2DComponent&) = default;
 
-        enum class BodyType { Static = 0, Dynamic = 1, Kinematic = 2 };
+        enum class BodyType { Static = 0, Kinematic = 1, Dynamic = 2 };
 
         BodyType Type = BodyType::Static;
+        bool freezeRotation = false;
+        float linearDamping = 0.1f;
+        float angularDamping = 0.1f;
 
         b2Body* BodyHandle = nullptr; // NOTE: used in runtime only
 
@@ -141,5 +144,19 @@ namespace jng {
 
         void reset();
     };
+
+    template<typename... Component>
+    struct ComponentGroup {};
+
+    // All components except ID, Tag and Transform
+    using OptionalComponents = ComponentGroup<
+        CameraComponent,
+        CircleRendererComponent,
+        SpriteRendererComponent,
+        BoxCollider2DComponent,
+        CircleCollider2DComponent,
+        Rigidbody2DComponent,
+        LuaScriptComponent
+    >;
 
 } // namespace jng

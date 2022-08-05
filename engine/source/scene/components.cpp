@@ -66,6 +66,9 @@ namespace jng {
     void Rigidbody2DComponent::reset()
     {
         Type = BodyType::Static;
+        freezeRotation = false;
+        linearDamping = 0.1f;
+        angularDamping = 0.1f;
     }
 
     void Rigidbody2DComponent::setLinearVelocity(glm::vec2 velocity)

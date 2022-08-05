@@ -10,6 +10,7 @@
 #include "widgets/inspector.hpp"
 #include "widgets/main_menu_bar.hpp"
 #include "widgets/scene_hierarchy.hpp"
+#include "widgets/settings.hpp"
 #include "widgets/statistics.hpp"
 
 #include <jng/core/base.hpp>
@@ -55,6 +56,7 @@ namespace jng {
         SceneHierarchyWindow m_sceneHierarchyWindow;
         ContentBrowserWindow m_contentBrowserWindow;
         StatisticsWindow m_statisticsWindow;
+        SettingsWindow m_settingsWindow;
 
         Ref<Texture> m_playIcon, m_stopIcon;
     };

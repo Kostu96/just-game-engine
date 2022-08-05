@@ -33,7 +33,7 @@ namespace jng {
         Entity duplicateEntity(Entity other);
         void destroyEntity(Entity entity);
 
-        void onCreate();
+        void onCreate(float gravity);
         void onDestroy();
         void onUpdate(float dt);
         void onEvent(Event& event);
@@ -44,6 +44,7 @@ namespace jng {
         void setViewportSize(float width, float height);
     private:
         void drawRenderables();
+        void drawColliders();
 
         entt::registry m_registry;
         b2World* m_physics2dWorld = nullptr;

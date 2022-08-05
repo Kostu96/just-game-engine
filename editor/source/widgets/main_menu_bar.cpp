@@ -180,6 +180,8 @@ namespace jng {
                     ImGui::MenuItem("Scene Hierarchy", nullptr, &m_context.IsSceneHierarchyWindowOpen);
                     ImGui::MenuItem("Viewport", nullptr, &m_context.IsViewportWindowOpen);
                     ImGui::MenuItem("Content Browser", nullptr, &m_context.IsContentBrowserWindowOpen);
+                    ImGui::MenuItem("Statistics", nullptr, &m_context.isStatisticsWindowOpen);
+                    ImGui::MenuItem("Settings", nullptr, &m_context.isSettingsWindowOpen);
                 
                     ImGui::EndMenu();
                 }

@@ -52,6 +52,11 @@ namespace jng {
         // Statistics state:
         bool isStatisticsWindowOpen = true;
 
+        // Settings state:
+        bool isSettingsWindowOpen = true;
+        float physicsGravity = 9.8f;
+        bool showColliders = false;
+
         void openScene(std::filesystem::path path);
         void saveScene(std::filesystem::path path);
 

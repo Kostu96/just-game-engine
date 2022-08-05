@@ -208,21 +208,28 @@ namespace jng {
 
                 updateComponent<Rigidbody2DComponent>("Rigidbody 2D", m_context.SelectedEntity,
                     [](Rigidbody2DComponent& rbc) {
-                        const char* bodyTypeStrs[] = { "Static", "Dynamic", "Kinematic" };
-                        const char* currentBodyType = bodyTypeStrs[(uint32)rbc.Type];
+                        const char* bodyTypeStrs[] = { "Static", "Kinematic", "Dynamic" };
+                        const char* currentBodyTypeStr = bodyTypeStrs[(uint32)rbc.Type];
 
-                        if (ImGui::BeginCombo("Body Type", currentBodyType))
+                        if (ImGui::BeginCombo("Body Type", currentBodyTypeStr))
                         {
                             for (uint32 i = 0; i < 3; ++i)
                             {
-                                bool isSelected = currentBodyType == bodyTypeStrs[i];
+                                bool isSelected = currentBodyTypeStr == bodyTypeStrs[i];
                                 if (ImGui::Selectable(bodyTypeStrs[i], isSelected))
                                 {
                                     rbc.Type = static_cast<Rigidbody2DComponent::BodyType>(i);
-                                    currentBodyType = bodyTypeStrs[i];
+                                    currentBodyTypeStr = bodyTypeStrs[i];
                                 }
                             }
                             ImGui::EndCombo();
+                        }
+
+                        if (rbc.Type != Rigidbody2DComponent::BodyType::Static)
+                        {
+                            ImGui::Checkbox("Freeze Rotation", &rbc.freezeRotation);
+                            ImGui::DragFloat("Linear Damping", &rbc.linearDamping, 0.01f, 0.f, 1.f);
+                            ImGui::DragFloat("Angular Damping", &rbc.angularDamping, 0.01f, 0.f, 1.f);
                         }
                     });
 
