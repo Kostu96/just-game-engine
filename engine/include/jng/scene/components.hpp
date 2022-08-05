@@ -10,19 +10,21 @@
 #include "jng/scene/camera.hpp"
 
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/quaternion.hpp>
 #include <filesystem>
 #include <string>
 #include <type_traits>
 
+class b2Body;
+
 namespace jng {
+
+    class LuaScript;
 
     struct IDComponent
     {
         IDComponent() = default;
-        IDComponent(GUID id) : ID{ id } {}
         IDComponent(const IDComponent&) = default;
+        IDComponent(GUID id) : ID{ id } {}
 
         GUID ID;
     };
@@ -44,18 +46,8 @@ namespace jng {
         glm::vec3 Rotation{ 0.f, 0.f, 0.f };
         glm::vec3 Scale{ 1.f, 1.f, 1.f };
 
-        void reset()
-        {
-            Translation = { 0.f, 0.f, 0.f };
-            Rotation = { 0.f, 0.f, 0.f };
-            Scale = { 1.f, 1.f, 1.f };
-        }
-
-        glm::mat4 getTransform() const
-        {
-            glm::mat4 rotMatrix = glm::toMat4(glm::quat(Rotation));
-            return glm::translate(glm::mat4{ 1.f }, Translation) * rotMatrix * glm::scale(glm::mat4{ 1.f }, Scale);
-        }
+        void reset();
+        glm::mat4 getTransform() const;
     };
 
     struct CameraComponent
@@ -65,10 +57,7 @@ namespace jng {
 
         Camera camera;
         
-        void reset()
-        {
-            camera.reset();
-        }
+        void reset();
     };
 
     struct CircleRendererComponent
@@ -80,12 +69,7 @@ namespace jng {
         float thickness = 1.f;
         float fade = 0.001f;
 
-        void reset()
-        {
-            color = { 1.f, 1.f, 1.f, 1.f };
-            thickness = 1.f;
-            fade = 0.001f;
-        }
+        void reset();
     };
 
     struct SpriteRendererComponent
@@ -96,11 +80,7 @@ namespace jng {
         glm::vec4 Color{ 1.f, 1.f, 1.f, 1.f };
         Ref<Texture> texture;
 
-        void reset()
-        {
-            Color = { 1.f, 1.f, 1.f, 1.f };
-            texture = {};
-        }
+        void reset();
     };
 
     struct BoxCollider2DComponent
@@ -116,14 +96,7 @@ namespace jng {
 
         void* FixtureHandle = nullptr; // NOTE: used in runtime only
 
-        void reset()
-        {
-            Size = { 0.5f, 0.5f };
-            Density = 1.f;
-            Friction = 0.5f;
-            Restitution = 0.0f;
-            RestitutionThreshold = 0.5f;
-        }
+        void reset();
     };
 
     struct CircleCollider2DComponent
@@ -140,15 +113,7 @@ namespace jng {
 
         void* FixtureHandle = nullptr; // NOTE: used in runtime only
 
-        void reset()
-        {
-            radius = 0.5f;
-            offset = { 0.f, 0.f };
-            Density = 1.f;
-            Friction = 0.5f;
-            Restitution = 0.0f;
-            RestitutionThreshold = 0.5f;
-        }
+        void reset();
     };
 
     struct Rigidbody2DComponent
@@ -160,15 +125,11 @@ namespace jng {
 
         BodyType Type = BodyType::Static;
 
-        void* BodyHandle = nullptr; // NOTE: used in runtime only
+        b2Body* BodyHandle = nullptr; // NOTE: used in runtime only
 
-        void reset()
-        {
-            Type = BodyType::Static;
-        }
+        void reset();
+        void setLinearVelocity(glm::vec2 velocity);
     };
-
-    class LuaScript;
 
     struct LuaScriptComponent
     {
@@ -178,11 +139,7 @@ namespace jng {
         std::filesystem::path path;
         Ref<LuaScript> instance;
 
-        void reset()
-        {
-            path = std::filesystem::path{};
-            instance = {};
-        }
+        void reset();
     };
 
 } // namespace jng

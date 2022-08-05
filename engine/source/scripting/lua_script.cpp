@@ -6,6 +6,9 @@
 
 #include "scripting/lua_script.hpp"
 
+#include "scene/components.hpp"
+#include "scene/entity.hpp"
+
 #include <lua/lua.hpp>
 
 namespace jng {
@@ -65,25 +68,30 @@ namespace jng {
         // script base
         {
             auto luaScript_new = [](lua_State* L) -> int {
-                JNG_CORE_WARN("luaScript_new called");
-
                 JNG_CORE_ASSERT(lua_istable(L, 1), "luaScript_new 1st parameter is not a table!");
 
-                lua_newtable(L);                // LuaScript table - stack: -1 LuaScript table, -2 self arg
-                lua_insert(L, -2);              // exchange LuaScript table with self on the stack - stack: -1 self arg, -2 LuaScript table
-                lua_pushvalue(L, -1);           // copy self to the top of the stack - stack: -1 self copy, -2 self arg, -3 LuaScript table
-                lua_setmetatable(L, -3);        // set new LuaScript table metateble to self; pops the self copy - stack: -1 self arg, -2 LuaScript table
+                lua_newtable(L);                      // LuaScript table - stack: -1 LuaScript table, -2 self arg
+                lua_insert(L, -2);                    // exchange LuaScript table with self on the stack - stack: -1 self arg, -2 LuaScript table
+                lua_pushvalue(L, -1);             // copy self to the top of the stack - stack: -1 self copy, -2 self arg, -3 LuaScript table
+                lua_setmetatable(L, -3);      // set new LuaScript table metateble to self; pops the self copy - stack: -1 self arg, -2 LuaScript table
                 lua_setfield(L, -1, "__index"); // self.__index = self; pops self - stack: -1 LuaScript table
                 return 1;
             };
 
+            struct LuaRigidbody2DComponent
+            {
+                Rigidbody2DComponent* handle;
+            };
+
             auto luaScript_getComponent = [](lua_State* L) -> int {
-                JNG_CORE_WARN("luaScript_getComponent called");
-
                 JNG_CORE_ASSERT(lua_istable(L, 1), "luaScript_getComponent 1st parameter is not a table!");
-                JNG_CORE_ASSERT(lua_isnumber(L, 2), "luaScript_getComponent 2st parameter is not a number!");
+                JNG_CORE_ASSERT(lua_isnumber(L, 2), "luaScript_getComponent 2nd parameter is not a number!");
 
-                int64 type = luaL_checkinteger(L, -1);
+                lua_getfield(L, 1, "_entityHandle_");
+                Entity* entityHandle = reinterpret_cast<Entity*>(lua_touserdata(L, -1));
+                lua_pop(L, 1);
+
+                int64 type = luaL_checkinteger(L, 2);
                 switch (type)
                 {
                 case Tag:
@@ -101,14 +109,37 @@ namespace jng {
                 case CircleCollider2D:
                     break;
                 case Rigidbody2D:
-
+                    LuaRigidbody2DComponent* luaRBC = reinterpret_cast<LuaRigidbody2DComponent*>(lua_newuserdata(L, sizeof(LuaRigidbody2DComponent)));
+                    luaL_getmetatable(L, "JNG.LuaRigidbody2DComponent");
+                    lua_setmetatable(L, -2);
+                    luaRBC->handle = &entityHandle->getComponent<Rigidbody2DComponent>();
                     break;
                 }
-                lua_newtable(L);
+
                 return 1;
             };
 
+            auto luaRigidbody2dComponent_setVelocity = [](lua_State* L) -> int {
+                LuaRigidbody2DComponent* luaRBC = reinterpret_cast<LuaRigidbody2DComponent*>(luaL_checkudata(L, 1, "JNG.LuaRigidbody2DComponent"));
+                JNG_CORE_ASSERT(luaRBC, "luaRigidbody2dComponent_setVelocity 1st parameter is not a LuaRigidbody2DComponent!");
+                JNG_CORE_ASSERT(lua_isnumber(L, 2), "luaRigidbody2dComponent_setVelocity 2nd parameter is not a number!");
+                JNG_CORE_ASSERT(lua_isnumber(L, 3), "luaRigidbody2dComponent_setVelocity 3rd parameter is not a number!");
+                float x = (float)lua_tonumber(L, 2);
+                float y = (float)lua_tonumber(L, 3);
+                luaRBC->handle->setLinearVelocity({ x, y });
+                return 0;
+            };
+
+            luaL_newmetatable(L, "JNG.LuaRigidbody2DComponent");
+            lua_pushstring(L, "__index");
+            lua_pushvalue(L, -2); // pushes the metatable
+            lua_settable(L, -3);  // metatable.__index = metatable
+            lua_pushcfunction(L, luaRigidbody2dComponent_setVelocity);
+            lua_setfield(L, -2, "setVelocity");
+
             lua_newtable(L);
+            lua_pushlightuserdata(L, &m_entity);
+            lua_setfield(L, -2, "_entityHandle_");
             lua_pushcfunction(L, luaScript_new);
             lua_setfield(L, -2, "new");
             lua_pushcfunction(L, luaScript_getComponent);
@@ -119,10 +150,8 @@ namespace jng {
 
         luaL_dofile(L, path.string().c_str());
 
-#pragma region reflection
         JNG_CORE_TRACE("Reflecting on {} script:", m_name);
 
-        lua_getglobal(L, m_name.c_str());
         lua_pushnil(L); // push nil as first key because lua_next needs something to pop
         while (lua_next(L, -2) != 0)
         {
@@ -143,22 +172,46 @@ namespace jng {
             // pop 'value', leave 'key' for lua_next to pop
             lua_pop(L, 1);
         }
-#pragma endregion
-
-        // temp - testing
-        lua_getfield(L, -1, "onCreate");
-        lua_pushvalue(L, -2); // copy script table for argument
-        JNG_CORE_ASSERT(lua_isfunction(L, -2), "should be a function");
-        JNG_CORE_ASSERT(lua_istable(L, -1), "should be a table");
-        if(lua_pcall(L, 1, 0, 0))
-        {
-            JNG_CORE_ERROR("Lua Error: {}", lua_tostring(L, -1));
-        }
     }
 
     LuaScript::~LuaScript()
     {
         lua_close(m_luaState);
+    }
+
+    void LuaScript::onCreate()
+    {
+        lua_State* L = m_luaState;
+        
+        if (m_hasOnCreateFunction)
+        {
+            lua_getfield(L, -1, "onCreate");
+            lua_pushvalue(L, -2); // copy script table for argument
+            JNG_CORE_ASSERT(lua_isfunction(L, -2), "should be a function");
+            JNG_CORE_ASSERT(lua_istable(L, -1), "should be a table");
+            if (lua_pcall(L, 1, 0, 0))
+            {
+                JNG_CORE_ERROR("Lua Error: {}", lua_tostring(L, -1));
+            }
+        }
+    }
+
+    void LuaScript::onUpdate(float dt)
+    {
+        lua_State* L = m_luaState;
+
+        if (m_hasOnUpdateFunction)
+        {
+            lua_getfield(L, -1, "onUpdate");
+            lua_pushvalue(L, -2); // copy script table for argument
+            lua_pushnumber(L, dt);
+            JNG_CORE_ASSERT(lua_isfunction(L, -3), "should be a function");
+            JNG_CORE_ASSERT(lua_istable(L, -2), "should be a table");
+            if (lua_pcall(L, 2, 0, 0))
+            {
+                JNG_CORE_ERROR("Lua Error: {}", lua_tostring(L, -1));
+            }
+        }
     }
 
     Ref<LuaScript> LuaScript::create(std::filesystem::path path)

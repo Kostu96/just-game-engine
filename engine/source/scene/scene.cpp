@@ -162,13 +162,13 @@ namespace jng {
             }
         }
         {
-            //auto view = m_registry.view<LuaScriptComponent>();
-            //for (auto entity : view)
-            //{
-            //    //auto& lsc = view.get<LuaScriptComponent>(entity);
-            //    //lsc.instance = LuaScript::create(lsc.path, lsc.name.c_str());
-            //    //lsc.instance->m_entity = Entity{ entity, *this };
-            //}
+            auto view = m_registry.view<LuaScriptComponent>();
+            for (auto entity : view)
+            {
+                auto& lsc = view.get<LuaScriptComponent>(entity);
+                lsc.instance->m_entity = Entity{ entity, *this };
+                lsc.instance->onCreate();
+            }
         }
     }
 
@@ -228,14 +228,14 @@ namespace jng {
 
     void Scene::onUpdate(float dt)
     {
-        /*{
-            auto view = m_registry.view<NativeScriptComponent>();
+        {
+            auto view = m_registry.view<LuaScriptComponent>();
             for (auto entity : view)
             {
-                auto& nsc = view.get<NativeScriptComponent>(entity);
-                nsc.Instance->onUpdate(dt);
+                auto& lsc = view.get<LuaScriptComponent>(entity);
+                lsc.instance->onUpdate(dt);
             }
-        }*/
+        }
         {
             m_physics2dWorld->Step(dt, PHYSICS_VEL_ITERATIONS, PHYSICS_POS_ITERATIONS);
 

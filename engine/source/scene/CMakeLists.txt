@@ -16,6 +16,7 @@ list(APPEND JNG_HEADERS
 list(APPEND JNG_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
     ${CMAKE_CURRENT_SOURCE_DIR}/camera.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/components.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/entity.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/scene.cpp
 )

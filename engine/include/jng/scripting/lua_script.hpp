@@ -24,6 +24,9 @@ namespace jng {
 
         const std::string& getName() const { return m_name; }
 
+        void onCreate();
+        void onUpdate(float dt);
+
         static Ref<LuaScript> create(std::filesystem::path path);
     protected:
         template<typename T>
