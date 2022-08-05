@@ -249,47 +249,29 @@ namespace jng {
 
                 if (ImGui::BeginPopup("AddComponent"))
                 {
-                    if (!m_context.SelectedEntity.hasComponent<CameraComponent>() && ImGui::MenuItem("Camera"))
-                    {
-                        m_context.SelectedEntity.addComponent<CameraComponent>();
-                        ImGui::CloseCurrentPopup();
-                    }
-                    else if (!m_context.SelectedEntity.hasComponent<CircleRendererComponent>() && ImGui::MenuItem("Circle Renderer"))
-                    {
-                        m_context.SelectedEntity.addComponent<CircleRendererComponent>();
-                        ImGui::CloseCurrentPopup();
-                    }
-                    else if (!m_context.SelectedEntity.hasComponent<SpriteRendererComponent>() && ImGui::MenuItem("Sprite Renderer"))
-                    {
-                        m_context.SelectedEntity.addComponent<SpriteRendererComponent>();
-                        ImGui::CloseCurrentPopup();
-                    }
-                    else if (!m_context.SelectedEntity.hasComponent<BoxCollider2DComponent>() && ImGui::MenuItem("Box Collider 2D"))
-                    {
-                        m_context.SelectedEntity.addComponent<BoxCollider2DComponent>();
-                        ImGui::CloseCurrentPopup();
-                    }
-                    else if (!m_context.SelectedEntity.hasComponent<CircleCollider2DComponent>() && ImGui::MenuItem("Circle Collider 2D"))
-                    {
-                        m_context.SelectedEntity.addComponent<CircleCollider2DComponent>();
-                        ImGui::CloseCurrentPopup();
-                    }
-                    else if (!m_context.SelectedEntity.hasComponent<Rigidbody2DComponent>() && ImGui::MenuItem("Rigidbody 2D"))
-                    {
-                        m_context.SelectedEntity.addComponent<Rigidbody2DComponent>();
-                        ImGui::CloseCurrentPopup();
-                    }
-                    else if (!m_context.SelectedEntity.hasComponent<LuaScriptComponent>() && ImGui::MenuItem("Lua Script"))
-                    {
-                        m_context.SelectedEntity.addComponent<LuaScriptComponent>();
-                        ImGui::CloseCurrentPopup();
-                    }
+                    displayComponentInAddList<CameraComponent>("Camera");
+                    displayComponentInAddList<CircleRendererComponent>("Circle Renderer");
+                    displayComponentInAddList<SpriteRendererComponent>("Sprite Renderer");
+                    displayComponentInAddList<BoxCollider2DComponent>("Box Collider 2D");
+                    displayComponentInAddList<CircleCollider2DComponent>("Circle Collider 2D");
+                    displayComponentInAddList<Rigidbody2DComponent>("Rigidbody 2D");
+                    displayComponentInAddList<LuaScriptComponent>("Lua Script");
 
                     ImGui::EndPopup();
                 }
             }
 
             ImGui::End();
+        }
+    }
+
+    template<typename Component>
+    void InspectorWindow::displayComponentInAddList(const char* label)
+    {
+        if (!m_context.SelectedEntity.hasComponent<Component>() && ImGui::MenuItem(label))
+        {
+            m_context.SelectedEntity.addComponent<Component>();
+            ImGui::CloseCurrentPopup();
         }
     }
 
