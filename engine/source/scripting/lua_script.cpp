@@ -8,6 +8,8 @@
 
 #include "scene/components.hpp"
 #include "scene/entity.hpp"
+#include "platform/input.hpp"
+#include "platform/key_codes.hpp"
 
 #include <lua/lua.hpp>
 
@@ -63,6 +65,24 @@ namespace jng {
             };
             lua_pushcfunction(L, logFunc);
             lua_setglobal(L, "log");
+
+            auto input_isKeyPressed = [](lua_State* L) -> int {
+                int64 key = luaL_checkinteger(L, 1);
+                bool isPressed = Input::isKeyPressed((Key::Code)key);
+                lua_pushboolean(L, isPressed);
+                return 1;
+            };
+
+            lua_newtable(L);
+            lua_newtable(L);
+            lua_pushnumber(L, Key::A);
+            lua_setfield(L, -2, "A");
+            lua_pushnumber(L, Key::D);
+            lua_setfield(L, -2, "D");
+            lua_setfield(L, -2, "Key");
+            lua_pushcfunction(L, input_isKeyPressed);
+            lua_setfield(L, -2, "isKeyPressed");
+            lua_setglobal(L, "Input");
         }
 
         // script base
@@ -148,7 +168,10 @@ namespace jng {
         }
 #pragma endregion
 
-        luaL_dofile(L, path.string().c_str());
+        if (luaL_dofile(L, path.string().c_str()))
+        {
+            JNG_CORE_ERROR("Lua Error: {}", lua_tostring(L, -1));
+        }
 
         JNG_CORE_TRACE("Reflecting on {} script:", m_name);
 
