@@ -67,8 +67,7 @@ namespace jng {
             auto luaScript_new = [](lua_State* L) -> int {
                 JNG_CORE_WARN("luaScript_new called");
 
-                // 1st parameter should be 'self' table
-                JNG_CORE_ASSERT(lua_istable(L, -1), "luaScript_new 1st parameter is not a table!");
+                JNG_CORE_ASSERT(lua_istable(L, 1), "luaScript_new 1st parameter is not a table!");
 
                 lua_newtable(L);                // LuaScript table - stack: -1 LuaScript table, -2 self arg
                 lua_insert(L, -2);              // exchange LuaScript table with self on the stack - stack: -1 self arg, -2 LuaScript table
@@ -80,6 +79,31 @@ namespace jng {
 
             auto luaScript_getComponent = [](lua_State* L) -> int {
                 JNG_CORE_WARN("luaScript_getComponent called");
+
+                JNG_CORE_ASSERT(lua_istable(L, 1), "luaScript_getComponent 1st parameter is not a table!");
+                JNG_CORE_ASSERT(lua_isnumber(L, 2), "luaScript_getComponent 2st parameter is not a number!");
+
+                int64 type = luaL_checkinteger(L, -1);
+                switch (type)
+                {
+                case Tag:
+                    break;
+                case Transform:
+                    break;
+                case Camera:
+                    break;
+                case SpriteRenderer:
+                    break;
+                case CircleRenderer:
+                    break;
+                case BoxCollider2D:
+                    break;
+                case CircleCollider2D:
+                    break;
+                case Rigidbody2D:
+
+                    break;
+                }
                 lua_newtable(L);
                 return 1;
             };
