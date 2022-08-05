@@ -480,13 +480,17 @@ namespace jng {
             reinterpret_cast<uint8*>(s_data.quadVBOPtr) -
             reinterpret_cast<uint8*>(s_data.quadVBOBase)
         );
-        s_data.quadVBO->setData(s_data.quadVBOBase, dataSize);
 
-        s_data.quadVAO->bind();
-        s_data.quadShader->bind();
-        RendererAPI::drawIndexed(s_data.currentQuadIndexCount);
+        if (dataSize > 0)
+        {
+            s_data.quadVBO->setData(s_data.quadVBOBase, dataSize);
 
-        ++s_data.statistics.drawCalls;
+            s_data.quadVAO->bind();
+            s_data.quadShader->bind();
+            RendererAPI::drawIndexed(s_data.currentQuadIndexCount);
+
+            ++s_data.statistics.drawCalls;
+        }
     }
 
     void Renderer2D::beginCircleBatch()
@@ -502,13 +506,17 @@ namespace jng {
             reinterpret_cast<uint8*>(s_data.circleVBOPtr) -
             reinterpret_cast<uint8*>(s_data.circleVBOBase)
             );
-        s_data.circleVBO->setData(s_data.circleVBOBase, dataSize);
 
-        s_data.circleVAO->bind();
-        s_data.circleShader->bind();
-        RendererAPI::drawIndexed(s_data.currentCircleIndexCount);
+        if (dataSize > 0)
+        {
+            s_data.circleVBO->setData(s_data.circleVBOBase, dataSize);
 
-        ++s_data.statistics.drawCalls;
+            s_data.circleVAO->bind();
+            s_data.circleShader->bind();
+            RendererAPI::drawIndexed(s_data.currentCircleIndexCount);
+
+            ++s_data.statistics.drawCalls;
+        }
     }
 
     void Renderer2D::beginLineBatch()
@@ -524,13 +532,17 @@ namespace jng {
             reinterpret_cast<uint8*>(s_data.lineVBOPtr) -
             reinterpret_cast<uint8*>(s_data.lineVBOBase)
             );
-        s_data.lineVBO->setData(s_data.lineVBOBase, dataSize);
 
-        s_data.lineVAO->bind();
-        s_data.lineShader->bind();
-        RendererAPI::draw(s_data.currentLineVertexCount, RendererAPI::PrimitiveType::Lines);
+        if (dataSize > 0)
+        {
+            s_data.lineVBO->setData(s_data.lineVBOBase, dataSize);
 
-        ++s_data.statistics.drawCalls;
+            s_data.lineVAO->bind();
+            s_data.lineShader->bind();
+            RendererAPI::draw(s_data.currentLineVertexCount, RendererAPI::PrimitiveType::Lines);
+
+            ++s_data.statistics.drawCalls;
+        }
     }
 
 } // namespace jng

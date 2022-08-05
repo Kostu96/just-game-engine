@@ -34,6 +34,9 @@ namespace jng {
     private:
         std::string m_name;
         lua_State* m_luaState = nullptr;
+        bool m_hasOnCreateFunction = false;
+        bool m_hasOnUpdateFunction = false;
+
         Entity m_entity;
 
         friend class Scene;

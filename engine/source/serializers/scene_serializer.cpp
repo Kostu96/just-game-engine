@@ -149,7 +149,7 @@ namespace jng {
                 auto tagComponent = entity["TagComponent"];
                 if (tagComponent) name = tagComponent["Tag"].as<std::string>();
 
-                JNG_CORE_TRACE("  Deserializing entity: {0}", name);
+                JNG_CORE_TRACE("Deserializing entity: {0}", name);
 
                 Entity deserializedEntity = m_scene->createEntity(name, id);
 

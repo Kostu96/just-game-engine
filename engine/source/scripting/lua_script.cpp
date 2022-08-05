@@ -18,6 +18,39 @@ namespace jng {
         luaL_openlibs(L);
 
 #pragma region internalDef
+        // definitions
+        enum Components
+        {
+            Tag,
+            Transform,
+            Camera,
+            SpriteRenderer,
+            CircleRenderer,
+            BoxCollider2D,
+            CircleCollider2D,
+            Rigidbody2D
+        };
+
+        lua_newtable(L);
+        lua_pushinteger(L, Tag);
+        lua_setfield(L, -2, "Tag");
+        lua_pushinteger(L, Transform);
+        lua_setfield(L, -2, "Transform");
+        lua_pushinteger(L, Camera);
+        lua_setfield(L, -2, "Camera");
+        lua_pushinteger(L, SpriteRenderer);
+        lua_setfield(L, -2, "SpriteRenderer");
+        lua_pushinteger(L, CircleRenderer);
+        lua_setfield(L, -2, "CircleRenderer");
+        lua_pushinteger(L, BoxCollider2D);
+        lua_setfield(L, -2, "BoxCollider2D");
+        lua_pushinteger(L, CircleCollider2D);
+        lua_setfield(L, -2, "CircleCollider2D");
+        lua_pushinteger(L, Rigidbody2D);
+        lua_setfield(L, -2, "Rigidbody2D");
+        lua_setglobal(L, "Components");
+
+        // global functions
         {
             auto logFunc = [](lua_State* L) -> int {
                 const char* message = lua_tostring(L, -1);
@@ -28,48 +61,74 @@ namespace jng {
             lua_pushcfunction(L, logFunc);
             lua_setglobal(L, "log");
         }
+
+        // script base
+        {
+            auto luaScript_new = [](lua_State* L) -> int {
+                JNG_CORE_WARN("luaScript_new called");
+
+                // 1st parameter should be 'self' table
+                JNG_CORE_ASSERT(lua_istable(L, -1), "luaScript_new 1st parameter is not a table!");
+
+                lua_newtable(L);                // LuaScript table - stack: -1 LuaScript table, -2 self arg
+                lua_insert(L, -2);              // exchange LuaScript table with self on the stack - stack: -1 self arg, -2 LuaScript table
+                lua_pushvalue(L, -1);           // copy self to the top of the stack - stack: -1 self copy, -2 self arg, -3 LuaScript table
+                lua_setmetatable(L, -3);        // set new LuaScript table metateble to self; pops the self copy - stack: -1 self arg, -2 LuaScript table
+                lua_setfield(L, -1, "__index"); // self.__index = self; pops self - stack: -1 LuaScript table
+                return 1;
+            };
+
+            auto luaScript_getComponent = [](lua_State* L) -> int {
+                JNG_CORE_WARN("luaScript_getComponent called");
+                lua_newtable(L);
+                return 1;
+            };
+
+            lua_newtable(L);
+            lua_pushcfunction(L, luaScript_new);
+            lua_setfield(L, -2, "new");
+            lua_pushcfunction(L, luaScript_getComponent);
+            lua_setfield(L, -2, "getComponent");
+            lua_setglobal(L, "LuaScript");
+        }
 #pragma endregion
 
         luaL_dofile(L, path.string().c_str());
 
+#pragma region reflection
         JNG_CORE_TRACE("Reflecting on {} script:", m_name);
-        auto reflect = fmt::format(
-            R"===(
-symbols = {{}}
-values = {{}}
-i = 1
-for key, value in pairs({0}) do
-    symbols[i] = key
-    values[i] = value
-    i = i + 1
-end
-)===", m_name);
 
-        if (luaL_dostring(L, reflect.c_str()))
+        lua_getglobal(L, m_name.c_str());
+        lua_pushnil(L); // push nil as first key because lua_next needs something to pop
+        while (lua_next(L, -2) != 0)
         {
-            JNG_CORE_ERROR("Lua Error: {}", lua_tostring(L, -1));
-        }
+            const char* symbol = lua_type(L, -2) == LUA_TSTRING ? lua_tostring(L, -2) : "!not_a_string!";
+            int type = lua_type(L, -1);
 
-        lua_getglobal(L, "symbols");
-        lua_getglobal(L, "values");
-        JNG_CORE_ASSERT(lua_istable(L, -2), "\"symbols\" must be a Lua table!");
-        JNG_CORE_ASSERT(lua_istable(L, -1), "\"values\" must be a Lua table!");
-        uint32 size = (uint32)lua_rawlen(L, -1);
+            JNG_CORE_TRACE("{}.{} - {}", m_name, symbol, lua_typename(L, type));
 
-        for (uint32 i = 1; i <= size; i++)
-        {
-            int type = lua_rawgeti(L, -1, i);
-            lua_pop(L, 1);
-            lua_rawgeti(L, -2, i);
-            const char* str = lua_tostring(L, -1);
             switch (type)
             {
-            case LUA_TFUNCTION: JNG_CORE_TRACE("  {}.{} - Function", m_name, str); break;
-            case LUA_TNUMBER:   JNG_CORE_TRACE("  {}.{} - Number", m_name, str); break;
-            case LUA_TSTRING:   JNG_CORE_TRACE("  {}.{} - String", m_name, str); break;
-            default:            JNG_CORE_TRACE("  {}.{} - Other", m_name, str); break;
-}
+            case LUA_TFUNCTION:
+                if (strcmp(symbol, "onCreate") == 0) m_hasOnCreateFunction = true;
+                else if (strcmp(symbol, "onUpdate") == 0) m_hasOnUpdateFunction = true;
+                
+                break;
+            }
+
+            // pop 'value', leave 'key' for lua_next to pop
             lua_pop(L, 1);
+        }
+#pragma endregion
+
+        // temp - testing
+        lua_getfield(L, -1, "onCreate");
+        lua_pushvalue(L, -2); // copy script table for argument
+        JNG_CORE_ASSERT(lua_isfunction(L, -2), "should be a function");
+        JNG_CORE_ASSERT(lua_istable(L, -1), "should be a table");
+        if(lua_pcall(L, 1, 0, 0))
+        {
+            JNG_CORE_ERROR("Lua Error: {}", lua_tostring(L, -1));
         }
     }
 
