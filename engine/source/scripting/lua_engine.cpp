@@ -154,12 +154,8 @@ namespace jng::LuaEngine {
 
                     break;
                 case LUA_TNUMBER:
-                    union
-                    {
-                        double initialValue;
-                        void* any;
-                    };
-                    initialValue = lua_tonumber(s_data.L, -1);
+                    union { double value; void* any; };
+                    value = lua_tonumber(s_data.L, -1);
                     it->second.properties.emplace(symbol, ScriptData::Property{ ScriptData::PropertyType::Number, any });
                     break;
                 }

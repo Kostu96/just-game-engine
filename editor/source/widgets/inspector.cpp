@@ -255,11 +255,7 @@ namespace jng {
                             switch (prop.second.type)
                             {
                             case LuaEngine::ScriptData::PropertyType::Number:
-                                union
-                                {
-                                    double value;
-                                    void* any;
-                                };
+                                union { double value;  void* any; };
                                 any = prop.second.value;
                                 float valueF = static_cast<float>(value);
                                 if (ImGui::DragFloat(prop.first.c_str(), &valueF))

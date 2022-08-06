@@ -13,29 +13,39 @@
 
 #include <lua/lua.hpp>
 
+#define JNG_LUA_CCALL_ENTRY(x) \
+    constexpr static const int NUM_RETURNS = x; \
+    [[maybe_unused]] int previousTop = lua_gettop(L)
+
+#define JNG_LUA_CALL_EXIT() \
+    JNG_CORE_ASSERT(lua_gettop(L) == previousTop + NUM_RETURNS, "Lua stack has incorrect size!"); \
+    return NUM_RETURNS
+
 namespace jng::Lua {
 
     namespace Script {
 
         int jng::Lua::Script::create(lua_State* L)
         {
-            JNG_CORE_ASSERT(lua_istable(L, 1), "luaScript_new 1st parameter is not a table!");
+            JNG_LUA_CCALL_ENTRY(1);
 
-            JNG_PRINT_LUA_STACK();
+            JNG_CORE_ASSERT(lua_istable(L, 1), "LuaScript::create - 1st parameter is not a table!");
+
             lua_newtable(L);                      // new script
             lua_insert(L, -2);                    // exchange new script with self on the stack
             lua_pushvalue(L, -1);             // copy self to the top of the stack
             lua_setmetatable(L, -3);      // set new script metateble to self; pops the stack
             lua_setfield(L, -1, "__index"); // self.__index = self; pops the stack 
-            JNG_PRINT_LUA_STACK();
 
-            return 1;
+            JNG_LUA_CALL_EXIT();
         }
 
         int jng::Lua::Script::getComponent(lua_State* L)
         {
-            JNG_CORE_ASSERT(lua_istable(L, 1), "luaScript_getComponent 1st parameter is not a table!");
-            JNG_CORE_ASSERT(lua_isnumber(L, 2), "luaScript_getComponent 2nd parameter is not a number!");
+            JNG_LUA_CCALL_ENTRY(1);
+
+            JNG_CORE_ASSERT(lua_istable(L, 1), "LuaScript::getComponent - 1st parameter is not a table!");
+            JNG_CORE_ASSERT(lua_isnumber(L, 2), "LuaScript::getComponent - 2nd parameter is not a number!");
 
             lua_getfield(L, 1, "_entityHandle_");
             entt::entity entityHandle = (entt::entity)(uint64)lua_touserdata(L, -1);
@@ -71,7 +81,7 @@ namespace jng::Lua {
                 break;
             }
 
-            return 1;
+            JNG_LUA_CALL_EXIT();
         }
 
     } // namespace Script
@@ -80,10 +90,14 @@ namespace jng::Lua {
 
         int log(lua_State* L)
         {
+            JNG_LUA_CCALL_ENTRY(0);
+
+            JNG_CORE_ASSERT(lua_isstring(L, 1), "Global::log - 1st parameter is not a string!");
+
             const char* message = lua_tostring(L, -1);
             JNG_CORE_INFO(message);
 
-            return 0;
+            JNG_LUA_CALL_EXIT();
         }
 
     } // namespace Global
@@ -92,17 +106,18 @@ namespace jng::Lua {
 
         int Rigidbody2DComponent::setLinearVelocity(lua_State* L)
         {
-            Rigidbody2DComponent* rbc = reinterpret_cast<Rigidbody2DComponent*>(luaL_checkudata(L, 1, Rigidbody2DComponent::METATABLE_NAME));
+            JNG_LUA_CCALL_ENTRY(0);
 
-            JNG_CORE_ASSERT(rbc, "Rigidbody2dComponent::setLinearVelocity 1st parameter is not a LuaRigidbody2DComponent!");
-            JNG_CORE_ASSERT(lua_isnumber(L, 2), "Rigidbody2dComponent::setLinearVelocity 2nd parameter is not a number!");
-            JNG_CORE_ASSERT(lua_isnumber(L, 3), "Rigidbody2dComponent::setLinearVelocity 3rd parameter is not a number!");
+            Rigidbody2DComponent* rbc = reinterpret_cast<Rigidbody2DComponent*>(luaL_checkudata(L, 1, Rigidbody2DComponent::METATABLE_NAME));
+            JNG_CORE_ASSERT(rbc, "Rigidbody2dComponent::setLinearVelocity - 1st parameter is not a LuaRigidbody2DComponent!");
+            JNG_CORE_ASSERT(lua_isnumber(L, 2), "Rigidbody2dComponent::setLinearVelocity - 2nd parameter is not a number!");
+            JNG_CORE_ASSERT(lua_isnumber(L, 3), "Rigidbody2dComponent::setLinearVelocity - 3rd parameter is not a number!");
             
             float x = (float)lua_tonumber(L, 2);
             float y = (float)lua_tonumber(L, 3);
             rbc->handle->setLinearVelocity({ x, y });
             
-            return 0;
+            JNG_LUA_CALL_EXIT();
         }
 
     } // namespace Component
@@ -111,11 +126,15 @@ namespace jng::Lua {
 
         int isKeyPressed(lua_State* L)
         {
+            JNG_LUA_CCALL_ENTRY(1);
+
+            JNG_CORE_ASSERT(lua_isnumber(L, 1), "Input::isKeyPressed - 1st parameter is not a number!");
+
             Key::Code key = static_cast<uint16>(luaL_checkinteger(L, 1));
             bool isPressed = jng::Input::isKeyPressed(key);
             lua_pushboolean(L, isPressed);
             
-            return 1;
+            JNG_LUA_CALL_EXIT();
         }
 
     } // namespace Input

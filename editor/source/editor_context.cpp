@@ -52,9 +52,12 @@ namespace jng {
 
         for (auto& entry : std::filesystem::recursive_directory_iterator(BrowsedPath))
         {
-            JNG_CORE_INFO("{}", entry);
             if (entry.is_regular_file() && entry.path().extension() == ".lua")
+            {
+                auto relativePath = std::filesystem::relative(entry, ProjectPath);
+                JNG_CORE_TRACE("Registering script: {}", relativePath);
                 LuaEngine::registerScript(entry.path());
+            }
         }
     }
 

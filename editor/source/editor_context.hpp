@@ -52,7 +52,7 @@ namespace jng {
         bool isStatisticsWindowOpen = true;
 
         // Settings state:
-        bool isSettingsWindowOpen = true;
+        bool isSettingsWindowOpen = false;
         float physicsGravity = 9.8f;
         bool showColliders = false;
 

@@ -146,13 +146,13 @@ namespace jng {
             for (auto entity : entities)
             {
                 GUID id{ entity["Entity"].as<uint64>() };
-                std::string name;
+                std::string tag;
                 auto tagComponent = entity["TagComponent"];
-                if (tagComponent) name = tagComponent["Tag"].as<std::string>();
+                if (tagComponent) tag = tagComponent["Tag"].as<std::string>();
 
-                JNG_CORE_TRACE("Deserializing entity: {0}", name);
+                JNG_CORE_TRACE("Deserializing entity: {0}", tag);
 
-                Entity deserializedEntity = m_scene->createEntity(name, id);
+                Entity deserializedEntity = m_scene->createEntity(tag, id);
 
 #pragma region DeserializeTransformComponent
                 auto transformComponent = entity["TransformComponent"];
@@ -232,7 +232,7 @@ namespace jng {
                 if (rigidbody2DComponent)
                 {
                     auto& comp = deserializedEntity.addComponent<Rigidbody2DComponent>();
-                    comp.Type = (static_cast<Rigidbody2DComponent::BodyType>(rigidbody2DComponent["BodyType"].as<int>()));
+                    comp.Type = static_cast<Rigidbody2DComponent::BodyType>(rigidbody2DComponent["BodyType"].as<int>());
                     comp.freezeRotation = rigidbody2DComponent["FreezeRotation"].as<bool>();
                     comp.linearDamping = rigidbody2DComponent["LinearDamping"].as<float>();
                     comp.angularDamping = rigidbody2DComponent["AngularDamping"].as<float>();
@@ -245,6 +245,26 @@ namespace jng {
                 {
                     auto& comp = deserializedEntity.addComponent<LuaScriptComponent>();
                     comp.name = luaScriptComponent["Name"].as<std::string>();
+                    auto scriptData = luaScriptComponent["ScriptData"];
+                    comp.data.hasOnCreate = scriptData["HasOnCreate"].as<bool>();
+                    comp.data.hasOnUpdate = scriptData["HasOnUpdate"].as<bool>();
+                    auto properties = scriptData["Properties"];
+                    for (auto prop : properties)
+                    {
+                        std::string name = prop["Name"].as<std::string>();
+                        auto type = static_cast<LuaEngine::ScriptData::PropertyType>(prop["Type"].as<uint32>());
+                        union {
+                            double value; 
+                            void* any;
+                        };
+                        switch (type)
+                        {
+                        case LuaEngine::ScriptData::PropertyType::Number: {
+                            value = prop["Value"].as<double>();
+                        } break;
+                        }
+                        comp.data.properties.emplace(name, LuaEngine::ScriptData::Property{ type, any });
+                    }
                 }
 #pragma endregion
             }
@@ -408,7 +428,7 @@ namespace jng {
                     union { double value; void* any; };
                     any = prop.second.value;
                     yaml << value;
-                }   break;
+                } break;
                 }
                 yaml << YAML::EndMap;
             }
