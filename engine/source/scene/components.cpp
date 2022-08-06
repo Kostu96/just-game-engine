@@ -78,7 +78,7 @@ namespace jng {
 
     void LuaScriptComponent::reset()
     {
-        path = std::filesystem::path{};
+        name = {};
         instance = {};
     }
 

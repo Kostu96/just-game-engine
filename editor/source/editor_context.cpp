@@ -18,7 +18,7 @@ namespace jng {
         SelectedEntity = {};
         EditorScene = makeRef<Scene>();
         SceneSerializer serializer{ EditorScene };
-        serializer.deserialize(path.string().c_str());
+        serializer.deserialize(path);
         EditorScenePath = path;
 
         EditorScene->setViewportSize(ViewportWindowSize.x, ViewportWindowSize.y);
@@ -31,7 +31,7 @@ namespace jng {
         if (!path.empty())
         {
             SceneSerializer serializer{ EditorScene };
-            serializer.serialize(path.string().c_str());
+            serializer.serialize(path);
             EditorScenePath = path;
         }
     }

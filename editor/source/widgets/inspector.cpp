@@ -10,7 +10,7 @@
 
 #include <jng/core/base.hpp>
 #include <jng/scene/components.hpp>
-#include <jng/scripting/lua_script.hpp>
+#include <jng/scripting/lua_engine.hpp>
 
 #include <imgui.h>
 #include <glm/gtc/type_ptr.hpp>
@@ -237,15 +237,14 @@ namespace jng {
                     [](LuaScriptComponent& lsc) {
                         ImGui::Text("Script");
                         ImGui::SameLine();
-                        std::string btnLabel = lsc.instance ? lsc.instance->getName() : std::string{} + "##script_button";
-                        ImGui::Button(btnLabel.c_str(), { !lsc.instance ? 80.f : 0.f, 0 });
+                        std::string btnLabel = std::string{ lsc.name } + "##script_button";
+                        ImGui::Button(btnLabel.c_str(), { lsc.name.empty() ? 80.f : 0.f, 0});
 
                         if (ImGui::BeginDragDropTarget())
                         {
                             if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
                             {
-                                lsc.path = reinterpret_cast<const char*>(payload->Data);
-                                lsc.instance = LuaScript::create(lsc.path);
+                                lsc.name = LuaEngine::registerScript(reinterpret_cast<const char*>(payload->Data));
                             }
                             ImGui::EndDragDropTarget();
                         }

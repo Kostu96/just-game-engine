@@ -8,7 +8,6 @@
 
 #include "scene/components.hpp"
 #include "scene/entity.hpp"
-#include "scripting/lua_script.hpp"
 
 #include <yaml-cpp/yaml.h>
 #include <fstream>
@@ -112,33 +111,34 @@ namespace YAML {
 
 namespace jng {
 
-    void SceneSerializer::serialize(const char* filename)
+    void SceneSerializer::serialize(const std::filesystem::path& path)
     {
         YAML::Emitter yaml;
 
         yaml << YAML::BeginMap;
 
-        yaml << YAML::Key << "Scene" << YAML::Value << "Untitled";
+        yaml << YAML::Key << "Scene" << YAML::Value << path.stem().string();
         yaml << YAML::Key << "Entities" << YAML::Value << YAML::BeginSeq;
         m_scene->each([this, &yaml](Entity entity) { serializeEntity(entity, yaml); });
         yaml << YAML::EndSeq;
 
         yaml << YAML::EndMap;
 
-        std::ofstream fout{ filename };
-        fout << yaml.c_str();
+        std::ofstream fout{ path };
+        fout << yaml.c_str() << '\n';
         fout.close();
     }
 
-    void SceneSerializer::deserialize(const char* filename)
+    void SceneSerializer::deserialize(const std::filesystem::path& path)
     {
-        YAML::Node data = YAML::LoadFile(filename);
+        std::string pathString = path.string();
+        YAML::Node data = YAML::LoadFile(pathString);
         if (!data["Scene"]) {
-            JNG_CORE_ERROR("Error loading scene file: {0}\nMissing 'Scene' node!", filename);
+            JNG_CORE_ERROR("Error loading scene file: {0}\nMissing 'Scene' node!", pathString);
             return;
         }
 
-        JNG_CORE_TRACE("Deserializing scene: {0}", "Untitled");
+        JNG_CORE_TRACE("Deserializing scene: {0}", data["Scene"].as<std::string>());
 
         auto entities = data["Entities"];
         if (entities)
@@ -243,8 +243,7 @@ namespace jng {
                 if (luaScriptComponent)
                 {
                     auto& comp = deserializedEntity.addComponent<LuaScriptComponent>();
-                    comp.path = luaScriptComponent["Path"].as<std::string>();
-                    comp.instance = LuaScript::create(comp.path);
+                    comp.name = luaScriptComponent["Name"].as<std::string>();
                 }
 #pragma endregion
             }
@@ -389,7 +388,7 @@ namespace jng {
             yaml << YAML::BeginMap;
             auto& comp = entity.getComponent<LuaScriptComponent>();
 
-            yaml << YAML::Key << "Path" << YAML::Value << comp.path.string();
+            yaml << YAML::Key << "Name" << YAML::Value << comp.name;
 
             yaml << YAML::EndMap;
         }

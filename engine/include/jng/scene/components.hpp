@@ -10,7 +10,6 @@
 #include "jng/scene/camera.hpp"
 
 #include <glm/glm.hpp>
-#include <filesystem>
 #include <string>
 #include <type_traits>
 
@@ -139,7 +138,7 @@ namespace jng {
         LuaScriptComponent() = default;
         LuaScriptComponent(const LuaScriptComponent&) = default;
 
-        std::filesystem::path path;
+        std::string name;
         Ref<LuaScript> instance;
 
         void reset();

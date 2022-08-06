@@ -14,7 +14,6 @@
 #include <glm/gtc/type_ptr.inl>
 #include <shaderc/shaderc.hpp>
 #include <spirv_cross/spirv_glsl.hpp>
-#include <filesystem>
 #include <vector>
 
 namespace jng {

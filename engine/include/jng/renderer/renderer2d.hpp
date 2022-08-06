@@ -15,10 +15,8 @@ namespace jng {
     struct CircleRendererComponent;
     struct SpriteRendererComponent;
 
-    class Renderer2D :
-        public NonCopyable
-    {
-    public:
+    namespace Renderer2D {
+
         struct DrawQuadProperties
         {
             const glm::vec3* vertexPositions;
@@ -38,29 +36,29 @@ namespace jng {
             int32 entityID = -1;
         };
 
-        static void init();
-        static void shutdown();
+        void init();
+        void shutdown();
 
-        static void beginScene(const glm::mat4& viewProjection);
-        static void endScene();
+        void beginScene(const glm::mat4& viewProjection);
+        void endScene();
 
         // Quads
-        static void drawSprite(const glm::mat4& transform, const SpriteRendererComponent& src, int32 entityID);
-        static void drawQuad(const DrawQuadProperties& properties);
+        void drawSprite(const glm::mat4& transform, const SpriteRendererComponent& src, int32 entityID);
+        void drawQuad(const DrawQuadProperties& properties);
         
         // Circles
-        static void drawCircle(const glm::mat4& transform, const CircleRendererComponent& crc, int32 entityID);
-        static void drawCircle(const glm::mat4& transform, const glm::vec4& color, float thickness = 1.f, float fade = 0.005f);
-        static void drawCircle(const DrawCircleProperties& properties);
+        void drawCircle(const glm::mat4& transform, const CircleRendererComponent& crc, int32 entityID);
+        void drawCircle(const glm::mat4& transform, const glm::vec4& color, float thickness = 1.f, float fade = 0.005f);
+        void drawCircle(const DrawCircleProperties& properties);
 
         // Lines
-        static void drawLine(const glm::vec3& p0, const glm::vec3& p1, const glm::vec4& color);
-        static void drawRect(const glm::mat4& transform, const glm::vec4& color);
+        void drawLine(const glm::vec3& p0, const glm::vec3& p1, const glm::vec4& color);
+        void drawRect(const glm::mat4& transform, const glm::vec4& color);
 
-        static void fillQuad(glm::vec3 position, glm::vec2 size, const glm::vec4& color);
-        static void fillQuad(glm::vec3 position, glm::vec2 size, const Ref<Texture>& texture, const glm::vec4& color = { 1.f, 1.f, 1.f, 1.f });
-        static void fillQuad(const glm::mat4& transform, const glm::vec4& color);
-        static void fillQuad(const glm::mat4& transform, const Ref<Texture>& texture, const glm::vec4& color = { 1.f, 1.f, 1.f, 1.f });
+        void fillQuad(glm::vec3 position, glm::vec2 size, const glm::vec4& color);
+        void fillQuad(glm::vec3 position, glm::vec2 size, const Ref<Texture>& texture, const glm::vec4& color = { 1.f, 1.f, 1.f, 1.f });
+        void fillQuad(const glm::mat4& transform, const glm::vec4& color);
+        void fillQuad(const glm::mat4& transform, const Ref<Texture>& texture, const glm::vec4& color = { 1.f, 1.f, 1.f, 1.f });
 
         struct Statistics
         {
@@ -70,14 +68,8 @@ namespace jng {
             uint32 lineCount = 0;
         };
 
-        static const Statistics& getStatistics();
-    private:
-        static void beginQuadBatch();
-        static void endQuadBatch();
-        static void beginCircleBatch();
-        static void endCircleBatch();
-        static void beginLineBatch();
-        static void endLineBatch();
-    };
+        const Statistics& getStatistics();
+
+    } // namespace Renderer2D
 
 } // namespace jng

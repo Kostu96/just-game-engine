@@ -7,8 +7,6 @@
 #pragma once
 #include <jng/scene/entity.hpp>
 
-#include <filesystem>
-
 struct lua_State;
 
 namespace jng {
@@ -20,7 +18,7 @@ namespace jng {
     {
     public:
         explicit LuaScript(std::filesystem::path path);
-        ~LuaScript();
+        ~LuaScript() = default;
 
         const std::string& getName() const { return m_name; }
 
@@ -36,7 +34,7 @@ namespace jng {
         void destroyEntity(Entity entity) { return m_entity.getScene()->destroyEntity(entity); }
     private:
         std::string m_name;
-        lua_State* m_luaState = nullptr;
+        lua_State* m_L = nullptr;
         bool m_hasOnCreateFunction = false;
         bool m_hasOnUpdateFunction = false;
 

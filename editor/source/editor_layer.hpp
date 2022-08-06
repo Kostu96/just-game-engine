@@ -19,8 +19,6 @@
 #include <jng/scene/entity.hpp>
 #include <jng/scene/scene.hpp>
 
-#include <filesystem>
-
 namespace jng {
 
     class Framebuffer;

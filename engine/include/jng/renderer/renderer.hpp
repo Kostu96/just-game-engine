@@ -7,15 +7,9 @@
 #pragma once
 #include "jng/core/base.hpp"
 
-namespace jng {
+namespace jng::Renderer {
 
-    class Renderer :
-        public NonCopyable
-    {
-    public:
-        static void init();
-        static void shutdown();
-    private:
-    };
+    void init();
+    void shutdown();
 
-} // namespace jng
+} // namespace jng::Renderer

@@ -19,7 +19,6 @@
 #include "utilities/file.hpp"
 
 #include <shaderc/shaderc.hpp>
-#include <filesystem>
 
 namespace jng {
     

@@ -8,16 +8,16 @@
 
 #include "renderer/renderer2d.hpp"
 
-namespace jng {
+namespace jng::Renderer {
 
-    void Renderer::init()
+    void init()
     {
         Renderer2D::init();
     }
 
-    void Renderer::shutdown()
+    void shutdown()
     {
         Renderer2D::shutdown();
     }
 
-} // namespace jng
+} // namespace jng::Renderer

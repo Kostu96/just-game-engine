@@ -16,12 +16,11 @@
 #include "scene/components.hpp"
 
 #include <array>
-#include <filesystem>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/packing.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-namespace jng {
+namespace jng::Renderer2D {
 
     struct QuadVertex
     {
@@ -92,12 +91,94 @@ namespace jng {
         std::array<Ref<Texture>, MaxTextureSlots> textureSlots;
         uint8 textureSlotIndex = 1; // 0 = white texture
 
-        Renderer2D::Statistics statistics;
+        Statistics statistics;
     };
 
     static RenderData s_data;
 
-    void Renderer2D::init()
+    static void beginQuadBatch()
+    {
+        s_data.currentQuadIndexCount = 0;
+        s_data.quadVBOPtr = s_data.quadVBOBase;
+        s_data.textureSlotIndex = 1;
+    }
+
+    static void endQuadBatch()
+    {
+        for (uint32 i = 0; i < s_data.textureSlotIndex; ++i)
+            s_data.textureSlots[i]->bind(i);
+
+        // TODO: check if ptrdiff_t will be the same here
+        size_t dataSize = static_cast<size_t>(
+            reinterpret_cast<uint8*>(s_data.quadVBOPtr) -
+            reinterpret_cast<uint8*>(s_data.quadVBOBase)
+            );
+
+        if (dataSize > 0)
+        {
+            s_data.quadVBO->setData(s_data.quadVBOBase, dataSize);
+
+            s_data.quadVAO->bind();
+            s_data.quadShader->bind();
+            RendererAPI::drawIndexed(s_data.currentQuadIndexCount);
+
+            ++s_data.statistics.drawCalls;
+        }
+    }
+
+    static void beginCircleBatch()
+    {
+        s_data.currentCircleIndexCount = 0;
+        s_data.circleVBOPtr = s_data.circleVBOBase;
+    }
+
+    static void endCircleBatch()
+    {
+        // TODO: check if ptrdiff_t will be the same here
+        size_t dataSize = static_cast<size_t>(
+            reinterpret_cast<uint8*>(s_data.circleVBOPtr) -
+            reinterpret_cast<uint8*>(s_data.circleVBOBase)
+            );
+
+        if (dataSize > 0)
+        {
+            s_data.circleVBO->setData(s_data.circleVBOBase, dataSize);
+
+            s_data.circleVAO->bind();
+            s_data.circleShader->bind();
+            RendererAPI::drawIndexed(s_data.currentCircleIndexCount);
+
+            ++s_data.statistics.drawCalls;
+        }
+    }
+
+    static void beginLineBatch()
+    {
+        s_data.currentLineVertexCount = 0;
+        s_data.lineVBOPtr = s_data.lineVBOBase;
+    }
+
+    static void endLineBatch()
+    {
+        // TODO: check if ptrdiff_t will be the same here
+        size_t dataSize = static_cast<size_t>(
+            reinterpret_cast<uint8*>(s_data.lineVBOPtr) -
+            reinterpret_cast<uint8*>(s_data.lineVBOBase)
+            );
+
+        if (dataSize > 0)
+        {
+            s_data.lineVBO->setData(s_data.lineVBOBase, dataSize);
+
+            s_data.lineVAO->bind();
+            s_data.lineShader->bind();
+            RendererAPI::draw(s_data.currentLineVertexCount, RendererAPI::PrimitiveType::Lines);
+
+            ++s_data.statistics.drawCalls;
+        }
+    }
+
+    void init()
     {
         JNG_PROFILE_FUNCTION();
 
@@ -201,14 +282,14 @@ namespace jng {
         s_data.cameraUBO->bind(0);
     }
 
-    void Renderer2D::shutdown()
+    void shutdown()
     {
         delete[] s_data.quadVBOBase;
         delete[] s_data.circleVBOBase;
         delete[] s_data.lineVBOBase;
     }
 
-    void Renderer2D::beginScene(const glm::mat4& viewProjection)
+    void beginScene(const glm::mat4& viewProjection)
     {
         JNG_PROFILE_FUNCTION();
 
@@ -223,7 +304,7 @@ namespace jng {
         beginLineBatch();
     }
 
-    void Renderer2D::endScene()
+    void endScene()
     {
         JNG_PROFILE_FUNCTION();
 
@@ -232,7 +313,7 @@ namespace jng {
         endLineBatch();
     }
 
-    void Renderer2D::drawSprite(const glm::mat4& transform, const SpriteRendererComponent& src, int32 entityID)
+    void drawSprite(const glm::mat4& transform, const SpriteRendererComponent& src, int32 entityID)
     {
         glm::vec3 quadVertexPositions[RenderData::QuadAndCircleVertexCount];
 
@@ -256,7 +337,7 @@ namespace jng {
         drawQuad(properties);
     }
 
-    void Renderer2D::drawCircle(const glm::mat4& transform, const CircleRendererComponent& crc, int32 entityID)
+    void drawCircle(const glm::mat4& transform, const CircleRendererComponent& crc, int32 entityID)
     {
         glm::vec3 circleVertexPositions[RenderData::QuadAndCircleVertexCount];
         glm::vec2 circleVertexLocalPositions[RenderData::QuadAndCircleVertexCount];
@@ -278,7 +359,7 @@ namespace jng {
         drawCircle(properties);
     }
 
-    void Renderer2D::drawCircle(const glm::mat4& transform, const glm::vec4& color, float thickness, float fade)
+    void drawCircle(const glm::mat4& transform, const glm::vec4& color, float thickness, float fade)
     {
         glm::vec3 circleVertexPositions[RenderData::QuadAndCircleVertexCount];
         glm::vec2 circleVertexLocalPositions[RenderData::QuadAndCircleVertexCount];
@@ -300,7 +381,7 @@ namespace jng {
         drawCircle(properties);
     }
 
-    void Renderer2D::drawQuad(const DrawQuadProperties& properties)
+    void drawQuad(const DrawQuadProperties& properties)
     {
         JNG_PROFILE_FUNCTION();
 
@@ -339,7 +420,7 @@ namespace jng {
         ++s_data.statistics.quadCount;
     }
 
-    void Renderer2D::drawCircle(const DrawCircleProperties& properties)
+    void drawCircle(const DrawCircleProperties& properties)
     {
         JNG_PROFILE_FUNCTION();
 
@@ -365,7 +446,7 @@ namespace jng {
         ++s_data.statistics.circleCount;
     }
 
-    void Renderer2D::drawLine(const glm::vec3& p0, const glm::vec3& p1, const glm::vec4& color)
+    void drawLine(const glm::vec3& p0, const glm::vec3& p1, const glm::vec4& color)
     {
         JNG_PROFILE_FUNCTION();
 
@@ -387,7 +468,7 @@ namespace jng {
         ++s_data.statistics.lineCount;
     }
 
-    void Renderer2D::drawRect(const glm::mat4& transform, const glm::vec4& color)
+    void drawRect(const glm::mat4& transform, const glm::vec4& color)
     {
         glm::vec3 p0 = transform * s_data.quadAndCircleVertexPositions[0];
         glm::vec3 p1 = transform * s_data.quadAndCircleVertexPositions[1];
@@ -400,12 +481,12 @@ namespace jng {
         drawLine(p3, p0, color);
     }
 
-    void Renderer2D::fillQuad(glm::vec3 position, glm::vec2 size, const glm::vec4& color)
+    void fillQuad(glm::vec3 position, glm::vec2 size, const glm::vec4& color)
     {
         fillQuad(position, size, s_data.whiteTexture, color);
     }
 
-    void Renderer2D::fillQuad(glm::vec3 position, glm::vec2 size, const Ref<Texture>& texture, const glm::vec4& color)
+    void fillQuad(glm::vec3 position, glm::vec2 size, const Ref<Texture>& texture, const glm::vec4& color)
     {
         glm::vec3 quadVertexPositions[RenderData::QuadAndCircleVertexCount];
 
@@ -430,12 +511,12 @@ namespace jng {
         drawQuad(properties);
     }
 
-    void Renderer2D::fillQuad(const glm::mat4& transform, const glm::vec4& color)
+    void fillQuad(const glm::mat4& transform, const glm::vec4& color)
     {
         fillQuad(transform, s_data.whiteTexture, color);
     }
 
-    void Renderer2D::fillQuad(const glm::mat4& transform, const Ref<Texture>& texture, const glm::vec4& color)
+    void fillQuad(const glm::mat4& transform, const Ref<Texture>& texture, const glm::vec4& color)
     {
         glm::vec3 quadVertexPositions[RenderData::QuadAndCircleVertexCount];
 
@@ -458,91 +539,9 @@ namespace jng {
         drawQuad(properties);
     }
 
-    const Renderer2D::Statistics& Renderer2D::getStatistics()
+    const Statistics& getStatistics()
     {
         return s_data.statistics;
     }
 
-    void Renderer2D::beginQuadBatch()
-    {
-        s_data.currentQuadIndexCount = 0;
-        s_data.quadVBOPtr = s_data.quadVBOBase;
-        s_data.textureSlotIndex = 1;
-    }
-
-    void Renderer2D::endQuadBatch()
-    {
-        for (uint32 i = 0; i < s_data.textureSlotIndex; ++i)
-            s_data.textureSlots[i]->bind(i);
-
-        // TODO: check if ptrdiff_t will be the same here
-        size_t dataSize = static_cast<size_t>(
-            reinterpret_cast<uint8*>(s_data.quadVBOPtr) -
-            reinterpret_cast<uint8*>(s_data.quadVBOBase)
-        );
-
-        if (dataSize > 0)
-        {
-            s_data.quadVBO->setData(s_data.quadVBOBase, dataSize);
-
-            s_data.quadVAO->bind();
-            s_data.quadShader->bind();
-            RendererAPI::drawIndexed(s_data.currentQuadIndexCount);
-
-            ++s_data.statistics.drawCalls;
-        }
-    }
-
-    void Renderer2D::beginCircleBatch()
-    {
-        s_data.currentCircleIndexCount = 0;
-        s_data.circleVBOPtr = s_data.circleVBOBase;
-    }
-
-    void Renderer2D::endCircleBatch()
-    {
-        // TODO: check if ptrdiff_t will be the same here
-        size_t dataSize = static_cast<size_t>(
-            reinterpret_cast<uint8*>(s_data.circleVBOPtr) -
-            reinterpret_cast<uint8*>(s_data.circleVBOBase)
-            );
-
-        if (dataSize > 0)
-        {
-            s_data.circleVBO->setData(s_data.circleVBOBase, dataSize);
-
-            s_data.circleVAO->bind();
-            s_data.circleShader->bind();
-            RendererAPI::drawIndexed(s_data.currentCircleIndexCount);
-
-            ++s_data.statistics.drawCalls;
-        }
-    }
-
-    void Renderer2D::beginLineBatch()
-    {
-        s_data.currentLineVertexCount = 0;
-        s_data.lineVBOPtr = s_data.lineVBOBase;
-    }
-
-    void Renderer2D::endLineBatch()
-    {
-        // TODO: check if ptrdiff_t will be the same here
-        size_t dataSize = static_cast<size_t>(
-            reinterpret_cast<uint8*>(s_data.lineVBOPtr) -
-            reinterpret_cast<uint8*>(s_data.lineVBOBase)
-            );
-
-        if (dataSize > 0)
-        {
-            s_data.lineVBO->setData(s_data.lineVBOBase, dataSize);
-
-            s_data.lineVAO->bind();
-            s_data.lineShader->bind();
-            RendererAPI::draw(s_data.currentLineVertexCount, RendererAPI::PrimitiveType::Lines);
-
-            ++s_data.statistics.drawCalls;
-        }
-    }
-
-} // namespace jng
+} // namespace jng::Renderer2D

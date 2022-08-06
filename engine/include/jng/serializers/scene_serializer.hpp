@@ -20,8 +20,8 @@ namespace jng {
     public:
         explicit SceneSerializer(const Ref<Scene>& scene) : m_scene{ scene } {}
 
-        void serialize(const char* filename);
-        void deserialize(const char* filename);
+        void serialize(const std::filesystem::path& path);
+        void deserialize(const std::filesystem::path& path);
     private:
         void serializeEntity(Entity entity, YAML::Emitter& yaml);
 

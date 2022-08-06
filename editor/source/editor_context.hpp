@@ -11,7 +11,6 @@
 #include <jng/scene/entity.hpp>
 
 #include <glm/glm.hpp>
-#include <filesystem>
 
 namespace jng {
     
