@@ -79,7 +79,6 @@ namespace jng {
     void LuaScriptComponent::reset()
     {
         name = {};
-        instance = {};
     }
 
 } // namespace jng

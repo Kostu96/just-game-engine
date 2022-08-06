@@ -8,7 +8,6 @@
 
 #include "scene/components.hpp"
 #include "scene/entity.hpp"
-#include "scripting/lua_script.hpp"
 
 #include <yaml-cpp/yaml.h>
 #include <fstream>
@@ -119,7 +118,8 @@ namespace jng {
         yaml << YAML::BeginMap;
 
         yaml << YAML::Key << "Scene" << YAML::Value << path.stem().string();
-        yaml << YAML::Key << "Entities" << YAML::Value << YAML::BeginSeq;
+        yaml << YAML::Key << "Entities" << YAML::Value;
+        yaml << YAML::BeginSeq;
         m_scene->each([this, &yaml](Entity entity) { serializeEntity(entity, yaml); });
         yaml << YAML::EndSeq;
 
@@ -245,7 +245,6 @@ namespace jng {
                 {
                     auto& comp = deserializedEntity.addComponent<LuaScriptComponent>();
                     comp.name = luaScriptComponent["Name"].as<std::string>();
-                    comp.instance = LuaScript::create(deserializedEntity, comp.name);
                 }
 #pragma endregion
             }
@@ -391,6 +390,30 @@ namespace jng {
             auto& comp = entity.getComponent<LuaScriptComponent>();
 
             yaml << YAML::Key << "Name" << YAML::Value << comp.name;
+            yaml << YAML::Key << "ScriptData" << YAML::Value;
+            yaml << YAML::BeginMap;
+            yaml << YAML::Key << "HasOnCreate" << YAML::Value << comp.data.hasOnCreate;
+            yaml << YAML::Key << "HasOnUpdate" << YAML::Value << comp.data.hasOnUpdate;
+            yaml << YAML::Key << "Properties" << YAML::Value;
+            yaml << YAML::BeginSeq;
+            for (auto& prop : comp.data.properties)
+            {
+                yaml << YAML::BeginMap;
+                yaml << YAML::Key << "Name" << YAML::Value << prop.first;
+                yaml << YAML::Key << "Type" << YAML::Value << static_cast<uint32>(prop.second.type);
+                yaml << YAML::Key << "Value" << YAML::Value;
+                switch (prop.second.type)
+                {
+                case LuaEngine::ScriptData::PropertyType::Number: {
+                    union { double value; void* any; };
+                    any = prop.second.value;
+                    yaml << value;
+                }   break;
+                }
+                yaml << YAML::EndMap;
+            }
+            yaml << YAML::EndSeq;
+            yaml << YAML::EndMap;
 
             yaml << YAML::EndMap;
         }

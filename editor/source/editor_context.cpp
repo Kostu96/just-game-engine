@@ -50,7 +50,6 @@ namespace jng {
         AssetsPath = ProjectPath / "assets";
         BrowsedPath = AssetsPath;
 
-        
         for (auto& entry : std::filesystem::recursive_directory_iterator(BrowsedPath))
         {
             JNG_CORE_INFO("{}", entry);

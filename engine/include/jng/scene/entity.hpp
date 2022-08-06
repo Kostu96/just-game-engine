@@ -6,7 +6,6 @@
 
 #pragma once
 #include "jng/scene/scene.hpp"
-#include "jng/scene/components.hpp"
 
 #include <entt/entt.hpp>
 
@@ -33,8 +32,8 @@ namespace jng {
         Component& getComponent();
 
         Scene* getScene() { return m_sceneRef; }
-        GUID getGUID() { return getComponent<IDComponent>().ID; }
-        const std::string& getTag() { return getComponent<TagComponent>().Tag; }
+        GUID getGUID();
+        const std::string& getTag();
 
         bool operator==(const Entity& other) const { return m_handle == other.m_handle; }
         bool operator!=(const Entity& other) const { return m_handle != other.m_handle; }

@@ -8,6 +8,7 @@
 #include "jng/core/GUID.hpp"
 #include "jng/renderer/texture.hpp"
 #include "jng/scene/camera.hpp"
+#include "jng/scripting/lua_engine.hpp"
 
 #include <glm/glm.hpp>
 #include <string>
@@ -16,8 +17,6 @@
 class b2Body;
 
 namespace jng {
-
-    class LuaScript;
 
     struct IDComponent
     {
@@ -139,7 +138,7 @@ namespace jng {
         LuaScriptComponent(const LuaScriptComponent&) = default;
 
         std::string name;
-        Ref<LuaScript> instance;
+        LuaEngine::ScriptData data;
 
         void reset();
     };

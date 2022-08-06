@@ -11,7 +11,6 @@
 #include <jng/core/base.hpp>
 #include <jng/scene/components.hpp>
 #include <jng/scripting/lua_engine.hpp>
-#include <jng/scripting/lua_script.hpp>
 
 #include <imgui.h>
 #include <glm/gtc/type_ptr.hpp>
@@ -246,13 +245,12 @@ namespace jng {
                             if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
                             {
                                 lsc.name = LuaEngine::registerScript(reinterpret_cast<const char*>(payload->Data));
-                                lsc.instance = LuaScript::create(m_context.SelectedEntity, lsc.name);
+                                lsc.data = LuaEngine::getScriptData(lsc.name);
                             }
                             ImGui::EndDragDropTarget();
                         }
 
-                        auto& scriptData = lsc.instance->getScriptData();
-                        for (auto& prop : scriptData.properties)
+                        for (auto& prop : lsc.data.properties)
                         {
                             switch (prop.second.type)
                             {

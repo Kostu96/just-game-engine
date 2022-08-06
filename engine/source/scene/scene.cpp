@@ -10,7 +10,6 @@
 #include "renderer/renderer2d.hpp"
 #include "scene/components.hpp"
 #include "scene/entity.hpp"
-#include "scripting/lua_script.hpp"
 
 #include <box2d/b2_body.h>
 #include <box2d/b2_fixture.h>
@@ -163,8 +162,7 @@ namespace jng {
             for (auto entity : view)
             {
                 auto& lsc = view.get<LuaScriptComponent>(entity);
-                lsc.instance->m_entity = Entity{ entity, *this };
-                lsc.instance->onCreate();
+                LuaEngine::onCreate(Entity{ entity, *this }, lsc);
             }
         }
     }
@@ -256,7 +254,7 @@ namespace jng {
             for (auto entity : view)
             {
                 auto& lsc = view.get<LuaScriptComponent>(entity);
-                lsc.instance->onUpdate(dt);
+                LuaEngine::onUpdate(Entity{ entity, *this }, lsc, dt);
             }
         }
         {

@@ -7,6 +7,7 @@
 #include "scripting/lua_engine.hpp"
 
 #include "platform/key_codes.hpp"
+#include "scene/components.hpp"
 #include "scripting/lua_definitions.hpp"
 
 #include <lua/lua.hpp>
@@ -43,7 +44,7 @@ namespace jng::LuaEngine {
 #pragma endregion
 
 #pragma region Component
-        lua_newtable(s_data.L); // Component
+        lua_newtable(s_data.L);
 
         lua_pushinteger(s_data.L, Lua::Component::Tag);
         lua_setfield(s_data.L, -2, "Tag");
@@ -182,15 +183,15 @@ namespace jng::LuaEngine {
         return data->second;
     }
 
-    void registerScriptInstance(const std::string& name, Entity entity)
+    void onCreate(Entity entity, LuaScriptComponent& lsc)
     {
-        JNG_CORE_ASSERT(s_data.scripts.find(name) != s_data.scripts.end(), "Script is not registered!");
+        JNG_CORE_ASSERT(s_data.scripts.find(lsc.name) != s_data.scripts.end(), "Script is not registered!");
         JNG_CORE_ASSERT(lua_gettop(s_data.L) == 0, "Lua stack should be empty!");
 
         lua_newtable(s_data.L);
 
         JNG_PRINT_LUA_STACK();
-        lua_getglobal(s_data.L, name.c_str());
+        lua_getglobal(s_data.L, lsc.name.c_str());
         lua_newtable(s_data.L);
         lua_insert(s_data.L, -2);
         lua_pushvalue(s_data.L, -1);
@@ -203,10 +204,73 @@ namespace jng::LuaEngine {
         lua_pushlightuserdata(s_data.L, entity.getScene());
         lua_setfield(s_data.L, -2, "_sceneHandle_");
 
-        std::string instanceName = name + std::to_string(entity.getGUID());
+        std::string instanceName = lsc.name + std::to_string(entity.getGUID());
         lua_setfield(s_data.L, -2, instanceName.c_str());
 
         lua_setglobal(s_data.L, "_scriptInstances_");
+
+        JNG_CORE_ASSERT(lua_gettop(s_data.L) == 0, "Lua stack should be empty!");
+
+        lua_getglobal(s_data.L, "_scriptInstances_");
+        lua_getfield(s_data.L, -1, instanceName.c_str());
+
+        for (auto& prop : lsc.data.properties)
+        {
+            switch (prop.second.type)
+            {
+            case LuaEngine::ScriptData::PropertyType::Number:
+                union
+                {
+                    double value;
+                    void* any;
+                };
+                any = prop.second.value;
+                lua_pushnumber(s_data.L, value);
+                lua_setfield(s_data.L, -2, prop.first.c_str());
+                break;
+            }
+        }
+
+        if (lsc.data.hasOnCreate)
+        {
+            lua_getfield(s_data.L, -1, "onCreate");
+            lua_pushvalue(s_data.L, -2); // copy script table for argument
+            JNG_CORE_ASSERT(lua_isfunction(s_data.L, -2), "should be a function");
+            JNG_CORE_ASSERT(lua_istable(s_data.L, -1), "should be a table");
+            if (lua_pcall(s_data.L, 1, 0, 0))
+            {
+                JNG_CORE_ERROR("Lua Error: {}", lua_tostring(s_data.L, -1));
+            }
+        }
+
+        lua_pop(s_data.L, 2);
+
+        JNG_CORE_ASSERT(lua_gettop(s_data.L) == 0, "Lua stack should be empty!");
+    }
+
+    void onUpdate(Entity entity, LuaScriptComponent& lsc, float dt)
+    {
+        JNG_CORE_ASSERT(s_data.scripts.find(lsc.name) != s_data.scripts.end(), "Script is not registered!");
+        JNG_CORE_ASSERT(lua_gettop(s_data.L) == 0, "Lua stack should be empty!");
+
+        std::string instanceName = lsc.name + std::to_string(entity.getGUID());
+        lua_getglobal(s_data.L, "_scriptInstances_");
+        lua_getfield(s_data.L, -1, instanceName.c_str());
+
+        if (lsc.data.hasOnUpdate)
+        {
+            lua_getfield(s_data.L, -1, "onUpdate");
+            lua_pushvalue(s_data.L, -2); // copy script table for argument
+            lua_pushnumber(s_data.L, dt);
+            JNG_CORE_ASSERT(lua_isfunction(s_data.L, -3), "should be a function");
+            JNG_CORE_ASSERT(lua_istable(s_data.L, -2), "should be a table");
+            if (lua_pcall(s_data.L, 2, 0, 0))
+            {
+                JNG_CORE_ERROR("Lua Error: {}", lua_tostring(s_data.L, -1));
+            }
+        }
+
+        lua_pop(s_data.L, 2);
 
         JNG_CORE_ASSERT(lua_gettop(s_data.L) == 0, "Lua stack should be empty!");
     }
