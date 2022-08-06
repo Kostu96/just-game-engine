@@ -33,6 +33,7 @@ namespace jng {
         void destroyEntity(Entity entity) { return m_entity.getScene()->destroyEntity(entity); }
     private:
         Entity m_entity;
+        std::string m_name;
         lua_State* m_L;
         LuaEngine::ScriptData m_data;
 

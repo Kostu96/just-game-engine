@@ -251,13 +251,6 @@ namespace jng {
                             ImGui::EndDragDropTarget();
                         }
 
-                        // temp //
-                        if (!lsc.instance) {
-                            lsc.name = LuaEngine::registerScript("C:\\Users\\Konstanty\\Desktop\\jng-arkanoid\\assets\\scripts\\PlayerController.lua");
-                            lsc.instance = LuaScript::create(m_context.SelectedEntity, lsc.name);
-                        }
-                        //////////
-
                         auto& scriptData = lsc.instance->getScriptData();
                         for (auto& prop : scriptData.properties)
                         {

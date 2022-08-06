@@ -6,6 +6,7 @@
 
 #pragma once
 #include <jng/core/base.hpp>
+#include <jng/scene/entity.hpp>
 
 #include <map>
 
@@ -39,6 +40,8 @@ namespace jng::LuaEngine {
 
     std::string registerScript(const std::filesystem::path& path);
     ScriptData getScriptData(const std::string& name);
+    void registerScriptInstance(const std::string& name, Entity entity);
+
 
     void printLuaStack(const char* file, int line);
 

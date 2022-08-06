@@ -45,33 +45,7 @@ namespace jng {
                 if (ImGui::Button("Create"))
                 {
                     showCreateProjectPopup = false;
-                    m_context.IsProjectOpen = true;
-
-                    m_context.ProjectPath = buffer;
-                    if (!std::filesystem::exists(m_context.ProjectPath))
-                        std::filesystem::create_directories(m_context.ProjectPath);
-
-                    // TODO: move from here
-                    {
-                        std::filesystem::path filename = m_context.ProjectPath / m_context.ProjectPath.filename();
-                        filename += ".proj.yml";
-                        YAML::Emitter yaml;
-
-                        yaml << YAML::BeginMap;
-
-                        yaml << YAML::Key << "Project" << YAML::Value << m_context.ProjectPath.filename().string();
-
-                        yaml << YAML::EndMap;
-
-                        std::ofstream fout{ filename };
-                        fout << yaml.c_str();
-                        fout.close();
-                    }
-
-                    m_context.AssetsPath = m_context.ProjectPath / "assets";
-                    if (!std::filesystem::exists(m_context.AssetsPath))
-                        std::filesystem::create_directories(m_context.AssetsPath);
-                    m_context.BrowsedPath = m_context.AssetsPath;
+                    m_context.createProject(buffer);
                 }
                 ImGui::SameLine();
                 if (ImGui::Button("Cancel"))
@@ -89,14 +63,7 @@ namespace jng {
                     if (ImGui::MenuItem("Project", "Ctrl+Shift+N")) showCreateProjectPopup = true;
 
                     if (ImGui::MenuItem("Scene", "Ctrl+N", nullptr, m_context.IsProjectOpen))
-                    {
-                        m_context.EditorScenePath = std::filesystem::path{};
-                        m_context.SelectedEntity = {};
-                        m_context.EditorScene = makeRef<Scene>();
-                        m_context.ActiveScene = m_context.EditorScene;
-
-                        m_context.ActiveScene->setViewportSize(m_context.ViewportWindowSize.x, m_context.ViewportWindowSize.y);
-                    }
+                        m_context.createScene();
 
                     ImGui::EndMenu();
                 }
@@ -107,19 +74,14 @@ namespace jng {
                     {
                         std::string directory = Platform::openDirectoryDialog();
                         if (!directory.empty())
-                        {
-                            m_context.IsProjectOpen = true;
-
-                            m_context.ProjectPath = directory;
-                            m_context.AssetsPath = m_context.ProjectPath / "assets";
-                            m_context.BrowsedPath = m_context.AssetsPath;
-                        }
+                            m_context.openProject(directory);
                     }
 
                     if (ImGui::MenuItem("Scene...", "Ctrl+O", nullptr, m_context.IsProjectOpen))
                     {
                         std::string path = Platform::openFilenameDialog(SCENE_FILE_FILTER);
-                        if (!path.empty()) m_context.openScene(path);
+                        if (!path.empty())
+                            m_context.openScene(path);
                     }
 
                     ImGui::EndMenu();

@@ -14,24 +14,21 @@ namespace jng {
 
     LuaScript::LuaScript(Entity entity, const std::string& name) :
         m_entity{ entity },
+        m_name{ name },
         m_L{ LuaEngine::getLuaState() },
-        m_data{ LuaEngine::getScriptData(name) }
+        m_data{ LuaEngine::getScriptData(m_name) }
     {
-        JNG_PRINT_LUA_STACK();
-        lua_getglobal(m_L, name.c_str());
-        lua_newtable(m_L);
-        lua_insert(m_L, -2);
-        lua_pushvalue(m_L, -1);
-        lua_setmetatable(m_L, -3);
-        lua_setfield(m_L, -1, "__index");
-        JNG_PRINT_LUA_STACK();
-
-        lua_pushlightuserdata(m_L, &m_entity);
-        lua_setfield(m_L, -2, "_entityHandle_");
+        LuaEngine::registerScriptInstance(m_name, entity);
     }
 
     void LuaScript::onCreate()
     {
+        JNG_CORE_ASSERT(lua_gettop(m_L) == 0, "Lua stack should be empty!");
+
+        std::string instanceName = m_name + std::to_string(m_entity.getGUID());
+        lua_getglobal(m_L, "_scriptInstances_");
+        lua_getfield(m_L, -1, instanceName.c_str());
+
         for (auto& prop : m_data.properties)
         {
             switch (prop.second.type)
@@ -60,10 +57,20 @@ namespace jng {
                 JNG_CORE_ERROR("Lua Error: {}", lua_tostring(m_L, -1));
             }
         }
+
+        lua_pop(m_L, 2);
+
+        JNG_CORE_ASSERT(lua_gettop(m_L) == 0, "Lua stack should be empty!");
     }
 
     void LuaScript::onUpdate(float dt)
     {
+        JNG_CORE_ASSERT(lua_gettop(m_L) == 0, "Lua stack should be empty!");
+
+        std::string instanceName = m_name + std::to_string(m_entity.getGUID());
+        lua_getglobal(m_L, "_scriptInstances_");
+        lua_getfield(m_L, -1, instanceName.c_str());
+
         if (m_data.hasOnUpdate)
         {
             lua_getfield(m_L, -1, "onUpdate");
@@ -76,6 +83,10 @@ namespace jng {
                 JNG_CORE_ERROR("Lua Error: {}", lua_tostring(m_L, -1));
             }
         }
+
+        lua_pop(m_L, 2);
+
+        JNG_CORE_ASSERT(lua_gettop(m_L) == 0, "Lua stack should be empty!");
     }
 
     Ref<LuaScript> LuaScript::create(Entity entity, const std::string& name)

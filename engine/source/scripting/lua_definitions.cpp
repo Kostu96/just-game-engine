@@ -38,8 +38,13 @@ namespace jng::Lua {
             JNG_CORE_ASSERT(lua_isnumber(L, 2), "luaScript_getComponent 2nd parameter is not a number!");
 
             lua_getfield(L, 1, "_entityHandle_");
-            Entity* entityHandle = reinterpret_cast<Entity*>(lua_touserdata(L, -1));
+            entt::entity entityHandle = (entt::entity)(uint64)lua_touserdata(L, -1);
             lua_pop(L, 1);
+            lua_getfield(L, 1, "_sceneHandle_");
+            Scene* sceneHandle = (Scene*)lua_touserdata(L, -1);
+            lua_pop(L, 1);
+
+            Entity entity{ entityHandle, *sceneHandle };
 
             int64 type = luaL_checkinteger(L, 2);
             switch (type)
@@ -60,9 +65,9 @@ namespace jng::Lua {
                 break;
             case Component::Rigidbody2D:
                 Component::Rigidbody2DComponent* rbc = reinterpret_cast<Component::Rigidbody2DComponent*>(lua_newuserdata(L, sizeof(Component::Rigidbody2DComponent)));
+                rbc->handle = &entity.getComponent<Rigidbody2DComponent>();
                 luaL_getmetatable(L, Component::Rigidbody2DComponent::METATABLE_NAME);
                 lua_setmetatable(L, -2);
-                rbc->handle = &entityHandle->getComponent<Rigidbody2DComponent>();
                 break;
             }
 

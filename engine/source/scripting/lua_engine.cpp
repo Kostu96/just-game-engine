@@ -182,6 +182,35 @@ namespace jng::LuaEngine {
         return data->second;
     }
 
+    void registerScriptInstance(const std::string& name, Entity entity)
+    {
+        JNG_CORE_ASSERT(s_data.scripts.find(name) != s_data.scripts.end(), "Script is not registered!");
+        JNG_CORE_ASSERT(lua_gettop(s_data.L) == 0, "Lua stack should be empty!");
+
+        lua_newtable(s_data.L);
+
+        JNG_PRINT_LUA_STACK();
+        lua_getglobal(s_data.L, name.c_str());
+        lua_newtable(s_data.L);
+        lua_insert(s_data.L, -2);
+        lua_pushvalue(s_data.L, -1);
+        lua_setmetatable(s_data.L, -3);
+        lua_setfield(s_data.L, -1, "__index");
+        JNG_PRINT_LUA_STACK();
+
+        lua_pushlightuserdata(s_data.L, entity);
+        lua_setfield(s_data.L, -2, "_entityHandle_");
+        lua_pushlightuserdata(s_data.L, entity.getScene());
+        lua_setfield(s_data.L, -2, "_sceneHandle_");
+
+        std::string instanceName = name + std::to_string(entity.getGUID());
+        lua_setfield(s_data.L, -2, instanceName.c_str());
+
+        lua_setglobal(s_data.L, "_scriptInstances_");
+
+        JNG_CORE_ASSERT(lua_gettop(s_data.L) == 0, "Lua stack should be empty!");
+    }
+
     void printLuaStack(const char* file, int line)
     {
         std::filesystem::path path{ file };

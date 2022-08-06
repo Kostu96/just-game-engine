@@ -6,6 +6,7 @@
 
 #pragma once
 #include "jng/scene/scene.hpp"
+#include "jng/scene/components.hpp"
 
 #include <entt/entt.hpp>
 
@@ -17,6 +18,7 @@ namespace jng {
     {
     public:
         Entity() = default;
+        Entity(entt::entity handle, Scene& scene);
 
         template<typename Component, typename ...Args>
         Component& addComponent(Args&& ...args);
@@ -31,18 +33,17 @@ namespace jng {
         Component& getComponent();
 
         Scene* getScene() { return m_sceneRef; }
+        GUID getGUID() { return getComponent<IDComponent>().ID; }
+        const std::string& getTag() { return getComponent<TagComponent>().Tag; }
 
         bool operator==(const Entity& other) const { return m_handle == other.m_handle; }
         bool operator!=(const Entity& other) const { return m_handle != other.m_handle; }
         operator bool() { return m_handle != entt::null; }
         operator void*() { return reinterpret_cast<void*>(m_handle); }
     private:
-        Entity(entt::entity handle, Scene& scene);
-        
         entt::entity m_handle{ entt::null };
         Scene* m_sceneRef{ nullptr };
 
-        friend class EditorLayer;
         friend class Scene;
     };
 
