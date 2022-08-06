@@ -8,7 +8,7 @@
 #include "jng/core/base.hpp"
 #include "jng/scene/components.hpp"
 
-struct lua_State;
+class lua_State;
 
 namespace jng::Lua {
 

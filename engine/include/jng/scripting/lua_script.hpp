@@ -5,9 +5,8 @@
  */
 
 #pragma once
-#include <jng/scene/entity.hpp>
-
-struct lua_State;
+#include "jng/scene/entity.hpp"
+#include "jng/scripting/lua_engine.hpp"
 
 namespace jng {
 
@@ -17,15 +16,15 @@ namespace jng {
     class LuaScript
     {
     public:
-        explicit LuaScript(std::filesystem::path path);
+        LuaScript(Entity entity, const std::string& name);
         ~LuaScript() = default;
-
-        const std::string& getName() const { return m_name; }
 
         void onCreate();
         void onUpdate(float dt);
 
-        static Ref<LuaScript> create(std::filesystem::path path);
+        LuaEngine::ScriptData& getScriptData() { return m_data; }
+
+        static Ref<LuaScript> create(Entity entity, const std::string& name);
     protected:
         template<typename T>
         T& getComponent() { return m_entity.getComponent<T>(); }
@@ -33,12 +32,9 @@ namespace jng {
         Entity createEntity(const std::string& name) { return m_entity.getScene()->createEntity(name); }
         void destroyEntity(Entity entity) { return m_entity.getScene()->destroyEntity(entity); }
     private:
-        std::string m_name;
-        lua_State* m_L = nullptr;
-        bool m_hasOnCreateFunction = false;
-        bool m_hasOnUpdateFunction = false;
-
         Entity m_entity;
+        lua_State* m_L;
+        LuaEngine::ScriptData m_data;
 
         friend class Scene;
     };

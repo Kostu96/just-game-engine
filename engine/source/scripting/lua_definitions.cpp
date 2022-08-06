@@ -9,6 +9,7 @@
 #include "platform/input.hpp"
 #include "platform/key_codes.hpp"
 #include "scene/entity.hpp"
+#include "scripting/lua_engine.hpp"
 
 #include <lua/lua.hpp>
 
@@ -20,11 +21,13 @@ namespace jng::Lua {
         {
             JNG_CORE_ASSERT(lua_istable(L, 1), "luaScript_new 1st parameter is not a table!");
 
-            lua_newtable(L);                      // LuaScript table - stack: -1 LuaScript table, -2 self arg
-            lua_insert(L, -2);                    // exchange LuaScript table with self on the stack - stack: -1 self arg, -2 LuaScript table
-            lua_pushvalue(L, -1);             // copy self to the top of the stack - stack: -1 self copy, -2 self arg, -3 LuaScript table
-            lua_setmetatable(L, -3);      // set new LuaScript table metateble to self; pops the self copy - stack: -1 self arg, -2 LuaScript table
-            lua_setfield(L, -1, "__index"); // self.__index = self; pops self - stack: -1 LuaScript table
+            JNG_PRINT_LUA_STACK();
+            lua_newtable(L);                      // new script
+            lua_insert(L, -2);                    // exchange new script with self on the stack
+            lua_pushvalue(L, -1);             // copy self to the top of the stack
+            lua_setmetatable(L, -3);      // set new script metateble to self; pops the stack
+            lua_setfield(L, -1, "__index"); // self.__index = self; pops the stack 
+            JNG_PRINT_LUA_STACK();
 
             return 1;
         }
@@ -84,11 +87,11 @@ namespace jng::Lua {
 
         int Rigidbody2DComponent::setLinearVelocity(lua_State* L)
         {
-            Rigidbody2DComponent* rbc = reinterpret_cast<Rigidbody2DComponent*>(luaL_checkudata(L, 1, "JNG.LuaRigidbody2DComponent"));
+            Rigidbody2DComponent* rbc = reinterpret_cast<Rigidbody2DComponent*>(luaL_checkudata(L, 1, Rigidbody2DComponent::METATABLE_NAME));
 
-            JNG_CORE_ASSERT(rbc, "luaRigidbody2dComponent_setVelocity 1st parameter is not a LuaRigidbody2DComponent!");
-            JNG_CORE_ASSERT(lua_isnumber(L, 2), "luaRigidbody2dComponent_setVelocity 2nd parameter is not a number!");
-            JNG_CORE_ASSERT(lua_isnumber(L, 3), "luaRigidbody2dComponent_setVelocity 3rd parameter is not a number!");
+            JNG_CORE_ASSERT(rbc, "Rigidbody2dComponent::setLinearVelocity 1st parameter is not a LuaRigidbody2DComponent!");
+            JNG_CORE_ASSERT(lua_isnumber(L, 2), "Rigidbody2dComponent::setLinearVelocity 2nd parameter is not a number!");
+            JNG_CORE_ASSERT(lua_isnumber(L, 3), "Rigidbody2dComponent::setLinearVelocity 3rd parameter is not a number!");
             
             float x = (float)lua_tonumber(L, 2);
             float y = (float)lua_tonumber(L, 3);

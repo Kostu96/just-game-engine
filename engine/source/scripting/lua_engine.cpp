@@ -11,7 +11,7 @@
 
 #include <lua/lua.hpp>
 
-#include <unordered_set>
+#include <unordered_map>
 
 namespace jng::LuaEngine {
 
@@ -19,7 +19,7 @@ namespace jng::LuaEngine {
     {
         lua_State* L = nullptr;
 
-        std::unordered_set<std::string> scripts;
+        std::unordered_map<std::string, ScriptData> scripts;
     };
 
     static LuaEngineData s_data;
@@ -118,10 +118,15 @@ namespace jng::LuaEngine {
         lua_close(s_data.L);
     }
 
+    lua_State* getLuaState()
+    {
+        return s_data.L;
+    }
+
     std::string registerScript(const std::filesystem::path& path)
     {
         std::string name = path.stem().string();
-        auto [_, inserted] = s_data.scripts.emplace(name);
+        auto [it, inserted] = s_data.scripts.emplace(name, ScriptData{});
 
         if (inserted)
         {
@@ -143,18 +148,70 @@ namespace jng::LuaEngine {
                 switch (type)
                 {
                 case LUA_TFUNCTION:
-                    //if (strcmp(symbol, "onCreate") == 0) m_hasOnCreateFunction = true;
-                    //else if (strcmp(symbol, "onUpdate") == 0) m_hasOnUpdateFunction = true;
+                    if (strcmp(symbol, "onCreate") == 0) it->second.hasOnCreate = true;
+                    else if (strcmp(symbol, "onUpdate") == 0) it->second.hasOnUpdate = true;
 
+                    break;
+                case LUA_TNUMBER:
+                    union
+                    {
+                        double initialValue;
+                        void* any;
+                    };
+                    initialValue = lua_tonumber(s_data.L, -1);
+                    it->second.properties.emplace(symbol, ScriptData::Property{ ScriptData::PropertyType::Number, any });
                     break;
                 }
 
                 // pop 'value', leave 'key' for lua_next to pop
                 lua_pop(s_data.L, 1);
             }
+
+            lua_pop(s_data.L, 1);
         }
+        JNG_CORE_ASSERT(lua_gettop(s_data.L) == 0, "Lua stack should be empty!");
 
         return name;
+    }
+
+    ScriptData getScriptData(const std::string& name)
+    {
+        auto data = s_data.scripts.find(name);
+        JNG_CORE_ASSERT(data != s_data.scripts.end(), "Lua script is not registered in LuaEngine!");
+
+        return data->second;
+    }
+
+    void printLuaStack(const char* file, int line)
+    {
+        std::filesystem::path path{ file };
+        std::stringstream ss;
+        int top = lua_gettop(s_data.L);
+        for (int i = 1; i <= top; i++)
+        {
+            int type = lua_type(s_data.L, i);
+            switch (type)
+            {
+            case LUA_TSTRING: {
+                const char* str = lua_tostring(s_data.L, i);
+                ss << "STRING: " << str << " ";
+            }   break;
+            case LUA_TBOOLEAN: {
+                bool value = lua_toboolean(s_data.L, i);
+                ss << "BOOL: " << value << " ";
+            }   break;
+            case LUA_TNUMBER: {
+                double value = lua_tonumber(s_data.L, i);
+                ss << "NUMBER: " << value << " ";
+            }   break;
+            default: {
+                const char* str = lua_typename(s_data.L, type);
+                ss << str << " ";
+            }   break;
+            }
+        }
+
+        JNG_CORE_TRACE("{}:{} Lua Stack - {}", path.filename().string(), line, ss.str());
     }
 
 } // namespace jng::LuaEngine

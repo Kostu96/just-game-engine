@@ -11,6 +11,7 @@
 #include <jng/core/base.hpp>
 #include <jng/scene/components.hpp>
 #include <jng/scripting/lua_engine.hpp>
+#include <jng/scripting/lua_script.hpp>
 
 #include <imgui.h>
 #include <glm/gtc/type_ptr.hpp>
@@ -234,7 +235,7 @@ namespace jng {
                     });
 
                 updateComponent<LuaScriptComponent>("Lua Script", m_context.SelectedEntity,
-                    [](LuaScriptComponent& lsc) {
+                    [this](LuaScriptComponent& lsc) {
                         ImGui::Text("Script");
                         ImGui::SameLine();
                         std::string btnLabel = std::string{ lsc.name } + "##script_button";
@@ -245,8 +246,38 @@ namespace jng {
                             if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
                             {
                                 lsc.name = LuaEngine::registerScript(reinterpret_cast<const char*>(payload->Data));
+                                lsc.instance = LuaScript::create(m_context.SelectedEntity, lsc.name);
                             }
                             ImGui::EndDragDropTarget();
+                        }
+
+                        // temp //
+                        if (!lsc.instance) {
+                            lsc.name = LuaEngine::registerScript("C:\\Users\\Konstanty\\Desktop\\jng-arkanoid\\assets\\scripts\\PlayerController.lua");
+                            lsc.instance = LuaScript::create(m_context.SelectedEntity, lsc.name);
+                        }
+                        //////////
+
+                        auto& scriptData = lsc.instance->getScriptData();
+                        for (auto& prop : scriptData.properties)
+                        {
+                            switch (prop.second.type)
+                            {
+                            case LuaEngine::ScriptData::PropertyType::Number:
+                                union
+                                {
+                                    double value;
+                                    void* any;
+                                };
+                                any = prop.second.value;
+                                float valueF = static_cast<float>(value);
+                                if (ImGui::DragFloat(prop.first.c_str(), &valueF))
+                                {
+                                    value = valueF;
+                                    prop.second.value = any;
+                                }
+                                break;
+                            }
                         }
                     });
 
