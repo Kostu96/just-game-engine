@@ -24,7 +24,7 @@ namespace jng {
     {
         m_position = { 0.f, 0.f, 0.f };
         m_focalPoint = { 0.f, 0.f, 0.f };
-        m_distance = 10.f;
+        m_distance = 20.f;
         m_pitch = m_yaw = 0.f;
 
         setProjectionType(Camera::ProjectionType::Perspective);

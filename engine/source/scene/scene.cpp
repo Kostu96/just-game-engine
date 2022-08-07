@@ -10,13 +10,13 @@
 #include "renderer/renderer2d.hpp"
 #include "scene/components.hpp"
 #include "scene/entity.hpp"
-#include "scripting/lua_script.hpp"
 
 #include <box2d/b2_body.h>
 #include <box2d/b2_fixture.h>
 #include <box2d/b2_polygon_shape.h>
 #include <box2d/b2_circle_shape.h>
 #include <box2d/b2_world.h>
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace jng {
 
@@ -40,15 +40,10 @@ namespace jng {
             dst.addComponent<Component>() = src.getComponent<Component>();
     }
 
-    static void copyOptionalComponents(Entity dst, Entity src)
+    template<typename... Component>
+    static void copyComponents(ComponentGroup<Component...>, Entity dst, Entity src)
     {
-        copyComponentIfExists<CameraComponent>(dst, src);
-        copyComponentIfExists<CircleRendererComponent>(dst, src);
-        copyComponentIfExists<SpriteRendererComponent>(dst, src);
-        copyComponentIfExists<BoxCollider2DComponent>(dst, src);
-        copyComponentIfExists<CircleCollider2DComponent>(dst, src);
-        copyComponentIfExists<Rigidbody2DComponent>(dst, src);
-        copyComponentIfExists<LuaScriptComponent>(dst, src);
+        ([&]() { copyComponentIfExists<Component>(dst, src); }(), ...);
     }
 
     Scene::~Scene()
@@ -66,7 +61,7 @@ namespace jng {
 
             Entity entityCopy = sceneCopy->createEntity(tag, id);
             entityCopy.getComponent<TransformComponent>() = entity.getComponent<TransformComponent>();
-            copyOptionalComponents(entityCopy, entity);
+            copyComponents(OptionalComponents{}, entityCopy, entity);
         });
 
         return sceneCopy;
@@ -97,7 +92,7 @@ namespace jng {
         std::string tag = other.getComponent<TagComponent>().Tag + " Copy";
         Entity entityCopy = createEntity(tag);
         entityCopy.getComponent<TransformComponent>() = other.getComponent<TransformComponent>();
-        copyOptionalComponents(entityCopy, other);
+        copyComponents(OptionalComponents{}, entityCopy, other);
 
         return entityCopy;
     }
@@ -107,9 +102,9 @@ namespace jng {
         m_registry.destroy(entity.m_handle);
     }
 
-    void Scene::onCreate()
+    void Scene::onCreate(float gravity)
     {
-        m_physics2dWorld = new b2World{ { 0.f, -PHYSICS_GRAVITY_CONSTANT } };
+        m_physics2dWorld = new b2World{ { 0.f, -gravity } };
 
         {
             auto group = m_registry.group<Rigidbody2DComponent>(entt::get<TransformComponent>);
@@ -121,9 +116,10 @@ namespace jng {
                 bodyDef.type = bodyTypeToBox2DBodyType(rbc.Type);
                 bodyDef.position.Set(tc.Translation.x, tc.Translation.y);
                 bodyDef.angle = tc.Rotation.z;
-                b2Body* body = m_physics2dWorld->CreateBody(&bodyDef);
-                body->SetFixedRotation(false);
-                rbc.BodyHandle = body;
+                bodyDef.fixedRotation = rbc.freezeRotation;
+                bodyDef.linearDamping = rbc.linearDamping;
+                bodyDef.angularDamping = rbc.angularDamping;
+                rbc.BodyHandle = m_physics2dWorld->CreateBody(&bodyDef);
 
                 Entity jngEntity{ entity, *this };
 
@@ -140,7 +136,7 @@ namespace jng {
                     fixtureDef.friction = bcc.Friction;
                     fixtureDef.restitution = bcc.Restitution;
                     fixtureDef.restitutionThreshold = bcc.RestitutionThreshold;
-                    bcc.FixtureHandle = body->CreateFixture(&fixtureDef);
+                    bcc.FixtureHandle = rbc.BodyHandle->CreateFixture(&fixtureDef);
                 }
 
                 if (jngEntity.hasComponent<CircleCollider2DComponent>())
@@ -157,7 +153,7 @@ namespace jng {
                     fixtureDef.friction = ccc.Friction;
                     fixtureDef.restitution = ccc.Restitution;
                     fixtureDef.restitutionThreshold = ccc.RestitutionThreshold;
-                    ccc.FixtureHandle = body->CreateFixture(&fixtureDef);
+                    ccc.FixtureHandle = rbc.BodyHandle->CreateFixture(&fixtureDef);
                 }
             }
         }
@@ -166,8 +162,7 @@ namespace jng {
             for (auto entity : view)
             {
                 auto& lsc = view.get<LuaScriptComponent>(entity);
-                lsc.instance = LuaScript::create(lsc.path);
-                lsc.instance->m_entity = Entity{ entity, *this };
+                LuaEngine::onCreate(Entity{ entity, *this }, lsc);
             }
         }
     }
@@ -175,12 +170,12 @@ namespace jng {
     void Scene::onDestroy()
     {
         {
-            auto view = m_registry.view<LuaScriptComponent>();
-            for (auto entity : view)
-            {
-                auto& lsc = view.get<LuaScriptComponent>(entity);
-                LuaScript::destroy(lsc.instance);
-            }
+            //auto view = m_registry.view<LuaScriptComponent>();
+            //for (auto entity : view)
+            //{
+            //    //auto& lsc = view.get<LuaScriptComponent>(entity);
+            //    //LuaScript::destroy(lsc.instance);
+            //}
         }
 
         delete m_physics2dWorld;
@@ -226,16 +221,42 @@ namespace jng {
         }
     }
 
+    void Scene::drawColliders()
+    {
+        {
+            auto group = m_registry.group<BoxCollider2DComponent>(entt::get<TransformComponent>);
+            for (auto entity : group)
+            {
+                auto [bcc, tc] = group.get<BoxCollider2DComponent, TransformComponent>(entity);
+                glm::vec3 translation = tc.Translation;
+                glm::vec3 scale = tc.Scale;
+                glm::mat4 transform = glm::translate(glm::mat4{ 1.f }, translation) * glm::scale(glm::mat4{ 1.f }, scale);
+                Renderer2D::drawRect(transform, { 0.25f, 1.f, 0.f, 1.f });
+            }
+        }
+        {
+            auto group = m_registry.group<CircleCollider2DComponent>(entt::get<TransformComponent>);
+            for (auto entity : group)
+            {
+                auto [ccc, tc] = group.get<CircleCollider2DComponent, TransformComponent>(entity);
+                glm::vec3 translation = tc.Translation + glm::vec3{ ccc.offset, 0.001f };
+                glm::vec3 scale = tc.Scale * ccc.radius * 2.f;
+                glm::mat4 transform = glm::translate(glm::mat4{ 1.f }, translation) * glm::scale(glm::mat4{ 1.f }, scale);
+                Renderer2D::drawCircle(transform, { 0.25f, 1.f, 0.f, 1.f }, 0.05f);
+            }
+        }
+    }
+
     void Scene::onUpdate(float dt)
     {
-        /*{
-            auto view = m_registry.view<NativeScriptComponent>();
+        {
+            auto view = m_registry.view<LuaScriptComponent>();
             for (auto entity : view)
             {
-                auto& nsc = view.get<NativeScriptComponent>(entity);
-                nsc.Instance->onUpdate(dt);
+                auto& lsc = view.get<LuaScriptComponent>(entity);
+                LuaEngine::onUpdate(Entity{ entity, *this }, lsc, dt);
             }
-        }*/
+        }
         {
             m_physics2dWorld->Step(dt, PHYSICS_VEL_ITERATIONS, PHYSICS_POS_ITERATIONS);
 

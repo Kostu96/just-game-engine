@@ -6,11 +6,23 @@
 
 #include "scene/entity.hpp"
 
+#include "jng/scene/components.hpp"
+
 namespace jng {
 
     Entity::Entity(entt::entity handle, Scene& scene) :
         m_handle{ handle },
         m_sceneRef{ &scene }
     {}
+
+    const std::string& Entity::getTag()
+    {
+        return getComponent<TagComponent>().Tag;
+    }
+
+    GUID Entity::getGUID()
+    {
+        return getComponent<IDComponent>().ID;
+    }
 
 } // namespace jng

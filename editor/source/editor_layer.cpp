@@ -39,6 +39,7 @@ namespace jng {
         m_sceneHierarchyWindow{ m_context },
         m_contentBrowserWindow{ m_context },
         m_statisticsWindow{ m_context },
+        m_settingsWindow{ m_context },
         m_playIcon{ Texture::create("assets/textures/play_icon.png") },
         m_stopIcon{ Texture::create("assets/textures/stop_icon.png") }
     {
@@ -65,7 +66,7 @@ namespace jng {
                 m_context.EditorCamera.onUpdate();
 
             m_viewportFramebuffer->bind();
-            jng::RendererAPI::clear({ 0.1f, 0.15f, 0.2f });
+            jng::RendererAPI::clear({ 0.25f, 0.25f, 0.30f });
             m_viewportFramebuffer->clearAttachment(1, -1);
 
             if (m_context.ActiveScene)
@@ -77,30 +78,7 @@ namespace jng {
                     jng::Renderer2D::beginScene(m_context.EditorCamera.getViewProjection());
                     m_context.ActiveScene->drawRenderables();
 
-                    // Draw colliders
-                    auto& registry = m_context.ActiveScene->m_registry;
-                    {
-                        auto group = registry.group<BoxCollider2DComponent>(entt::get<TransformComponent>);
-                        for (auto entity : group)
-                        {
-                            auto [bcc, tc] = group.get<BoxCollider2DComponent, TransformComponent>(entity);
-                            glm::vec3 translation = tc.Translation;
-                            glm::vec3 scale = tc.Scale;
-                            glm::mat4 transform = glm::translate(glm::mat4{ 1.f }, translation) * glm::scale(glm::mat4{ 1.f }, scale);
-                            Renderer2D::drawRect(transform, { 0.25f, 1.f, 0.f, 1.f });
-                        }
-                    }
-                    {
-                        auto group = registry.group<CircleCollider2DComponent>(entt::get<TransformComponent>);
-                        for (auto entity : group)
-                        {
-                            auto [ccc, tc] = group.get<CircleCollider2DComponent, TransformComponent>(entity);
-                            glm::vec3 translation = tc.Translation + glm::vec3{ ccc.offset, 0.001f };
-                            glm::vec3 scale = tc.Scale * ccc.radius * 2.f;
-                            glm::mat4 transform = glm::translate(glm::mat4{ 1.f }, translation) * glm::scale(glm::mat4{ 1.f }, scale);
-                            Renderer2D::drawCircle(transform, { 0.25f, 1.f, 0.f, 1.f }, 0.05f);
-                        }
-                    }
+                    if (m_context.showColliders) m_context.ActiveScene->drawColliders();
 
                     jng::Renderer2D::endScene();
                 }   break;
@@ -219,6 +197,7 @@ namespace jng {
             m_sceneHierarchyWindow.onImGuiUpdate();
             m_contentBrowserWindow.onImGuiUpdate();
             m_statisticsWindow.onImGuiUpdate();
+            m_settingsWindow.onImGuiUpdate();
         }
     }
 

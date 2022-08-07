@@ -16,6 +16,7 @@
 #include "renderer/renderer.hpp"
 #include "renderer/renderer2d.hpp"
 #include "renderer/renderer_api.hpp"
+#include "scripting/lua_engine.hpp"
 
 namespace jng {
 
@@ -35,6 +36,7 @@ namespace jng {
         m_window->getGraphicsContext()->setVSync(true);
 
         ImGuiLayer::init(m_window.get());
+        LuaEngine::init();
 
         switch (properties.rendererType)
         {
@@ -62,6 +64,8 @@ namespace jng {
             Renderer::shutdown();
             break;
         }
+
+        LuaEngine::shutdown();
     }
 
     void Engine::run()

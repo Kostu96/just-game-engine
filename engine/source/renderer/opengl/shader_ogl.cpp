@@ -14,7 +14,6 @@
 #include <glm/gtc/type_ptr.inl>
 #include <shaderc/shaderc.hpp>
 #include <spirv_cross/spirv_glsl.hpp>
-#include <filesystem>
 #include <vector>
 
 namespace jng {
@@ -81,8 +80,6 @@ namespace jng {
         bool success;
         std::vector<uint32> openglSpirvData;
         if (m_isCacheDirty) {
-            JNG_CORE_TRACE("Recompiling OpenGL SPIR-V...");
-
             spirv_cross::CompilerGLSL glslCompiler{ vulkanSpirvData };
             std::string openglCode = glslCompiler.compile();
 
@@ -97,9 +94,6 @@ namespace jng {
             success = writeFile(cachedPath.generic_string().c_str(), reinterpret_cast<char*>(openglSpirvData.data()), openglSpirvData.size() * sizeof(uint32), true);
         }
         else {
-            JNG_CORE_TRACE("Loading OpenGL SPIR-V from cache: {0}",
-                cachedPath.generic_string().c_str());
-
             size_t size;
             success = readFile(cachedPath.generic_string().c_str(), nullptr, size, true);
             openglSpirvData.resize(size / sizeof(uint32));

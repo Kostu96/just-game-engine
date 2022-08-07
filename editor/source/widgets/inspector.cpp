@@ -10,6 +10,7 @@
 
 #include <jng/core/base.hpp>
 #include <jng/scene/components.hpp>
+#include <jng/scripting/lua_engine.hpp>
 
 #include <imgui.h>
 #include <glm/gtc/type_ptr.hpp>
@@ -207,38 +208,63 @@ namespace jng {
 
                 updateComponent<Rigidbody2DComponent>("Rigidbody 2D", m_context.SelectedEntity,
                     [](Rigidbody2DComponent& rbc) {
-                        const char* bodyTypeStrs[] = { "Static", "Dynamic", "Kinematic" };
-                        const char* currentBodyType = bodyTypeStrs[(uint32)rbc.Type];
+                        const char* bodyTypeStrs[] = { "Static", "Kinematic", "Dynamic" };
+                        const char* currentBodyTypeStr = bodyTypeStrs[(uint32)rbc.Type];
 
-                        if (ImGui::BeginCombo("Body Type", currentBodyType))
+                        if (ImGui::BeginCombo("Body Type", currentBodyTypeStr))
                         {
                             for (uint32 i = 0; i < 3; ++i)
                             {
-                                bool isSelected = currentBodyType == bodyTypeStrs[i];
+                                bool isSelected = currentBodyTypeStr == bodyTypeStrs[i];
                                 if (ImGui::Selectable(bodyTypeStrs[i], isSelected))
                                 {
                                     rbc.Type = static_cast<Rigidbody2DComponent::BodyType>(i);
-                                    currentBodyType = bodyTypeStrs[i];
+                                    currentBodyTypeStr = bodyTypeStrs[i];
                                 }
                             }
                             ImGui::EndCombo();
                         }
+
+                        if (rbc.Type != Rigidbody2DComponent::BodyType::Static)
+                        {
+                            ImGui::Checkbox("Freeze Rotation", &rbc.freezeRotation);
+                            ImGui::DragFloat("Linear Damping", &rbc.linearDamping, 0.01f, 0.f, 1.f);
+                            ImGui::DragFloat("Angular Damping", &rbc.angularDamping, 0.01f, 0.f, 1.f);
+                        }
                     });
 
                 updateComponent<LuaScriptComponent>("Lua Script", m_context.SelectedEntity,
-                    [](LuaScriptComponent& lsc) {
-                        char buffer[256];
-                        strcpy_s(buffer, sizeof(buffer), lsc.path.string().c_str());
-                        if (ImGui::InputText("Script Path", buffer, sizeof(buffer)))
-                            lsc.path = buffer;
+                    [this](LuaScriptComponent& lsc) {
+                        ImGui::Text("Script");
+                        ImGui::SameLine();
+                        std::string btnLabel = std::string{ lsc.name } + "##script_button";
+                        ImGui::Button(btnLabel.c_str(), { lsc.name.empty() ? 80.f : 0.f, 0});
 
                         if (ImGui::BeginDragDropTarget())
                         {
                             if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
                             {
-                                lsc.path = reinterpret_cast<const char*>(payload->Data);
+                                lsc.name = LuaEngine::registerScript(reinterpret_cast<const char*>(payload->Data));
+                                lsc.data = LuaEngine::getScriptData(lsc.name);
                             }
                             ImGui::EndDragDropTarget();
+                        }
+
+                        for (auto& prop : lsc.data.properties)
+                        {
+                            switch (prop.second.type)
+                            {
+                            case LuaEngine::ScriptData::PropertyType::Number:
+                                union { double value;  void* any; };
+                                any = prop.second.value;
+                                float valueF = static_cast<float>(value);
+                                if (ImGui::DragFloat(prop.first.c_str(), &valueF))
+                                {
+                                    value = valueF;
+                                    prop.second.value = any;
+                                }
+                                break;
+                            }
                         }
                     });
 
@@ -247,47 +273,29 @@ namespace jng {
 
                 if (ImGui::BeginPopup("AddComponent"))
                 {
-                    if (!m_context.SelectedEntity.hasComponent<CameraComponent>() && ImGui::MenuItem("Camera"))
-                    {
-                        m_context.SelectedEntity.addComponent<CameraComponent>();
-                        ImGui::CloseCurrentPopup();
-                    }
-                    else if (!m_context.SelectedEntity.hasComponent<CircleRendererComponent>() && ImGui::MenuItem("Circle Renderer"))
-                    {
-                        m_context.SelectedEntity.addComponent<CircleRendererComponent>();
-                        ImGui::CloseCurrentPopup();
-                    }
-                    else if (!m_context.SelectedEntity.hasComponent<SpriteRendererComponent>() && ImGui::MenuItem("Sprite Renderer"))
-                    {
-                        m_context.SelectedEntity.addComponent<SpriteRendererComponent>();
-                        ImGui::CloseCurrentPopup();
-                    }
-                    else if (!m_context.SelectedEntity.hasComponent<BoxCollider2DComponent>() && ImGui::MenuItem("Box Collider 2D"))
-                    {
-                        m_context.SelectedEntity.addComponent<BoxCollider2DComponent>();
-                        ImGui::CloseCurrentPopup();
-                    }
-                    else if (!m_context.SelectedEntity.hasComponent<CircleCollider2DComponent>() && ImGui::MenuItem("Circle Collider 2D"))
-                    {
-                        m_context.SelectedEntity.addComponent<CircleCollider2DComponent>();
-                        ImGui::CloseCurrentPopup();
-                    }
-                    else if (!m_context.SelectedEntity.hasComponent<Rigidbody2DComponent>() && ImGui::MenuItem("Rigidbody 2D"))
-                    {
-                        m_context.SelectedEntity.addComponent<Rigidbody2DComponent>();
-                        ImGui::CloseCurrentPopup();
-                    }
-                    else if (!m_context.SelectedEntity.hasComponent<LuaScriptComponent>() && ImGui::MenuItem("Lua Script"))
-                    {
-                        m_context.SelectedEntity.addComponent<LuaScriptComponent>();
-                        ImGui::CloseCurrentPopup();
-                    }
+                    displayComponentInAddList<CameraComponent>("Camera");
+                    displayComponentInAddList<CircleRendererComponent>("Circle Renderer");
+                    displayComponentInAddList<SpriteRendererComponent>("Sprite Renderer");
+                    displayComponentInAddList<BoxCollider2DComponent>("Box Collider 2D");
+                    displayComponentInAddList<CircleCollider2DComponent>("Circle Collider 2D");
+                    displayComponentInAddList<Rigidbody2DComponent>("Rigidbody 2D");
+                    displayComponentInAddList<LuaScriptComponent>("Lua Script");
 
                     ImGui::EndPopup();
                 }
             }
 
             ImGui::End();
+        }
+    }
+
+    template<typename Component>
+    void InspectorWindow::displayComponentInAddList(const char* label)
+    {
+        if (!m_context.SelectedEntity.hasComponent<Component>() && ImGui::MenuItem(label))
+        {
+            m_context.SelectedEntity.addComponent<Component>();
+            ImGui::CloseCurrentPopup();
         }
     }
 

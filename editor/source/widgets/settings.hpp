@@ -5,24 +5,19 @@
  */
 
 #pragma once
-#include <jng/renderer/texture.hpp>
 
 namespace jng {
 
     struct EditorContext;
 
-    class InspectorWindow
+    class SettingsWindow
     {
     public:
-        InspectorWindow(EditorContext& context);
+        SettingsWindow(EditorContext& context) : m_context{ context } {}
 
         void onImGuiUpdate();
     private:
-        template<typename Component>
-        void displayComponentInAddList(const char* label);
-
         EditorContext& m_context;
-        Ref<Texture> m_checkerboard;
     };
 
 } // namespace jng
