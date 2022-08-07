@@ -10,12 +10,6 @@
 #include "renderer/renderer_api.hpp"
 #include "renderer/opengl/vertex_array_ogl.hpp"
 
-#if 0
-#if defined(JNG_WINDOWS)
-#include "renderer/direct3d/vertex_array_d3d.hpp"
-#endif
-#endif
-
 namespace jng {
 
     LayoutElement::LayoutElement(DataType type, const char* name, bool passAsFloat, bool normalized) :
@@ -72,11 +66,6 @@ namespace jng {
 
         switch (RendererAPI::getRendererBackend())
         {
-#if 0
-#if defined(JNG_WINDOWS)
-        case RendererBackend::Direct3D: return makeRef<Direct3DVertexArray>(vbo, layout, shader);
-#endif
-#endif
         case RendererBackend::OpenGL: return makeRef<OpenGLVertexArray>(vbo, layout, shader);
         default:
             JNG_CORE_ASSERT(false, "API unsupported!");

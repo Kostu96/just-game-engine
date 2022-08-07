@@ -10,12 +10,6 @@
 #include "renderer/renderer_api.hpp"
 #include "renderer/opengl/shader_ogl.hpp"
 
-#if 0
-#if defined(JNG_WINDOWS)
-#include "renderer/direct3d/shader_d3d.hpp"
-#endif
-#endif
-
 #include "utilities/file.hpp"
 
 #include <shaderc/shaderc.hpp>
@@ -28,11 +22,6 @@ namespace jng {
 
         switch (RendererAPI::getRendererBackend())
         {
-#if 0
-#if defined(JNG_WINDOWS)
-        case RendererBackend::Direct3D: return makeRef<Direct3DShader>(vertexShaderFilename, fragmentShaderFilename);
-#endif
-#endif
         case RendererBackend::OpenGL: return makeRef<OpenGLShader>(vertexShaderFilename, fragmentShaderFilename);
         default:
             JNG_CORE_ASSERT(false, "API unsupported!");

@@ -11,12 +11,6 @@
 
 #include "renderer/opengl/texture_ogl.hpp"
 
-#if 0
-#if defined(JNG_WINDOWS)
-#include "renderer/direct3d/texture_d3d.hpp"
-#endif
-#endif
-
 namespace jng {
 
     Ref<Texture> Texture::create(const char* path)
@@ -25,11 +19,6 @@ namespace jng {
 
         switch (RendererAPI::getRendererBackend())
         {
-#if 0
-#if defined(JNG_WINDOWS)
-        case RendererBackend::Direct3D: return makeRef<Direct3DTexture>(path);
-#endif
-#endif
         case RendererBackend::OpenGL: return makeRef<OpenGLTexture>(path);
         default:
             JNG_CORE_ASSERT(false, "API unsupported!");
@@ -43,11 +32,6 @@ namespace jng {
 
         switch (RendererAPI::getRendererBackend())
         {
-#if 0
-#if defined(JNG_WINDOWS)
-        case RendererBackend::Direct3D: return makeRef<Direct3DTexture>(properties);
-#endif
-#endif
         case RendererBackend::OpenGL: return makeRef<OpenGLTexture>(properties);
         default:
             JNG_CORE_ASSERT(false, "API unsupported!");

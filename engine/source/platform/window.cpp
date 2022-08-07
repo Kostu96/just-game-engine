@@ -151,8 +151,6 @@ namespace jng {
 
             [[maybe_unused]] int success = glfwInit();
             JNG_CORE_ASSERT(success, "Could not initialize GLFW!");
-            
-            // TODO: checkout glfwVulkanSupported()
         }
 
         ~GLFWInitializer() {
