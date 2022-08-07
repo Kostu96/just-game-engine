@@ -25,13 +25,45 @@ namespace jng {
             if (m_context.ActiveScene)
             {
                 m_context.ActiveScene->each([this](Entity entity) {
+
+
                     auto& tag = entity.getComponent<TagComponent>().Tag;
+                    auto& relation = entity.getComponent<RelationComponent>();
 
                     ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth |
-                        (m_context.SelectedEntity == entity ? ImGuiTreeNodeFlags_Selected : 0);
-                    flags |= ImGuiTreeNodeFlags_Leaf; // TODO: set unconditionaly until parenting logic
+                        (m_context.SelectedEntity == entity ? ImGuiTreeNodeFlags_Selected : 0) |
+                        (relation.first ? 0 : ImGuiTreeNodeFlags_Leaf);
+
                     if (ImGui::TreeNodeEx(entity, flags, tag.c_str()))
                         ImGui::TreePop();
+
+                    if (ImGui::BeginDragDropSource())
+                    {
+                        ImGui::SetDragDropPayload("SCENE_HIERARCHY_ITEM", &entity, sizeof(Entity), ImGuiCond_Once);
+                        ImGui::Text(tag.c_str());
+                        ImGui::EndDragDropSource();
+                    }
+
+                    if (ImGui::BeginDragDropTarget())
+                    {
+                        if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SCENE_HIERARCHY_ITEM"))
+                        {
+                            Entity* droppedEntity = reinterpret_cast<Entity*>(payload->Data);
+                            auto& droppedRC = droppedEntity->getComponent<RelationComponent>();        
+
+                            if (relation.first)
+                            {
+                                Entity last = relation.first;
+                                while (Entity next = last.getComponent<RelationComponent>().next)
+                                    last = next;
+                            }
+                            else
+                                relation.first = *droppedEntity;
+
+                            droppedRC.parent = entity;
+                        }
+                        ImGui::EndDragDropTarget();
+                    }
 
                     if (ImGui::IsItemClicked(ImGuiMouseButton_Left))
                         m_context.SelectedEntity = entity;

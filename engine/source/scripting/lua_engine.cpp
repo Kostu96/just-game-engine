@@ -186,14 +186,12 @@ namespace jng::LuaEngine {
 
         lua_newtable(s_data.L);
 
-        JNG_PRINT_LUA_STACK();
         lua_getglobal(s_data.L, lsc.name.c_str());
         lua_newtable(s_data.L);
         lua_insert(s_data.L, -2);
         lua_pushvalue(s_data.L, -1);
         lua_setmetatable(s_data.L, -3);
         lua_setfield(s_data.L, -1, "__index");
-        JNG_PRINT_LUA_STACK();
 
         lua_pushlightuserdata(s_data.L, entity);
         lua_setfield(s_data.L, -2, "_entityHandle_");

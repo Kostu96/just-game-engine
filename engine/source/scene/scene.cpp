@@ -72,6 +72,7 @@ namespace jng {
         auto entity = m_registry.create();
         m_registry.emplace<IDComponent>(entity);
         m_registry.emplace<TagComponent>(entity, name);
+        m_registry.emplace<RelationComponent>(entity);
         m_registry.emplace<TransformComponent>(entity);
 
         return Entity{ entity, *this };
@@ -82,6 +83,7 @@ namespace jng {
         auto entity = m_registry.create();
         m_registry.emplace<IDComponent>(entity, id);
         m_registry.emplace<TagComponent>(entity, name);
+        m_registry.emplace<RelationComponent>(entity);
         m_registry.emplace<TransformComponent>(entity);
 
         return Entity{ entity, *this };
@@ -91,6 +93,7 @@ namespace jng {
     {
         std::string tag = other.getComponent<TagComponent>().Tag + " Copy";
         Entity entityCopy = createEntity(tag);
+        entityCopy.getComponent<RelationComponent>() = other.getComponent<RelationComponent>();
         entityCopy.getComponent<TransformComponent>() = other.getComponent<TransformComponent>();
         copyComponents(OptionalComponents{}, entityCopy, other);
 

@@ -35,6 +35,17 @@ namespace jng {
         std::string Tag;
     };
 
+    struct RelationComponent
+    {
+        RelationComponent() = default;
+        RelationComponent(const RelationComponent&) = default;
+
+        Entity parent;
+        Entity first;
+        Entity next;
+        Entity previous;
+    };
+
     struct TransformComponent
     {
         TransformComponent() = default;

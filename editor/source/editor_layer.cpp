@@ -134,7 +134,6 @@ namespace jng {
                 ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
                 ImGui::SetNextWindowSize({ 160 * 4.f, 90 * 4.f }); // TODO: this is temporary to prevent window being too small when app is started first time
                 ImGui::Begin("Viewport", &m_context.IsViewportWindowOpen, ImGuiWindowFlags_NoCollapse);
-                ImGui::PopStyleVar();
 
                 m_context.IsViewportWindowActive = ImGui::IsWindowFocused() || ImGui::IsWindowHovered();
 
@@ -191,6 +190,7 @@ namespace jng {
                 }
 
                 ImGui::End();
+                ImGui::PopStyleVar();
             }
 
             m_inspectorWindow.onImGuiUpdate();
