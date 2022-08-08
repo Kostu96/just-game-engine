@@ -18,7 +18,6 @@
     constexpr static const int NUM_RETURNS = numReturns; \
     [[maybe_unused]] int previousTop = lua_gettop(L)
 
-// TODO: add poping parameters here:
 #define JNG_LUA_CALL_EXIT() \
     JNG_CORE_ASSERT(lua_gettop(L) == previousTop - NUM_PARAMS + NUM_RETURNS, "Lua stack has incorrect size!"); \
     return NUM_RETURNS

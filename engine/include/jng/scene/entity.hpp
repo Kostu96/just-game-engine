@@ -29,15 +29,18 @@ namespace jng {
         bool hasComponent() const;
         template<typename Component>
         Component& getComponent();
+        template<typename Component>
+        const Component& getComponent() const;
         template<typename Component, typename ...Args>
         Component& getOrAddComponent(Args&& ...args);
 
-        GUID getGUID();
-        const std::string& getTag();
+        GUID getGUID() const;
+        const std::string& getTag() const;
         bool hasParent() const;
         bool hasChildren() const;
 
         void setParent(Entity newParent);
+        void removeParent();
 
         Scene* getScene() { return m_sceneRef; }
 
@@ -79,6 +82,13 @@ namespace jng {
 
     template<typename Component>
     Component& Entity::getComponent()
+    {
+        JNG_CORE_ASSERT(hasComponent<Component>(), "Entity doesn't have component of that type!");
+        return m_sceneRef->m_registry.get<Component>(m_handle);
+    }
+
+    template<typename Component>
+    const Component& Entity::getComponent() const
     {
         JNG_CORE_ASSERT(hasComponent<Component>(), "Entity doesn't have component of that type!");
         return m_sceneRef->m_registry.get<Component>(m_handle);

@@ -15,7 +15,12 @@ namespace jng {
         m_sceneRef{ &scene }
     {}
 
-    const std::string& Entity::getTag()
+    GUID Entity::getGUID() const
+    {
+        return getComponent<IDComponent>().ID;
+    }
+
+    const std::string& Entity::getTag() const
     {
         return getComponent<TagComponent>().Tag;
     }
@@ -48,9 +53,18 @@ namespace jng {
         newParentChildren.children.emplace_back(*this);
     }
 
-    GUID Entity::getGUID()
+    void Entity::removeParent()
     {
-        return getComponent<IDComponent>().ID;
+        if (hasParent())
+        {
+            auto selfParentComponent = getComponent<ParentComponent>();
+            auto& selfPatrentChildrenComponent = selfParentComponent.parent.getComponent<ChildrenComponent>();
+            selfPatrentChildrenComponent.children.remove(*this);
+            if (selfPatrentChildrenComponent.children.empty())
+                selfParentComponent.parent.removeComponent<ChildrenComponent>();
+
+            removeComponent<ParentComponent>();
+        }
     }
 
 } // namespace jng
