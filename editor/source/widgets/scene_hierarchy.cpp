@@ -20,7 +20,7 @@ namespace jng {
         auto& tag = entity.getComponent<TagComponent>().Tag;
         bool hasChildren = entity.hasChildren();
 
-        ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth |
+        ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth |
             (context.SelectedEntity == entity ? ImGuiTreeNodeFlags_Selected : 0) |
             (hasChildren ? 0 : ImGuiTreeNodeFlags_Leaf);
 
@@ -41,12 +41,7 @@ namespace jng {
             if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SCENE_HIERARCHY_ITEM"))
             {
                 Entity droppedEntity = *reinterpret_cast<Entity*>(payload->Data);
-
-                auto& droppedParent = droppedEntity.getOrAddComponent<ParentComponent>();
-                droppedParent.parent = entity; // TODO: handle changing parent from previous
-
-                auto& children = entity.getOrAddComponent<ChildrenComponent>();
-                children.children.emplace_back(droppedEntity);
+                droppedEntity.setParent(entity);
             }
             ImGui::EndDragDropTarget();
         }
@@ -74,7 +69,6 @@ namespace jng {
                 auto& children = entity.getComponent<ChildrenComponent>();
                 for (auto child : children.children)
                     updateSceneHierarchyItem(context, child);
-
             }
 
             ImGui::TreePop();

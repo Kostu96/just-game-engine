@@ -56,11 +56,8 @@ namespace jng {
         Ref<Scene> sceneCopy = makeRef<Scene>();
 
         other->each([&sceneCopy](Entity entity) {
-            std::string tag = entity.getComponent<TagComponent>().Tag;
-            GUID id = entity.getComponent<IDComponent>().ID;
-
-            Entity entityCopy = sceneCopy->createEntity(tag, id);
-            copyComponents(AllComponents{}, entityCopy, entity);
+            if (!entity.hasParent())
+                copyEntityWithChildren(sceneCopy, entity);
         });
 
         return sceneCopy;
@@ -88,6 +85,8 @@ namespace jng {
 
     Entity Scene::duplicateEntity(Entity other)
     {
+        // TODO: duplicate children and assign the same parent
+
         std::string tag = other.getComponent<TagComponent>().Tag + " Copy";
         Entity entityCopy = createEntity(tag);
         copyComponents(AllComponents{}, entityCopy, other);
@@ -97,6 +96,8 @@ namespace jng {
 
     void Scene::destroyEntity(Entity entity)
     {
+        // TODO: destroy children and remove from parents children
+
         m_registry.destroy(entity.m_handle);
     }
 
@@ -199,6 +200,31 @@ namespace jng {
         {
             auto& cc = view.get<CameraComponent>(entity);
             cc.camera.setViewportSize(width, height);
+        }
+    }
+
+    Entity Scene::copyEntityWithChildren(Ref<Scene>& scene, Entity entity)
+    {
+        std::string tag = entity.getComponent<TagComponent>().Tag;
+        GUID id = entity.getComponent<IDComponent>().ID;
+
+        Entity entityCopy = scene->createEntity(tag, id);
+        copyComponents(AllComponents{}, entityCopy, entity);
+        copyChildren(scene, entityCopy, entity);
+
+        return entityCopy;
+    }
+
+    void Scene::copyChildren(Ref<Scene>& scene, Entity dst, Entity src)
+    {
+        if (src.hasChildren())
+        {
+            auto& children = src.getComponent<ChildrenComponent>();
+            for (auto child : children.children)
+            {
+                Entity childCopy = copyEntityWithChildren(scene, child);
+                childCopy.setParent(dst);
+            }
         }
     }
 

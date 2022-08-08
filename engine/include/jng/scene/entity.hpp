@@ -26,7 +26,7 @@ namespace jng {
         template<typename Component>
         void removeComponent();
         template<typename Component>
-        bool hasComponent();
+        bool hasComponent() const;
         template<typename Component>
         Component& getComponent();
         template<typename Component, typename ...Args>
@@ -34,8 +34,10 @@ namespace jng {
 
         GUID getGUID();
         const std::string& getTag();
-        bool hasParent();
-        bool hasChildren();
+        bool hasParent() const;
+        bool hasChildren() const;
+
+        void setParent(Entity newParent);
 
         Scene* getScene() { return m_sceneRef; }
 
@@ -70,7 +72,7 @@ namespace jng {
     }
 
     template<typename Component>
-    bool Entity::hasComponent()
+    bool Entity::hasComponent() const
     {
         return m_sceneRef->m_registry.all_of<Component>(m_handle);
     }

@@ -61,9 +61,6 @@ namespace jng {
         ChildrenComponent() = default;
         ChildrenComponent(const ChildrenComponent&) = default;
 
-       /* Entity first;
-        Entity next;
-        Entity previous;*/
         std::list<Entity> children;
     };
 
@@ -165,11 +162,9 @@ namespace jng {
     template<typename... Component>
     struct ComponentGroup {};
 
-    // All components except ID and Tag
+    // All components except ID, Tag, Parent, Children
     using AllComponents = ComponentGroup<
         TransformComponent,
-        ParentComponent,
-        ChildrenComponent,
         CameraComponent,
         CircleRendererComponent,
         SpriteRendererComponent,

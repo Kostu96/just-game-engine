@@ -20,14 +20,32 @@ namespace jng {
         return getComponent<TagComponent>().Tag;
     }
 
-    bool Entity::hasParent()
+    bool Entity::hasParent() const
     {
         return hasComponent<ParentComponent>();
     }
 
-    bool Entity::hasChildren()
+    bool Entity::hasChildren() const
     {
         return hasComponent<ChildrenComponent>();
+    }
+
+    void Entity::setParent(Entity newParent)
+    {
+        auto& selfParentComponent = getOrAddComponent<ParentComponent>();
+
+        if (selfParentComponent.parent)
+        {
+            auto& selfPatrentChildrenComponent = selfParentComponent.parent.getComponent<ChildrenComponent>();
+            selfPatrentChildrenComponent.children.remove(*this);
+            if (selfPatrentChildrenComponent.children.empty())
+                selfParentComponent.parent.removeComponent<ChildrenComponent>();
+        }
+
+        selfParentComponent.parent = newParent;
+
+        auto& newParentChildren = newParent.getOrAddComponent<ChildrenComponent>();
+        newParentChildren.children.emplace_back(*this);
     }
 
     GUID Entity::getGUID()

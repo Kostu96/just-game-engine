@@ -43,6 +43,9 @@ namespace jng {
 
         void setViewportSize(float width, float height);
     private:
+        static Entity copyEntityWithChildren(Ref<Scene>& scene, Entity entity);
+        static void copyChildren(Ref<Scene>& scene, Entity dst, Entity src);
+
         void drawRenderables();
         void drawColliders();
 
