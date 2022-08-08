@@ -15,6 +15,72 @@
 
 namespace jng {
 
+    static void updateSceneHierarchyItem(EditorContext& context, Entity entity)
+    {
+        auto& tag = entity.getComponent<TagComponent>().Tag;
+        bool hasChildren = entity.hasChildren();
+
+        ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth |
+            (context.SelectedEntity == entity ? ImGuiTreeNodeFlags_Selected : 0) |
+            (hasChildren ? 0 : ImGuiTreeNodeFlags_Leaf);
+
+        bool isOpen = ImGui::TreeNodeEx(entity, flags, tag.c_str());
+        
+        if (ImGui::IsItemClicked(ImGuiMouseButton_Left))
+            context.SelectedEntity = entity;
+
+        if (ImGui::BeginDragDropSource())
+        {
+            ImGui::SetDragDropPayload("SCENE_HIERARCHY_ITEM", &entity, sizeof(Entity), ImGuiCond_Once);
+            ImGui::Text(tag.c_str());
+            ImGui::EndDragDropSource();
+        }
+
+        if (ImGui::BeginDragDropTarget())
+        {
+            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SCENE_HIERARCHY_ITEM"))
+            {
+                Entity droppedEntity = *reinterpret_cast<Entity*>(payload->Data);
+
+                auto& droppedParent = droppedEntity.getOrAddComponent<ParentComponent>();
+                droppedParent.parent = entity; // TODO: handle changing parent from previous
+
+                auto& children = entity.getOrAddComponent<ChildrenComponent>();
+                children.children.emplace_back(droppedEntity);
+            }
+            ImGui::EndDragDropTarget();
+        }
+
+        if (ImGui::BeginPopupContextItem(0, ImGuiPopupFlags_MouseButtonRight))
+        {
+            if (ImGui::MenuItem("Duplicate", "Ctrl+D"))
+                context.ActiveScene->duplicateEntity(entity);
+
+            if (ImGui::MenuItem("Delete", "Del"))
+            {
+                if (context.SelectedEntity == entity)
+                    context.SelectedEntity = {};
+
+                context.ActiveScene->destroyEntity(entity);
+            }
+
+            ImGui::EndPopup();
+        }
+
+        if (isOpen)
+        {
+            if (hasChildren)
+            {
+                auto& children = entity.getComponent<ChildrenComponent>();
+                for (auto child : children.children)
+                    updateSceneHierarchyItem(context, child);
+
+            }
+
+            ImGui::TreePop();
+        }
+    }
+
     void SceneHierarchyWindow::onImGuiUpdate()
     {
         if (m_context.IsSceneHierarchyWindowOpen)
@@ -24,68 +90,11 @@ namespace jng {
 
             if (m_context.ActiveScene)
             {
-                m_context.ActiveScene->each([this](Entity entity) {
-
-
-                    auto& tag = entity.getComponent<TagComponent>().Tag;
-                    auto& relation = entity.getComponent<RelationComponent>();
-
-                    ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth |
-                        (m_context.SelectedEntity == entity ? ImGuiTreeNodeFlags_Selected : 0) |
-                        (relation.first ? 0 : ImGuiTreeNodeFlags_Leaf);
-
-                    if (ImGui::TreeNodeEx(entity, flags, tag.c_str()))
-                        ImGui::TreePop();
-
-                    if (ImGui::BeginDragDropSource())
+                m_context.ActiveScene->each([this](Entity entity)
                     {
-                        ImGui::SetDragDropPayload("SCENE_HIERARCHY_ITEM", &entity, sizeof(Entity), ImGuiCond_Once);
-                        ImGui::Text(tag.c_str());
-                        ImGui::EndDragDropSource();
-                    }
-
-                    if (ImGui::BeginDragDropTarget())
-                    {
-                        if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SCENE_HIERARCHY_ITEM"))
-                        {
-                            Entity* droppedEntity = reinterpret_cast<Entity*>(payload->Data);
-                            auto& droppedRC = droppedEntity->getComponent<RelationComponent>();        
-
-                            if (relation.first)
-                            {
-                                Entity last = relation.first;
-                                while (Entity next = last.getComponent<RelationComponent>().next)
-                                    last = next;
-                            }
-                            else
-                                relation.first = *droppedEntity;
-
-                            droppedRC.parent = entity;
-                        }
-                        ImGui::EndDragDropTarget();
-                    }
-
-                    if (ImGui::IsItemClicked(ImGuiMouseButton_Left))
-                        m_context.SelectedEntity = entity;
-
-                    if (ImGui::BeginPopupContextItem(0, ImGuiPopupFlags_MouseButtonRight))
-                    {
-                        if (ImGui::MenuItem("Duplicate", "Ctrl+D"))
-                        {
-                            m_context.ActiveScene->duplicateEntity(entity);
-                        }
-
-                        if (ImGui::MenuItem("Delete", "Del"))
-                        {
-                            if (m_context.SelectedEntity == entity)
-                                m_context.SelectedEntity = {};
-
-                            m_context.ActiveScene->destroyEntity(entity);
-                        }
-
-                        ImGui::EndPopup();
-                    }
-                });
+                        if (!entity.hasParent())
+                            updateSceneHierarchyItem(m_context, entity);
+                    });
 
                 if (ImGui::IsMouseClicked(ImGuiMouseButton_Left) && ImGui::IsWindowHovered())
                     m_context.SelectedEntity = {};

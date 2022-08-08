@@ -21,19 +21,23 @@ namespace jng {
 
         template<typename Component, typename ...Args>
         Component& addComponent(Args&& ...args);
-
+        template<typename Component, typename ...Args>
+        Component& addOrReplaceComponent(Args&& ...args);
         template<typename Component>
         void removeComponent();
-
         template<typename Component>
         bool hasComponent();
-
         template<typename Component>
         Component& getComponent();
+        template<typename Component, typename ...Args>
+        Component& getOrAddComponent(Args&& ...args);
 
-        Scene* getScene() { return m_sceneRef; }
         GUID getGUID();
         const std::string& getTag();
+        bool hasParent();
+        bool hasChildren();
+
+        Scene* getScene() { return m_sceneRef; }
 
         bool operator==(const Entity& other) const { return m_handle == other.m_handle; }
         bool operator!=(const Entity& other) const { return m_handle != other.m_handle; }
@@ -53,6 +57,12 @@ namespace jng {
         return m_sceneRef->m_registry.emplace<Component>(m_handle, std::forward<Args>(args)...);
     }
 
+    template<typename Component, typename ...Args>
+    inline Component& Entity::addOrReplaceComponent(Args && ...args)
+    {
+        return m_sceneRef->m_registry.emplace_or_replace<Component>(m_handle, std::forward<Args>(args)...);
+    }
+
     template<typename Component>
     void Entity::removeComponent()
     {
@@ -68,7 +78,14 @@ namespace jng {
     template<typename Component>
     Component& Entity::getComponent()
     {
+        JNG_CORE_ASSERT(hasComponent<Component>(), "Entity doesn't have component of that type!");
         return m_sceneRef->m_registry.get<Component>(m_handle);
+    }
+
+    template<typename Component, typename ...Args>
+    inline Component& Entity::getOrAddComponent(Args&& ...args)
+    {
+        return m_sceneRef->m_registry.get_or_emplace<Component>(m_handle, std::forward<Args>(args)...);
     }
 
 } // namespace jng

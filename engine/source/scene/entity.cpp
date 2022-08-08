@@ -20,6 +20,16 @@ namespace jng {
         return getComponent<TagComponent>().Tag;
     }
 
+    bool Entity::hasParent()
+    {
+        return hasComponent<ParentComponent>();
+    }
+
+    bool Entity::hasChildren()
+    {
+        return hasComponent<ChildrenComponent>();
+    }
+
     GUID Entity::getGUID()
     {
         return getComponent<IDComponent>().ID;

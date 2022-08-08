@@ -35,17 +35,6 @@ namespace jng {
         std::string Tag;
     };
 
-    struct RelationComponent
-    {
-        RelationComponent() = default;
-        RelationComponent(const RelationComponent&) = default;
-
-        Entity parent;
-        Entity first;
-        Entity next;
-        Entity previous;
-    };
-
     struct TransformComponent
     {
         TransformComponent() = default;
@@ -57,6 +46,25 @@ namespace jng {
 
         void reset();
         glm::mat4 getTransform() const;
+    };
+
+    struct ParentComponent
+    {
+        ParentComponent() = default;
+        ParentComponent(const ParentComponent&) = default;
+
+        Entity parent;
+    };
+
+    struct ChildrenComponent
+    {
+        ChildrenComponent() = default;
+        ChildrenComponent(const ChildrenComponent&) = default;
+
+       /* Entity first;
+        Entity next;
+        Entity previous;*/
+        std::list<Entity> children;
     };
 
     struct CameraComponent
@@ -157,8 +165,11 @@ namespace jng {
     template<typename... Component>
     struct ComponentGroup {};
 
-    // All components except ID, Tag and Transform
-    using OptionalComponents = ComponentGroup<
+    // All components except ID and Tag
+    using AllComponents = ComponentGroup<
+        TransformComponent,
+        ParentComponent,
+        ChildrenComponent,
         CameraComponent,
         CircleRendererComponent,
         SpriteRendererComponent,

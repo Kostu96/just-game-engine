@@ -41,9 +41,6 @@ namespace jng {
         template<typename Func>
         void each(Func func);
 
-        template<typename Component, typename Func>
-        void sort(Func func);
-
         void setViewportSize(float width, float height);
     private:
         void drawRenderables();
@@ -62,14 +59,6 @@ namespace jng {
     {
         m_registry.each([&](entt::entity entityHandle) {
             func({ entityHandle, *this });
-        });
-    }
-
-    template<typename Component, typename Func>
-    void Scene::sort(Func func)
-    {
-        m_registry.sort<Component>([&](const entt::entity lhs, const entt::entity rhs) {
-            return func({ lhs, *this }, { rhs, *this });
         });
     }
 

@@ -37,7 +37,7 @@ namespace jng {
     static void copyComponentIfExists(Entity dst, Entity src)
     {
         if (src.hasComponent<Component>())
-            dst.addComponent<Component>() = src.getComponent<Component>();
+            dst.addOrReplaceComponent<Component>(src.getComponent<Component>());
     }
 
     template<typename... Component>
@@ -60,8 +60,7 @@ namespace jng {
             GUID id = entity.getComponent<IDComponent>().ID;
 
             Entity entityCopy = sceneCopy->createEntity(tag, id);
-            entityCopy.getComponent<TransformComponent>() = entity.getComponent<TransformComponent>();
-            copyComponents(OptionalComponents{}, entityCopy, entity);
+            copyComponents(AllComponents{}, entityCopy, entity);
         });
 
         return sceneCopy;
@@ -72,7 +71,6 @@ namespace jng {
         auto entity = m_registry.create();
         m_registry.emplace<IDComponent>(entity);
         m_registry.emplace<TagComponent>(entity, name);
-        m_registry.emplace<RelationComponent>(entity);
         m_registry.emplace<TransformComponent>(entity);
 
         return Entity{ entity, *this };
@@ -83,7 +81,6 @@ namespace jng {
         auto entity = m_registry.create();
         m_registry.emplace<IDComponent>(entity, id);
         m_registry.emplace<TagComponent>(entity, name);
-        m_registry.emplace<RelationComponent>(entity);
         m_registry.emplace<TransformComponent>(entity);
 
         return Entity{ entity, *this };
@@ -93,9 +90,7 @@ namespace jng {
     {
         std::string tag = other.getComponent<TagComponent>().Tag + " Copy";
         Entity entityCopy = createEntity(tag);
-        entityCopy.getComponent<RelationComponent>() = other.getComponent<RelationComponent>();
-        entityCopy.getComponent<TransformComponent>() = other.getComponent<TransformComponent>();
-        copyComponents(OptionalComponents{}, entityCopy, other);
+        copyComponents(AllComponents{}, entityCopy, other);
 
         return entityCopy;
     }
