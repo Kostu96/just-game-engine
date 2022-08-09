@@ -234,14 +234,22 @@ namespace jng {
         for (auto entity : spriteGroup)
         {
             auto [src, tc] = spriteGroup.get<SpriteRendererComponent, TransformComponent>(entity);
-            Renderer2D::drawSprite(tc.getTransform(), src, static_cast<int32>(entity));
+            Entity jngEntity{ entity, *this };
+            glm::mat4 transform = tc.getTransform();
+            if (jngEntity.hasParent())
+                transform *= jngEntity.getComponent<ParentComponent>().parent.getComponent<TransformComponent>().getTransform();
+            Renderer2D::drawSprite(transform, src, static_cast<int32>(entity));
         }
 
         auto circleGroup = m_registry.group<CircleRendererComponent>(entt::get<TransformComponent>);
         for (auto entity : circleGroup)
         {
             auto [crc, tc] = circleGroup.get<CircleRendererComponent, TransformComponent>(entity);
-            Renderer2D::drawCircle(tc.getTransform(), crc, static_cast<int32>(entity));
+            Entity jngEntity{ entity, *this };
+            glm::mat4 transform = tc.getTransform();
+            if (jngEntity.hasParent())
+                transform *= jngEntity.getComponent<ParentComponent>().parent.getComponent<TransformComponent>().getTransform();
+            Renderer2D::drawCircle(transform, crc, static_cast<int32>(entity));
         }
     }
 
