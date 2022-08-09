@@ -158,7 +158,7 @@ namespace jng {
                 auto transformComponent = entity["TransformComponent"];
                 if (transformComponent)
                 {
-                    auto& tc = deserializedEntity.getComponent<TransformComponent>();
+                    auto& tc = deserializedEntity.getComponent<WorldTransformComponent>();
                     tc.Translation = transformComponent["Translation"].as<glm::vec3>();
                     tc.Rotation = transformComponent["Rotation"].as<glm::vec3>();
                     tc.Scale = transformComponent["Scale"].as<glm::vec3>();
@@ -294,7 +294,7 @@ namespace jng {
         {
             yaml << YAML::Key << "TransformComponent" << YAML::Value;
             yaml << YAML::BeginMap;
-            auto& comp = entity.getComponent<TransformComponent>();
+            auto& comp = entity.getComponent<WorldTransformComponent>();
 
             yaml << YAML::Key << "Translation" << YAML::Value << comp.Translation;
             yaml << YAML::Key << "Rotation" << YAML::Value << comp.Rotation;

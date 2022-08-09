@@ -37,13 +37,15 @@ namespace jng {
 
     void Entity::setParent(Entity newParent)
     {
+        addOrReplaceComponent<LocalTransformComponent>().isDirty = true;
+
         auto& selfParentComponent = getOrAddComponent<ParentComponent>();
 
         if (selfParentComponent.parent)
         {
-            auto& selfPatrentChildrenComponent = selfParentComponent.parent.getComponent<ChildrenComponent>();
-            selfPatrentChildrenComponent.children.remove(*this);
-            if (selfPatrentChildrenComponent.children.empty())
+            auto& selfParentChildrenComponent = selfParentComponent.parent.getComponent<ChildrenComponent>();
+            selfParentChildrenComponent.children.remove(*this);
+            if (selfParentChildrenComponent.children.empty())
                 selfParentComponent.parent.removeComponent<ChildrenComponent>();
         }
 
@@ -58,12 +60,13 @@ namespace jng {
         if (hasParent())
         {
             auto selfParentComponent = getComponent<ParentComponent>();
-            auto& selfPatrentChildrenComponent = selfParentComponent.parent.getComponent<ChildrenComponent>();
-            selfPatrentChildrenComponent.children.remove(*this);
-            if (selfPatrentChildrenComponent.children.empty())
+            auto& selfParentChildrenComponent = selfParentComponent.parent.getComponent<ChildrenComponent>();
+            selfParentChildrenComponent.children.remove(*this);
+            if (selfParentChildrenComponent.children.empty())
                 selfParentComponent.parent.removeComponent<ChildrenComponent>();
 
             removeComponent<ParentComponent>();
+            removeComponent<LocalTransformComponent>();
         }
     }
 

@@ -40,7 +40,7 @@ namespace jng::Lua {
         };
 
         struct TagComponent              { jng::TagComponent*              handle; };
-        struct TransformComponent        { jng::TransformComponent*        handle; };
+        //struct TransformComponent        { jng::TransformComponent*        handle; };
         struct CameraComponent           { jng::CameraComponent*           handle; };
         struct SpriteRendererComponent   { jng::SpriteRendererComponent*   handle; };
         struct CircleRendererComponent   { jng::CircleRendererComponent*   handle; };

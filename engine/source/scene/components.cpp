@@ -8,23 +8,8 @@
 #include "jng/scene/components.hpp"
 
 #include <box2d/b2_body.h>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/quaternion.hpp>
 
 namespace jng {
-
-    void TransformComponent::reset()
-    {
-        Translation = { 0.f, 0.f, 0.f };
-        Rotation = { 0.f, 0.f, 0.f };
-        Scale = { 1.f, 1.f, 1.f };
-    }
-
-    glm::mat4 TransformComponent::getTransform() const
-    {
-        glm::mat4 rotMatrix = glm::toMat4(glm::quat(Rotation));
-        return glm::translate(glm::mat4{ 1.f }, Translation) * rotMatrix * glm::scale(glm::mat4{ 1.f }, Scale);
-    }
 
     void CameraComponent::reset()
     {

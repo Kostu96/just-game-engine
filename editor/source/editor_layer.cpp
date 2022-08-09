@@ -76,10 +76,9 @@ namespace jng {
                 case SceneState::Stopped:
                 {
                     jng::Renderer2D::beginScene(m_context.EditorCamera.getViewProjection());
+                    m_context.ActiveScene->calculateWorldTransforms();
                     m_context.ActiveScene->drawRenderables();
-
                     if (m_context.showColliders) m_context.ActiveScene->drawColliders();
-
                     jng::Renderer2D::endScene();
                 }   break;
                 case SceneState::Playing:
@@ -111,7 +110,8 @@ namespace jng {
             // Viewport
             if (m_context.IsViewportWindowOpen)
             {
-                bool isDragging = ImGui::IsDragDropPayloadBeingAccepted();
+                bool isDragging = ImGui::IsDragDropPayloadBeingAccepted() &&
+                    strcmp(ImGui::GetDragDropPayload()->DataType, "CONTENT_BROWSER_ITEM") == 0;
 
                 ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding,
                     isDragging ? ImVec2{ 6.0f, 5.0f } : ImVec2{ 0, 0 });
@@ -165,7 +165,7 @@ namespace jng {
 
                     glm::mat4 cameraView = m_context.EditorCamera.getView();
                     const glm::mat4& cameraProjection = m_context.EditorCamera.getProjection();
-                    auto& tc = m_context.SelectedEntity.getComponent<TransformComponent>();
+                    auto& tc = m_context.SelectedEntity.getComponent<WorldTransformComponent>();
                     glm::mat4 transform = tc.getTransform();
 
                     bool snap = Input::isKeyPressed(Key::LeftControl);

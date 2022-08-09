@@ -68,7 +68,7 @@ namespace jng {
         auto entity = m_registry.create();
         m_registry.emplace<IDComponent>(entity);
         m_registry.emplace<TagComponent>(entity, name);
-        m_registry.emplace<TransformComponent>(entity);
+        m_registry.emplace<WorldTransformComponent>(entity);
 
         return Entity{ entity, *this };
     }
@@ -78,7 +78,7 @@ namespace jng {
         auto entity = m_registry.create();
         m_registry.emplace<IDComponent>(entity, id);
         m_registry.emplace<TagComponent>(entity, name);
-        m_registry.emplace<TransformComponent>(entity);
+        m_registry.emplace<WorldTransformComponent>(entity);
 
         return Entity{ entity, *this };
     }
@@ -103,13 +103,14 @@ namespace jng {
 
     void Scene::onCreate(float gravity)
     {
-        m_physics2dWorld = new b2World{ { 0.f, -gravity } };
+        calculateWorldTransforms();
 
+        m_physics2dWorld = new b2World{ { 0.f, -gravity } };
         {
-            auto group = m_registry.group<Rigidbody2DComponent>(entt::get<TransformComponent>);
+            auto group = m_registry.group<Rigidbody2DComponent>(entt::get<WorldTransformComponent>);
             for (auto entity : group)
             {
-                auto [rbc, tc] = group.get<Rigidbody2DComponent, TransformComponent>(entity);
+                auto [rbc, tc] = group.get<Rigidbody2DComponent, WorldTransformComponent>(entity);
 
                 b2BodyDef bodyDef{};
                 bodyDef.type = bodyTypeToBox2DBodyType(rbc.Type);
@@ -181,6 +182,47 @@ namespace jng {
         m_physics2dWorld = nullptr;
     }
 
+    void Scene::onUpdate(float dt)
+    {
+        calculateWorldTransforms();
+
+        {
+            auto view = m_registry.view<LuaScriptComponent>();
+            for (auto entity : view)
+            {
+                auto& lsc = view.get<LuaScriptComponent>(entity);
+                LuaEngine::onUpdate(Entity{ entity, *this }, lsc, dt);
+            }
+        }
+        {
+            m_physics2dWorld->Step(dt, PHYSICS_VEL_ITERATIONS, PHYSICS_POS_ITERATIONS);
+
+            auto group = m_registry.group<Rigidbody2DComponent>(entt::get<WorldTransformComponent>);
+            for (auto entity : group)
+            {
+                auto [rbc, tc] = group.get<Rigidbody2DComponent, WorldTransformComponent>(entity);
+
+                b2Body* body = reinterpret_cast<b2Body*>(rbc.BodyHandle);
+                const auto& pos = body->GetPosition();
+                tc.Translation.x = pos.x;
+                tc.Translation.y = pos.y;
+                tc.Rotation.z = body->GetAngle();
+            }
+        }
+        {
+            auto group = m_registry.group<CameraComponent>(entt::get<WorldTransformComponent>);
+            if (group.size() == 0) {
+                JNG_CORE_WARN("Scene has no camera!");
+                return;
+            }
+
+            auto [cc, tc] = group.get<CameraComponent, WorldTransformComponent>(*group.begin());
+            Renderer2D::beginScene(cc.camera.getVP(tc.getTransform()));
+        }
+        drawRenderables();
+        Renderer2D::endScene();
+    }
+
     void Scene::onEvent(Event& /*event*/)
     {
         /*{
@@ -200,6 +242,58 @@ namespace jng {
         {
             auto& cc = view.get<CameraComponent>(entity);
             cc.camera.setViewportSize(width, height);
+        }
+    }
+
+    static void setChildrenDirty(Entity entity)
+    {
+        if (entity.hasChildren())
+        {
+            auto& children = entity.getComponent<ChildrenComponent>().children;
+            for (auto child : children)
+            {
+                child.getComponent<WorldTransformComponent>().isDirty = true;
+                setChildrenDirty(child);
+            }
+        }
+    }
+
+    static WorldTransformComponent& calculateParentTransform(Entity entity)
+    {
+        auto parent = entity.getComponent<ParentComponent>().parent;
+        auto& parentTransform = parent.getComponent<WorldTransformComponent>();
+        if (parentTransform.isDirty)
+        {
+            auto& grandParentTransform = calculateParentTransform(parent);
+            parentTransform.setTransform(grandParentTransform.getTransform() * parentTransform.getTransform());
+        }
+
+        return parentTransform;
+    }
+
+    void Scene::calculateWorldTransforms()
+    {
+        auto ltcWithWtcGroup = m_registry.group<LocalTransformComponent>(entt::get<WorldTransformComponent>);
+        for (auto entity : ltcWithWtcGroup)
+            ltcWithWtcGroup.get<WorldTransformComponent>(entity).isDirty = ltcWithWtcGroup.get<LocalTransformComponent>(entity).isDirty;
+
+        {
+            auto view = m_registry.view<WorldTransformComponent>();
+            for (auto entity : view)
+                if (view.get<WorldTransformComponent>(entity).isDirty)
+                    setChildrenDirty({ entity, *this });
+        }
+        
+        for (auto entity : ltcWithWtcGroup)
+        {
+            auto [ltc, wtc] = ltcWithWtcGroup.get<LocalTransformComponent, WorldTransformComponent>(entity);
+            if (wtc.isDirty)
+            {
+                auto& parentTransform = calculateParentTransform({ entity, *this });
+                wtc.setTransform(parentTransform.getTransform() * ltc.getTransform());
+                ltc.isDirty = false;
+                wtc.isDirty = false;
+            }
         }
     }
 
@@ -230,36 +324,28 @@ namespace jng {
 
     void Scene::drawRenderables()
     {
-        auto spriteGroup = m_registry.group<SpriteRendererComponent>(entt::get<TransformComponent>);
+        auto spriteGroup = m_registry.group<SpriteRendererComponent>(entt::get<WorldTransformComponent>);
         for (auto entity : spriteGroup)
         {
-            auto [src, tc] = spriteGroup.get<SpriteRendererComponent, TransformComponent>(entity);
-            Entity jngEntity{ entity, *this };
-            glm::mat4 transform = tc.getTransform();
-            if (jngEntity.hasParent())
-                transform *= jngEntity.getComponent<ParentComponent>().parent.getComponent<TransformComponent>().getTransform();
-            Renderer2D::drawSprite(transform, src, static_cast<int32>(entity));
+            auto [src, tc] = spriteGroup.get<SpriteRendererComponent, WorldTransformComponent>(entity);
+            Renderer2D::drawSprite(tc.getTransform(), src, static_cast<int32>(entity));
         }
 
-        auto circleGroup = m_registry.group<CircleRendererComponent>(entt::get<TransformComponent>);
+        auto circleGroup = m_registry.group<CircleRendererComponent>(entt::get<WorldTransformComponent>);
         for (auto entity : circleGroup)
         {
-            auto [crc, tc] = circleGroup.get<CircleRendererComponent, TransformComponent>(entity);
-            Entity jngEntity{ entity, *this };
-            glm::mat4 transform = tc.getTransform();
-            if (jngEntity.hasParent())
-                transform *= jngEntity.getComponent<ParentComponent>().parent.getComponent<TransformComponent>().getTransform();
-            Renderer2D::drawCircle(transform, crc, static_cast<int32>(entity));
+            auto [crc, tc] = circleGroup.get<CircleRendererComponent, WorldTransformComponent>(entity);
+            Renderer2D::drawCircle(tc.getTransform(), crc, static_cast<int32>(entity));
         }
     }
 
     void Scene::drawColliders()
     {
         {
-            auto group = m_registry.group<BoxCollider2DComponent>(entt::get<TransformComponent>);
+            auto group = m_registry.group<BoxCollider2DComponent>(entt::get<WorldTransformComponent>);
             for (auto entity : group)
             {
-                auto [bcc, tc] = group.get<BoxCollider2DComponent, TransformComponent>(entity);
+                auto [bcc, tc] = group.get<BoxCollider2DComponent, WorldTransformComponent>(entity);
                 glm::vec3 translation = tc.Translation;
                 glm::vec3 scale = tc.Scale;
                 glm::mat4 transform = glm::translate(glm::mat4{ 1.f }, translation) * glm::scale(glm::mat4{ 1.f }, scale);
@@ -267,55 +353,16 @@ namespace jng {
             }
         }
         {
-            auto group = m_registry.group<CircleCollider2DComponent>(entt::get<TransformComponent>);
+            auto group = m_registry.group<CircleCollider2DComponent>(entt::get<WorldTransformComponent>);
             for (auto entity : group)
             {
-                auto [ccc, tc] = group.get<CircleCollider2DComponent, TransformComponent>(entity);
+                auto [ccc, tc] = group.get<CircleCollider2DComponent, WorldTransformComponent>(entity);
                 glm::vec3 translation = tc.Translation + glm::vec3{ ccc.offset, 0.001f };
                 glm::vec3 scale = tc.Scale * ccc.radius * 2.f;
                 glm::mat4 transform = glm::translate(glm::mat4{ 1.f }, translation) * glm::scale(glm::mat4{ 1.f }, scale);
                 Renderer2D::drawCircle(transform, { 0.25f, 1.f, 0.f, 1.f }, 0.05f);
             }
         }
-    }
-
-    void Scene::onUpdate(float dt)
-    {
-        {
-            auto view = m_registry.view<LuaScriptComponent>();
-            for (auto entity : view)
-            {
-                auto& lsc = view.get<LuaScriptComponent>(entity);
-                LuaEngine::onUpdate(Entity{ entity, *this }, lsc, dt);
-            }
-        }
-        {
-            m_physics2dWorld->Step(dt, PHYSICS_VEL_ITERATIONS, PHYSICS_POS_ITERATIONS);
-
-            auto group = m_registry.group<Rigidbody2DComponent>(entt::get<TransformComponent>);
-            for (auto entity : group)
-            {
-                auto [rbc, tc] = group.get<Rigidbody2DComponent, TransformComponent>(entity);
-
-                b2Body* body = reinterpret_cast<b2Body*>(rbc.BodyHandle);
-                const auto& pos = body->GetPosition();
-                tc.Translation.x = pos.x;
-                tc.Translation.y = pos.y;
-                tc.Rotation.z = body->GetAngle();
-            }
-        }
-        {
-            auto group = m_registry.group<CameraComponent>(entt::get<TransformComponent>);
-            if (group.size() == 0) {
-                JNG_CORE_WARN("Scene has no camera!");
-                return;
-            }
-
-            auto [cc, tc] = group.get<CameraComponent, TransformComponent>(*group.begin());
-            Renderer2D::beginScene(cc.camera.getVP(tc.getTransform()));
-        }
-        drawRenderables();
-        Renderer2D::endScene();
     }
 
 } // namespace jng
