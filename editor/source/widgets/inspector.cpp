@@ -96,7 +96,7 @@ namespace jng {
 
             if (m_context.SelectedEntity)
             {
-                JNG_USER_ASSERT(m_context.SelectedEntity.hasComponent<TagComponent>(), "TagComponent is obligatory!");
+                JNG_CORE_ASSERT(m_context.SelectedEntity.hasComponent<TagComponent>(), "TagComponent is obligatory!");
                 auto& tag = m_context.SelectedEntity.getComponent<TagComponent>().Tag;
 
                 char buffer[128];
