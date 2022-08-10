@@ -5,6 +5,7 @@
  */
 
 #pragma once
+#include <jng/scene/entity.hpp>
 
 namespace jng {
 
@@ -17,6 +18,8 @@ namespace jng {
 
         void onImGuiUpdate();
     private:
+        void updateSceneHierarchyItem(Entity entity);
+        
         EditorContext& m_context;
     };
 

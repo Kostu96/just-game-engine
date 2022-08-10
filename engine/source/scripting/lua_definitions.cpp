@@ -13,12 +13,13 @@
 
 #include <lua/lua.hpp>
 
-#define JNG_LUA_CCALL_ENTRY(x) \
-    constexpr static const int NUM_RETURNS = x; \
+#define JNG_LUA_CCALL_ENTRY(numParams, numReturns) \
+    constexpr static const int NUM_PARAMS = numParams; \
+    constexpr static const int NUM_RETURNS = numReturns; \
     [[maybe_unused]] int previousTop = lua_gettop(L)
 
 #define JNG_LUA_CALL_EXIT() \
-    JNG_CORE_ASSERT(lua_gettop(L) == previousTop + NUM_RETURNS, "Lua stack has incorrect size!"); \
+    JNG_CORE_ASSERT(lua_gettop(L) == previousTop - NUM_PARAMS + NUM_RETURNS, "Lua stack has incorrect size!"); \
     return NUM_RETURNS
 
 namespace jng::Lua {
@@ -27,7 +28,7 @@ namespace jng::Lua {
 
         int jng::Lua::Script::create(lua_State* L)
         {
-            JNG_LUA_CCALL_ENTRY(1);
+            JNG_LUA_CCALL_ENTRY(1, 1);
 
             JNG_CORE_ASSERT(lua_istable(L, 1), "LuaScript::create - 1st parameter is not a table!");
 
@@ -42,7 +43,7 @@ namespace jng::Lua {
 
         int jng::Lua::Script::getComponent(lua_State* L)
         {
-            JNG_LUA_CCALL_ENTRY(1);
+            JNG_LUA_CCALL_ENTRY(2, 1);
 
             JNG_CORE_ASSERT(lua_istable(L, 1), "LuaScript::getComponent - 1st parameter is not a table!");
             JNG_CORE_ASSERT(lua_isnumber(L, 2), "LuaScript::getComponent - 2nd parameter is not a number!");
@@ -57,6 +58,8 @@ namespace jng::Lua {
             Entity entity{ entityHandle, *sceneHandle };
 
             int64 type = luaL_checkinteger(L, 2);
+            lua_pop(L, 2); // pop parameters
+
             switch (type)
             {
             case Component::Tag:
@@ -90,7 +93,7 @@ namespace jng::Lua {
 
         int log(lua_State* L)
         {
-            JNG_LUA_CCALL_ENTRY(0);
+            JNG_LUA_CCALL_ENTRY(1, 0);
 
             JNG_CORE_ASSERT(lua_isstring(L, 1), "Global::log - 1st parameter is not a string!");
 
@@ -106,7 +109,7 @@ namespace jng::Lua {
 
         int Rigidbody2DComponent::setLinearVelocity(lua_State* L)
         {
-            JNG_LUA_CCALL_ENTRY(0);
+            JNG_LUA_CCALL_ENTRY(3, 0);
 
             Rigidbody2DComponent* rbc = reinterpret_cast<Rigidbody2DComponent*>(luaL_checkudata(L, 1, Rigidbody2DComponent::METATABLE_NAME));
             JNG_CORE_ASSERT(rbc, "Rigidbody2dComponent::setLinearVelocity - 1st parameter is not a LuaRigidbody2DComponent!");
@@ -117,6 +120,8 @@ namespace jng::Lua {
             float y = (float)lua_tonumber(L, 3);
             rbc->handle->setLinearVelocity({ x, y });
             
+            lua_pop(L, 3); // pop parameters
+
             JNG_LUA_CALL_EXIT();
         }
 
@@ -126,11 +131,13 @@ namespace jng::Lua {
 
         int isKeyPressed(lua_State* L)
         {
-            JNG_LUA_CCALL_ENTRY(1);
+            JNG_LUA_CCALL_ENTRY(1, 1);
 
             JNG_CORE_ASSERT(lua_isnumber(L, 1), "Input::isKeyPressed - 1st parameter is not a number!");
 
             Key::Code key = static_cast<uint16>(luaL_checkinteger(L, 1));
+            lua_pop(L, 1); // pop parameter
+
             bool isPressed = jng::Input::isKeyPressed(key);
             lua_pushboolean(L, isPressed);
             

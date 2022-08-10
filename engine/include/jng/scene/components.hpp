@@ -9,12 +9,16 @@
 #include "jng/renderer/texture.hpp"
 #include "jng/scene/camera.hpp"
 #include "jng/scripting/lua_engine.hpp"
+#include "jng/utilities/math.hpp"
 
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/quaternion.hpp>
 #include <string>
 #include <type_traits>
 
 class b2Body;
+class b2Fixture;
 
 namespace jng {
 
@@ -35,17 +39,54 @@ namespace jng {
         std::string Tag;
     };
 
-    struct TransformComponent
+    template<typename Tag>
+    struct Transform
     {
-        TransformComponent() = default;
-        TransformComponent(const TransformComponent&) = default;
+        Transform() = default;
+        Transform(const Transform&) = default;
 
         glm::vec3 Translation{ 0.f, 0.f, 0.f };
         glm::vec3 Rotation{ 0.f, 0.f, 0.f };
         glm::vec3 Scale{ 1.f, 1.f, 1.f };
+        bool isDirty = false;
 
-        void reset();
-        glm::mat4 getTransform() const;
+        void reset()
+        {
+            Translation = { 0.f, 0.f, 0.f };
+            Rotation = { 0.f, 0.f, 0.f };
+            Scale = { 1.f, 1.f, 1.f };
+            isDirty = false;
+        }
+
+        void setTransform(const glm::mat4& transform)
+        {
+            math::decomposeTransform(transform, Translation, Rotation, Scale);
+        }
+
+        glm::mat4 getTransform() const
+        {
+            glm::mat4 rotMatrix = glm::toMat4(glm::quat(Rotation));
+            return glm::translate(glm::mat4{ 1.f }, Translation) * rotMatrix * glm::scale(glm::mat4{ 1.f }, Scale);
+        }
+    };
+
+    using WorldTransformComponent = Transform<struct World>;
+    using LocalTransformComponent = Transform<struct Local>;
+
+    struct ParentComponent
+    {
+        ParentComponent() = default;
+        ParentComponent(const ParentComponent&) = default;
+
+        Entity parent;
+    };
+
+    struct ChildrenComponent
+    {
+        ChildrenComponent() = default;
+        ChildrenComponent(const ChildrenComponent&) = default;
+
+        std::list<Entity> children;
     };
 
     struct CameraComponent
@@ -92,7 +133,7 @@ namespace jng {
         float Restitution = 0.0f;
         float RestitutionThreshold = 0.5f;
 
-        void* FixtureHandle = nullptr; // NOTE: used in runtime only
+        b2Fixture* FixtureHandle = nullptr; // NOTE: used in runtime only
 
         void reset();
     };
@@ -109,7 +150,7 @@ namespace jng {
         float Restitution = 0.0f;
         float RestitutionThreshold = 0.5f;
 
-        void* FixtureHandle = nullptr; // NOTE: used in runtime only
+        b2Fixture* FixtureHandle = nullptr; // NOTE: used in runtime only
 
         void reset();
     };
@@ -146,8 +187,10 @@ namespace jng {
     template<typename... Component>
     struct ComponentGroup {};
 
-    // All components except ID, Tag and Transform
-    using OptionalComponents = ComponentGroup<
+    // All components except ID, Tag, Parent, Children
+    using AllComponents = ComponentGroup<
+        WorldTransformComponent,
+        LocalTransformComponent,
         CameraComponent,
         CircleRendererComponent,
         SpriteRendererComponent,

@@ -96,7 +96,7 @@ namespace jng {
 
             if (m_context.SelectedEntity)
             {
-                JNG_USER_ASSERT(m_context.SelectedEntity.hasComponent<TagComponent>(), "TagComponent is obligatory!");
+                JNG_CORE_ASSERT(m_context.SelectedEntity.hasComponent<TagComponent>(), "TagComponent is obligatory!");
                 auto& tag = m_context.SelectedEntity.getComponent<TagComponent>().Tag;
 
                 char buffer[128];
@@ -105,8 +105,8 @@ namespace jng {
                     tag = buffer;
                 ImGui::Separator();
 
-                updateComponent<TransformComponent>("Transform", m_context.SelectedEntity,
-                    [](TransformComponent& tc) {
+                updateComponent<WorldTransformComponent>("Transform", m_context.SelectedEntity,
+                    [](WorldTransformComponent& tc) {
                         ImGui::DragFloat3("Translation", glm::value_ptr(tc.Translation), 0.1f, 0.f, 0.f, "%.2f");
                         glm::vec3 degreesRot = glm::degrees(tc.Rotation);
                         ImGui::DragFloat3("Rotation", glm::value_ptr(degreesRot), 0.1f, 0.f, 0.f, "%.2f");

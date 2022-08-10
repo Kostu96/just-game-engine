@@ -76,10 +76,9 @@ namespace jng {
                 case SceneState::Stopped:
                 {
                     jng::Renderer2D::beginScene(m_context.EditorCamera.getViewProjection());
+                    m_context.ActiveScene->calculateWorldTransforms();
                     m_context.ActiveScene->drawRenderables();
-
                     if (m_context.showColliders) m_context.ActiveScene->drawColliders();
-
                     jng::Renderer2D::endScene();
                 }   break;
                 case SceneState::Playing:
@@ -111,15 +110,22 @@ namespace jng {
             // Viewport
             if (m_context.IsViewportWindowOpen)
             {
-                ImGuiWindowClass toolbarClass;
-                toolbarClass.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoResizeY | ImGuiDockNodeFlags_NoTabBar;
-                ImGui::SetNextWindowClass(&toolbarClass);
-                ImGui::Begin("##toolbar", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar);
+                bool isDragging = ImGui::IsDragDropPayloadBeingAccepted() &&
+                    strcmp(ImGui::GetDragDropPayload()->DataType, "CONTENT_BROWSER_ITEM") == 0;
+
+                ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding,
+                    isDragging ? ImVec2{ 6.0f, 5.0f } : ImVec2{ 0, 0 });
+                ImGui::SetNextWindowSize({ 160 * 4.f, 90 * 4.f }); // TODO: this is temporary to prevent window being too small when app is started first time
+                ImGui::Begin("Viewport", &m_context.IsViewportWindowOpen, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar);
+
+                ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding,
+                    isDragging ? ImVec2{ 0, -2.f } : ImVec2{ 0, 3.f });
+                ImGui::BeginChild("##viewport_toolbar", { 0, 40.f }, false, ImGuiWindowFlags_AlwaysUseWindowPadding | ImGuiWindowFlags_NoScrollbar);
                 Ref<Texture> icon = m_context.SceneState == SceneState::Stopped ? m_playIcon : m_stopIcon;
+                ImGui::SetCursorPosX((ImGui::GetContentRegionMax().x - 32.f) * 0.5f);
                 ImGui::PushStyleColor(ImGuiCol_Button, { 0.f, 0.f, 0.f, 0.f });
                 ImGui::PushStyleColor(ImGuiCol_ButtonHovered, { 0.3f, 0.3f, 0.6f, 0.5f });
                 ImGui::PushStyleColor(ImGuiCol_ButtonActive, { 0.f, 0.f, 0.f, 0.f });
-                ImGui::SetCursorPosX((ImGui::GetContentRegionMax().x - 32.f) * 0.5f);
                 if (ImGui::ImageButton(icon->getRendererID(), { 32.f, 32.f }))
                 {
                     switch (m_context.SceneState)
@@ -129,13 +135,11 @@ namespace jng {
                     }
                 }
                 ImGui::PopStyleColor(3);
-                ImGui::End();
-
-                ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-                ImGui::SetNextWindowSize({ 160 * 4.f, 90 * 4.f }); // TODO: this is temporary to prevent window being too small when app is started first time
-                ImGui::Begin("Viewport", &m_context.IsViewportWindowOpen, ImGuiWindowFlags_NoCollapse);
+                ImGui::EndChild();
                 ImGui::PopStyleVar();
-
+                
+                ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 0.f, 0.f });
+                ImGui::BeginChild("##viewport_area", { 0, 0 }, false, ImGuiWindowFlags_AlwaysUseWindowPadding | ImGuiWindowFlags_NoScrollbar);
                 m_context.IsViewportWindowActive = ImGui::IsWindowFocused() || ImGui::IsWindowHovered();
 
                 glm::vec2 viewportOffset = ImGui::GetCursorPos();
@@ -151,16 +155,6 @@ namespace jng {
                 if (m_context.MousePosWithinViewport.y > m_context.ViewportWindowSize.y)
                     m_context.MousePosWithinViewport.y = -1.f;
 
-                if (ImGui::BeginDragDropTarget())
-                {
-                    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
-                    {
-                        const char* path = reinterpret_cast<const char*>(payload->Data);
-                        m_context.openScene(path);
-                    }
-                    ImGui::EndDragDropTarget();
-                }
-
                 // Gizmos
                 if (m_context.SelectedEntity && m_gizmoType != -1)
                 {
@@ -171,7 +165,7 @@ namespace jng {
 
                     glm::mat4 cameraView = m_context.EditorCamera.getView();
                     const glm::mat4& cameraProjection = m_context.EditorCamera.getProjection();
-                    auto& tc = m_context.SelectedEntity.getComponent<TransformComponent>();
+                    auto& tc = m_context.SelectedEntity.getComponent<WorldTransformComponent>();
                     glm::mat4 transform = tc.getTransform();
 
                     bool snap = Input::isKeyPressed(Key::LeftControl);
@@ -190,7 +184,21 @@ namespace jng {
                     }
                 }
 
+                ImGui::EndChild();
+                ImGui::PopStyleVar();
+
+                if (ImGui::BeginDragDropTarget())
+                {
+                    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+                    {
+                        const char* path = reinterpret_cast<const char*>(payload->Data);
+                        m_context.openScene(path);
+                    }
+                    ImGui::EndDragDropTarget();
+                }
+
                 ImGui::End();
+                ImGui::PopStyleVar();
             }
 
             m_inspectorWindow.onImGuiUpdate();
