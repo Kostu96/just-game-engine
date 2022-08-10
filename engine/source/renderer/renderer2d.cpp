@@ -184,13 +184,13 @@ namespace jng::Renderer2D {
 
         std::filesystem::path assetsDir = Engine::get().getProperties().assetsDirectory;
 
-        s_data.cameraUBO = UniformBuffer::create(sizeof(glm::mat4));
+        s_data.cameraUBO = makeRef<UniformBuffer>(sizeof(glm::mat4));
 
         Texture::Properties props{
             TextureFormat::RGBA8,
             1, 1
         };
-        s_data.whiteTexture = Texture::create(props);
+        s_data.whiteTexture = jng::makeRef<Texture>(props);
         uint32 whiteTextureData = 0xffffffff;
         s_data.whiteTexture->setData(&whiteTextureData, sizeof(uint32));
         s_data.textureSlots[0] = s_data.whiteTexture;
@@ -201,11 +201,11 @@ namespace jng::Renderer2D {
         s_data.quadAndCircleVertexPositions[3] = { -0.5f,  0.5f, 0.0f, 1.0f };
 
         // Quad
-        s_data.quadShader = Shader::create(
+        s_data.quadShader = makeRef<Shader>(
             (assetsDir / "shaders/quad_vertex.glsl").string(),
             (assetsDir / "shaders/quad_fragment.glsl").string()
         );
-        s_data.quadVBO = VertexBuffer::create(RenderData::MaxQuadVerticesPerBatch * sizeof(QuadVertex));
+        s_data.quadVBO = makeRef<VertexBuffer>(RenderData::MaxQuadVerticesPerBatch * sizeof(QuadVertex));
 
         VertexLayout quadVertexLayout = {
             { LayoutElement::DataType::Float3,  "a_Position" },
@@ -214,7 +214,7 @@ namespace jng::Renderer2D {
             { LayoutElement::DataType::UInt,    "a_TexIndex", false },
             { LayoutElement::DataType::Int,     "a_EntityID", false }
         };
-        s_data.quadVAO = VertexArray::create(s_data.quadVBO, quadVertexLayout, s_data.quadShader);
+        s_data.quadVAO = makeRef<VertexArray>(s_data.quadVBO, quadVertexLayout);
         s_data.quadVBOBase = new QuadVertex[s_data.MaxQuadVerticesPerBatch];
         
         uint32* quadIndices = new uint32[RenderData::MaxQuadIndicesPerBatch];
@@ -228,16 +228,16 @@ namespace jng::Renderer2D {
             quadIndices[i + 4] = offset + 3;
             quadIndices[i + 5] = offset + 2;
         }
-        auto quadIBO = IndexBuffer::create(quadIndices, RenderData::MaxQuadIndicesPerBatch);
+        auto quadIBO = makeRef<IndexBuffer>(quadIndices, RenderData::MaxQuadIndicesPerBatch);
         s_data.quadVAO->setIndexBuffer(quadIBO);
         delete[] quadIndices;
 
         // Circle
-        s_data.circleShader = Shader::create(
+        s_data.circleShader = makeRef<Shader>(
             (assetsDir / "shaders/circle_vertex.glsl").string(),
             (assetsDir / "shaders/circle_fragment.glsl").string()
         );
-        s_data.circleVBO = VertexBuffer::create(RenderData::MaxCircleVerticesPerBatch * sizeof(CircleVertex));
+        s_data.circleVBO = makeRef<VertexBuffer>(RenderData::MaxCircleVerticesPerBatch * sizeof(CircleVertex));
 
         VertexLayout circleVertexLayout = {
             { LayoutElement::DataType::Float3,  "a_Position" },
@@ -247,7 +247,7 @@ namespace jng::Renderer2D {
             { LayoutElement::DataType::UInt4x8, "a_Color", true, true },
             { LayoutElement::DataType::Int,     "a_EntityID", false }
         };
-        s_data.circleVAO = VertexArray::create(s_data.circleVBO, circleVertexLayout, s_data.circleShader);
+        s_data.circleVAO = makeRef<VertexArray>(s_data.circleVBO, circleVertexLayout);
         s_data.circleVBOBase = new CircleVertex[s_data.MaxCircleVerticesPerBatch];
 
         uint32* circleIndices = new uint32[RenderData::MaxCircleIndicesPerBatch];
@@ -261,22 +261,22 @@ namespace jng::Renderer2D {
             circleIndices[i + 4] = offset + 3;
             circleIndices[i + 5] = offset + 2;
         }
-        auto circleIBO = IndexBuffer::create(circleIndices, RenderData::MaxCircleIndicesPerBatch);
+        auto circleIBO = makeRef<IndexBuffer>(circleIndices, RenderData::MaxCircleIndicesPerBatch);
         s_data.circleVAO->setIndexBuffer(circleIBO); // TODO: Use the same index buffer as for quads?
         delete[] circleIndices;
 
         // Line
-        s_data.lineShader = Shader::create(
+        s_data.lineShader = makeRef<Shader>(
             (assetsDir / "shaders/line_vertex.glsl").string(),
             (assetsDir / "shaders/line_fragment.glsl").string()
         );
-        s_data.lineVBO = VertexBuffer::create(RenderData::MaxLineVerticesPerBatch * sizeof(LineVertex));
+        s_data.lineVBO = makeRef<VertexBuffer>(RenderData::MaxLineVerticesPerBatch * sizeof(LineVertex));
 
         VertexLayout lineVertexLayout = {
             { LayoutElement::DataType::Float3,  "a_Position" },
             { LayoutElement::DataType::UInt4x8, "a_Color", true, true }
         };
-        s_data.lineVAO = VertexArray::create(s_data.lineVBO, lineVertexLayout, s_data.lineShader);
+        s_data.lineVAO = makeRef<VertexArray>(s_data.lineVBO, lineVertexLayout);
         s_data.lineVBOBase = new LineVertex[s_data.MaxLineVerticesPerBatch];
 
         s_data.cameraUBO->bind(0);

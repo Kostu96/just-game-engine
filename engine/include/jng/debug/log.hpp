@@ -5,10 +5,9 @@
  */
 
 #pragma once
+#include "jng/core/base.hpp"
 
 #ifdef JNG_DEBUG
-
-#include "jng/core/base.hpp"
 
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>

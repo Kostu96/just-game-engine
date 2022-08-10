@@ -32,16 +32,16 @@ class SampleLayer :
 {
 public:
     SampleLayer() :
-        m_framebuffer{ jng::Framebuffer::create({
-            .Width = WindowWidth, .Height = WindowHeight,
-            .AttachmentsSpecifications = { jng::TextureFormat::RGBA8, jng::TextureFormat::Depth24Stencil8 }
+        m_framebuffer{ jng::makeRef<jng::Framebuffer>(jng::Framebuffer::Properties{
+            .width = WindowWidth, .height = WindowHeight,
+            .attachmentsSpecifications = { jng::TextureFormat::RGBA8, jng::TextureFormat::Depth24Stencil8 }
         }) },
-        m_texture{ jng::Texture::create("assets/hello_framebuffer/textures/test.png")},
-        m_shader{ jng::Shader::create("assets/hello_framebuffer/shaders/vertex.glsl", "assets/hello_framebuffer/shaders/fragment.glsl") },
-        m_cameraUBO{ jng::UniformBuffer::create(sizeof(glm::mat4)) },
-        m_VBO{ jng::VertexBuffer::create(vertices, sizeof(vertices)) },
-        m_IBO{ jng::IndexBuffer::create(indices, sizeof(indices)) },
-        m_VAO{ jng::VertexArray::create(m_VBO, LAYOUT, m_shader) }
+        m_texture{ jng::makeRef<jng::Texture>("assets/hello_framebuffer/textures/test.png") },
+        m_shader{ jng::makeRef<jng::Shader>("assets/hello_framebuffer/shaders/vertex.glsl", "assets/hello_framebuffer/shaders/fragment.glsl") },
+        m_cameraUBO{ jng::makeRef<jng::UniformBuffer>(sizeof(glm::mat4)) },
+        m_VBO{ jng::makeRef<jng::VertexBuffer>(vertices, sizeof(vertices)) },
+        m_IBO{ jng::makeRef<jng::IndexBuffer>(indices, (jng::uint32)(sizeof(indices) / sizeof(jng::uint32))) },
+        m_VAO{ jng::makeRef<jng::VertexArray>(m_VBO, LAYOUT) }
     {
         // NOTE: These can be bound once at the begining because they're only one used.
         m_shader->bind();
@@ -74,7 +74,7 @@ public:
     void onImGuiUpdate() override
     {
         ImGui::Begin("Framebuffer");
-        ImGui::Image(m_framebuffer->getColorAttachments()[0]->getRendererID(), {400, 300});
+        ImGui::Image(m_framebuffer->getAttachments()[0]->getRendererID(), {400, 300});
         ImGui::End();
     }
 private:

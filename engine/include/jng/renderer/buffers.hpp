@@ -9,38 +9,45 @@
 
 namespace jng {
 
-    class VertexBuffer
+    class VertexBuffer final
     {
     public:
-        virtual void bind() const = 0;
-        virtual void unbind() const = 0;
-        virtual void setData(const void* data, size_t size) const = 0;
+        VertexBuffer(const void* vertices, size_t size);
+        explicit VertexBuffer(size_t size);
+        ~VertexBuffer();
 
-        static Ref<VertexBuffer> create(const void* vertices, size_t size);
-        static Ref<VertexBuffer> create(size_t size);
-        virtual ~VertexBuffer() = default;
+        void bind() const;
+        void unbind() const;
+        void setData(const void* data, size_t size) const;
+    private:
+        uint32 m_id;
     };
 
-    class IndexBuffer
+    class IndexBuffer final
     {
     public:
-        virtual void bind() const = 0;
-        virtual void unbind() const = 0;
-        virtual uint32 getCount() const = 0;
+        IndexBuffer(const uint32* indices, uint32 count);
+        ~IndexBuffer();
 
-        static Ref<IndexBuffer> create(const uint32* indices, uint32 count);
-        virtual ~IndexBuffer() = default;
+        void bind() const;
+        void unbind() const;
+        uint32 getCount() const { return m_count; }
+    private:
+        uint32 m_id;
+        uint32 m_count;
     };
 
-    class UniformBuffer
+    class UniformBuffer final
     {
     public:
-        virtual void bind(uint32 slot) const = 0;
-        virtual void unbind(uint32 slot) const = 0;
-        virtual void setData(const void* data, size_t size, size_t offset = 0) const = 0;
+        explicit UniformBuffer(size_t size);
+        ~UniformBuffer();
 
-        static Ref<UniformBuffer> create(size_t size);
-        virtual ~UniformBuffer() = default;
+        void bind(uint32 slot) const;
+        void unbind(uint32 slot) const;
+        void setData(const void* data, size_t size, size_t offset = 0) const;
+    private:
+        uint32 m_id;
     };
 
 } // namespace jng

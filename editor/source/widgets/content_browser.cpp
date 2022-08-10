@@ -14,8 +14,8 @@ namespace jng {
 
     ContentBrowserWindow::ContentBrowserWindow(EditorContext& context) :
         m_context{ context },
-        m_fileIcon{ Texture::create("assets/textures/file_icon.png") },
-        m_directoryIcon{ Texture::create("assets/textures/directory_icon.png") }
+        m_fileIcon{ makeRef<Texture>("assets/textures/file_icon.png") },
+        m_directoryIcon{ makeRef<Texture>("assets/textures/directory_icon.png") }
     {}
 
     void ContentBrowserWindow::onImGuiUpdate()

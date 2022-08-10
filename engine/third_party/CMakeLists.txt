@@ -80,12 +80,6 @@ set(COMPILER_FLAGS /MP /fp:fast)
 add_subdirectory(box2d)
 ##############
 
-### dxerr: ###
-#if (WIN32)
-#    add_subdirectory(dxerr)
-#endif()
-##############
-
 ### glad: ###
 add_subdirectory(glad)
 target_compile_options(glad PRIVATE
@@ -184,12 +178,6 @@ set(JNG_ENGINE_THIRD_PARTY_LIBRARIES
     stb
     yaml-cpp
 )
-
-#if (WIN32)
-#    list(APPEND JNG_ENGINE_THIRD_PARTY_LIBRARIES
-#        dxerr
-#    )
-#endif()
 
 set_target_properties(
     ${JNG_ENGINE_THIRD_PARTY_LIBRARIES}

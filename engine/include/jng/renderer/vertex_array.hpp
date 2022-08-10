@@ -26,20 +26,19 @@ namespace jng {
             UInt4x8
         };
 
-        LayoutElement(DataType type, const char* name, bool passAsFloat = false, bool normalized = false);
+        LayoutElement(DataType inType, const char* inName, bool inPassAsFloat = false, bool inNormalized = false);
 
         static size_t dataTypeToSize(DataType type);
 
-        std::string Name;
-        DataType Type;
-        size_t Size;
-        uintptr_t Offset;
-        bool PassAsFloat;
-        bool Normalized;
+        std::string name;
+        DataType type;
+        size_t size;
+        uintptr_t offset;
+        bool passAsFloat;
+        bool normalized;
     };
 
-    // TODO: Merge VartexArray and VertexLayout? What name would be the best?
-    class VertexLayout
+    class VertexLayout final
     {
     public:
         using ContainerType = std::vector<LayoutElement>;
@@ -56,21 +55,25 @@ namespace jng {
         ContainerConstInterator end() const { return m_elements.end(); }
     private:
         ContainerType m_elements;
-        uint32 m_stride{};
+        uint32 m_stride;
     };
 
-    class VertexArray
+    class VertexArray final
     {
     public:
-        virtual void bind() const = 0;
-        virtual void unbind() const = 0;
+        VertexArray(const Ref<VertexBuffer>& vbo, const VertexLayout& layout);
+        ~VertexArray();
 
-        virtual const Ref<VertexBuffer>& getVertexBuffer() const = 0;
-        virtual void setIndexBuffer(const Ref<IndexBuffer>& ibo) = 0;
-        virtual const Ref<IndexBuffer>& getIndexBuffer() const = 0;
+        void bind() const;
+        void unbind() const;
 
-        static Ref<VertexArray> create(const Ref<VertexBuffer>& vbo, const VertexLayout& layout, const Ref<Shader>& shader);
-        virtual ~VertexArray() = default;
+        const Ref<VertexBuffer>& getVertexBuffer() const { return m_VBO; }
+        void setIndexBuffer(const Ref<IndexBuffer>& ibo);
+        const Ref<IndexBuffer>& getIndexBuffer() const { return m_IBO; }
+    private:
+        uint32 m_id;
+        Ref<VertexBuffer> m_VBO;
+        Ref<IndexBuffer> m_IBO;
     };
 
 } // namespace jng
