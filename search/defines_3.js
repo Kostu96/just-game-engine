@@ -7,9 +7,9 @@ var searchData=
   ['jng_5fcore_5finfo_4',['JNG_CORE_INFO',['../log_8hpp.html#a08b816cc2fed73b79f83764968833c5b',1,'log.hpp']]],
   ['jng_5fcore_5ftrace_5',['JNG_CORE_TRACE',['../log_8hpp.html#a3ba9485594df1ad15df1e5aca1e628ca',1,'log.hpp']]],
   ['jng_5fcore_5fwarn_6',['JNG_CORE_WARN',['../log_8hpp.html#a97f7032a3995cc7c3cc0876b8aefa06a',1,'log.hpp']]],
-  ['jng_5fd3d_5fcheck_7',['JNG_D3D_CHECK',['../error__checks__macros__win_8hpp.html#ad08f339d639fe44715f19827a0557453',1,'error_checks_macros_win.hpp']]],
-  ['jng_5fd3d_5fcheck_5fhr_8',['JNG_D3D_CHECK_HR',['../error__checks__macros__win_8hpp.html#af52f7d3dc9733a26a46d0008cd0d598a',1,'error_checks_macros_win.hpp']]],
-  ['jng_5fd3d_5fcheck_5fhr_5fdevice_5fremoved_9',['JNG_D3D_CHECK_HR_DEVICE_REMOVED',['../error__checks__macros__win_8hpp.html#a9285a18ab22c3a725bbf5e3e6cb91078',1,'error_checks_macros_win.hpp']]],
+  ['jng_5flua_5fcall_5fexit_7',['JNG_LUA_CALL_EXIT',['../lua__definitions_8cpp.html#a0e2943d3e9683bfba734f3f77f226a10',1,'lua_definitions.cpp']]],
+  ['jng_5flua_5fccall_5fentry_8',['JNG_LUA_CCALL_ENTRY',['../lua__definitions_8cpp.html#abae7383162a1ce1c8fa653988c63f8d0',1,'lua_definitions.cpp']]],
+  ['jng_5fprint_5flua_5fstack_9',['JNG_PRINT_LUA_STACK',['../lua__engine_8hpp.html#a036690f474de90329b2669aa7f4e2eb8',1,'lua_engine.hpp']]],
   ['jng_5fprofile_5fbegin_5fsession_10',['JNG_PROFILE_BEGIN_SESSION',['../profiling_8hpp.html#ac64d008936d60d7789b1757815e66f37',1,'profiling.hpp']]],
   ['jng_5fprofile_5fend_5fsession_11',['JNG_PROFILE_END_SESSION',['../profiling_8hpp.html#a875eeb4083958bc2ca0e8eda843c7aa7',1,'profiling.hpp']]],
   ['jng_5fprofile_5ffunction_12',['JNG_PROFILE_FUNCTION',['../profiling_8hpp.html#a2d9fc4973e8b169ba251db97a035db57',1,'profiling.hpp']]],
@@ -20,7 +20,5 @@ var searchData=
   ['jng_5fuser_5ffatal_17',['JNG_USER_FATAL',['../log_8hpp.html#a23f700a8cc815fb75ae0a17580838e31',1,'log.hpp']]],
   ['jng_5fuser_5finfo_18',['JNG_USER_INFO',['../log_8hpp.html#a5cb84ff231b7aa5038b5f8a684a852ee',1,'log.hpp']]],
   ['jng_5fuser_5ftrace_19',['JNG_USER_TRACE',['../log_8hpp.html#af69237ee8e90136d083854e1b7050270',1,'log.hpp']]],
-  ['jng_5fuser_5fwarn_20',['JNG_USER_WARN',['../log_8hpp.html#acf8ba851f052c54d014daeee2c35879f',1,'log.hpp']]],
-  ['jng_5fwnd_5fcheck_5fhr_21',['JNG_WND_CHECK_HR',['../error__checks__macros__win_8hpp.html#a254844ec3fd349f30f04745b5bf60450',1,'error_checks_macros_win.hpp']]],
-  ['jng_5fwnd_5flast_5ferror_22',['JNG_WND_LAST_ERROR',['../error__checks__macros__win_8hpp.html#a725f8b8de90a6bc24ee19f04c5da4322',1,'error_checks_macros_win.hpp']]]
+  ['jng_5fuser_5fwarn_20',['JNG_USER_WARN',['../log_8hpp.html#acf8ba851f052c54d014daeee2c35879f',1,'log.hpp']]]
 ];

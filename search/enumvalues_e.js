@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['vertex_0',['Vertex',['../classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7ab22b929ba52471a02d18bb3a4e4472e6',1,'jng::Shader']]],
-  ['vulkan_1',['Vulkan',['../namespacejng.html#a12ce176de3b33861d2a2f4c90385d499a38625270231b647116c80bcbc4f9d1d8',1,'jng']]]
+  ['tag_0',['Tag',['../namespacejng_1_1_lua_1_1_component.html#a5d89b2226bf493021de79744dbb98c7aaeee96243a929a9c14164a5660512d823',1,'jng::Lua::Component']]],
+  ['transform_1',['Transform',['../namespacejng_1_1_lua_1_1_component.html#a5d89b2226bf493021de79744dbb98c7aa369ecd06b5dae7e903e0d92c409595c2',1,'jng::Lua::Component']]],
+  ['triangles_2',['Triangles',['../classjng_1_1_renderer_a_p_i.html#a74a03ae4f36843cb5880056f309bb963a7ca66fdfaad3eb33fc65d7490178f856',1,'jng::RendererAPI']]]
 ];

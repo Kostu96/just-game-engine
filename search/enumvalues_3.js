@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['gamerender_0',['GameRender',['../namespacejng.html#adb449770efd1c22981a35ae7ab49f8cbade3a7b709f5ee22b079830228c6ee64f',1,'jng']]],
-  ['gametick_1',['GameTick',['../namespacejng.html#adb449770efd1c22981a35ae7ab49f8cba60cf5bcff8ec316d605b0e6cf2a25ead',1,'jng']]],
-  ['gameupdate_2',['GameUpdate',['../namespacejng.html#adb449770efd1c22981a35ae7ab49f8cbaef4fc18ac653054a7c704b887b6563e5',1,'jng']]]
+  ['float_0',['Float',['../structjng_1_1_layout_element.html#af99663c7b612370f9f9197b09119fb5ba22ae0e2b89e5e3d477f988cc36d3272b',1,'jng::LayoutElement']]],
+  ['float2_1',['Float2',['../structjng_1_1_layout_element.html#af99663c7b612370f9f9197b09119fb5ba6694430a2b471b5d2de071f2ef1fdc57',1,'jng::LayoutElement']]],
+  ['float3_2',['Float3',['../structjng_1_1_layout_element.html#af99663c7b612370f9f9197b09119fb5ba8a8a1d211464d4bdee46db3c75bfa121',1,'jng::LayoutElement']]],
+  ['float4_3',['Float4',['../structjng_1_1_layout_element.html#af99663c7b612370f9f9197b09119fb5ba33116adc6690289da9b82ea736864eeb',1,'jng::LayoutElement']]],
+  ['fragment_4',['Fragment',['../classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7a37d01b98065725fe3a1d30acf3a0064a',1,'jng::Shader']]]
 ];

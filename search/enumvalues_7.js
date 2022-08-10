@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['mousebuttonpress_0',['MouseButtonPress',['../namespacejng.html#adb449770efd1c22981a35ae7ab49f8cba077357b1c48657b93273a693eb6896d7',1,'jng']]],
-  ['mousebuttonrelease_1',['MouseButtonRelease',['../namespacejng.html#adb449770efd1c22981a35ae7ab49f8cba0454cf68f3693ae05d696580e3751ddb',1,'jng']]],
-  ['mousemove_2',['MouseMove',['../namespacejng.html#adb449770efd1c22981a35ae7ab49f8cbafd060c0c157323f1e43e0704d4f3ffc8',1,'jng']]],
-  ['mousescroll_3',['MouseScroll',['../namespacejng.html#adb449770efd1c22981a35ae7ab49f8cbab4efa1e1d0671dddbd78735a0bd24274',1,'jng']]]
+  ['linear_0',['Linear',['../namespacejng.html#a9b6c348c4e8bdf9f80d0fd01bc59e339a32a843da6ea40ab3b17a3421ccdf671b',1,'jng']]],
+  ['lines_1',['Lines',['../classjng_1_1_renderer_a_p_i.html#a74a03ae4f36843cb5880056f309bb963aa0b0293a2db49f5f93c15a62e095c819',1,'jng::RendererAPI']]]
 ];

@@ -69,13 +69,16 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle"><div class="title">components.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="_g_u_i_d_8hpp_source.html">jng/core/GUID.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="texture_8hpp_source.html">jng/renderer/texture.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="camera_8hpp_source.html">jng/scene/camera.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="lua__engine_8hpp_source.html">jng/scripting/lua_engine.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="math_8hpp_source.html">jng/utilities/math.hpp</a>&quot;</code><br />
 <code>#include &lt;glm/glm.hpp&gt;</code><br />
 <code>#include &lt;glm/gtc/matrix_transform.hpp&gt;</code><br />
 <code>#include &lt;glm/gtx/quaternion.hpp&gt;</code><br />
@@ -90,28 +93,47 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_tag_component.html">jng::TagComponent</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_transform_component.html">jng::TransformComponent</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_transform.html">jng::Transform&lt; Tag &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_parent_component.html">jng::ParentComponent</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_children_component.html">jng::ChildrenComponent</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_camera_component.html">jng::CameraComponent</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_native_script_component.html">jng::NativeScriptComponent</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_circle_renderer_component.html">jng::CircleRendererComponent</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_sprite_component.html">jng::SpriteComponent</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_sprite_renderer_component.html">jng::SpriteRendererComponent</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_box_collider2_d_component.html">jng::BoxCollider2DComponent</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_circle_collider2_d_component.html">jng::CircleCollider2DComponent</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_rigidbody2_d_component.html">jng::Rigidbody2DComponent</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_lua_script_component.html">jng::LuaScriptComponent</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_component_group.html">jng::ComponentGroup&lt; Component &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacejng"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejng.html">jng</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:acc163bb3c783d978fbe1e1fc5b620746"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejng.html#acc163bb3c783d978fbe1e1fc5b620746">jng::WorldTransformComponent</a> = Transform&lt; struct World &gt;</td></tr>
+<tr class="separator:acc163bb3c783d978fbe1e1fc5b620746"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab95110672658020aeb041d8623e28f3"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejng.html#aab95110672658020aeb041d8623e28f3">jng::LocalTransformComponent</a> = Transform&lt; struct Local &gt;</td></tr>
+<tr class="separator:aab95110672658020aeb041d8623e28f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a150eae3f423eed965b375827d6e8a557"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejng.html#a150eae3f423eed965b375827d6e8a557">jng::AllComponents</a> = ComponentGroup&lt; WorldTransformComponent, LocalTransformComponent, CameraComponent, CircleRendererComponent, SpriteRendererComponent, BoxCollider2DComponent, CircleCollider2DComponent, Rigidbody2DComponent, LuaScriptComponent &gt;</td></tr>
+<tr class="separator:a150eae3f423eed965b375827d6e8a557"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Aug 2 2022 20:42:00 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Aug 10 2022 16:28:25 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

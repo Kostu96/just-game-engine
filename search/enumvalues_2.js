@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['float_0',['Float',['../structjng_1_1_layout_element.html#af99663c7b612370f9f9197b09119fb5ba22ae0e2b89e5e3d477f988cc36d3272b',1,'jng::LayoutElement']]],
-  ['float2_1',['Float2',['../structjng_1_1_layout_element.html#af99663c7b612370f9f9197b09119fb5ba6694430a2b471b5d2de071f2ef1fdc57',1,'jng::LayoutElement']]],
-  ['float3_2',['Float3',['../structjng_1_1_layout_element.html#af99663c7b612370f9f9197b09119fb5ba8a8a1d211464d4bdee46db3c75bfa121',1,'jng::LayoutElement']]],
-  ['float4_3',['Float4',['../structjng_1_1_layout_element.html#af99663c7b612370f9f9197b09119fb5ba33116adc6690289da9b82ea736864eeb',1,'jng::LayoutElement']]],
-  ['fragment_4',['Fragment',['../classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7a37d01b98065725fe3a1d30acf3a0064a',1,'jng::Shader']]]
+  ['depth24stencil8_0',['Depth24Stencil8',['../namespacejng.html#ad3c4205070cbd6a2147b32e735a8bc32a78181d4f5d4b30baefed6c0da0de894f',1,'jng']]],
+  ['direct3d_1',['Direct3D',['../namespacejng.html#a12ce176de3b33861d2a2f4c90385d499ae5054d13a102957ce58cbb9cbba107d7',1,'jng']]],
+  ['dynamic_2',['Dynamic',['../structjng_1_1_rigidbody2_d_component.html#ac841ab43f27f9a113e560c572ff211c9a971fd8cc345d8bd9f92e9f7d88fdf20c',1,'jng::Rigidbody2DComponent']]]
 ];

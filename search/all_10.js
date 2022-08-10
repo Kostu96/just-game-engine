@@ -1,14 +1,14 @@
 var searchData=
 [
   ['q_0',['Q',['../namespacejng_1_1_key.html#a37be138c6d18b88c4f266a447f22f6ff',1,'jng::Key']]],
-  ['quadcount_1',['quadCount',['../structjng_1_1_renderer2_d_1_1_statistics.html#ad7778b7f7486d8feeaabe3a594cc4203',1,'jng::Renderer2D::Statistics']]],
-  ['quadindexcount_2',['QuadIndexCount',['../structjng_1_1_render_data.html#aacaed85f0adc2173a2f8460ebcf2c545',1,'jng::RenderData']]],
-  ['quadubo_3',['quadUBO',['../structjng_1_1_render_data.html#a81bb15039be51d575b330590c3530bad',1,'jng::RenderData']]],
-  ['quadvao_4',['quadVAO',['../structjng_1_1_render_data.html#a52fdb222b1c917d319b70ac7cd292444',1,'jng::RenderData']]],
-  ['quadvbo_5',['quadVBO',['../structjng_1_1_render_data.html#a11903811be997fad6ba61cbf3a98566f',1,'jng::RenderData']]],
-  ['quadvbobase_6',['quadVBOBase',['../structjng_1_1_render_data.html#a12eba71cb761ac7e200d1060d37a296c',1,'jng::RenderData']]],
-  ['quadvboptr_7',['quadVBOPtr',['../structjng_1_1_render_data.html#a0ffbd9c5242a1870a5b9f1bbe1860dad',1,'jng::RenderData']]],
-  ['quadvertex_8',['QuadVertex',['../structjng_1_1_quad_vertex.html',1,'jng']]],
-  ['quadvertexcount_9',['QuadVertexCount',['../structjng_1_1_render_data.html#aa4312be35a58673b1996545284ee0fa6',1,'jng::RenderData']]],
-  ['quadvertexpositions_10',['quadVertexPositions',['../structjng_1_1_renderer2_d_1_1_properties.html#a25a4a14a0a9925071f8187b7b6838560',1,'jng::Renderer2D::Properties::quadVertexPositions()'],['../structjng_1_1_render_data.html#a99d0df6442d93a7d8b8db556a0a3465e',1,'jng::RenderData::quadVertexPositions()']]]
+  ['quadandcircleindexcount_1',['QuadAndCircleIndexCount',['../structjng_1_1_renderer2_d_1_1_render_data.html#aaadbd722c308ea96afa431028a9ae7e9',1,'jng::Renderer2D::RenderData']]],
+  ['quadandcirclevertexcount_2',['QuadAndCircleVertexCount',['../structjng_1_1_renderer2_d_1_1_render_data.html#ab4cbb7ba86c80da5e2bec1935aa06735',1,'jng::Renderer2D::RenderData']]],
+  ['quadandcirclevertexpositions_3',['quadAndCircleVertexPositions',['../structjng_1_1_renderer2_d_1_1_render_data.html#a0328e3e2d4fcb9359a45bf2111ce6b8a',1,'jng::Renderer2D::RenderData']]],
+  ['quadcount_4',['quadCount',['../structjng_1_1_renderer2_d_1_1_statistics.html#ad7778b7f7486d8feeaabe3a594cc4203',1,'jng::Renderer2D::Statistics']]],
+  ['quadshader_5',['quadShader',['../structjng_1_1_renderer2_d_1_1_render_data.html#a2b96d9b67efd3509bf37df8ef7dd7c99',1,'jng::Renderer2D::RenderData']]],
+  ['quadvao_6',['quadVAO',['../structjng_1_1_renderer2_d_1_1_render_data.html#ad910536e26fc4b5902018b9f94e14c89',1,'jng::Renderer2D::RenderData']]],
+  ['quadvbo_7',['quadVBO',['../structjng_1_1_renderer2_d_1_1_render_data.html#afa9a700013e080ac0cf4f8d06bbf2dfb',1,'jng::Renderer2D::RenderData']]],
+  ['quadvbobase_8',['quadVBOBase',['../structjng_1_1_renderer2_d_1_1_render_data.html#a2074007637f88a57ba7c3a3183104957',1,'jng::Renderer2D::RenderData']]],
+  ['quadvboptr_9',['quadVBOPtr',['../structjng_1_1_renderer2_d_1_1_render_data.html#a1e09c552bd134e7ccc76650d0ae6ee2f',1,'jng::Renderer2D::RenderData']]],
+  ['quadvertex_10',['QuadVertex',['../structjng_1_1_renderer2_d_1_1_quad_vertex.html',1,'jng::Renderer2D']]]
 ];

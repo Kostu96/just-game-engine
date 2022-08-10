@@ -83,9 +83,9 @@ Public Types</h2></td></tr>
 <tr class="memitem:ac841ab43f27f9a113e560c572ff211c9"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_rigidbody2_d_component.html#ac841ab43f27f9a113e560c572ff211c9">BodyType</a> { <br />
 &#160;&#160;<a class="el" href="structjng_1_1_rigidbody2_d_component.html#ac841ab43f27f9a113e560c572ff211c9a84a8921b25f505d0d2077aeb5db4bc16">Static</a> = 0
 , <br />
-&#160;&#160;<a class="el" href="structjng_1_1_rigidbody2_d_component.html#ac841ab43f27f9a113e560c572ff211c9a971fd8cc345d8bd9f92e9f7d88fdf20c">Dynamic</a> = 1
+&#160;&#160;<a class="el" href="structjng_1_1_rigidbody2_d_component.html#ac841ab43f27f9a113e560c572ff211c9a40c78b58b86002ee38fad2d3c9dd787e">Kinematic</a> = 1
 , <br />
-&#160;&#160;<a class="el" href="structjng_1_1_rigidbody2_d_component.html#ac841ab43f27f9a113e560c572ff211c9a40c78b58b86002ee38fad2d3c9dd787e">Kinematic</a> = 2
+&#160;&#160;<a class="el" href="structjng_1_1_rigidbody2_d_component.html#ac841ab43f27f9a113e560c572ff211c9a971fd8cc345d8bd9f92e9f7d88fdf20c">Dynamic</a> = 2
 <br />
  }</td></tr>
 <tr class="separator:ac841ab43f27f9a113e560c572ff211c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -98,13 +98,21 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a70b4ebbcb124b40ec48dd4968f440c2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e1d8726a4f331e88ada67508f35c93c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_rigidbody2_d_component.html#a9e1d8726a4f331e88ada67508f35c93c">reset</a> ()</td></tr>
 <tr class="separator:a9e1d8726a4f331e88ada67508f35c93c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42ec33868b1f7084ec6e646def1c1469"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_rigidbody2_d_component.html#a42ec33868b1f7084ec6e646def1c1469">setLinearVelocity</a> (glm::vec2 velocity)</td></tr>
+<tr class="separator:a42ec33868b1f7084ec6e646def1c1469"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a95fe5b22113ebd66a21758a2f0bd528f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structjng_1_1_rigidbody2_d_component.html#ac841ab43f27f9a113e560c572ff211c9">BodyType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_rigidbody2_d_component.html#a95fe5b22113ebd66a21758a2f0bd528f">Type</a> = <a class="el" href="structjng_1_1_rigidbody2_d_component.html#ac841ab43f27f9a113e560c572ff211c9a84a8921b25f505d0d2077aeb5db4bc16">BodyType::Static</a></td></tr>
 <tr class="separator:a95fe5b22113ebd66a21758a2f0bd528f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66355ad36307e7a0c3d560ee6e861ccb"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_rigidbody2_d_component.html#a66355ad36307e7a0c3d560ee6e861ccb">BodyHandle</a> = nullptr</td></tr>
-<tr class="separator:a66355ad36307e7a0c3d560ee6e861ccb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3155c2dccf42fa0ddaccc9a6afe72f4e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_rigidbody2_d_component.html#a3155c2dccf42fa0ddaccc9a6afe72f4e">freezeRotation</a> = false</td></tr>
+<tr class="separator:a3155c2dccf42fa0ddaccc9a6afe72f4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab830da4fcafb4b5adf14197a72d886d1"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_rigidbody2_d_component.html#ab830da4fcafb4b5adf14197a72d886d1">linearDamping</a> = 0.1f</td></tr>
+<tr class="separator:ab830da4fcafb4b5adf14197a72d886d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a703c49c5d57ac42db2f3b7fa9c357fca"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_rigidbody2_d_component.html#a703c49c5d57ac42db2f3b7fa9c357fca">angularDamping</a> = 0.1f</td></tr>
+<tr class="separator:a703c49c5d57ac42db2f3b7fa9c357fca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76a0883c0a498107ab0c631c58720f7c"><td class="memItemLeft" align="right" valign="top">b2Body *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjng_1_1_rigidbody2_d_component.html#a76a0883c0a498107ab0c631c58720f7c">BodyHandle</a> = nullptr</td></tr>
+<tr class="separator:a76a0883c0a498107ab0c631c58720f7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="ac841ab43f27f9a113e560c572ff211c9" name="ac841ab43f27f9a113e560c572ff211c9"></a>
@@ -128,8 +136,8 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac841ab43f27f9a113e560c572ff211c9a84a8921b25f505d0d2077aeb5db4bc16" name="ac841ab43f27f9a113e560c572ff211c9a84a8921b25f505d0d2077aeb5db4bc16"></a>Static&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ac841ab43f27f9a113e560c572ff211c9a971fd8cc345d8bd9f92e9f7d88fdf20c" name="ac841ab43f27f9a113e560c572ff211c9a971fd8cc345d8bd9f92e9f7d88fdf20c"></a>Dynamic&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ac841ab43f27f9a113e560c572ff211c9a40c78b58b86002ee38fad2d3c9dd787e" name="ac841ab43f27f9a113e560c572ff211c9a40c78b58b86002ee38fad2d3c9dd787e"></a>Kinematic&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac841ab43f27f9a113e560c572ff211c9a971fd8cc345d8bd9f92e9f7d88fdf20c" name="ac841ab43f27f9a113e560c572ff211c9a971fd8cc345d8bd9f92e9f7d88fdf20c"></a>Dynamic&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -192,9 +200,6 @@ Public Attributes</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void jng::Rigidbody2DComponent::reset </td>
@@ -203,24 +208,79 @@ Public Attributes</h2></td></tr>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a66355ad36307e7a0c3d560ee6e861ccb" name="a66355ad36307e7a0c3d560ee6e861ccb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66355ad36307e7a0c3d560ee6e861ccb">&#9670;&nbsp;</a></span>BodyHandle</h2>
+<a id="a42ec33868b1f7084ec6e646def1c1469" name="a42ec33868b1f7084ec6e646def1c1469"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42ec33868b1f7084ec6e646def1c1469">&#9670;&nbsp;</a></span>setLinearVelocity()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void* jng::Rigidbody2DComponent::BodyHandle = nullptr</td>
+          <td class="memname">void jng::Rigidbody2DComponent::setLinearVelocity </td>
+          <td>(</td>
+          <td class="paramtype">glm::vec2&#160;</td>
+          <td class="paramname"><em>velocity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a703c49c5d57ac42db2f3b7fa9c357fca" name="a703c49c5d57ac42db2f3b7fa9c357fca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a703c49c5d57ac42db2f3b7fa9c357fca">&#9670;&nbsp;</a></span>angularDamping</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float jng::Rigidbody2DComponent::angularDamping = 0.1f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a76a0883c0a498107ab0c631c58720f7c" name="a76a0883c0a498107ab0c631c58720f7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76a0883c0a498107ab0c631c58720f7c">&#9670;&nbsp;</a></span>BodyHandle</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">b2Body* jng::Rigidbody2DComponent::BodyHandle = nullptr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3155c2dccf42fa0ddaccc9a6afe72f4e" name="a3155c2dccf42fa0ddaccc9a6afe72f4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3155c2dccf42fa0ddaccc9a6afe72f4e">&#9670;&nbsp;</a></span>freezeRotation</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool jng::Rigidbody2DComponent::freezeRotation = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab830da4fcafb4b5adf14197a72d886d1" name="ab830da4fcafb4b5adf14197a72d886d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab830da4fcafb4b5adf14197a72d886d1">&#9670;&nbsp;</a></span>linearDamping</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float jng::Rigidbody2DComponent::linearDamping = 0.1f</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -241,13 +301,14 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
+<hr/>The documentation for this struct was generated from the following files:<ul>
 <li>engine/include/jng/scene/<a class="el" href="components_8hpp_source.html">components.hpp</a></li>
+<li>engine/source/scene/<a class="el" href="components_8cpp.html">components.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Aug 2 2022 20:42:00 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Aug 10 2022 16:28:25 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>
