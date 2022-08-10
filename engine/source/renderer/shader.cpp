@@ -20,13 +20,7 @@ namespace jng {
     {
         JNG_PROFILE_FUNCTION();
 
-        switch (RendererAPI::getRendererBackend())
-        {
-        case RendererBackend::OpenGL: return makeRef<OpenGLShader>(vertexShaderFilename, fragmentShaderFilename);
-        default:
-            JNG_CORE_ASSERT(false, "API unsupported!");
-            return nullptr;
-        }
+        return makeRef<OpenGLShader>(vertexShaderFilename, fragmentShaderFilename);
     }
 
     std::vector<uint32> Shader::compileToVulkanSPIRV(const char* shaderFilename, Type type) const

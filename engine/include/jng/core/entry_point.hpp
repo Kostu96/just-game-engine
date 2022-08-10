@@ -17,29 +17,7 @@ int main(int argc, char* argv[])
     using namespace jng;
 
     JNG_PROFILE_BEGIN_SESSION("profiling_init.json");
-
-    RendererBackend backend = RendererBackend::OpenGL;
-#if 0
-    for (int i = 1; i < argc; ++i)
-        if (std::strcmp(argv[i], "--backend") == 0) {
-            if (i + 1 >= argc) {
-                JNG_CORE_ERROR("Bad command line arguments");
-                return -1;
-            }
-
-            if (std::strcmp(argv[i + 1], "d3d") == 0)    backend = RendererBackend::Direct3D;
-            else if (std::strcmp(argv[i + 1], "ogl") == 0) backend = RendererBackend::OpenGL;
-            else if (std::strcmp(argv[i + 1], "vlk") == 0) backend = RendererBackend::Vulkan;
-            else {
-                JNG_CORE_ERROR("Bad command line arguments");
-                return -1;
-            }
-        }
-#endif
-    RendererAPI::init(backend);
-
     auto app = createApp();
-
     JNG_PROFILE_END_SESSION();
 
     JNG_PROFILE_BEGIN_SESSION("profiling_run.json");

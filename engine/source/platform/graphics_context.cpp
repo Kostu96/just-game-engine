@@ -16,13 +16,7 @@ namespace jng {
     {
         JNG_PROFILE_FUNCTION();
 
-        switch (RendererAPI::getRendererBackend())
-        {
-        case RendererBackend::OpenGL: return makeScope<OpenGLGraphicsContext>(window);
-        default:
-            JNG_CORE_ASSERT(false, "API unsupported!");
-            return nullptr;
-        }
+        return makeScope<OpenGLGraphicsContext>(window);
     }
 
 } // namespace jng

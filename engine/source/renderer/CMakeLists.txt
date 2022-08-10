@@ -19,10 +19,8 @@ list(APPEND JNG_HEADERS
 
 list(APPEND JNG_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
-    ${CMAKE_CURRENT_SOURCE_DIR}/buffers.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/framebuffer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/renderer.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/renderer_api.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/renderer2d.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/shader.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/texture.cpp

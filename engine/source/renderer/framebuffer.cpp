@@ -16,13 +16,7 @@ Ref<Framebuffer> Framebuffer::create(const Properties& properties)
     {
         JNG_PROFILE_FUNCTION();
 
-        switch (RendererAPI::getRendererBackend())
-        {
-        case RendererBackend::OpenGL: return makeRef<OpenGLFramebuffer>(properties);
-        default:
-            JNG_CORE_ASSERT(false, "API unsupported!");
-            return nullptr;
-        }
+        return makeRef<OpenGLFramebuffer>(properties);
     }
 
 } // namespace jng

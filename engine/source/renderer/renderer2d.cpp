@@ -184,7 +184,7 @@ namespace jng::Renderer2D {
 
         std::filesystem::path assetsDir = Engine::get().getProperties().assetsDirectory;
 
-        s_data.cameraUBO = UniformBuffer::create(sizeof(glm::mat4));
+        s_data.cameraUBO = makeRef<UniformBuffer>(sizeof(glm::mat4));
 
         Texture::Properties props{
             TextureFormat::RGBA8,
@@ -205,7 +205,7 @@ namespace jng::Renderer2D {
             (assetsDir / "shaders/quad_vertex.glsl").string(),
             (assetsDir / "shaders/quad_fragment.glsl").string()
         );
-        s_data.quadVBO = VertexBuffer::create(RenderData::MaxQuadVerticesPerBatch * sizeof(QuadVertex));
+        s_data.quadVBO = makeRef<VertexBuffer>(RenderData::MaxQuadVerticesPerBatch * sizeof(QuadVertex));
 
         VertexLayout quadVertexLayout = {
             { LayoutElement::DataType::Float3,  "a_Position" },
@@ -228,7 +228,7 @@ namespace jng::Renderer2D {
             quadIndices[i + 4] = offset + 3;
             quadIndices[i + 5] = offset + 2;
         }
-        auto quadIBO = IndexBuffer::create(quadIndices, RenderData::MaxQuadIndicesPerBatch);
+        auto quadIBO = makeRef<IndexBuffer>(quadIndices, RenderData::MaxQuadIndicesPerBatch);
         s_data.quadVAO->setIndexBuffer(quadIBO);
         delete[] quadIndices;
 
@@ -237,7 +237,7 @@ namespace jng::Renderer2D {
             (assetsDir / "shaders/circle_vertex.glsl").string(),
             (assetsDir / "shaders/circle_fragment.glsl").string()
         );
-        s_data.circleVBO = VertexBuffer::create(RenderData::MaxCircleVerticesPerBatch * sizeof(CircleVertex));
+        s_data.circleVBO = makeRef<VertexBuffer>(RenderData::MaxCircleVerticesPerBatch * sizeof(CircleVertex));
 
         VertexLayout circleVertexLayout = {
             { LayoutElement::DataType::Float3,  "a_Position" },
@@ -261,7 +261,7 @@ namespace jng::Renderer2D {
             circleIndices[i + 4] = offset + 3;
             circleIndices[i + 5] = offset + 2;
         }
-        auto circleIBO = IndexBuffer::create(circleIndices, RenderData::MaxCircleIndicesPerBatch);
+        auto circleIBO = makeRef<IndexBuffer>(circleIndices, RenderData::MaxCircleIndicesPerBatch);
         s_data.circleVAO->setIndexBuffer(circleIBO); // TODO: Use the same index buffer as for quads?
         delete[] circleIndices;
 
@@ -270,7 +270,7 @@ namespace jng::Renderer2D {
             (assetsDir / "shaders/line_vertex.glsl").string(),
             (assetsDir / "shaders/line_fragment.glsl").string()
         );
-        s_data.lineVBO = VertexBuffer::create(RenderData::MaxLineVerticesPerBatch * sizeof(LineVertex));
+        s_data.lineVBO = makeRef<VertexBuffer>(RenderData::MaxLineVerticesPerBatch * sizeof(LineVertex));
 
         VertexLayout lineVertexLayout = {
             { LayoutElement::DataType::Float3,  "a_Position" },

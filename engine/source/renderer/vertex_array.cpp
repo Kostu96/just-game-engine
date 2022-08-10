@@ -64,13 +64,7 @@ namespace jng {
     {
         JNG_PROFILE_FUNCTION();
 
-        switch (RendererAPI::getRendererBackend())
-        {
-        case RendererBackend::OpenGL: return makeRef<OpenGLVertexArray>(vbo, layout, shader);
-        default:
-            JNG_CORE_ASSERT(false, "API unsupported!");
-            return nullptr;
-        }
+        return makeRef<OpenGLVertexArray>(vbo, layout, shader);
     }
 
 } // namespace jng

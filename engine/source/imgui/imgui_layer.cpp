@@ -40,44 +40,20 @@ namespace jng {
         }
 
         ImGui_ImplGlfw_InitForOther(window->getNativeWindowHandle(), true);
-
-        switch (RendererAPI::getRendererBackend())
-        {
-        case RendererBackend::OpenGL:
-            ImGui_ImplOpenGL3_Init("#version 450");
-            break;
-        default:
-            JNG_CORE_ASSERT(false, "API unsupported!");
-        }
+        ImGui_ImplOpenGL3_Init("#version 450");
     }
 
     void ImGuiLayer::newFrame()
     {
-        switch (RendererAPI::getRendererBackend())
-        {
-        case RendererBackend::OpenGL:
-            ImGui_ImplOpenGL3_NewFrame();
-            break;
-        default:
-            JNG_CORE_ASSERT(false, "API unsupported!");
-        }
-        
         ImGui_ImplGlfw_NewFrame();
+        ImGui_ImplOpenGL3_NewFrame();
         ImGui::NewFrame();
     }
 
     void ImGuiLayer::render()
     {
         ImGui::Render();
-        
-        switch (RendererAPI::getRendererBackend())
-        {
-        case RendererBackend::OpenGL:
-            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-            break;
-        default:
-            JNG_CORE_ASSERT(false, "API unsupported!");
-        }
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         ImGuiIO& io = ImGui::GetIO();
         if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)

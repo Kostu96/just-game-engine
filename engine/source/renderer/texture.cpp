@@ -17,26 +17,14 @@ namespace jng {
     {
         JNG_PROFILE_FUNCTION();
 
-        switch (RendererAPI::getRendererBackend())
-        {
-        case RendererBackend::OpenGL: return makeRef<OpenGLTexture>(path);
-        default:
-            JNG_CORE_ASSERT(false, "API unsupported!");
-            return nullptr;
-        }
+        return makeRef<OpenGLTexture>(path);
     }
 
     Ref<Texture> Texture::create(const Properties& properties)
     {
         JNG_PROFILE_FUNCTION();
 
-        switch (RendererAPI::getRendererBackend())
-        {
-        case RendererBackend::OpenGL: return makeRef<OpenGLTexture>(properties);
-        default:
-            JNG_CORE_ASSERT(false, "API unsupported!");
-            return nullptr;
-        }
+        return makeRef<OpenGLTexture>(properties);
     }
 
 } // namespace jng
