@@ -24,7 +24,7 @@ public:
         m_shader{ jng::Shader::create("assets/hello_triangle/shaders/vertex.glsl", "assets/hello_triangle/shaders/fragment.glsl") },
         m_cameraUBO{ jng::makeRef<jng::UniformBuffer>(sizeof(glm::mat4)) },
         m_VBO{ jng::makeRef<jng::VertexBuffer>(vertices, sizeof(vertices)) },
-        m_VAO{ jng::VertexArray::create(m_VBO, LAYOUT, m_shader) }
+        m_VAO{ jng::makeRef<jng::VertexArray>(m_VBO, LAYOUT) }
     {
         // NOTE: These can be bound once at the begining because they're only one used.
         m_shader->bind();

@@ -8,17 +8,16 @@
 
 #include "core/base_internal.hpp"
 #include "renderer/renderer_api.hpp"
-#include "renderer/opengl/vertex_array_ogl.hpp"
 
 namespace jng {
 
-    LayoutElement::LayoutElement(DataType type, const char* name, bool passAsFloat, bool normalized) :
-        Name{ name },
-        Type{ type },
-        Size{ dataTypeToSize(type) },
-        Offset{ 0 },
-        PassAsFloat{ passAsFloat },
-        Normalized{ normalized } {}
+    LayoutElement::LayoutElement(DataType inType, const char* inName, bool inPassAsFloat, bool inNormalized) :
+        name{ inName },
+        type{ inType },
+        size{ dataTypeToSize(type) },
+        offset{ 0 },
+        passAsFloat{ inPassAsFloat },
+        normalized{ inNormalized } {}
 
     size_t LayoutElement::dataTypeToSize(DataType type)
     {
@@ -50,21 +49,14 @@ namespace jng {
         m_stride = 0;
         for (auto& element : m_elements)
         {
-            element.Offset = offset;
-            offset += static_cast<unsigned int>(element.Size);
-            m_stride += static_cast<unsigned int>(element.Size);
+            element.offset = offset;
+            offset += static_cast<unsigned int>(element.size);
+            m_stride += static_cast<unsigned int>(element.size);
         }
     }
 
     VertexLayout::VertexLayout(const VertexLayout& other) :
         m_elements{ other.m_elements },
         m_stride{ other.m_stride } {}
-
-    Ref<VertexArray> VertexArray::create(const Ref<VertexBuffer>& vbo, const VertexLayout& layout, const Ref<Shader>& shader)
-    {
-        JNG_PROFILE_FUNCTION();
-
-        return makeRef<OpenGLVertexArray>(vbo, layout, shader);
-    }
 
 } // namespace jng

@@ -13,7 +13,6 @@ list(APPEND JNG_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/shader_ogl.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/texture_ogl.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/vertex_array_ogl.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/vertex_array_ogl.hpp
 )
 
 set(JNG_SOURCES ${JNG_SOURCES} PARENT_SCOPE)

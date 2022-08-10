@@ -63,7 +63,7 @@ public:
         m_modelUBO{ jng::makeRef<jng::UniformBuffer>(sizeof(glm::mat4)) },
         m_VBO{ jng::makeRef<jng::VertexBuffer>(vertices, sizeof(vertices)) },
         m_IBO{ jng::makeRef<jng::IndexBuffer>(indices, (jng::uint32)(sizeof(indices) / sizeof(jng::uint32))) },
-        m_VAO{ jng::VertexArray::create(m_VBO, LAYOUT, m_shader) },
+        m_VAO{ jng::makeRef<jng::VertexArray>(m_VBO, LAYOUT) },
         m_texture{ jng::makeRef<jng::Texture>("assets/hello_cube/textures/wall_base_color.jpg") },
         m_model{ 1.f }
     {

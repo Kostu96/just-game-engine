@@ -214,7 +214,7 @@ namespace jng::Renderer2D {
             { LayoutElement::DataType::UInt,    "a_TexIndex", false },
             { LayoutElement::DataType::Int,     "a_EntityID", false }
         };
-        s_data.quadVAO = VertexArray::create(s_data.quadVBO, quadVertexLayout, s_data.quadShader);
+        s_data.quadVAO = makeRef<VertexArray>(s_data.quadVBO, quadVertexLayout);
         s_data.quadVBOBase = new QuadVertex[s_data.MaxQuadVerticesPerBatch];
         
         uint32* quadIndices = new uint32[RenderData::MaxQuadIndicesPerBatch];
@@ -247,7 +247,7 @@ namespace jng::Renderer2D {
             { LayoutElement::DataType::UInt4x8, "a_Color", true, true },
             { LayoutElement::DataType::Int,     "a_EntityID", false }
         };
-        s_data.circleVAO = VertexArray::create(s_data.circleVBO, circleVertexLayout, s_data.circleShader);
+        s_data.circleVAO = makeRef<VertexArray>(s_data.circleVBO, circleVertexLayout);
         s_data.circleVBOBase = new CircleVertex[s_data.MaxCircleVerticesPerBatch];
 
         uint32* circleIndices = new uint32[RenderData::MaxCircleIndicesPerBatch];
@@ -276,7 +276,7 @@ namespace jng::Renderer2D {
             { LayoutElement::DataType::Float3,  "a_Position" },
             { LayoutElement::DataType::UInt4x8, "a_Color", true, true }
         };
-        s_data.lineVAO = VertexArray::create(s_data.lineVBO, lineVertexLayout, s_data.lineShader);
+        s_data.lineVAO = makeRef<VertexArray>(s_data.lineVBO, lineVertexLayout);
         s_data.lineVBOBase = new LineVertex[s_data.MaxLineVerticesPerBatch];
 
         s_data.cameraUBO->bind(0);
