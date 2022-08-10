@@ -29,10 +29,6 @@ list(APPEND JNG_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/vertex_array.cpp
 )
 
-if(WIN32)
-    add_subdirectory(direct3d)
-endif()
-add_subdirectory(vulkan)
 add_subdirectory(opengl)
 
 set(JNG_HEADERS ${JNG_HEADERS} PARENT_SCOPE)

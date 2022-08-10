@@ -40,7 +40,7 @@ namespace jng {
         glm::mat4 m_transform{ 1.f };
         glm::vec3 m_position{ 0.f, 0.f, 0.f };
         glm::vec3 m_focalPoint{ 0.f, 0.f, 0.f };
-        float m_distance = 10.f;
+        float m_distance = 20.f;
         float m_pitch = 0.0f, m_yaw = 0.0f;
         float m_viewportWidth = 0.f;
         float m_viewportHeight = 0.f;

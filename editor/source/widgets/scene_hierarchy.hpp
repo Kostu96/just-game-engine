@@ -5,19 +5,22 @@
  */
 
 #pragma once
+#include <jng/scene/entity.hpp>
 
 namespace jng {
 
-	struct EditorContext;
+    struct EditorContext;
 
-	class SceneHierarchyWindow
-	{
-	public:
-		SceneHierarchyWindow(EditorContext& context) : m_context{ context } {}
+    class SceneHierarchyWindow
+    {
+    public:
+        SceneHierarchyWindow(EditorContext& context) : m_context{ context } {}
 
-		void onImGuiUpdate();
-	private:
-		EditorContext& m_context;
-	};
+        void onImGuiUpdate();
+    private:
+        void updateSceneHierarchyItem(Entity entity);
+        
+        EditorContext& m_context;
+    };
 
 } // namespace jng

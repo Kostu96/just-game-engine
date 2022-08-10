@@ -13,20 +13,12 @@
 
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
-
-#if defined(JNG_WINDOWS)
-#include "platform/windows/graphics_context_d3d.hpp"
-
-#include <backends/imgui_impl_dx11.h>
-#endif
-
-#include <GLFW/glfw3.h> // NOTE: this has to be included after any windows stuff because of APIENTRY redefinition
-#include <filesystem>
+#include <GLFW/glfw3.h>
 
 namespace jng {
 
-	void ImGuiLayer::init(const Window* window)
-	{
+    void ImGuiLayer::init(const Window* window)
+    {
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
         ImGuiIO& io = ImGui::GetIO();
@@ -51,32 +43,18 @@ namespace jng {
 
         switch (RendererAPI::getRendererBackend())
         {
-#if defined(JNG_WINDOWS)
-        case RendererBackend::Direct3D:
-        {
-            const auto* graphicsContext = reinterpret_cast<const Direct3DGraphicsContext*>(Engine::get().getWindow().getGraphicsContext());
-            const auto& device = graphicsContext->getDevice();
-            const auto& deviceContext = graphicsContext->getDeviceContext();
-            ImGui_ImplDX11_Init(device.Get(), deviceContext.Get());
-        } break;
-#endif
         case RendererBackend::OpenGL:
             ImGui_ImplOpenGL3_Init("#version 450");
             break;
         default:
             JNG_CORE_ASSERT(false, "API unsupported!");
         }
-	}
+    }
 
     void ImGuiLayer::newFrame()
     {
         switch (RendererAPI::getRendererBackend())
         {
-#if defined(JNG_WINDOWS)
-        case RendererBackend::Direct3D:
-            ImGui_ImplDX11_NewFrame();
-            break;
-#endif
         case RendererBackend::OpenGL:
             ImGui_ImplOpenGL3_NewFrame();
             break;
@@ -94,11 +72,6 @@ namespace jng {
         
         switch (RendererAPI::getRendererBackend())
         {
-#if defined(JNG_WINDOWS)
-        case RendererBackend::Direct3D:
-            ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-            break;
-#endif
         case RendererBackend::OpenGL:
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
             break;

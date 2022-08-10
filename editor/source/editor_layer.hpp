@@ -10,14 +10,14 @@
 #include "widgets/inspector.hpp"
 #include "widgets/main_menu_bar.hpp"
 #include "widgets/scene_hierarchy.hpp"
+#include "widgets/settings.hpp"
+#include "widgets/statistics.hpp"
 
 #include <jng/core/base.hpp>
 #include <jng/core/layer.hpp>
 #include <jng/scene/camera.hpp>
 #include <jng/scene/entity.hpp>
 #include <jng/scene/scene.hpp>
-
-#include <filesystem>
 
 namespace jng {
 
@@ -53,6 +53,8 @@ namespace jng {
         InspectorWindow m_inspectorWindow;
         SceneHierarchyWindow m_sceneHierarchyWindow;
         ContentBrowserWindow m_contentBrowserWindow;
+        StatisticsWindow m_statisticsWindow;
+        SettingsWindow m_settingsWindow;
 
         Ref<Texture> m_playIcon, m_stopIcon;
     };

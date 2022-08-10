@@ -10,29 +10,21 @@
 #include "renderer/renderer_api.hpp"
 
 #include "renderer/opengl/texture_ogl.hpp"
-//#include "renderer/vulkan/texture_impl_vlk.hpp"
-
-#if defined(JNG_WINDOWS)
-#include "renderer/direct3d/texture_d3d.hpp"
-#endif
 
 namespace jng {
 
     Ref<Texture> Texture::create(const char* path)
-	{
+    {
         JNG_PROFILE_FUNCTION();
 
         switch (RendererAPI::getRendererBackend())
         {
-#if defined(JNG_WINDOWS)
-        case RendererBackend::Direct3D: return makeRef<Direct3DTexture>(path);
-#endif
         case RendererBackend::OpenGL: return makeRef<OpenGLTexture>(path);
         default:
             JNG_CORE_ASSERT(false, "API unsupported!");
             return nullptr;
         }
-	}
+    }
 
     Ref<Texture> Texture::create(const Properties& properties)
     {
@@ -40,9 +32,6 @@ namespace jng {
 
         switch (RendererAPI::getRendererBackend())
         {
-#if defined(JNG_WINDOWS)
-        case RendererBackend::Direct3D: return makeRef<Direct3DTexture>(properties);
-#endif
         case RendererBackend::OpenGL: return makeRef<OpenGLTexture>(properties);
         default:
             JNG_CORE_ASSERT(false, "API unsupported!");

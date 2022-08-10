@@ -13,8 +13,12 @@
 #include <jng/serializers/scene_serializer.hpp>
 
 #include <imgui.h>
+#include <yaml-cpp/yaml.h>
+#include <fstream>
 
 namespace jng {
+
+    constexpr static const char* SCENE_FILE_FILTER = "JNG Scene (*.scene.yml)\0*scene.yml\0";
 
     void MainMenuBar::onImGuiUpdate()
     {
@@ -41,15 +45,7 @@ namespace jng {
                 if (ImGui::Button("Create"))
                 {
                     showCreateProjectPopup = false;
-                    m_context.IsProjectOpen = true;
-
-                    m_context.ProjectPath = buffer;
-                    if (!std::filesystem::exists(m_context.ProjectPath))
-                        std::filesystem::create_directories(m_context.ProjectPath);
-                    m_context.AssetsPath = m_context.ProjectPath / "assets";
-                    if (!std::filesystem::exists(m_context.AssetsPath))
-                        std::filesystem::create_directories(m_context.AssetsPath);
-                    m_context.BrowsedPath = m_context.AssetsPath;
+                    m_context.createProject(buffer);
                 }
                 ImGui::SameLine();
                 if (ImGui::Button("Cancel"))
@@ -67,13 +63,7 @@ namespace jng {
                     if (ImGui::MenuItem("Project", "Ctrl+Shift+N")) showCreateProjectPopup = true;
 
                     if (ImGui::MenuItem("Scene", "Ctrl+N", nullptr, m_context.IsProjectOpen))
-                    {
-                        m_context.EditorScenePath = std::filesystem::path{};
-                        m_context.SelectedEntity = {};
-                        m_context.ActiveScene = makeRef<Scene>();
-
-                        m_context.ActiveScene->setViewportSize(m_context.ViewportWindowSize.x, m_context.ViewportWindowSize.y);
-                    }
+                        m_context.createScene();
 
                     ImGui::EndMenu();
                 }
@@ -84,19 +74,14 @@ namespace jng {
                     {
                         std::string directory = Platform::openDirectoryDialog();
                         if (!directory.empty())
-                        {
-                            m_context.IsProjectOpen = true;
-
-                            m_context.ProjectPath = directory;
-                            m_context.AssetsPath = m_context.ProjectPath / "assets";
-                            m_context.BrowsedPath = m_context.AssetsPath;
-                        }
+                            m_context.openProject(directory);
                     }
 
                     if (ImGui::MenuItem("Scene...", "Ctrl+O", nullptr, m_context.IsProjectOpen))
                     {
-                        std::string path = Platform::openFilenameDialog("JNG Scene (*.yaml;*.yml)\0*.yaml;*.yml\0\0");
-                        if (!path.empty()) m_context.openScene(path);
+                        std::string path = Platform::openFilenameDialog(SCENE_FILE_FILTER);
+                        if (!path.empty())
+                            m_context.openScene(path);
                     }
 
                     ImGui::EndMenu();
@@ -104,20 +89,20 @@ namespace jng {
                 
                 ImGui::Separator();
 
-                if (ImGui::MenuItem("Save...", "Ctrl+S", nullptr, false))
+                if (ImGui::MenuItem("Save...", "Ctrl+S"))
                 {
                     if (!m_context.EditorScenePath.empty())
                         m_context.saveScene(m_context.EditorScenePath);
                     else
                     {
-                        std::string path = Platform::saveFilenameDialog("JNG Scene (*.yaml;*.yml)\0*.yaml;*.yml\0\0");
+                        std::string path = Platform::saveFilenameDialog(SCENE_FILE_FILTER);
                         m_context.saveScene(path);
                     }
                 }
 
                 if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S"))
                 {
-                    std::string path = Platform::saveFilenameDialog("JNG Scene (*.yaml;*.yml)\0*.yaml;*.yml\0\0");
+                    std::string path = Platform::saveFilenameDialog(SCENE_FILE_FILTER);
                     m_context.saveScene(path);
                 }
 
@@ -157,6 +142,8 @@ namespace jng {
                     ImGui::MenuItem("Scene Hierarchy", nullptr, &m_context.IsSceneHierarchyWindowOpen);
                     ImGui::MenuItem("Viewport", nullptr, &m_context.IsViewportWindowOpen);
                     ImGui::MenuItem("Content Browser", nullptr, &m_context.IsContentBrowserWindowOpen);
+                    ImGui::MenuItem("Statistics", nullptr, &m_context.isStatisticsWindowOpen);
+                    ImGui::MenuItem("Settings", nullptr, &m_context.isSettingsWindowOpen);
                 
                     ImGui::EndMenu();
                 }

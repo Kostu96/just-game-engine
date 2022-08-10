@@ -11,7 +11,6 @@
 #include <jng/scene/entity.hpp>
 
 #include <glm/glm.hpp>
-#include <filesystem>
 
 namespace jng {
     
@@ -49,6 +48,18 @@ namespace jng {
         std::filesystem::path BrowsedPath;
         bool IsContentBrowserWindowOpen = true;
 
+        // Statistics state:
+        bool isStatisticsWindowOpen = true;
+
+        // Settings state:
+        bool isSettingsWindowOpen = false;
+        float physicsGravity = 9.8f;
+        bool showColliders = false;
+
+        void createProject(std::filesystem::path path);
+        void openProject(std::filesystem::path path);
+
+        void createScene();
         void openScene(std::filesystem::path path);
         void saveScene(std::filesystem::path path);
 

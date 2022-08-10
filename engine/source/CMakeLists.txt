@@ -7,7 +7,6 @@
 set(JNG_HEADERS
     ${JNG_HEADERS_DIR}/jng.hpp
     ${JNG_HEADERS_DIR}/imconfig.hpp
-    ${JNG_HEADERS_DIR}/scripting/native_script.hpp
 )
 
 set(JNG_SOURCES
@@ -20,6 +19,7 @@ add_subdirectory(imgui)
 add_subdirectory(platform)
 add_subdirectory(renderer)
 add_subdirectory(scene)
+add_subdirectory(scripting)
 add_subdirectory(serializers)
 add_subdirectory(utilities)
 

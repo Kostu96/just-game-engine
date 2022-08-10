@@ -18,6 +18,9 @@ namespace jng {
 
         void onImGuiUpdate();
     private:
+        template<typename Component>
+        void displayComponentInAddList(const char* label);
+
         EditorContext& m_context;
         Ref<Texture> m_checkerboard;
     };

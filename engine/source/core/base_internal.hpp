@@ -12,7 +12,6 @@ namespace jng {
 
     constexpr float PHYSICS_SCALE = 30.f;
     constexpr float PHYSICS_TIMESTEP = 1.f / 60.f;
-    constexpr float PHYSICS_GRAVITY_CONSTANT = 9.81f;
     constexpr int PHYSICS_VEL_ITERATIONS = 8;
     constexpr int PHYSICS_POS_ITERATIONS = 3;
 

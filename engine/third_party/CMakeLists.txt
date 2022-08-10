@@ -81,9 +81,9 @@ add_subdirectory(box2d)
 ##############
 
 ### dxerr: ###
-if (WIN32)
-    add_subdirectory(dxerr)
-endif()
+#if (WIN32)
+#    add_subdirectory(dxerr)
+#endif()
 ##############
 
 ### glad: ###
@@ -145,6 +145,10 @@ target_link_libraries(imgui PUBLIC
 )
 ##############
 
+### Lua ###
+add_subdirectory(lua)
+###########
+
 ### spdlog: ###
 add_subdirectory(spdlog)
 target_compile_options(spdlog PRIVATE
@@ -175,16 +179,17 @@ set(JNG_ENGINE_THIRD_PARTY_LIBRARIES
     glad
     glfw
     imgui
+    lua
     spdlog
     stb
     yaml-cpp
 )
 
-if (WIN32)
-    list(APPEND JNG_ENGINE_THIRD_PARTY_LIBRARIES
-        dxerr
-    )
-endif()
+#if (WIN32)
+#    list(APPEND JNG_ENGINE_THIRD_PARTY_LIBRARIES
+#        dxerr
+#    )
+#endif()
 
 set_target_properties(
     ${JNG_ENGINE_THIRD_PARTY_LIBRARIES}

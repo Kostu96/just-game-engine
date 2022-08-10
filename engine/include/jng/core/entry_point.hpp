@@ -18,8 +18,8 @@ int main(int argc, char* argv[])
 
     JNG_PROFILE_BEGIN_SESSION("profiling_init.json");
 
-    // TODO: do proper render API choosing
     RendererBackend backend = RendererBackend::OpenGL;
+#if 0
     for (int i = 1; i < argc; ++i)
         if (std::strcmp(argv[i], "--backend") == 0) {
             if (i + 1 >= argc) {
@@ -35,6 +35,7 @@ int main(int argc, char* argv[])
                 return -1;
             }
         }
+#endif
     RendererAPI::init(backend);
 
     auto app = createApp();

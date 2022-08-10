@@ -9,10 +9,6 @@
 #include "core/base_internal.hpp"
 #include "renderer/opengl/renderer_api_ogl.hpp"
 
-#if defined(JNG_WINDOWS)
-#include "renderer/direct3d/renderer_api_d3d.hpp"
-#endif
-
 namespace jng {
 
     void RendererAPI::init(RendererBackend backend)
@@ -21,11 +17,6 @@ namespace jng {
 
         switch (backend)
         {
-#if defined(JNG_WINDOWS)
-        case RendererBackend::Direct3D:
-            s_implementation = makeScope<Direct3DRendererAPI>();
-            break;
-#endif
         case RendererBackend::OpenGL:
             s_implementation = makeScope<OpenGLRendererAPI>();
             break;

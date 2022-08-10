@@ -8,7 +8,6 @@
 #include "jng/core/base.hpp"
 
 #include <glm/glm.hpp>
-#include <filesystem>
 #include <string_view>
 
 namespace jng {
