@@ -26,9 +26,9 @@
 namespace jng {
 
     EditorLayer::EditorLayer(const Properties& /*properties*/) :
-        m_viewportFramebuffer{ Framebuffer::create({
-            .Width = 1, .Height = 1,
-            .AttachmentsSpecifications = {
+        m_viewportFramebuffer{ makeRef<Framebuffer>(Framebuffer::Properties{
+            .width = 1, .height = 1,
+            .attachmentsSpecifications = {
                 jng::TextureFormat::RGBA8,
                 jng::TextureFormat::R32,
                 jng::TextureFormat::Depth24Stencil8
@@ -49,8 +49,8 @@ namespace jng {
     {
         if (m_context.IsViewportWindowOpen && m_context.IsProjectOpen)
         {
-            if (m_context.ViewportWindowSize.x != m_viewportFramebuffer->getProperties().Width ||
-                m_context.ViewportWindowSize.y != m_viewportFramebuffer->getProperties().Height)
+            if (m_context.ViewportWindowSize.x != m_viewportFramebuffer->getProperties().width ||
+                m_context.ViewportWindowSize.y != m_viewportFramebuffer->getProperties().height)
             {
                 m_viewportFramebuffer->resize(
                     static_cast<uint32>(m_context.ViewportWindowSize.x),
@@ -147,7 +147,7 @@ namespace jng {
                 glm::vec2 viewportPos = ImGui::GetWindowPos();
 
                 m_context.ViewportWindowSize = ImGui::GetContentRegionAvail();
-                ImGui::Image(m_viewportFramebuffer->getColorAttachments()[0]->getRendererID(), m_context.ViewportWindowSize);
+                ImGui::Image(m_viewportFramebuffer->getAttachments()[0]->getRendererID(), m_context.ViewportWindowSize);
 
                 m_context.MousePosWithinViewport = mousePos - viewportPos - viewportOffset;
                 if (m_context.MousePosWithinViewport.x > m_context.ViewportWindowSize.x)

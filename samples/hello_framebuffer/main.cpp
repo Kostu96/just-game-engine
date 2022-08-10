@@ -32,9 +32,9 @@ class SampleLayer :
 {
 public:
     SampleLayer() :
-        m_framebuffer{ jng::Framebuffer::create({
-            .Width = WindowWidth, .Height = WindowHeight,
-            .AttachmentsSpecifications = { jng::TextureFormat::RGBA8, jng::TextureFormat::Depth24Stencil8 }
+        m_framebuffer{ jng::makeRef<jng::Framebuffer>(jng::Framebuffer::Properties{
+            .width = WindowWidth, .height = WindowHeight,
+            .attachmentsSpecifications = { jng::TextureFormat::RGBA8, jng::TextureFormat::Depth24Stencil8 }
         }) },
         m_texture{ jng::makeRef<jng::Texture>("assets/hello_framebuffer/textures/test.png") },
         m_shader{ jng::Shader::create("assets/hello_framebuffer/shaders/vertex.glsl", "assets/hello_framebuffer/shaders/fragment.glsl") },
@@ -74,7 +74,7 @@ public:
     void onImGuiUpdate() override
     {
         ImGui::Begin("Framebuffer");
-        ImGui::Image(m_framebuffer->getColorAttachments()[0]->getRendererID(), {400, 300});
+        ImGui::Image(m_framebuffer->getAttachments()[0]->getRendererID(), {400, 300});
         ImGui::End();
     }
 private:
