@@ -7,7 +7,6 @@
 #include "renderer/vertex_array.hpp"
 
 #include "core/base_internal.hpp"
-#include "renderer/renderer_api.hpp"
 
 namespace jng {
 

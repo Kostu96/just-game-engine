@@ -201,7 +201,7 @@ namespace jng::Renderer2D {
         s_data.quadAndCircleVertexPositions[3] = { -0.5f,  0.5f, 0.0f, 1.0f };
 
         // Quad
-        s_data.quadShader = Shader::create(
+        s_data.quadShader = makeRef<Shader>(
             (assetsDir / "shaders/quad_vertex.glsl").string(),
             (assetsDir / "shaders/quad_fragment.glsl").string()
         );
@@ -233,7 +233,7 @@ namespace jng::Renderer2D {
         delete[] quadIndices;
 
         // Circle
-        s_data.circleShader = Shader::create(
+        s_data.circleShader = makeRef<Shader>(
             (assetsDir / "shaders/circle_vertex.glsl").string(),
             (assetsDir / "shaders/circle_fragment.glsl").string()
         );
@@ -266,7 +266,7 @@ namespace jng::Renderer2D {
         delete[] circleIndices;
 
         // Line
-        s_data.lineShader = Shader::create(
+        s_data.lineShader = makeRef<Shader>(
             (assetsDir / "shaders/line_vertex.glsl").string(),
             (assetsDir / "shaders/line_fragment.glsl").string()
         );

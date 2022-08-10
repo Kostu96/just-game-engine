@@ -15,7 +15,6 @@ list(APPEND JNG_HEADERS
 list(APPEND JNG_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
     ${CMAKE_CURRENT_SOURCE_DIR}/log.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/ogl_error_callback.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/profiling.cpp
 )
 

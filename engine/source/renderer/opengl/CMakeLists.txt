@@ -10,7 +10,6 @@ list(APPEND JNG_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/framebuffer_ogl.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/renderer_api_ogl.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/shader_ogl.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/shader_ogl.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/texture_ogl.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/vertex_array_ogl.cpp
 )

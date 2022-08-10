@@ -16,9 +16,7 @@ list(APPEND JNG_HEADERS
 
 list(APPEND JNG_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
-    ${CMAKE_CURRENT_SOURCE_DIR}/graphics_context.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/graphics_context.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/graphics_context_ogl.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/input.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/window.cpp
 )

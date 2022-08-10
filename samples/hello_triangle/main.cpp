@@ -21,7 +21,7 @@ class SampleLayer :
 {
 public:
     SampleLayer() :
-        m_shader{ jng::Shader::create("assets/hello_triangle/shaders/vertex.glsl", "assets/hello_triangle/shaders/fragment.glsl") },
+        m_shader{ jng::makeRef<jng::Shader>("assets/hello_triangle/shaders/vertex.glsl", "assets/hello_triangle/shaders/fragment.glsl") },
         m_cameraUBO{ jng::makeRef<jng::UniformBuffer>(sizeof(glm::mat4)) },
         m_VBO{ jng::makeRef<jng::VertexBuffer>(vertices, sizeof(vertices)) },
         m_VAO{ jng::makeRef<jng::VertexArray>(m_VBO, LAYOUT) }

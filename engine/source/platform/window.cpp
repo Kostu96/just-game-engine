@@ -119,10 +119,13 @@ namespace jng {
         m_windowData.width = width;
         m_windowData.height = height;
 
-        glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+        auto hints = GraphicsContext::getContextCreationHints();
+        for (auto& hint : hints)
+            glfwWindowHint(hint.id, hint.value);
+
         m_windowHandle = glfwCreateWindow(static_cast<int>(width), static_cast<int>(height), title, nullptr, nullptr);
         
-        m_graphicsContext = GraphicsContext::create(*this);
+        m_graphicsContext = makeScope<GraphicsContext>(*this);
 
         glfwSetWindowUserPointer(m_windowHandle, &m_windowData);
 
@@ -143,17 +146,17 @@ namespace jng {
 
     struct GLFWInitializer
     {
-        GLFWInitializer() {
-
+        GLFWInitializer()
+        {
 #ifdef JNG_DEBUG
             glfwSetErrorCallback(glfwErrorCallback);
 #endif
-
             [[maybe_unused]] int success = glfwInit();
             JNG_CORE_ASSERT(success, "Could not initialize GLFW!");
         }
 
-        ~GLFWInitializer() {
+        ~GLFWInitializer()
+        {
             glfwTerminate();
         }
     }
