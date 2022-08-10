@@ -81,7 +81,7 @@ namespace jng {
 
     InspectorWindow::InspectorWindow(EditorContext& context) :
         m_context{ context },
-        m_checkerboard{ Texture::create("assets/textures/checkerboard.png") }
+        m_checkerboard{ makeRef<Texture>("assets/textures/checkerboard.png") }
     {}
 
     void InspectorWindow::onImGuiUpdate()
@@ -181,7 +181,7 @@ namespace jng {
                             if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
                             {
                                 const char* path = reinterpret_cast<const char*>(payload->Data);
-                                src.texture = Texture::create(path);
+                                src.texture = makeRef<Texture>(path);
                             }
                             ImGui::EndDragDropTarget();
                         }

@@ -40,8 +40,8 @@ namespace jng {
         m_contentBrowserWindow{ m_context },
         m_statisticsWindow{ m_context },
         m_settingsWindow{ m_context },
-        m_playIcon{ Texture::create("assets/textures/play_icon.png") },
-        m_stopIcon{ Texture::create("assets/textures/stop_icon.png") }
+        m_playIcon{ makeRef<Texture>("assets/textures/play_icon.png") },
+        m_stopIcon{ makeRef<Texture>("assets/textures/stop_icon.png") }
     {
     }
 

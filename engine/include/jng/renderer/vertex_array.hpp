@@ -38,7 +38,6 @@ namespace jng {
         bool Normalized;
     };
 
-    // TODO: Merge VartexArray and VertexLayout? What name would be the best?
     class VertexLayout
     {
     public:

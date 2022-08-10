@@ -79,7 +79,7 @@ namespace jng {
         glReadBuffer(GL_COLOR_ATTACHMENT0 + colorAttachmentIndex);
 
         uint32 pixelData;
-        glReadPixels(x, y, 1, 1, textureFormatToGLEnum(m_attachments[colorAttachmentIndex]->getProperties().Specification.Format), GL_INT, &pixelData);
+        glReadPixels(x, y, 1, 1, textureFormatToGLEnum(m_attachments[colorAttachmentIndex]->getProperties().specification.format), GL_INT, &pixelData);
 
         return pixelData;
     }
@@ -91,7 +91,7 @@ namespace jng {
         glClearTexImage(
             static_cast<GLuint>(reinterpret_cast<uint64>(attachment->getRendererID())),
             0,
-            textureFormatToGLEnum(attachment->getProperties().Specification.Format),
+            textureFormatToGLEnum(attachment->getProperties().specification.format),
             GL_INT,
             data
         );
@@ -104,7 +104,7 @@ namespace jng {
         glClearTexImage(
             static_cast<GLuint>(reinterpret_cast<uint64>(attachment->getRendererID())),
             1,
-            textureFormatToGLEnum(attachment->getProperties().Specification.Format),
+            textureFormatToGLEnum(attachment->getProperties().specification.format),
             GL_FLOAT,
             data
         );
@@ -124,9 +124,9 @@ namespace jng {
         uint32 numColorAtachments = 0;
         for (uint32 i = 0; i < m_properties.AttachmentsSpecifications.size(); ++i)
         {
-            bool isDepth = isDepthAttachment(m_properties.AttachmentsSpecifications[i].Format);
+            bool isDepth = isDepthAttachment(m_properties.AttachmentsSpecifications[i].format);
             if (!isDepth) numColorAtachments++;
-            m_attachments.push_back(Texture::create({m_properties.AttachmentsSpecifications[i], m_properties.Width, m_properties.Height}));
+            m_attachments.push_back(makeRef<Texture>(Texture::Properties{ m_properties.AttachmentsSpecifications[i], m_properties.Width, m_properties.Height }));
             GLenum attachmentTarget =  isDepth ? GL_DEPTH_STENCIL_ATTACHMENT : GL_COLOR_ATTACHMENT0 + i;
             glFramebufferTexture2D(GL_FRAMEBUFFER, attachmentTarget, GL_TEXTURE_2D, m_attachments[i]->getID(), 0);
         }

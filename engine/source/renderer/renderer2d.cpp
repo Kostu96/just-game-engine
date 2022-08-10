@@ -190,7 +190,7 @@ namespace jng::Renderer2D {
             TextureFormat::RGBA8,
             1, 1
         };
-        s_data.whiteTexture = Texture::create(props);
+        s_data.whiteTexture = jng::makeRef<Texture>(props);
         uint32 whiteTextureData = 0xffffffff;
         s_data.whiteTexture->setData(&whiteTextureData, sizeof(uint32));
         s_data.textureSlots[0] = s_data.whiteTexture;

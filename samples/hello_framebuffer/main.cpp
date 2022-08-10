@@ -36,7 +36,7 @@ public:
             .Width = WindowWidth, .Height = WindowHeight,
             .AttachmentsSpecifications = { jng::TextureFormat::RGBA8, jng::TextureFormat::Depth24Stencil8 }
         }) },
-        m_texture{ jng::Texture::create("assets/hello_framebuffer/textures/test.png")},
+        m_texture{ jng::makeRef<jng::Texture>("assets/hello_framebuffer/textures/test.png") },
         m_shader{ jng::Shader::create("assets/hello_framebuffer/shaders/vertex.glsl", "assets/hello_framebuffer/shaders/fragment.glsl") },
         m_cameraUBO{ jng::makeRef<jng::UniformBuffer>(sizeof(glm::mat4)) },
         m_VBO{ jng::makeRef<jng::VertexBuffer>(vertices, sizeof(vertices)) },
