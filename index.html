@@ -78,33 +78,18 @@ Prerequisites:</h1>
 </ul>
 <h1><a class="anchor" id="autotoc_md2"></a>
 How to build:</h1>
-<p >Just™ clone the repository with dependencies: </p><div class="fragment"><div class="line">git clone --recursive https://github.com/Kostu96/just-game-engine.git</div>
+<p >Just™ clone the repository with dependencies: </p><div class="fragment"><div class="line">git clone --recurse-submodules --shallow-submodules https://github.com/Kostu96/just-game-engine.git</div>
 <div class="line">cd just-game-engine</div>
 </div><!-- fragment --><p> then Just™ try: </p><div class="fragment"><div class="line">mkdir build</div>
 <div class="line">cd build</div>
 <div class="line">cmake ..</div>
-</div><!-- fragment --><p> and it might Just™ work for you.</p>
-<p >If not better instructions will come in the future...</p>
-<h1><a class="anchor" id="autotoc_md3"></a>
-Usage:</h1>
-<p >For now JNG is ditributed as a package with static libraries (compiled for Visual Studio 2022). To use it:</p><ul>
-<li>Build package using /scripts/prepare_package.bat or download prebuilt from GitHub</li>
-<li>Set additional include directory in your project to {package_dir}/include</li>
-<li>Link to libraries in {package_dir}/lib/{config}, where {config} is debug or release depending on your configuration</li>
-<li>Copy contents of the {package_dir}/bin into your application working directory</li>
-<li>Define the following:<ul>
-<li>JNG_DEBUG - [optional] if you want to use JNG debug features (eg. logging)</li>
-<li>SPDLOG_COMPILED_LIB - [required] - needed by spdlog library</li>
-<li>IMGUI_DISABLE_INCLUDE_IMCONFIG_H - [required] - needed by Dear ImGui library</li>
-<li>IMGUI_USER_CONFIG="jng/imconfig.hpp" - [required] - same as above </li>
-</ul>
-</li>
-</ul>
+</div><!-- fragment --><p> and it might Just™ work for you. If not better instructions will come in the future...</p>
+<p >Build using your build system (Visual Studio 2022 is tested). </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 11 2022 15:05:57 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Aug 11 2022 15:10:24 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>
