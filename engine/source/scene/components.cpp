@@ -50,7 +50,8 @@ namespace jng {
 
     void Rigidbody2DComponent::reset()
     {
-        Type = BodyType::Static;
+        type = BodyType::Static;
+        enabled = true;
         freezeRotation = false;
         linearDamping = 0.1f;
         angularDamping = 0.1f;
@@ -58,7 +59,7 @@ namespace jng {
 
     void Rigidbody2DComponent::setLinearVelocity(glm::vec2 velocity)
     {
-        BodyHandle->SetLinearVelocity({ velocity.x, velocity.y });
+        bodyHandle->SetLinearVelocity({ velocity.x, velocity.y });
     }
 
     void LuaScriptComponent::reset()

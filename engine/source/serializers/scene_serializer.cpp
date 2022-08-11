@@ -232,7 +232,8 @@ namespace jng {
                 if (rigidbody2DComponent)
                 {
                     auto& comp = deserializedEntity.addComponent<Rigidbody2DComponent>();
-                    comp.Type = static_cast<Rigidbody2DComponent::BodyType>(rigidbody2DComponent["BodyType"].as<int>());
+                    comp.type = static_cast<Rigidbody2DComponent::BodyType>(rigidbody2DComponent["BodyType"].as<int>());
+                    comp.enabled = rigidbody2DComponent["Enabled"].as<bool>();
                     comp.freezeRotation = rigidbody2DComponent["FreezeRotation"].as<bool>();
                     comp.linearDamping = rigidbody2DComponent["LinearDamping"].as<float>();
                     comp.angularDamping = rigidbody2DComponent["AngularDamping"].as<float>();
@@ -393,7 +394,8 @@ namespace jng {
             yaml << YAML::BeginMap;
             auto& comp = entity.getComponent<Rigidbody2DComponent>();
 
-            yaml << YAML::Key << "BodyType" << YAML::Value << static_cast<uint32>(comp.Type);
+            yaml << YAML::Key << "BodyType" << YAML::Value << static_cast<uint32>(comp.type);
+            yaml << YAML::Key << "Enabled" << YAML::Value << comp.enabled;
             yaml << YAML::Key << "FreezeRotation" << YAML::Value << comp.freezeRotation;
             yaml << YAML::Key << "LinearDamping" << YAML::Value << comp.linearDamping;
             yaml << YAML::Key << "AngularDamping" << YAML::Value << comp.angularDamping;

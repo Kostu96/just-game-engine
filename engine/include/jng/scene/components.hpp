@@ -162,12 +162,13 @@ namespace jng {
 
         enum class BodyType { Static = 0, Kinematic = 1, Dynamic = 2 };
 
-        BodyType Type = BodyType::Static;
+        BodyType type = BodyType::Static;
+        bool enabled = true;
         bool freezeRotation = false;
         float linearDamping = 0.1f;
         float angularDamping = 0.1f;
 
-        b2Body* BodyHandle = nullptr; // NOTE: used in runtime only
+        b2Body* bodyHandle = nullptr; // NOTE: used in runtime only
 
         void reset();
         void setLinearVelocity(glm::vec2 velocity);

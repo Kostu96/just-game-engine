@@ -113,13 +113,14 @@ namespace jng {
                 auto [rbc, tc] = group.get<Rigidbody2DComponent, WorldTransformComponent>(entity);
 
                 b2BodyDef bodyDef{};
-                bodyDef.type = bodyTypeToBox2DBodyType(rbc.Type);
+                bodyDef.type = bodyTypeToBox2DBodyType(rbc.type);
+                bodyDef.enabled = rbc.enabled;
                 bodyDef.position.Set(tc.Translation.x, tc.Translation.y);
                 bodyDef.angle = tc.Rotation.z;
                 bodyDef.fixedRotation = rbc.freezeRotation;
                 bodyDef.linearDamping = rbc.linearDamping;
                 bodyDef.angularDamping = rbc.angularDamping;
-                rbc.BodyHandle = m_physics2dWorld->CreateBody(&bodyDef);
+                rbc.bodyHandle = m_physics2dWorld->CreateBody(&bodyDef);
 
                 Entity jngEntity{ entity, *this };
 
@@ -136,7 +137,7 @@ namespace jng {
                     fixtureDef.friction = bcc.Friction;
                     fixtureDef.restitution = bcc.Restitution;
                     fixtureDef.restitutionThreshold = bcc.RestitutionThreshold;
-                    bcc.FixtureHandle = rbc.BodyHandle->CreateFixture(&fixtureDef);
+                    bcc.FixtureHandle = rbc.bodyHandle->CreateFixture(&fixtureDef);
                 }
 
                 if (jngEntity.hasComponent<CircleCollider2DComponent>())
@@ -153,7 +154,7 @@ namespace jng {
                     fixtureDef.friction = ccc.Friction;
                     fixtureDef.restitution = ccc.Restitution;
                     fixtureDef.restitutionThreshold = ccc.RestitutionThreshold;
-                    ccc.FixtureHandle = rbc.BodyHandle->CreateFixture(&fixtureDef);
+                    ccc.FixtureHandle = rbc.bodyHandle->CreateFixture(&fixtureDef);
                 }
             }
         }
@@ -169,15 +170,6 @@ namespace jng {
 
     void Scene::onDestroy()
     {
-        {
-            //auto view = m_registry.view<LuaScriptComponent>();
-            //for (auto entity : view)
-            //{
-            //    //auto& lsc = view.get<LuaScriptComponent>(entity);
-            //    //LuaScript::destroy(lsc.instance);
-            //}
-        }
-
         delete m_physics2dWorld;
         m_physics2dWorld = nullptr;
     }
@@ -202,7 +194,7 @@ namespace jng {
             {
                 auto [rbc, tc] = group.get<Rigidbody2DComponent, WorldTransformComponent>(entity);
 
-                b2Body* body = reinterpret_cast<b2Body*>(rbc.BodyHandle);
+                b2Body* body = reinterpret_cast<b2Body*>(rbc.bodyHandle);
                 const auto& pos = body->GetPosition();
                 tc.Translation.x = pos.x;
                 tc.Translation.y = pos.y;
@@ -225,14 +217,7 @@ namespace jng {
 
     void Scene::onEvent(Event& /*event*/)
     {
-        /*{
-            auto view = m_registry.view<NativeScriptComponent>();
-            for (auto entity : view)
-            {
-                auto& nsc = view.get<NativeScriptComponent>(entity);
-                nsc.Instance->onEvent(event);
-            }
-        }*/
+        
     }
 
     void Scene::setViewportSize(float width, float height)
