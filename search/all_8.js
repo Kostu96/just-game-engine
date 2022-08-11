@@ -13,7 +13,7 @@ var searchData=
   ['imguilayer_10',['ImGuiLayer',['../classjng_1_1_im_gui_layer.html',1,'jng']]],
   ['indexbuffer_11',['IndexBuffer',['../classjng_1_1_index_buffer.html#aa1d217a4125b547aa69ab0fc5d4a2f6a',1,'jng::IndexBuffer::IndexBuffer()'],['../classjng_1_1_index_buffer.html',1,'jng::IndexBuffer']]],
   ['indextype_12',['IndexType',['../namespacejng_1_1_renderer_a_p_i.html#aa43863e55823f175aa8500a683bf8b4b',1,'jng::RendererAPI']]],
-  ['init_13',['init',['../namespacejng_1_1_renderer.html#a4c6510de6cc98a5128855aa491c0f7b8',1,'jng::Renderer::init()'],['../namespacejng_1_1_lua_engine.html#a4ac2ebf951cbdacad0d088c8c72e7894',1,'jng::LuaEngine::init()'],['../namespacejng_1_1_renderer2_d.html#ac2678bad367503979c7bcc7b35af04ab',1,'jng::Renderer2D::init()'],['../classjng_1_1_im_gui_layer.html#aaf5ea9dcc1b8428a83bd889aaf0bd1ed',1,'jng::ImGuiLayer::init()']]],
+  ['init_13',['init',['../namespacejng_1_1_renderer.html#a4c6510de6cc98a5128855aa491c0f7b8',1,'jng::Renderer::init()'],['../namespacejng_1_1_renderer2_d.html#ac2678bad367503979c7bcc7b35af04ab',1,'jng::Renderer2D::init()'],['../namespacejng_1_1_lua_engine.html#a4ac2ebf951cbdacad0d088c8c72e7894',1,'jng::LuaEngine::init()'],['../classjng_1_1_im_gui_layer.html#aaf5ea9dcc1b8428a83bd889aaf0bd1ed',1,'jng::ImGuiLayer::init()']]],
   ['input_14',['Input',['../classjng_1_1_input.html',1,'jng']]],
   ['input_2ecpp_15',['input.cpp',['../input_8cpp.html',1,'']]],
   ['input_2ehpp_16',['input.hpp',['../input_8hpp.html',1,'']]],
@@ -27,11 +27,10 @@ var searchData=
   ['int64_24',['int64',['../namespacejng.html#ab6773cea6fb3fd264c36efd190696316',1,'jng']]],
   ['int8_25',['int8',['../namespacejng.html#af8c38e2eef5ec89741c63a5307af1415',1,'jng']]],
   ['interator_26',['Interator',['../classjng_1_1_layer_stack.html#a27ff85d0abaee1744bcb2a3693828d37',1,'jng::LayerStack']]],
-  ['isdirty_27',['isDirty',['../structjng_1_1_transform.html#a5a9fe5fbe0fc2b7ebecf4cb49f37d0e7',1,'jng::Transform']]],
-  ['ishandled_28',['isHandled',['../classjng_1_1_event.html#a68f723145760a071f1a67807b4def793',1,'jng::Event']]],
-  ['iskeypressed_29',['isKeyPressed',['../classjng_1_1_input.html#af1048b2de61de535115314f0c7404787',1,'jng::Input::isKeyPressed()'],['../namespacejng_1_1_lua_1_1_input.html#a7096eaeb458480887cf5a0afbb2b06aa',1,'jng::Lua::Input::isKeyPressed()']]],
-  ['isminimized_30',['isMinimized',['../classjng_1_1_window.html#a97aeddab501a974934a634e7cd7b0f43',1,'jng::Window::isMinimized()'],['../structjng_1_1_window_1_1_window_data.html#a25e457079e05e2b906524c9255b0cba1',1,'jng::Window::WindowData::isMinimized()']]],
-  ['ismousebuttonpressed_31',['isMouseButtonPressed',['../classjng_1_1_input.html#a9d73eecd437ed8aa12943f348a9ef1aa',1,'jng::Input']]],
-  ['isrepeat_32',['isRepeat',['../classjng_1_1_key_press_event.html#aee2bba5d83c229b75959e1135d163391',1,'jng::KeyPressEvent']]],
-  ['isvsync_33',['isVSync',['../classjng_1_1_graphics_context.html#ae934c68c4bf9eaacd35493295aca7616',1,'jng::GraphicsContext']]]
+  ['ishandled_27',['isHandled',['../classjng_1_1_event.html#a68f723145760a071f1a67807b4def793',1,'jng::Event']]],
+  ['iskeypressed_28',['isKeyPressed',['../namespacejng_1_1_lua_1_1_input.html#a7096eaeb458480887cf5a0afbb2b06aa',1,'jng::Lua::Input::isKeyPressed()'],['../classjng_1_1_input.html#af1048b2de61de535115314f0c7404787',1,'jng::Input::isKeyPressed()']]],
+  ['isminimized_29',['isMinimized',['../classjng_1_1_window.html#a97aeddab501a974934a634e7cd7b0f43',1,'jng::Window::isMinimized()'],['../structjng_1_1_window_1_1_window_data.html#a25e457079e05e2b906524c9255b0cba1',1,'jng::Window::WindowData::isMinimized()']]],
+  ['ismousebuttonpressed_30',['isMouseButtonPressed',['../classjng_1_1_input.html#a9d73eecd437ed8aa12943f348a9ef1aa',1,'jng::Input']]],
+  ['isrepeat_31',['isRepeat',['../classjng_1_1_key_press_event.html#aee2bba5d83c229b75959e1135d163391',1,'jng::KeyPressEvent']]],
+  ['isvsync_32',['isVSync',['../classjng_1_1_graphics_context.html#ae934c68c4bf9eaacd35493295aca7616',1,'jng::GraphicsContext']]]
 ];

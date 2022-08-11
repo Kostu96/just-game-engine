@@ -11,6 +11,6 @@ var searchData=
   ['textureslots_8',['textureSlots',['../structjng_1_1_renderer2_d_1_1_render_data.html#a6ebf4385220a030a159f11cef68ce5de',1,'jng::Renderer2D::RenderData']]],
   ['thickness_9',['thickness',['../structjng_1_1_renderer2_d_1_1_draw_circle_properties.html#afe8aeefa43e19fd2fb8038d3f16119f2',1,'jng::Renderer2D::DrawCircleProperties::thickness()'],['../structjng_1_1_circle_renderer_component.html#a085ce55c918a564d2a7ace1ca82fbfd1',1,'jng::CircleRendererComponent::thickness()'],['../structjng_1_1_renderer2_d_1_1_circle_vertex.html#ac9afd735ddfe82c166c9f9f33e668ca4',1,'jng::Renderer2D::CircleVertex::thickness()']]],
   ['title_10',['title',['../structjng_1_1_window_1_1_window_data.html#af01a3e166fc67a5e9dc2ca0a43804379',1,'jng::Window::WindowData']]],
-  ['translation_11',['Translation',['../structjng_1_1_transform.html#a8a5ee11677e743596588dcfc0655c24f',1,'jng::Transform']]],
+  ['translation_11',['translation',['../structjng_1_1_transform_component.html#adf6643b872158978bd6c7019078aeb5d',1,'jng::TransformComponent']]],
   ['type_12',['type',['../structjng_1_1_layout_element.html#a4fa8fa85aa8c10334ad9461455289b56',1,'jng::LayoutElement::type()'],['../structjng_1_1_rigidbody2_d_component.html#ac1eedce9a48748ae10d16a82380d7205',1,'jng::Rigidbody2DComponent::type()'],['../structjng_1_1_lua_engine_1_1_script_data_1_1_property.html#a8dda26f80959c7ac5c7cb45d007175eb',1,'jng::LuaEngine::ScriptData::Property::type()']]]
 ];

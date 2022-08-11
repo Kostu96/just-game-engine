@@ -11,5 +11,5 @@ var searchData=
   ['rightcontrol_8',['RightControl',['../namespacejng_1_1_key.html#a9a40462d79d6645d3fb4e257ef12c41d',1,'jng::Key']]],
   ['rightshift_9',['RightShift',['../namespacejng_1_1_key.html#a77d736fea738c20019cc9b2f074c80c7',1,'jng::Key']]],
   ['rightsuper_10',['RightSuper',['../namespacejng_1_1_key.html#a35afede18cb0c103443254e46ffa67c2',1,'jng::Key']]],
-  ['rotation_11',['Rotation',['../structjng_1_1_transform.html#a8271cc8fbefa0cb3a0eff04ad1ce5000',1,'jng::Transform']]]
+  ['rotation_11',['rotation',['../structjng_1_1_transform_component.html#a7f654d90b8d4dacdedcd5aaba2776af2',1,'jng::TransformComponent']]]
 ];

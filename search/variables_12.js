@@ -2,7 +2,7 @@ var searchData=
 [
   ['s_0',['S',['../namespacejng_1_1_key.html#af68338a7af29017fa04330d5bde21c5f',1,'jng::Key']]],
   ['samples_1',['samples',['../structjng_1_1_framebuffer_1_1_properties.html#a939f579076519c1198a162eb424e53d1',1,'jng::Framebuffer::Properties']]],
-  ['scale_2',['Scale',['../structjng_1_1_transform.html#a47e9db7027a6aa7aa67c66c9abd695a8',1,'jng::Transform']]],
+  ['scale_2',['scale',['../structjng_1_1_transform_component.html#a71557d62c67cd6269534c78e462dcb86',1,'jng::TransformComponent']]],
   ['scripts_3',['scripts',['../structjng_1_1_lua_engine_1_1_lua_engine_data.html#a89090dc6abf53554acc25ee5ed0e825a',1,'jng::LuaEngine::LuaEngineData']]],
   ['scrolllock_4',['ScrollLock',['../namespacejng_1_1_key.html#a478eccb27d551c516d44064550e5f532',1,'jng::Key']]],
   ['semicolon_5',['Semicolon',['../namespacejng_1_1_key.html#a701daaa583e269efecf194534e9a0b1c',1,'jng::Key']]],

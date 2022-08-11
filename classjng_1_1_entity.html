@@ -108,14 +108,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a83fee51dbb74474dce2eec173963516a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a599189322f02e22d002d919d127f5cdf"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_entity.html#a599189322f02e22d002d919d127f5cdf">getTag</a> () const</td></tr>
 <tr class="separator:a599189322f02e22d002d919d127f5cdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05b6234cc3970c13bcbc6e19e094f875"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_entity.html#a05b6234cc3970c13bcbc6e19e094f875">hasParent</a> () const</td></tr>
-<tr class="separator:a05b6234cc3970c13bcbc6e19e094f875"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61122c3c84cbb2eec0ecca90083a3277"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_entity.html#a61122c3c84cbb2eec0ecca90083a3277">hasChildren</a> () const</td></tr>
-<tr class="separator:a61122c3c84cbb2eec0ecca90083a3277"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a263cb99f0aee817f87c60b8f8c8ed5b0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_entity.html#a263cb99f0aee817f87c60b8f8c8ed5b0">setParent</a> (<a class="el" href="classjng_1_1_entity.html">Entity</a> newParent)</td></tr>
-<tr class="separator:a263cb99f0aee817f87c60b8f8c8ed5b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46cbdadcae34dff3134010008b2be0b0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_entity.html#a46cbdadcae34dff3134010008b2be0b0">removeParent</a> ()</td></tr>
-<tr class="separator:a46cbdadcae34dff3134010008b2be0b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa246ec87006e7109b92806507b9e8b54"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classjng_1_1_scene.html">Scene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_entity.html#aa246ec87006e7109b92806507b9e8b54">getScene</a> ()</td></tr>
 <tr class="separator:aa246ec87006e7109b92806507b9e8b54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2111f4eee05c4edcbeedfaeb56ea3267"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_entity.html#a2111f4eee05c4edcbeedfaeb56ea3267">operator==</a> (const <a class="el" href="classjng_1_1_entity.html">Entity</a> &amp;other) const</td></tr>
@@ -354,23 +346,6 @@ template&lt;typename Component , typename ... Args&gt; </div>
 
 </div>
 </div>
-<a id="a61122c3c84cbb2eec0ecca90083a3277" name="a61122c3c84cbb2eec0ecca90083a3277"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a61122c3c84cbb2eec0ecca90083a3277">&#9670;&nbsp;</a></span>hasChildren()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool jng::Entity::hasChildren </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="ad0b83af86f7099d6cd7f87d621bbfbfd" name="ad0b83af86f7099d6cd7f87d621bbfbfd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad0b83af86f7099d6cd7f87d621bbfbfd">&#9670;&nbsp;</a></span>hasComponent()</h2>
 
@@ -381,23 +356,6 @@ template&lt;typename Component &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">bool jng::Entity::hasComponent</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a05b6234cc3970c13bcbc6e19e094f875" name="a05b6234cc3970c13bcbc6e19e094f875"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05b6234cc3970c13bcbc6e19e094f875">&#9670;&nbsp;</a></span>hasParent()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool jng::Entity::hasParent </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -522,41 +480,6 @@ template&lt;typename Component &gt; </div>
 
 </div>
 </div>
-<a id="a46cbdadcae34dff3134010008b2be0b0" name="a46cbdadcae34dff3134010008b2be0b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46cbdadcae34dff3134010008b2be0b0">&#9670;&nbsp;</a></span>removeParent()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void jng::Entity::removeParent </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a263cb99f0aee817f87c60b8f8c8ed5b0" name="a263cb99f0aee817f87c60b8f8c8ed5b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a263cb99f0aee817f87c60b8f8c8ed5b0">&#9670;&nbsp;</a></span>setParent()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void jng::Entity::setParent </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classjng_1_1_entity.html">Entity</a>&#160;</td>
-          <td class="paramname"><em>newParent</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
 <a id="a032858ae1fe02d2d1170981c2af2d67c" name="a032858ae1fe02d2d1170981c2af2d67c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a032858ae1fe02d2d1170981c2af2d67c">&#9670;&nbsp;</a></span>Scene</h2>
@@ -587,7 +510,7 @@ template&lt;typename Component &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 11 2022 15:10:24 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Aug 11 2022 20:29:17 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

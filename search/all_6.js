@@ -40,7 +40,7 @@ var searchData=
   ['getstatistics_37',['getStatistics',['../namespacejng_1_1_renderer2_d.html#a67eccd041164c7d7d087d9a54cda8bf7',1,'jng::Renderer2D']]],
   ['getstride_38',['getStride',['../classjng_1_1_vertex_layout.html#aa7ff65453232e73fbe85766c1c69c25a',1,'jng::VertexLayout']]],
   ['gettag_39',['getTag',['../classjng_1_1_entity.html#a599189322f02e22d002d919d127f5cdf',1,'jng::Entity']]],
-  ['gettransform_40',['getTransform',['../structjng_1_1_transform.html#a26608dbe7f00467821781492ea3aa84e',1,'jng::Transform']]],
+  ['gettransform_40',['getTransform',['../structjng_1_1_transform_component.html#aeafc6db73dfac1a0141422d75579223a',1,'jng::TransformComponent']]],
   ['gettype_41',['getType',['../classjng_1_1_event.html#aa7b32dcd46ce5e6d68299c70a7762bf6',1,'jng::Event']]],
   ['getvertexbuffer_42',['getVertexBuffer',['../classjng_1_1_vertex_array.html#a319d74d18b3e48b002896b4bd3b7e527',1,'jng::VertexArray']]],
   ['getvp_43',['getVP',['../classjng_1_1_camera.html#a42d7255062f821bf7789c110da7a8fdc',1,'jng::Camera']]],
@@ -58,7 +58,8 @@ var searchData=
   ['graphics_5fcontext_5fogl_2ecpp_55',['graphics_context_ogl.cpp',['../linux_2graphics__context__ogl_8cpp.html',1,'(Global Namespace)'],['../windows_2graphics__context__ogl_8cpp.html',1,'(Global Namespace)']]],
   ['graphicscontext_56',['GraphicsContext',['../classjng_1_1_graphics_context.html#a103a0e0e444de0e4c328d0aceead9987',1,'jng::GraphicsContext::GraphicsContext()'],['../classjng_1_1_graphics_context.html',1,'jng::GraphicsContext']]],
   ['graveaccent_57',['GraveAccent',['../namespacejng_1_1_key.html#a0269c58629e35a8c750ac75273b75edb',1,'jng::Key']]],
-  ['guid_58',['GUID',['../classjng_1_1_g_u_i_d.html#ab3c11c288756660fc7efe57b5a4de36d',1,'jng::GUID::GUID(const GUID &amp;)=default'],['../classjng_1_1_g_u_i_d.html#a3969b966fe9c2a63e33175b6e433d6dd',1,'jng::GUID::GUID(uint64 guid)'],['../classjng_1_1_g_u_i_d.html#a913c153d1b07b083f36bf77abdfe717c',1,'jng::GUID::GUID()'],['../classjng_1_1_g_u_i_d.html',1,'jng::GUID']]],
-  ['guid_2ecpp_59',['GUID.cpp',['../_g_u_i_d_8cpp.html',1,'']]],
-  ['guid_2ehpp_60',['GUID.hpp',['../_g_u_i_d_8hpp.html',1,'']]]
+  ['gravityscale_58',['gravityScale',['../structjng_1_1_rigidbody2_d_component.html#a9f4288ff1c87f815dc918e13b82720a6',1,'jng::Rigidbody2DComponent']]],
+  ['guid_59',['GUID',['../classjng_1_1_g_u_i_d.html#ab3c11c288756660fc7efe57b5a4de36d',1,'jng::GUID::GUID(const GUID &amp;)=default'],['../classjng_1_1_g_u_i_d.html#a3969b966fe9c2a63e33175b6e433d6dd',1,'jng::GUID::GUID(uint64 guid)'],['../classjng_1_1_g_u_i_d.html#a913c153d1b07b083f36bf77abdfe717c',1,'jng::GUID::GUID()'],['../classjng_1_1_g_u_i_d.html',1,'jng::GUID']]],
+  ['guid_2ecpp_60',['GUID.cpp',['../_g_u_i_d_8cpp.html',1,'']]],
+  ['guid_2ehpp_61',['GUID.hpp',['../_g_u_i_d_8hpp.html',1,'']]]
 ];

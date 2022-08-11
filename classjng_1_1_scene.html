@@ -103,6 +103,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a83904914eaafe3f2084de65e6b3c071a"><td class="memTemplParams" colspan="2">template&lt;typename Func &gt; </td></tr>
 <tr class="memitem:a83904914eaafe3f2084de65e6b3c071a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classjng_1_1_scene.html#a83904914eaafe3f2084de65e6b3c071a">each</a> (Func func)</td></tr>
 <tr class="separator:a83904914eaafe3f2084de65e6b3c071a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fad44435a4e693d99f92bd6bdc2c703"><td class="memTemplParams" colspan="2">template&lt;typename Component , typename Func &gt; </td></tr>
+<tr class="memitem:a2fad44435a4e693d99f92bd6bdc2c703"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classjng_1_1_scene.html#a2fad44435a4e693d99f92bd6bdc2c703">sort</a> (Func func)</td></tr>
+<tr class="separator:a2fad44435a4e693d99f92bd6bdc2c703"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12ddaad7e03b572354f3d02fe4f73ac2"><td class="memTemplParams" colspan="2">template&lt;typename Component , typename Func &gt; </td></tr>
+<tr class="memitem:a12ddaad7e03b572354f3d02fe4f73ac2"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classjng_1_1_scene.html#a12ddaad7e03b572354f3d02fe4f73ac2">each</a> (Func func)</td></tr>
+<tr class="separator:a12ddaad7e03b572354f3d02fe4f73ac2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a291f2d7a2a0aba65e24b7a6bdfe9e5f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_scene.html#a291f2d7a2a0aba65e24b7a6bdfe9e5f7">setViewportSize</a> (float width, float height)</td></tr>
 <tr class="separator:a291f2d7a2a0aba65e24b7a6bdfe9e5f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -273,12 +279,32 @@ Friends</h2></td></tr>
 </div>
 </div>
 <a id="a83904914eaafe3f2084de65e6b3c071a" name="a83904914eaafe3f2084de65e6b3c071a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a83904914eaafe3f2084de65e6b3c071a">&#9670;&nbsp;</a></span>each()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a83904914eaafe3f2084de65e6b3c071a">&#9670;&nbsp;</a></span>each() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename Func &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void jng::Scene::each </td>
+          <td>(</td>
+          <td class="paramtype">Func&#160;</td>
+          <td class="paramname"><em>func</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a12ddaad7e03b572354f3d02fe4f73ac2" name="a12ddaad7e03b572354f3d02fe4f73ac2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12ddaad7e03b572354f3d02fe4f73ac2">&#9670;&nbsp;</a></span>each() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Component , typename Func &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">void jng::Scene::each </td>
@@ -391,6 +417,26 @@ template&lt;typename Func &gt; </div>
 
 </div>
 </div>
+<a id="a2fad44435a4e693d99f92bd6bdc2c703" name="a2fad44435a4e693d99f92bd6bdc2c703"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fad44435a4e693d99f92bd6bdc2c703">&#9670;&nbsp;</a></span>sort()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Component , typename Func &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void jng::Scene::sort </td>
+          <td>(</td>
+          <td class="paramtype">Func&#160;</td>
+          <td class="paramname"><em>func</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
 <a id="aeaa38e94b5b3b9ba2c53b5f6a6d70741" name="aeaa38e94b5b3b9ba2c53b5f6a6d70741"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeaa38e94b5b3b9ba2c53b5f6a6d70741">&#9670;&nbsp;</a></span>EditorLayer</h2>
@@ -465,7 +511,7 @@ template&lt;typename Func &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 11 2022 15:10:24 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Aug 11 2022 20:29:17 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

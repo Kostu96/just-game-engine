@@ -36,7 +36,7 @@ var searchData=
   ['getstatistics_33',['getStatistics',['../namespacejng_1_1_renderer2_d.html#a67eccd041164c7d7d087d9a54cda8bf7',1,'jng::Renderer2D']]],
   ['getstride_34',['getStride',['../classjng_1_1_vertex_layout.html#aa7ff65453232e73fbe85766c1c69c25a',1,'jng::VertexLayout']]],
   ['gettag_35',['getTag',['../classjng_1_1_entity.html#a599189322f02e22d002d919d127f5cdf',1,'jng::Entity']]],
-  ['gettransform_36',['getTransform',['../structjng_1_1_transform.html#a26608dbe7f00467821781492ea3aa84e',1,'jng::Transform']]],
+  ['gettransform_36',['getTransform',['../structjng_1_1_transform_component.html#aeafc6db73dfac1a0141422d75579223a',1,'jng::TransformComponent']]],
   ['gettype_37',['getType',['../classjng_1_1_event.html#aa7b32dcd46ce5e6d68299c70a7762bf6',1,'jng::Event']]],
   ['getvertexbuffer_38',['getVertexBuffer',['../classjng_1_1_vertex_array.html#a319d74d18b3e48b002896b4bd3b7e527',1,'jng::VertexArray']]],
   ['getvp_39',['getVP',['../classjng_1_1_camera.html#a42d7255062f821bf7789c110da7a8fdc',1,'jng::Camera']]],

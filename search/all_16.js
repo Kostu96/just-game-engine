@@ -2,9 +2,9 @@ var searchData=
 [
   ['w_0',['W',['../namespacejng_1_1_key.html#accf11f5cc18d03c0ae3e381143366a1a',1,'jng::Key']]],
   ['whitetexture_1',['whiteTexture',['../structjng_1_1_renderer2_d_1_1_render_data.html#a09aaffd42f08f6330fc78b805f590a42',1,'jng::Renderer2D::RenderData']]],
-  ['width_2',['width',['../structjng_1_1_window_1_1_window_data.html#a3737d6f1bfbd1f7b8dd4fa08c0d35fdf',1,'jng::Window::WindowData::width()'],['../structjng_1_1_framebuffer_1_1_properties.html#afc76f7c07f9c7d2f3313920cbf7382bc',1,'jng::Framebuffer::Properties::width()'],['../structjng_1_1_texture_1_1_properties.html#ad0347ec1c06e4542a4e8fd2437a0014b',1,'jng::Texture::Properties::width()']]],
+  ['width_2',['width',['../structjng_1_1_window_1_1_window_data.html#a3737d6f1bfbd1f7b8dd4fa08c0d35fdf',1,'jng::Window::WindowData::width()'],['../structjng_1_1_texture_1_1_properties.html#ad0347ec1c06e4542a4e8fd2437a0014b',1,'jng::Texture::Properties::width()'],['../structjng_1_1_framebuffer_1_1_properties.html#afc76f7c07f9c7d2f3313920cbf7382bc',1,'jng::Framebuffer::Properties::width()']]],
   ['win32_5flean_5fand_5fmean_3',['WIN32_LEAN_AND_MEAN',['../windows__base_8hpp.html#ac7bef5d85e3dcd73eef56ad39ffc84a9',1,'windows_base.hpp']]],
-  ['window_4',['Window',['../classjng_1_1_window.html',1,'jng::Window'],['../classjng_1_1_window.html#a715a116d9d155e27be84792f56b0a1e8',1,'jng::Window::Window()'],['../classjng_1_1_graphics_context.html#a553f958a25683445088050a69d3de8e9',1,'jng::GraphicsContext::Window()']]],
+  ['window_4',['Window',['../classjng_1_1_window.html',1,'jng::Window'],['../classjng_1_1_graphics_context.html#a553f958a25683445088050a69d3de8e9',1,'jng::GraphicsContext::Window()'],['../classjng_1_1_window.html#a715a116d9d155e27be84792f56b0a1e8',1,'jng::Window::Window()']]],
   ['window_2ecpp_5',['window.cpp',['../window_8cpp.html',1,'']]],
   ['window_2ehpp_6',['window.hpp',['../window_8hpp.html',1,'']]],
   ['window_5fevents_2ehpp_7',['window_events.hpp',['../window__events_8hpp.html',1,'']]],
@@ -22,8 +22,7 @@ var searchData=
   ['windowwidth_19',['windowWidth',['../structjng_1_1_engine_1_1_properties.html#a8f54e99c8c17cb20a9fd1b0aa597b089',1,'jng::Engine::Properties']]],
   ['world1_20',['World1',['../namespacejng_1_1_key.html#a9c8cc63233d7cd35bab1bf1bc487bbc4',1,'jng::Key']]],
   ['world2_21',['World2',['../namespacejng_1_1_key.html#a931636262c145b1d0a83bd29c8c1cff6',1,'jng::Key']]],
-  ['worldtransformcomponent_22',['WorldTransformComponent',['../namespacejng.html#acc163bb3c783d978fbe1e1fc5b620746',1,'jng']]],
-  ['wrap_23',['Wrap',['../namespacejng.html#a1c1fba89f020b2dcb95b946e4750b150aa212b19ef5f2fb30acf92e6cbccc1f2d',1,'jng']]],
-  ['wrapmode_24',['wrapMode',['../structjng_1_1_texture_specification.html#a16d7cf669f6baf59ba7e1bc738a0745c',1,'jng::TextureSpecification']]],
-  ['writefile_25',['writeFile',['../namespacejng.html#a9bf8b78c6cdb14fabee3b78db5c096ad',1,'jng']]]
+  ['wrap_22',['Wrap',['../namespacejng.html#a1c1fba89f020b2dcb95b946e4750b150aa212b19ef5f2fb30acf92e6cbccc1f2d',1,'jng']]],
+  ['wrapmode_23',['wrapMode',['../structjng_1_1_texture_specification.html#a16d7cf669f6baf59ba7e1bc738a0745c',1,'jng::TextureSpecification']]],
+  ['writefile_24',['writeFile',['../namespacejng.html#a9bf8b78c6cdb14fabee3b78db5c096ad',1,'jng']]]
 ];
