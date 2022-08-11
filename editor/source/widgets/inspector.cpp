@@ -189,21 +189,22 @@ namespace jng {
 
                 updateComponent<BoxCollider2DComponent>("Box Collider 2D", m_context.SelectedEntity,
                     [](BoxCollider2DComponent& bcc) {
-                        ImGui::DragFloat2("Size", glm::value_ptr(bcc.Size));
-                        ImGui::DragFloat("Density", &bcc.Density);
-                        ImGui::DragFloat("Friction", &bcc.Friction, 0.05f, 0.f, 1.f);
-                        ImGui::DragFloat("Restitution", &bcc.Restitution, 0.05f, 0.f, 1.f);
-                        ImGui::DragFloat("RestitutionThreshold", &bcc.RestitutionThreshold, 0.1f, 0.f);
+                        ImGui::DragFloat2("Size", glm::value_ptr(bcc.size));
+                        ImGui::DragFloat2("Offset", glm::value_ptr(bcc.offset));
+                        ImGui::DragFloat("Density", &bcc.density);
+                        ImGui::DragFloat("Friction", &bcc.friction, 0.05f, 0.f, 1.f);
+                        ImGui::DragFloat("Restitution", &bcc.restitution, 0.05f, 0.f, 1.f);
+                        ImGui::DragFloat("RestitutionThreshold", &bcc.restitutionThreshold, 0.1f, 0.f);
                     });
 
                 updateComponent<CircleCollider2DComponent>("Circle Collider 2D", m_context.SelectedEntity,
                     [](CircleCollider2DComponent& ccc) {
                         ImGui::DragFloat("Radius", &ccc.radius);
                         ImGui::DragFloat2("Offset", glm::value_ptr(ccc.offset));
-                        ImGui::DragFloat("Density", &ccc.Density);
-                        ImGui::DragFloat("Friction", &ccc.Friction, 0.05f, 0.f, 1.f);
-                        ImGui::DragFloat("Restitution", &ccc.Restitution, 0.05f, 0.f, 1.f);
-                        ImGui::DragFloat("RestitutionThreshold", &ccc.RestitutionThreshold, 0.1f, 0.f);
+                        ImGui::DragFloat("Density", &ccc.density);
+                        ImGui::DragFloat("Friction", &ccc.friction, 0.05f, 0.f, 1.f);
+                        ImGui::DragFloat("Restitution", &ccc.restitution, 0.05f, 0.f, 1.f);
+                        ImGui::DragFloat("RestitutionThreshold", &ccc.restitutionThreshold, 0.1f, 0.f);
                     });
 
                 updateComponent<Rigidbody2DComponent>("Rigidbody 2D", m_context.SelectedEntity,

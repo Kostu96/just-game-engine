@@ -129,15 +129,15 @@ namespace jng {
                     auto& bcc = jngEntity.getComponent<BoxCollider2DComponent>();
 
                     b2PolygonShape shape{};
-                    shape.SetAsBox(bcc.Size.x * tc.Scale.x, bcc.Size.y * tc.Scale.y);
+                    shape.SetAsBox(bcc.size.x * tc.Scale.x, bcc.size.y * tc.Scale.y, { bcc.offset.x, bcc.offset.y }, 0.f);
 
                     b2FixtureDef fixtureDef{};
                     fixtureDef.shape = &shape;
-                    fixtureDef.density = bcc.Density;
-                    fixtureDef.friction = bcc.Friction;
-                    fixtureDef.restitution = bcc.Restitution;
-                    fixtureDef.restitutionThreshold = bcc.RestitutionThreshold;
-                    bcc.FixtureHandle = rbc.bodyHandle->CreateFixture(&fixtureDef);
+                    fixtureDef.density = bcc.density;
+                    fixtureDef.friction = bcc.friction;
+                    fixtureDef.restitution = bcc.restitution;
+                    fixtureDef.restitutionThreshold = bcc.restitutionThreshold;
+                    bcc.fixtureHandle = rbc.bodyHandle->CreateFixture(&fixtureDef);
                 }
 
                 if (jngEntity.hasComponent<CircleCollider2DComponent>())
@@ -150,11 +150,11 @@ namespace jng {
 
                     b2FixtureDef fixtureDef{};
                     fixtureDef.shape = &shape;
-                    fixtureDef.density = ccc.Density;
-                    fixtureDef.friction = ccc.Friction;
-                    fixtureDef.restitution = ccc.Restitution;
-                    fixtureDef.restitutionThreshold = ccc.RestitutionThreshold;
-                    ccc.FixtureHandle = rbc.bodyHandle->CreateFixture(&fixtureDef);
+                    fixtureDef.density = ccc.density;
+                    fixtureDef.friction = ccc.friction;
+                    fixtureDef.restitution = ccc.restitution;
+                    fixtureDef.restitutionThreshold = ccc.restitutionThreshold;
+                    ccc.fixtureHandle = rbc.bodyHandle->CreateFixture(&fixtureDef);
                 }
             }
         }

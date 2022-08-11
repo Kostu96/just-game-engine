@@ -205,11 +205,12 @@ namespace jng {
                 if (boxCollider2DComponent)
                 {
                     auto& comp = deserializedEntity.addComponent<BoxCollider2DComponent>();
-                    comp.Size = boxCollider2DComponent["Size"].as<glm::vec2>();
-                    comp.Density = boxCollider2DComponent["Density"].as<float>();
-                    comp.Friction = boxCollider2DComponent["Friction"].as<float>();
-                    comp.Restitution = boxCollider2DComponent["Restitution"].as<float>();
-                    comp.RestitutionThreshold = boxCollider2DComponent["RestitutionThreshold"].as<float>();
+                    comp.size = boxCollider2DComponent["Size"].as<glm::vec2>();
+                    comp.offset = boxCollider2DComponent["Offset"].as<glm::vec2>();
+                    comp.density = boxCollider2DComponent["Density"].as<float>();
+                    comp.friction = boxCollider2DComponent["Friction"].as<float>();
+                    comp.restitution = boxCollider2DComponent["Restitution"].as<float>();
+                    comp.restitutionThreshold = boxCollider2DComponent["RestitutionThreshold"].as<float>();
                 }
 #pragma endregion
 
@@ -220,10 +221,10 @@ namespace jng {
                     auto& comp = deserializedEntity.addComponent<CircleCollider2DComponent>();
                     comp.radius = circleCollider2DComponent["Radius"].as<float>();
                     comp.offset = circleCollider2DComponent["Offset"].as<glm::vec2>();
-                    comp.Density = circleCollider2DComponent["Density"].as<float>();
-                    comp.Friction = circleCollider2DComponent["Friction"].as<float>();
-                    comp.Restitution = circleCollider2DComponent["Restitution"].as<float>();
-                    comp.RestitutionThreshold = circleCollider2DComponent["RestitutionThreshold"].as<float>();
+                    comp.density = circleCollider2DComponent["Density"].as<float>();
+                    comp.friction = circleCollider2DComponent["Friction"].as<float>();
+                    comp.restitution = circleCollider2DComponent["Restitution"].as<float>();
+                    comp.restitutionThreshold = circleCollider2DComponent["RestitutionThreshold"].as<float>();
                 }
 #pragma endregion
 
@@ -359,11 +360,12 @@ namespace jng {
             yaml << YAML::BeginMap;
             auto& comp = entity.getComponent<BoxCollider2DComponent>();
 
-            yaml << YAML::Key << "Size" << YAML::Value << comp.Size;
-            yaml << YAML::Key << "Density" << YAML::Value << comp.Density;
-            yaml << YAML::Key << "Friction" << YAML::Value << comp.Friction;
-            yaml << YAML::Key << "Restitution" << YAML::Value << comp.Restitution;
-            yaml << YAML::Key << "RestitutionThreshold" << YAML::Value << comp.RestitutionThreshold;
+            yaml << YAML::Key << "Size" << YAML::Value << comp.size;
+            yaml << YAML::Key << "Offset" << YAML::Value << comp.offset;
+            yaml << YAML::Key << "Density" << YAML::Value << comp.density;
+            yaml << YAML::Key << "Friction" << YAML::Value << comp.friction;
+            yaml << YAML::Key << "Restitution" << YAML::Value << comp.restitution;
+            yaml << YAML::Key << "RestitutionThreshold" << YAML::Value << comp.restitutionThreshold;
 
             yaml << YAML::EndMap;
         }
@@ -378,10 +380,10 @@ namespace jng {
 
             yaml << YAML::Key << "Radius" << YAML::Value << comp.radius;
             yaml << YAML::Key << "Offset" << YAML::Value << comp.offset;
-            yaml << YAML::Key << "Density" << YAML::Value << comp.Density;
-            yaml << YAML::Key << "Friction" << YAML::Value << comp.Friction;
-            yaml << YAML::Key << "Restitution" << YAML::Value << comp.Restitution;
-            yaml << YAML::Key << "RestitutionThreshold" << YAML::Value << comp.RestitutionThreshold;
+            yaml << YAML::Key << "Density" << YAML::Value << comp.density;
+            yaml << YAML::Key << "Friction" << YAML::Value << comp.friction;
+            yaml << YAML::Key << "Restitution" << YAML::Value << comp.restitution;
+            yaml << YAML::Key << "RestitutionThreshold" << YAML::Value << comp.restitutionThreshold;
 
             yaml << YAML::EndMap;
         }
