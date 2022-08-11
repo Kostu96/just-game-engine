@@ -7,9 +7,6 @@
 #pragma once
 #include "jng/core/base.hpp"
 
-#include <glm/glm.hpp>
-#include <string_view>
-
 namespace jng {
 
     class Shader final

@@ -7,9 +7,6 @@
 #pragma once
 #include "jng/core/base.hpp"
 
-#include <string>
-#include <vector>
-
 namespace jng {
 
     class IndexBuffer;

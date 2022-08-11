@@ -8,7 +8,6 @@
 #include "jng/core/engine.hpp"
 #include "jng/debug/log.hpp"
 #include "jng/debug/profiling.hpp"
-#include "jng/renderer/renderer_api.hpp"
 
 extern jng::Engine* createApp();
 

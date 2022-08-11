@@ -71,3 +71,16 @@ if (WIN32)
 endif()
 
 target_link_libraries(${JNG_TARGET_NAME} PUBLIC ${JNG_ENGINE_THIRD_PARTY_LIBRARIES})
+
+target_precompile_headers(${JNG_TARGET_NAME} PUBLIC
+    <glm/glm.hpp>
+    <array>
+    <cstdint>
+    <filesystem>
+    <fstream>
+    <map>
+    <memory>
+    <string>
+    <unordered_map>
+    <vector>
+)

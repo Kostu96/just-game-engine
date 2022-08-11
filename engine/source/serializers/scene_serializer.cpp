@@ -10,7 +10,6 @@
 #include "scene/entity.hpp"
 
 #include <yaml-cpp/yaml.h>
-#include <fstream>
 
 namespace YAML {
 

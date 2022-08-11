@@ -10,7 +10,6 @@
 #include "utilities/file.hpp"
 
 #include <glad/gl.h>
-#include <vector>
 
 namespace jng {
 

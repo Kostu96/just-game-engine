@@ -7,11 +7,8 @@
 #pragma once
 #include "jng/core/base.hpp"
 
-#include <glm/glm.hpp>
-
 namespace jng {
 
-    // TODO: decide if move to scene folder
     class Camera
     {
     public:

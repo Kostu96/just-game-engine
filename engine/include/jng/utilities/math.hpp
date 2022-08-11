@@ -5,7 +5,6 @@
  */
 
 #pragma once
-#include <glm/glm.hpp>
 
 namespace jng::math {
 

@@ -12,8 +12,6 @@
 
 #include <lua/lua.hpp>
 
-#include <unordered_map>
-
 namespace jng::LuaEngine {
 
     struct LuaEngineData
