@@ -78,14 +78,12 @@ namespace jng {
             std::chrono::duration<double, std::nano> dt = time - m_lastFrameTime;
             m_lastFrameTime = time;
 
-            if (!m_window->isMinimized())
-                for (auto layer : m_layerStack)
-                    layer->onUpdate(static_cast<float>(dt.count() * NANO_TO_BASE_MULTIPLIER));
+            for (auto layer : m_layerStack)
+                layer->onUpdate(static_cast<float>(dt.count() * NANO_TO_BASE_MULTIPLIER));
 
             ImGuiLayer::newFrame();
-            if (!m_window->isMinimized())
-                for (auto layer : m_layerStack)
-                    layer->onImGuiUpdate();
+            for (auto layer : m_layerStack)
+                layer->onImGuiUpdate();
             ImGuiLayer::render();
             
             m_window->onUpdate();
