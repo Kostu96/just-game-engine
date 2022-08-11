@@ -38,11 +38,8 @@ namespace jng {
     void init();
     void shutdown();
 
-    //lua_State* getLuaState();
-
     std::string registerScript(const std::filesystem::path& path);
     ScriptData getScriptData(const std::string& name);
-    //void registerScriptInstance(const std::string& name, Entity entity);
 
     void onCreate(Entity entity, LuaScriptComponent& lsc);
     void onUpdate(Entity entity, LuaScriptComponent& lsc, float dt);

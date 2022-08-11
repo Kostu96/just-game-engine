@@ -110,6 +110,10 @@ namespace jng::LuaEngine {
 
         loadJNGDefinitions();
         JNG_CORE_ASSERT(lua_gettop(s_data.L) == 0, "Lua stack should be empty!");
+
+        lua_newtable(s_data.L);
+        lua_setglobal(s_data.L, "_scriptInstances_");
+        JNG_CORE_ASSERT(lua_gettop(s_data.L) == 0, "Lua stack should be empty!");
     }
 
     void shutdown()
@@ -182,7 +186,10 @@ namespace jng::LuaEngine {
         JNG_CORE_ASSERT(s_data.scripts.find(lsc.name) != s_data.scripts.end(), "Script is not registered!");
         JNG_CORE_ASSERT(lua_gettop(s_data.L) == 0, "Lua stack should be empty!");
 
-        lua_newtable(s_data.L);
+        std::string instanceName = lsc.name + std::to_string(entity.getGUID());
+        JNG_CORE_TRACE("Registering script instance: {}", instanceName);
+
+        lua_getglobal(s_data.L, "_scriptInstances_");
 
         lua_getglobal(s_data.L, lsc.name.c_str());
         lua_newtable(s_data.L);
@@ -195,16 +202,6 @@ namespace jng::LuaEngine {
         lua_setfield(s_data.L, -2, "_entityHandle_");
         lua_pushlightuserdata(s_data.L, entity.getScene());
         lua_setfield(s_data.L, -2, "_sceneHandle_");
-
-        std::string instanceName = lsc.name + std::to_string(entity.getGUID());
-        lua_setfield(s_data.L, -2, instanceName.c_str());
-
-        lua_setglobal(s_data.L, "_scriptInstances_");
-
-        JNG_CORE_ASSERT(lua_gettop(s_data.L) == 0, "Lua stack should be empty!");
-
-        lua_getglobal(s_data.L, "_scriptInstances_");
-        lua_getfield(s_data.L, -1, instanceName.c_str());
 
         for (auto& prop : lsc.data.properties)
         {
@@ -223,6 +220,9 @@ namespace jng::LuaEngine {
             }
         }
 
+        lua_setfield(s_data.L, -2, instanceName.c_str());
+
+        lua_getfield(s_data.L, -1, instanceName.c_str());
         if (lsc.data.hasOnCreate)
         {
             lua_getfield(s_data.L, -1, "onCreate");
