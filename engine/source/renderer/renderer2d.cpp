@@ -105,12 +105,7 @@ namespace jng::Renderer2D {
         for (uint32 i = 0; i < s_data.textureSlotIndex; ++i)
             s_data.textureSlots[i]->bind(i);
 
-        // TODO: check if ptrdiff_t will be the same here
-        size_t dataSize = static_cast<size_t>(
-            reinterpret_cast<uint8*>(s_data.quadVBOPtr) -
-            reinterpret_cast<uint8*>(s_data.quadVBOBase)
-            );
-
+        size_t dataSize = (uintptr_t)s_data.quadVBOPtr - (uintptr_t)s_data.quadVBOBase;
         if (dataSize > 0)
         {
             s_data.quadVBO->setData(s_data.quadVBOBase, dataSize);
@@ -131,12 +126,7 @@ namespace jng::Renderer2D {
 
     static void endCircleBatch()
     {
-        // TODO: check if ptrdiff_t will be the same here
-        size_t dataSize = static_cast<size_t>(
-            reinterpret_cast<uint8*>(s_data.circleVBOPtr) -
-            reinterpret_cast<uint8*>(s_data.circleVBOBase)
-            );
-
+        size_t dataSize = (uintptr_t)s_data.circleVBOPtr - (uintptr_t)s_data.circleVBOBase;
         if (dataSize > 0)
         {
             s_data.circleVBO->setData(s_data.circleVBOBase, dataSize);
@@ -157,12 +147,7 @@ namespace jng::Renderer2D {
 
     static void endLineBatch()
     {
-        // TODO: check if ptrdiff_t will be the same here
-        size_t dataSize = static_cast<size_t>(
-            reinterpret_cast<uint8*>(s_data.lineVBOPtr) -
-            reinterpret_cast<uint8*>(s_data.lineVBOBase)
-            );
-
+        size_t dataSize = (uintptr_t)s_data.lineVBOPtr - (uintptr_t)s_data.lineVBOBase;
         if (dataSize > 0)
         {
             s_data.lineVBO->setData(s_data.lineVBOBase, dataSize);
