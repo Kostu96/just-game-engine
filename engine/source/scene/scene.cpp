@@ -120,6 +120,7 @@ namespace jng {
                 bodyDef.fixedRotation = rbc.freezeRotation;
                 bodyDef.linearDamping = rbc.linearDamping;
                 bodyDef.angularDamping = rbc.angularDamping;
+                bodyDef.gravityScale = rbc.gravityScale;
                 rbc.bodyHandle = m_physics2dWorld->CreateBody(&bodyDef);
 
                 Entity jngEntity{ entity, *this };

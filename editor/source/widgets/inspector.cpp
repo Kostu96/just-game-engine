@@ -204,7 +204,7 @@ namespace jng {
                         ImGui::DragFloat("Density", &ccc.density);
                         ImGui::DragFloat("Friction", &ccc.friction, 0.05f, 0.f, 1.f);
                         ImGui::DragFloat("Restitution", &ccc.restitution, 0.05f, 0.f, 1.f);
-                        ImGui::DragFloat("RestitutionThreshold", &ccc.restitutionThreshold, 0.1f, 0.f);
+                        ImGui::DragFloat("RestitutionThreshold", &ccc.restitutionThreshold, 0.1f, 0.01f);
                     });
 
                 updateComponent<Rigidbody2DComponent>("Rigidbody 2D", m_context.SelectedEntity,
@@ -227,13 +227,10 @@ namespace jng {
                         }
 
                         ImGui::Checkbox("Enabled", &rbc.enabled);
-
-                        if (rbc.type != Rigidbody2DComponent::BodyType::Static)
-                        {
-                            ImGui::Checkbox("Freeze Rotation", &rbc.freezeRotation);
-                            ImGui::DragFloat("Linear Damping", &rbc.linearDamping, 0.01f, 0.f, 1.f);
-                            ImGui::DragFloat("Angular Damping", &rbc.angularDamping, 0.01f, 0.f, 1.f);
-                        }
+                        ImGui::Checkbox("Freeze Rotation", &rbc.freezeRotation);
+                        ImGui::DragFloat("Linear Damping", &rbc.linearDamping, 0.01f, 0.f, 1.f);
+                        ImGui::DragFloat("Angular Damping", &rbc.angularDamping, 0.01f, 0.f, 1.f);
+                        ImGui::DragFloat("Gravity Scale", &rbc.gravityScale, 0.01f, 0.f);
                     });
 
                 updateComponent<LuaScriptComponent>("Lua Script", m_context.SelectedEntity,

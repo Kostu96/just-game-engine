@@ -237,6 +237,7 @@ namespace jng {
                     comp.freezeRotation = rigidbody2DComponent["FreezeRotation"].as<bool>();
                     comp.linearDamping = rigidbody2DComponent["LinearDamping"].as<float>();
                     comp.angularDamping = rigidbody2DComponent["AngularDamping"].as<float>();
+                    comp.gravityScale = rigidbody2DComponent["GravityScale"].as<float>();
                 }
 #pragma endregion
             
@@ -400,6 +401,7 @@ namespace jng {
             yaml << YAML::Key << "FreezeRotation" << YAML::Value << comp.freezeRotation;
             yaml << YAML::Key << "LinearDamping" << YAML::Value << comp.linearDamping;
             yaml << YAML::Key << "AngularDamping" << YAML::Value << comp.angularDamping;
+            yaml << YAML::Key << "GravityScale" << YAML::Value << comp.gravityScale;
 
             yaml << YAML::EndMap;
         }

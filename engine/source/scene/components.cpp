@@ -56,6 +56,7 @@ namespace jng {
         freezeRotation = false;
         linearDamping = 0.1f;
         angularDamping = 0.1f;
+        gravityScale = 1.f;
     }
 
     void Rigidbody2DComponent::setLinearVelocity(glm::vec2 velocity)

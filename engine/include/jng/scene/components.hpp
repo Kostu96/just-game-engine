@@ -166,6 +166,7 @@ namespace jng {
         bool freezeRotation = false;
         float linearDamping = 0.1f;
         float angularDamping = 0.1f;
+        float gravityScale = 1.f;
 
         b2Body* bodyHandle = nullptr; // NOTE: used in runtime only
 
