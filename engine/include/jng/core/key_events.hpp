@@ -17,7 +17,7 @@ namespace jng {
         Key::Code getKeyCode() const { return m_keyCode; }
     protected:
         explicit KeyEvent(Key::Code keyCode) :
-            m_keyCode(keyCode) {}
+            m_keyCode{ keyCode } {}
 
         Key::Code m_keyCode;
     };
@@ -26,15 +26,15 @@ namespace jng {
         public KeyEvent
     {
     public:
-        KeyPressEvent(Key::Code keyCode, unsigned int repeatCount) :
-            KeyEvent(keyCode),
-            m_repeatCount(repeatCount) {}
+        KeyPressEvent(Key::Code keyCode, bool isRepeat) :
+            KeyEvent{ keyCode },
+            m_isRepeat{ isRepeat } {}
 
-        unsigned int getRepeatCount() const { return m_repeatCount; }
+        bool isRepeat() const { return m_isRepeat; }
 
         EVENT_CLASS_TYPE(KeyPress)
     private:
-        unsigned int m_repeatCount;
+        bool m_isRepeat;
     };
 
     class KeyReleaseEvent :
@@ -42,7 +42,7 @@ namespace jng {
     {
     public:
         explicit KeyReleaseEvent(Key::Code keyCode) :
-            KeyEvent(keyCode) {}
+            KeyEvent{ keyCode } {}
     
         EVENT_CLASS_TYPE(KeyRelease)
     };
