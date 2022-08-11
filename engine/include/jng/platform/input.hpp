@@ -9,8 +9,6 @@
 #include "jng/platform/key_codes.hpp"
 #include "jng/platform/mouse_codes.hpp"
 
-#include <glm/glm.hpp>
-
 namespace jng {
 
     class Input

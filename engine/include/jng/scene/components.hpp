@@ -14,8 +14,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/quaternion.hpp>
-#include <string>
-#include <type_traits>
 
 class b2Body;
 class b2Fixture;
@@ -127,13 +125,14 @@ namespace jng {
         BoxCollider2DComponent() = default;
         BoxCollider2DComponent(const BoxCollider2DComponent&) = default;
 
-        glm::vec2 Size{ 0.5f, 0.5f };
-        float Density = 1.f;
-        float Friction = 0.5f;
-        float Restitution = 0.0f;
-        float RestitutionThreshold = 0.5f;
+        glm::vec2 size{ 0.5f, 0.5f };
+        glm::vec2 offset{ 0.f, 0.f };
+        float density = 1.f;
+        float friction = 0.5f;
+        float restitution = 0.0f;
+        float restitutionThreshold = 0.5f;
 
-        b2Fixture* FixtureHandle = nullptr; // NOTE: used in runtime only
+        b2Fixture* fixtureHandle = nullptr; // NOTE: used in runtime only
 
         void reset();
     };
@@ -145,12 +144,12 @@ namespace jng {
 
         float radius = 0.5f;
         glm::vec2 offset{ 0.f, 0.f };
-        float Density = 1.f;
-        float Friction = 0.5f;
-        float Restitution = 0.0f;
-        float RestitutionThreshold = 0.5f;
+        float density = 1.f;
+        float friction = 0.5f;
+        float restitution = 0.0f;
+        float restitutionThreshold = 0.5f;
 
-        b2Fixture* FixtureHandle = nullptr; // NOTE: used in runtime only
+        b2Fixture* fixtureHandle = nullptr; // NOTE: used in runtime only
 
         void reset();
     };
@@ -162,12 +161,13 @@ namespace jng {
 
         enum class BodyType { Static = 0, Kinematic = 1, Dynamic = 2 };
 
-        BodyType Type = BodyType::Static;
+        BodyType type = BodyType::Static;
+        bool enabled = true;
         bool freezeRotation = false;
         float linearDamping = 0.1f;
         float angularDamping = 0.1f;
 
-        b2Body* BodyHandle = nullptr; // NOTE: used in runtime only
+        b2Body* bodyHandle = nullptr; // NOTE: used in runtime only
 
         void reset();
         void setLinearVelocity(glm::vec2 velocity);

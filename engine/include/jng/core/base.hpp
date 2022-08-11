@@ -5,9 +5,6 @@
  */
 
 #pragma once
-#include <cstdint>
-#include <filesystem>
-#include <memory>
 
 #define JNG_BIND_EVENT_FUNC(func) [this](auto&& ...args) -> decltype(auto) { return this->func(std::forward<decltype(args)>(args)...); }
 

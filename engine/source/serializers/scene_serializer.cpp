@@ -10,7 +10,6 @@
 #include "scene/entity.hpp"
 
 #include <yaml-cpp/yaml.h>
-#include <fstream>
 
 namespace YAML {
 
@@ -205,11 +204,12 @@ namespace jng {
                 if (boxCollider2DComponent)
                 {
                     auto& comp = deserializedEntity.addComponent<BoxCollider2DComponent>();
-                    comp.Size = boxCollider2DComponent["Size"].as<glm::vec2>();
-                    comp.Density = boxCollider2DComponent["Density"].as<float>();
-                    comp.Friction = boxCollider2DComponent["Friction"].as<float>();
-                    comp.Restitution = boxCollider2DComponent["Restitution"].as<float>();
-                    comp.RestitutionThreshold = boxCollider2DComponent["RestitutionThreshold"].as<float>();
+                    comp.size = boxCollider2DComponent["Size"].as<glm::vec2>();
+                    comp.offset = boxCollider2DComponent["Offset"].as<glm::vec2>();
+                    comp.density = boxCollider2DComponent["Density"].as<float>();
+                    comp.friction = boxCollider2DComponent["Friction"].as<float>();
+                    comp.restitution = boxCollider2DComponent["Restitution"].as<float>();
+                    comp.restitutionThreshold = boxCollider2DComponent["RestitutionThreshold"].as<float>();
                 }
 #pragma endregion
 
@@ -220,10 +220,10 @@ namespace jng {
                     auto& comp = deserializedEntity.addComponent<CircleCollider2DComponent>();
                     comp.radius = circleCollider2DComponent["Radius"].as<float>();
                     comp.offset = circleCollider2DComponent["Offset"].as<glm::vec2>();
-                    comp.Density = circleCollider2DComponent["Density"].as<float>();
-                    comp.Friction = circleCollider2DComponent["Friction"].as<float>();
-                    comp.Restitution = circleCollider2DComponent["Restitution"].as<float>();
-                    comp.RestitutionThreshold = circleCollider2DComponent["RestitutionThreshold"].as<float>();
+                    comp.density = circleCollider2DComponent["Density"].as<float>();
+                    comp.friction = circleCollider2DComponent["Friction"].as<float>();
+                    comp.restitution = circleCollider2DComponent["Restitution"].as<float>();
+                    comp.restitutionThreshold = circleCollider2DComponent["RestitutionThreshold"].as<float>();
                 }
 #pragma endregion
 
@@ -232,7 +232,8 @@ namespace jng {
                 if (rigidbody2DComponent)
                 {
                     auto& comp = deserializedEntity.addComponent<Rigidbody2DComponent>();
-                    comp.Type = static_cast<Rigidbody2DComponent::BodyType>(rigidbody2DComponent["BodyType"].as<int>());
+                    comp.type = static_cast<Rigidbody2DComponent::BodyType>(rigidbody2DComponent["BodyType"].as<int>());
+                    comp.enabled = rigidbody2DComponent["Enabled"].as<bool>();
                     comp.freezeRotation = rigidbody2DComponent["FreezeRotation"].as<bool>();
                     comp.linearDamping = rigidbody2DComponent["LinearDamping"].as<float>();
                     comp.angularDamping = rigidbody2DComponent["AngularDamping"].as<float>();
@@ -358,11 +359,12 @@ namespace jng {
             yaml << YAML::BeginMap;
             auto& comp = entity.getComponent<BoxCollider2DComponent>();
 
-            yaml << YAML::Key << "Size" << YAML::Value << comp.Size;
-            yaml << YAML::Key << "Density" << YAML::Value << comp.Density;
-            yaml << YAML::Key << "Friction" << YAML::Value << comp.Friction;
-            yaml << YAML::Key << "Restitution" << YAML::Value << comp.Restitution;
-            yaml << YAML::Key << "RestitutionThreshold" << YAML::Value << comp.RestitutionThreshold;
+            yaml << YAML::Key << "Size" << YAML::Value << comp.size;
+            yaml << YAML::Key << "Offset" << YAML::Value << comp.offset;
+            yaml << YAML::Key << "Density" << YAML::Value << comp.density;
+            yaml << YAML::Key << "Friction" << YAML::Value << comp.friction;
+            yaml << YAML::Key << "Restitution" << YAML::Value << comp.restitution;
+            yaml << YAML::Key << "RestitutionThreshold" << YAML::Value << comp.restitutionThreshold;
 
             yaml << YAML::EndMap;
         }
@@ -377,10 +379,10 @@ namespace jng {
 
             yaml << YAML::Key << "Radius" << YAML::Value << comp.radius;
             yaml << YAML::Key << "Offset" << YAML::Value << comp.offset;
-            yaml << YAML::Key << "Density" << YAML::Value << comp.Density;
-            yaml << YAML::Key << "Friction" << YAML::Value << comp.Friction;
-            yaml << YAML::Key << "Restitution" << YAML::Value << comp.Restitution;
-            yaml << YAML::Key << "RestitutionThreshold" << YAML::Value << comp.RestitutionThreshold;
+            yaml << YAML::Key << "Density" << YAML::Value << comp.density;
+            yaml << YAML::Key << "Friction" << YAML::Value << comp.friction;
+            yaml << YAML::Key << "Restitution" << YAML::Value << comp.restitution;
+            yaml << YAML::Key << "RestitutionThreshold" << YAML::Value << comp.restitutionThreshold;
 
             yaml << YAML::EndMap;
         }
@@ -393,7 +395,8 @@ namespace jng {
             yaml << YAML::BeginMap;
             auto& comp = entity.getComponent<Rigidbody2DComponent>();
 
-            yaml << YAML::Key << "BodyType" << YAML::Value << static_cast<uint32>(comp.Type);
+            yaml << YAML::Key << "BodyType" << YAML::Value << static_cast<uint32>(comp.type);
+            yaml << YAML::Key << "Enabled" << YAML::Value << comp.enabled;
             yaml << YAML::Key << "FreezeRotation" << YAML::Value << comp.freezeRotation;
             yaml << YAML::Key << "LinearDamping" << YAML::Value << comp.linearDamping;
             yaml << YAML::Key << "AngularDamping" << YAML::Value << comp.angularDamping;

@@ -7,8 +7,6 @@
 #pragma once
 #include "core/base.hpp"
 
-#include <array>
-
 namespace jng {
 
     class Window;

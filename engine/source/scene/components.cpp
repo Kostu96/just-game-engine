@@ -31,26 +31,28 @@ namespace jng {
 
     void BoxCollider2DComponent::reset()
     {
-        Size = { 0.5f, 0.5f };
-        Density = 1.f;
-        Friction = 0.5f;
-        Restitution = 0.0f;
-        RestitutionThreshold = 0.5f;
+        size = { 0.5f, 0.5f };
+        offset = { 0.f, 0.f };
+        density = 1.f;
+        friction = 0.5f;
+        restitution = 0.0f;
+        restitutionThreshold = 0.5f;
     }
 
     void CircleCollider2DComponent::reset()
     {
         radius = 0.5f;
         offset = { 0.f, 0.f };
-        Density = 1.f;
-        Friction = 0.5f;
-        Restitution = 0.0f;
-        RestitutionThreshold = 0.5f;
+        density = 1.f;
+        friction = 0.5f;
+        restitution = 0.0f;
+        restitutionThreshold = 0.5f;
     }
 
     void Rigidbody2DComponent::reset()
     {
-        Type = BodyType::Static;
+        type = BodyType::Static;
+        enabled = true;
         freezeRotation = false;
         linearDamping = 0.1f;
         angularDamping = 0.1f;
@@ -58,7 +60,7 @@ namespace jng {
 
     void Rigidbody2DComponent::setLinearVelocity(glm::vec2 velocity)
     {
-        BodyHandle->SetLinearVelocity({ velocity.x, velocity.y });
+        bodyHandle->SetLinearVelocity({ velocity.x, velocity.y });
     }
 
     void LuaScriptComponent::reset()

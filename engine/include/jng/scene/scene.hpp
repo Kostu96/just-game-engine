@@ -9,7 +9,6 @@
 #include "jng/scene/camera.hpp"
 
 #include <entt/entt.hpp>
-#include <string>
 
 class b2World;
 

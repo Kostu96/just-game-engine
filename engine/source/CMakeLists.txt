@@ -5,7 +5,6 @@
 #
 
 set(JNG_HEADERS
-    ${JNG_HEADERS_DIR}/jng.hpp
     ${JNG_HEADERS_DIR}/imconfig.hpp
 )
 

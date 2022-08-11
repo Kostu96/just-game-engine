@@ -10,7 +10,6 @@
 #if JNG_PROFILING_ENABLED
 
 #include <chrono>
-#include <fstream>
 #include <thread>
 #include <mutex>
 

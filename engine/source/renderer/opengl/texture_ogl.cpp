@@ -10,7 +10,6 @@
 
 #include <glad/gl.h>
 #include <stb/stb_image.h>
-#include <string>
 
 namespace jng {
 

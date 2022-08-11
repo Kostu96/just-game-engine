@@ -6,8 +6,6 @@
 
 #include "utilities/file.hpp"
 
-#include <fstream>
-
 namespace jng {
 
     bool readFile(const char* filename, char* data, size_t& size, bool binary)

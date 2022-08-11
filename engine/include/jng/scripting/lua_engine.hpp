@@ -8,8 +8,6 @@
 #include <jng/core/base.hpp>
 #include <jng/scene/entity.hpp>
 
-#include <map>
-
 class lua_State;
 
 namespace jng {

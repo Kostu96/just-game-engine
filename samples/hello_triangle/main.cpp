@@ -4,8 +4,17 @@
  * SPDX-License-Identifier: MIT
  */
 
-#define JNG_DECLARE_MAIN
-#include <jng/jng.hpp>
+#include <jng/core/engine.hpp>
+#include <jng/core/entry_point.hpp>
+#include <jng/core/event.hpp>
+#include <jng/core/window_events.hpp>
+#include <jng/core/layer.hpp>
+#include <jng/renderer/buffers.hpp>
+#include <jng/renderer/shader.hpp>
+#include <jng/renderer/vertex_array.hpp>
+#include <jng/scene/camera.hpp>
+
+#include <glm/gtc/type_ptr.hpp>
 
 static constexpr unsigned int WindowWidth = 800;
 static constexpr unsigned int WindowHeight = 600;
