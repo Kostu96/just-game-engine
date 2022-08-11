@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['localtransformcomponent_0',['LocalTransformComponent',['../namespacejng.html#aab95110672658020aeb041d8623e28f3',1,'jng']]]
+  ['scope_0',['Scope',['../namespacejng.html#a92f21d8acbde37a6866b878a9db5715c',1,'jng']]]
 ];

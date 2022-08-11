@@ -69,113 +69,52 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classjng_1_1_index_buffer-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">jng::IndexBuffer Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+  <div class="headertitle"><div class="title">jng::IndexBuffer Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div></div>
 </div><!--header-->
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="buffers_8hpp_source.html">buffers.hpp</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for jng::IndexBuffer:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="classjng_1_1_index_buffer.png" usemap="#jng::IndexBuffer_map" alt=""/>
-  <map id="jng::IndexBuffer_map" name="jng::IndexBuffer_map">
-<area href="classjng_1_1_open_g_l_index_buffer.html" alt="jng::OpenGLIndexBuffer" shape="rect" coords="0,56,147,80"/>
-  </map>
-</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1ac28b56d462409ed23043f9cc06c8ac"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_index_buffer.html#a1ac28b56d462409ed23043f9cc06c8ac">bind</a> () const =0</td></tr>
-<tr class="separator:a1ac28b56d462409ed23043f9cc06c8ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7889e1951d84d2892278d751835b4ab"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_index_buffer.html#aa7889e1951d84d2892278d751835b4ab">unbind</a> () const =0</td></tr>
-<tr class="separator:aa7889e1951d84d2892278d751835b4ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0d0547b347f945f01e355986b5ee80c"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_index_buffer.html#ab0d0547b347f945f01e355986b5ee80c">getCount</a> () const =0</td></tr>
-<tr class="separator:ab0d0547b347f945f01e355986b5ee80c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee9e7c528c63d5f83145e8ac97337f88"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_index_buffer.html#aee9e7c528c63d5f83145e8ac97337f88">~IndexBuffer</a> ()=default</td></tr>
-<tr class="separator:aee9e7c528c63d5f83145e8ac97337f88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a92bd835443fe0eae1b2b7e124a324dc1"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespacejng.html#ad7198e5df8ee2302d860ff3d5b41d355">Ref</a>&lt; <a class="el" href="classjng_1_1_index_buffer.html">IndexBuffer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_index_buffer.html#a92bd835443fe0eae1b2b7e124a324dc1">create</a> (const <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> *indices, <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> count)</td></tr>
-<tr class="separator:a92bd835443fe0eae1b2b7e124a324dc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1d217a4125b547aa69ab0fc5d4a2f6a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_index_buffer.html#aa1d217a4125b547aa69ab0fc5d4a2f6a">IndexBuffer</a> (const void *indices, <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> count, <a class="el" href="namespacejng_1_1_renderer_a_p_i.html#aa43863e55823f175aa8500a683bf8b4b">RendererAPI::IndexType</a> type)</td></tr>
+<tr class="separator:aa1d217a4125b547aa69ab0fc5d4a2f6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa69153b97b7f98f4bd184be1e408d242"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_index_buffer.html#aa69153b97b7f98f4bd184be1e408d242">~IndexBuffer</a> ()</td></tr>
+<tr class="separator:aa69153b97b7f98f4bd184be1e408d242"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47d5dfc075d816eb4f62751fb6678c23"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_index_buffer.html#a47d5dfc075d816eb4f62751fb6678c23">bind</a> () const</td></tr>
+<tr class="separator:a47d5dfc075d816eb4f62751fb6678c23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac219b8d7c871abf15847bb107fae1157"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_index_buffer.html#ac219b8d7c871abf15847bb107fae1157">unbind</a> () const</td></tr>
+<tr class="separator:ac219b8d7c871abf15847bb107fae1157"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5680bb8666f8ceee761fee473de251aa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_index_buffer.html#a5680bb8666f8ceee761fee473de251aa">getCount</a> () const</td></tr>
+<tr class="separator:a5680bb8666f8ceee761fee473de251aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1985345e98250f6e238f68b611040c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacejng_1_1_renderer_a_p_i.html#aa43863e55823f175aa8500a683bf8b4b">RendererAPI::IndexType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_index_buffer.html#af1985345e98250f6e238f68b611040c3">getIndexType</a> () const</td></tr>
+<tr class="separator:af1985345e98250f6e238f68b611040c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aee9e7c528c63d5f83145e8ac97337f88" name="aee9e7c528c63d5f83145e8ac97337f88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee9e7c528c63d5f83145e8ac97337f88">&#9670;&nbsp;</a></span>~IndexBuffer()</h2>
+<a id="aa1d217a4125b547aa69ab0fc5d4a2f6a" name="aa1d217a4125b547aa69ab0fc5d4a2f6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1d217a4125b547aa69ab0fc5d4a2f6a">&#9670;&nbsp;</a></span>IndexBuffer()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual jng::IndexBuffer::~IndexBuffer </td>
+          <td class="memname">jng::IndexBuffer::IndexBuffer </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a1ac28b56d462409ed23043f9cc06c8ac" name="a1ac28b56d462409ed23043f9cc06c8ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ac28b56d462409ed23043f9cc06c8ac">&#9670;&nbsp;</a></span>bind()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void jng::IndexBuffer::bind </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="classjng_1_1_open_g_l_index_buffer.html#ac95a19df5a1fb5939a0f592441b9b192">jng::OpenGLIndexBuffer</a>.</p>
-
-</div>
-</div>
-<a id="a92bd835443fe0eae1b2b7e124a324dc1" name="a92bd835443fe0eae1b2b7e124a324dc1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92bd835443fe0eae1b2b7e124a324dc1">&#9670;&nbsp;</a></span>create()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespacejng.html#ad7198e5df8ee2302d860ff3d5b41d355">Ref</a>&lt; <a class="el" href="classjng_1_1_index_buffer.html">IndexBuffer</a> &gt; jng::IndexBuffer::create </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> *&#160;</td>
+          <td class="paramtype">const void *&#160;</td>
           <td class="paramname"><em>indices</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a>&#160;</td>
-          <td class="paramname"><em>count</em>&#160;</td>
+          <td class="paramname"><em>count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacejng_1_1_renderer_a_p_i.html#aa43863e55823f175aa8500a683bf8b4b">RendererAPI::IndexType</a>&#160;</td>
+          <td class="paramname"><em>type</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -183,17 +122,47 @@ Static Public Member Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ab0d0547b347f945f01e355986b5ee80c" name="ab0d0547b347f945f01e355986b5ee80c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0d0547b347f945f01e355986b5ee80c">&#9670;&nbsp;</a></span>getCount()</h2>
+<a id="aa69153b97b7f98f4bd184be1e408d242" name="aa69153b97b7f98f4bd184be1e408d242"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa69153b97b7f98f4bd184be1e408d242">&#9670;&nbsp;</a></span>~IndexBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">jng::IndexBuffer::~IndexBuffer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a47d5dfc075d816eb4f62751fb6678c23" name="a47d5dfc075d816eb4f62751fb6678c23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47d5dfc075d816eb4f62751fb6678c23">&#9670;&nbsp;</a></span>bind()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jng::IndexBuffer::bind </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5680bb8666f8ceee761fee473de251aa" name="a5680bb8666f8ceee761fee473de251aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5680bb8666f8ceee761fee473de251aa">&#9670;&nbsp;</a></span>getCount()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -202,7 +171,7 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> jng::IndexBuffer::getCount </td>
+          <td class="memname"><a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> jng::IndexBuffer::getCount </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -210,17 +179,15 @@ Static Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classjng_1_1_open_g_l_index_buffer.html#a3faa173e28b253c54904093445aceb79">jng::OpenGLIndexBuffer</a>.</p>
-
 </div>
 </div>
-<a id="aa7889e1951d84d2892278d751835b4ab" name="aa7889e1951d84d2892278d751835b4ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa7889e1951d84d2892278d751835b4ab">&#9670;&nbsp;</a></span>unbind()</h2>
+<a id="af1985345e98250f6e238f68b611040c3" name="af1985345e98250f6e238f68b611040c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1985345e98250f6e238f68b611040c3">&#9670;&nbsp;</a></span>getIndexType()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -229,7 +196,7 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void jng::IndexBuffer::unbind </td>
+          <td class="memname"><a class="el" href="namespacejng_1_1_renderer_a_p_i.html#aa43863e55823f175aa8500a683bf8b4b">RendererAPI::IndexType</a> jng::IndexBuffer::getIndexType </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -237,23 +204,38 @@ Static Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classjng_1_1_open_g_l_index_buffer.html#ad8fcf9975696ea9b4f289a4bd5c22966">jng::OpenGLIndexBuffer</a>.</p>
+</div>
+</div>
+<a id="ac219b8d7c871abf15847bb107fae1157" name="ac219b8d7c871abf15847bb107fae1157"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac219b8d7c871abf15847bb107fae1157">&#9670;&nbsp;</a></span>unbind()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jng::IndexBuffer::unbind </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>engine/include/jng/renderer/<a class="el" href="buffers_8hpp_source.html">buffers.hpp</a></li>
-<li>engine/source/renderer/<a class="el" href="buffers_8cpp.html">buffers.cpp</a></li>
+<li>engine/source/renderer/opengl/<a class="el" href="buffers__ogl_8cpp.html">buffers_ogl.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Aug 10 2022 16:28:25 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Aug 11 2022 12:58:20 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

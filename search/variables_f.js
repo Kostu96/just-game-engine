@@ -4,7 +4,7 @@ var searchData=
   ['pagedown_1',['PageDown',['../namespacejng_1_1_key.html#a0511ae2d51989fcac64876173522b2c9',1,'jng::Key']]],
   ['pageup_2',['PageUp',['../namespacejng_1_1_key.html#a0fbe152c73002c0c57b1ab958124a480',1,'jng::Key']]],
   ['parent_3',['parent',['../structjng_1_1_parent_component.html#a32649b0b551bc0ff22993e75334e23aa',1,'jng::ParentComponent']]],
-  ['passasfloat_4',['PassAsFloat',['../structjng_1_1_layout_element.html#a4b519eb293f7fd2bfb6274e2d9b93ba7',1,'jng::LayoutElement']]],
+  ['passasfloat_4',['passAsFloat',['../structjng_1_1_layout_element.html#a83e3591a401c06f27a629033a975108a',1,'jng::LayoutElement']]],
   ['pause_5',['Pause',['../namespacejng_1_1_key.html#afd9c6d60658fb883cdb5738f99323e2a',1,'jng::Key']]],
   ['period_6',['Period',['../namespacejng_1_1_key.html#a133337aa13534208db2985765b34dcdd',1,'jng::Key']]],
   ['physics_5fpos_5fiterations_7',['PHYSICS_POS_ITERATIONS',['../namespacejng.html#a1659780e06b2297a6e7d9bf03908cc98',1,'jng']]],

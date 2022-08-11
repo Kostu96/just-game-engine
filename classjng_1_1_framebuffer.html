@@ -70,22 +70,12 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classjng_1_1_framebuffer-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">jng::Framebuffer Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+  <div class="headertitle"><div class="title">jng::Framebuffer Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div></div>
 </div><!--header-->
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="framebuffer_8hpp_source.html">framebuffer.hpp</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for jng::Framebuffer:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="classjng_1_1_framebuffer.png" usemap="#jng::Framebuffer_map" alt=""/>
-  <map id="jng::Framebuffer_map" name="jng::Framebuffer_map">
-<area href="classjng_1_1_open_g_l_framebuffer.html" alt="jng::OpenGLFramebuffer" shape="rect" coords="0,56,152,80"/>
-  </map>
-</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -94,33 +84,30 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:afb69b54dac80a458f7f123913a6d58bc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_framebuffer.html#afb69b54dac80a458f7f123913a6d58bc">bind</a> () const =0</td></tr>
-<tr class="separator:afb69b54dac80a458f7f123913a6d58bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5beef4afd5d79977852aa7e8d22dbed4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_framebuffer.html#a5beef4afd5d79977852aa7e8d22dbed4">unbind</a> () const =0</td></tr>
-<tr class="separator:a5beef4afd5d79977852aa7e8d22dbed4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e435bad1241c67cd02794a2c5265664"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_framebuffer.html#a2e435bad1241c67cd02794a2c5265664">resize</a> (<a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> width, <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> height)=0</td></tr>
-<tr class="separator:a2e435bad1241c67cd02794a2c5265664"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e471d9a338a53ee684539a1ad929d21"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_framebuffer.html#a3e471d9a338a53ee684539a1ad929d21">readPixel</a> (<a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> colorAttachmentIndex, <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> x, <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> y) const =0</td></tr>
-<tr class="separator:a3e471d9a338a53ee684539a1ad929d21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa913cf28c4bc93d3b1df61d35ed5370a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_framebuffer.html#aa913cf28c4bc93d3b1df61d35ed5370a">clearAttachment</a> (<a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> attachmentIndex, int value) const =0</td></tr>
-<tr class="separator:aa913cf28c4bc93d3b1df61d35ed5370a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a4021f4ddbfecaab6f1924758c1e61a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_framebuffer.html#a9a4021f4ddbfecaab6f1924758c1e61a">clearAttachment</a> (<a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> attachmentIndex, float value) const =0</td></tr>
-<tr class="separator:a9a4021f4ddbfecaab6f1924758c1e61a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc17b0b4df64af63963df20ebdac5332"><td class="memItemLeft" align="right" valign="top">virtual const std::vector&lt; <a class="el" href="namespacejng.html#ad7198e5df8ee2302d860ff3d5b41d355">Ref</a>&lt; <a class="el" href="classjng_1_1_texture.html">Texture</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_framebuffer.html#abc17b0b4df64af63963df20ebdac5332">getColorAttachments</a> () const =0</td></tr>
-<tr class="separator:abc17b0b4df64af63963df20ebdac5332"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ea0f269317ab7dbf2000a93a09b2fa3"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="structjng_1_1_framebuffer_1_1_properties.html">Properties</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_framebuffer.html#a6ea0f269317ab7dbf2000a93a09b2fa3">getProperties</a> () const =0</td></tr>
-<tr class="separator:a6ea0f269317ab7dbf2000a93a09b2fa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a235f8e7747f85d10fc63ac1a14637793"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_framebuffer.html#a235f8e7747f85d10fc63ac1a14637793">~Framebuffer</a> ()=default</td></tr>
-<tr class="separator:a235f8e7747f85d10fc63ac1a14637793"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ac1cd3fde3d453f429b631842f184c6e3"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespacejng.html#ad7198e5df8ee2302d860ff3d5b41d355">Ref</a>&lt; <a class="el" href="classjng_1_1_framebuffer.html">Framebuffer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_framebuffer.html#ac1cd3fde3d453f429b631842f184c6e3">create</a> (const <a class="el" href="structjng_1_1_framebuffer_1_1_properties.html">Properties</a> &amp;properties)</td></tr>
-<tr class="separator:ac1cd3fde3d453f429b631842f184c6e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64e5b6bdf8a91db722058387e619fa0f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_framebuffer.html#a64e5b6bdf8a91db722058387e619fa0f">Framebuffer</a> (const <a class="el" href="structjng_1_1_framebuffer_1_1_properties.html">Properties</a> &amp;properties)</td></tr>
+<tr class="separator:a64e5b6bdf8a91db722058387e619fa0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83d5ca71e20875a9380eae9a4f29a809"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_framebuffer.html#a83d5ca71e20875a9380eae9a4f29a809">~Framebuffer</a> ()</td></tr>
+<tr class="separator:a83d5ca71e20875a9380eae9a4f29a809"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ec2c3431236fdcb712ca5424e50f710"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_framebuffer.html#a3ec2c3431236fdcb712ca5424e50f710">bind</a> () const</td></tr>
+<tr class="separator:a3ec2c3431236fdcb712ca5424e50f710"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ca9d8bb4dde57ed18f5564dbe7a205c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_framebuffer.html#a8ca9d8bb4dde57ed18f5564dbe7a205c">unbind</a> () const</td></tr>
+<tr class="separator:a8ca9d8bb4dde57ed18f5564dbe7a205c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6306e1781394f5641a091e787711337e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_framebuffer.html#a6306e1781394f5641a091e787711337e">resize</a> (<a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> width, <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> height)</td></tr>
+<tr class="separator:a6306e1781394f5641a091e787711337e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abca269800ed861865c988a7be8b94b72"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_framebuffer.html#abca269800ed861865c988a7be8b94b72">readPixel</a> (<a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> colorAttachmentIndex, <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> x, <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> y) const</td></tr>
+<tr class="separator:abca269800ed861865c988a7be8b94b72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5713314da8cf0e990dee3221a8d7db34"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_framebuffer.html#a5713314da8cf0e990dee3221a8d7db34">clearAttachment</a> (<a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> attachmentIndex, int value) const</td></tr>
+<tr class="separator:a5713314da8cf0e990dee3221a8d7db34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6aa740709918cfb17af743b223cb1117"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_framebuffer.html#a6aa740709918cfb17af743b223cb1117">clearAttachment</a> (<a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> attachmentIndex, float value) const</td></tr>
+<tr class="separator:a6aa740709918cfb17af743b223cb1117"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a62d934beb858ee2ed650228940086e"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="namespacejng.html#ad7198e5df8ee2302d860ff3d5b41d355">Ref</a>&lt; <a class="el" href="classjng_1_1_texture.html">Texture</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_framebuffer.html#a5a62d934beb858ee2ed650228940086e">getAttachments</a> () const</td></tr>
+<tr class="separator:a5a62d934beb858ee2ed650228940086e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af57f381ec0812bc32459a5a5fd8eef95"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structjng_1_1_framebuffer_1_1_properties.html">Properties</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjng_1_1_framebuffer.html#af57f381ec0812bc32459a5a5fd8eef95">getProperties</a> () const</td></tr>
+<tr class="separator:af57f381ec0812bc32459a5a5fd8eef95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a235f8e7747f85d10fc63ac1a14637793" name="a235f8e7747f85d10fc63ac1a14637793"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a235f8e7747f85d10fc63ac1a14637793">&#9670;&nbsp;</a></span>~Framebuffer()</h2>
+<a id="a64e5b6bdf8a91db722058387e619fa0f" name="a64e5b6bdf8a91db722058387e619fa0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64e5b6bdf8a91db722058387e619fa0f">&#9670;&nbsp;</a></span>Framebuffer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -129,60 +116,65 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual jng::Framebuffer::~Framebuffer </td>
+          <td class="memname">jng::Framebuffer::Framebuffer </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="structjng_1_1_framebuffer_1_1_properties.html">Properties</a> &amp;&#160;</td>
+          <td class="paramname"><em>properties</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
   </tr>
 </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a83d5ca71e20875a9380eae9a4f29a809" name="a83d5ca71e20875a9380eae9a4f29a809"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83d5ca71e20875a9380eae9a4f29a809">&#9670;&nbsp;</a></span>~Framebuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">jng::Framebuffer::~Framebuffer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
 </div><div class="memdoc">
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="afb69b54dac80a458f7f123913a6d58bc" name="afb69b54dac80a458f7f123913a6d58bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb69b54dac80a458f7f123913a6d58bc">&#9670;&nbsp;</a></span>bind()</h2>
+<a id="a3ec2c3431236fdcb712ca5424e50f710" name="a3ec2c3431236fdcb712ca5424e50f710"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ec2c3431236fdcb712ca5424e50f710">&#9670;&nbsp;</a></span>bind()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void jng::Framebuffer::bind </td>
+          <td class="memname">void jng::Framebuffer::bind </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classjng_1_1_open_g_l_framebuffer.html#a78e24eb1cb7084d4d490309d2360065a">jng::OpenGLFramebuffer</a>.</p>
-
 </div>
 </div>
-<a id="a9a4021f4ddbfecaab6f1924758c1e61a" name="a9a4021f4ddbfecaab6f1924758c1e61a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9a4021f4ddbfecaab6f1924758c1e61a">&#9670;&nbsp;</a></span>clearAttachment() <span class="overload">[1/2]</span></h2>
+<a id="a6aa740709918cfb17af743b223cb1117" name="a6aa740709918cfb17af743b223cb1117"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6aa740709918cfb17af743b223cb1117">&#9670;&nbsp;</a></span>clearAttachment() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void jng::Framebuffer::clearAttachment </td>
+          <td class="memname">void jng::Framebuffer::clearAttachment </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a>&#160;</td>
           <td class="paramname"><em>attachmentIndex</em>, </td>
@@ -199,28 +191,18 @@ Static Public Member Functions</h2></td></tr>
           <td></td><td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classjng_1_1_open_g_l_framebuffer.html#ad5a9a0983b4dee12b00010cfa32f0027">jng::OpenGLFramebuffer</a>.</p>
-
 </div>
 </div>
-<a id="aa913cf28c4bc93d3b1df61d35ed5370a" name="aa913cf28c4bc93d3b1df61d35ed5370a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa913cf28c4bc93d3b1df61d35ed5370a">&#9670;&nbsp;</a></span>clearAttachment() <span class="overload">[2/2]</span></h2>
+<a id="a5713314da8cf0e990dee3221a8d7db34" name="a5713314da8cf0e990dee3221a8d7db34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5713314da8cf0e990dee3221a8d7db34">&#9670;&nbsp;</a></span>clearAttachment() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void jng::Framebuffer::clearAttachment </td>
+          <td class="memname">void jng::Framebuffer::clearAttachment </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a>&#160;</td>
           <td class="paramname"><em>attachmentIndex</em>, </td>
@@ -237,19 +219,12 @@ Static Public Member Functions</h2></td></tr>
           <td></td><td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classjng_1_1_open_g_l_framebuffer.html#ae4f8607e23e14f1b37fffcf9004ca55d">jng::OpenGLFramebuffer</a>.</p>
-
 </div>
 </div>
-<a id="ac1cd3fde3d453f429b631842f184c6e3" name="ac1cd3fde3d453f429b631842f184c6e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1cd3fde3d453f429b631842f184c6e3">&#9670;&nbsp;</a></span>create()</h2>
+<a id="a5a62d934beb858ee2ed650228940086e" name="a5a62d934beb858ee2ed650228940086e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a62d934beb858ee2ed650228940086e">&#9670;&nbsp;</a></span>getAttachments()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -258,33 +233,7 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacejng.html#ad7198e5df8ee2302d860ff3d5b41d355">Ref</a>&lt; <a class="el" href="classjng_1_1_framebuffer.html">Framebuffer</a> &gt; jng::Framebuffer::create </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structjng_1_1_framebuffer_1_1_properties.html">Properties</a> &amp;&#160;</td>
-          <td class="paramname"><em>properties</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="abc17b0b4df64af63963df20ebdac5332" name="abc17b0b4df64af63963df20ebdac5332"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc17b0b4df64af63963df20ebdac5332">&#9670;&nbsp;</a></span>getColorAttachments()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual const std::vector&lt; <a class="el" href="namespacejng.html#ad7198e5df8ee2302d860ff3d5b41d355">Ref</a>&lt; <a class="el" href="classjng_1_1_texture.html">Texture</a> &gt; &gt; &amp; jng::Framebuffer::getColorAttachments </td>
+          <td class="memname">const std::vector&lt; <a class="el" href="namespacejng.html#ad7198e5df8ee2302d860ff3d5b41d355">Ref</a>&lt; <a class="el" href="classjng_1_1_texture.html">Texture</a> &gt; &gt; &amp; jng::Framebuffer::getAttachments </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -292,17 +241,15 @@ Static Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classjng_1_1_open_g_l_framebuffer.html#a4a1b749ab3bbbaa37aae13957667618e">jng::OpenGLFramebuffer</a>.</p>
-
 </div>
 </div>
-<a id="a6ea0f269317ab7dbf2000a93a09b2fa3" name="a6ea0f269317ab7dbf2000a93a09b2fa3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ea0f269317ab7dbf2000a93a09b2fa3">&#9670;&nbsp;</a></span>getProperties()</h2>
+<a id="af57f381ec0812bc32459a5a5fd8eef95" name="af57f381ec0812bc32459a5a5fd8eef95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af57f381ec0812bc32459a5a5fd8eef95">&#9670;&nbsp;</a></span>getProperties()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -311,7 +258,7 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual const <a class="el" href="structjng_1_1_framebuffer_1_1_properties.html">Properties</a> &amp; jng::Framebuffer::getProperties </td>
+          <td class="memname">const <a class="el" href="structjng_1_1_framebuffer_1_1_properties.html">Properties</a> &amp; jng::Framebuffer::getProperties </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -319,26 +266,21 @@ Static Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classjng_1_1_open_g_l_framebuffer.html#ad7c2c508ff201154e05b846f844e4a69">jng::OpenGLFramebuffer</a>.</p>
-
 </div>
 </div>
-<a id="a3e471d9a338a53ee684539a1ad929d21" name="a3e471d9a338a53ee684539a1ad929d21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e471d9a338a53ee684539a1ad929d21">&#9670;&nbsp;</a></span>readPixel()</h2>
+<a id="abca269800ed861865c988a7be8b94b72" name="abca269800ed861865c988a7be8b94b72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abca269800ed861865c988a7be8b94b72">&#9670;&nbsp;</a></span>readPixel()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> jng::Framebuffer::readPixel </td>
+          <td class="memname"><a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> jng::Framebuffer::readPixel </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a>&#160;</td>
           <td class="paramname"><em>colorAttachmentIndex</em>, </td>
@@ -361,28 +303,18 @@ Static Public Member Functions</h2></td></tr>
           <td></td><td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classjng_1_1_open_g_l_framebuffer.html#a635793908918bf12aabe7b449ce729ef">jng::OpenGLFramebuffer</a>.</p>
-
 </div>
 </div>
-<a id="a2e435bad1241c67cd02794a2c5265664" name="a2e435bad1241c67cd02794a2c5265664"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e435bad1241c67cd02794a2c5265664">&#9670;&nbsp;</a></span>resize()</h2>
+<a id="a6306e1781394f5641a091e787711337e" name="a6306e1781394f5641a091e787711337e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6306e1781394f5641a091e787711337e">&#9670;&nbsp;</a></span>resize()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void jng::Framebuffer::resize </td>
+          <td class="memname">void jng::Framebuffer::resize </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a>&#160;</td>
           <td class="paramname"><em>width</em>, </td>
@@ -399,52 +331,35 @@ Static Public Member Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classjng_1_1_open_g_l_framebuffer.html#a985abbf41a6c7cde9a782476177d34e3">jng::OpenGLFramebuffer</a>.</p>
-
 </div>
 </div>
-<a id="a5beef4afd5d79977852aa7e8d22dbed4" name="a5beef4afd5d79977852aa7e8d22dbed4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5beef4afd5d79977852aa7e8d22dbed4">&#9670;&nbsp;</a></span>unbind()</h2>
+<a id="a8ca9d8bb4dde57ed18f5564dbe7a205c" name="a8ca9d8bb4dde57ed18f5564dbe7a205c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ca9d8bb4dde57ed18f5564dbe7a205c">&#9670;&nbsp;</a></span>unbind()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void jng::Framebuffer::unbind </td>
+          <td class="memname">void jng::Framebuffer::unbind </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="classjng_1_1_open_g_l_framebuffer.html#a2c0cadfb07cc6d600cef7f362105accc">jng::OpenGLFramebuffer</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>engine/include/jng/renderer/<a class="el" href="framebuffer_8hpp_source.html">framebuffer.hpp</a></li>
-<li>engine/source/renderer/<a class="el" href="framebuffer_8cpp.html">framebuffer.cpp</a></li>
+<li>engine/source/renderer/opengl/<a class="el" href="framebuffer__ogl_8cpp.html">framebuffer_ogl.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Aug 10 2022 16:28:25 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Aug 11 2022 12:58:20 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

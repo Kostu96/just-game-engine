@@ -6,6 +6,5 @@ var searchData=
   ['scene_5fserializer_2ehpp_3',['scene_serializer.hpp',['../scene__serializer_8hpp.html',1,'']]],
   ['shader_2ecpp_4',['shader.cpp',['../shader_8cpp.html',1,'']]],
   ['shader_2ehpp_5',['shader.hpp',['../shader_8hpp.html',1,'']]],
-  ['shader_5fogl_2ecpp_6',['shader_ogl.cpp',['../shader__ogl_8cpp.html',1,'']]],
-  ['shader_5fogl_2ehpp_7',['shader_ogl.hpp',['../shader__ogl_8hpp.html',1,'']]]
+  ['shader_5fogl_2ecpp_6',['shader_ogl.cpp',['../shader__ogl_8cpp.html',1,'']]]
 ];

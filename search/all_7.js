@@ -7,9 +7,8 @@ var searchData=
   ['hasoncreate_4',['hasOnCreate',['../structjng_1_1_lua_engine_1_1_script_data.html#a9b066f8e70cf5802e242c9b042420a1f',1,'jng::LuaEngine::ScriptData']]],
   ['hasonupdate_5',['hasOnUpdate',['../structjng_1_1_lua_engine_1_1_script_data.html#af384d3106b5fb7237a40c6baaa16dba7',1,'jng::LuaEngine::ScriptData']]],
   ['hasparent_6',['hasParent',['../classjng_1_1_entity.html#a05b6234cc3970c13bcbc6e19e094f875',1,'jng::Entity']]],
-  ['height_7',['height',['../structjng_1_1_window_1_1_window_data.html#a9f60716c79e4a960f4dafb212e8a122e',1,'jng::Window::WindowData']]],
-  ['height_8',['Height',['../structjng_1_1_framebuffer_1_1_properties.html#aae305c4a864ef1a4d089ed3bdd844ad5',1,'jng::Framebuffer::Properties::Height()'],['../structjng_1_1_texture_1_1_properties.html#a023a8b02213d4be4557434305f3400de',1,'jng::Texture::Properties::Height()']]],
-  ['helpers_2ecpp_9',['helpers.cpp',['../helpers_8cpp.html',1,'']]],
-  ['helpers_2ehpp_10',['helpers.hpp',['../helpers_8hpp.html',1,'']]],
-  ['home_11',['Home',['../namespacejng_1_1_key.html#a8a29a6b739bb1d2f36f683fc80b643a3',1,'jng::Key']]]
+  ['height_7',['height',['../structjng_1_1_window_1_1_window_data.html#a9f60716c79e4a960f4dafb212e8a122e',1,'jng::Window::WindowData::height()'],['../structjng_1_1_framebuffer_1_1_properties.html#a70c9421c3887c1e9b772ecb9bbf070a3',1,'jng::Framebuffer::Properties::height()'],['../structjng_1_1_texture_1_1_properties.html#aa2d2d647a3b715483280c51e2ad6abe6',1,'jng::Texture::Properties::height()']]],
+  ['helpers_2ecpp_8',['helpers.cpp',['../helpers_8cpp.html',1,'']]],
+  ['helpers_2ehpp_9',['helpers.hpp',['../helpers_8hpp.html',1,'']]],
+  ['home_10',['Home',['../namespacejng_1_1_key.html#a8a29a6b739bb1d2f36f683fc80b643a3',1,'jng::Key']]]
 ];

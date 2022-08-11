@@ -26,7 +26,7 @@ var searchData=
   ['f7_23',['F7',['../namespacejng_1_1_key.html#adcbdc767bb05564ae96293eb0290155c',1,'jng::Key']]],
   ['f8_24',['F8',['../namespacejng_1_1_key.html#a9db1cb32c925e9a176697e10e41189e5',1,'jng::Key']]],
   ['f9_25',['F9',['../namespacejng_1_1_key.html#a732dfd06e4dc00d8d5008a237cdfc8b9',1,'jng::Key']]],
-  ['fade_26',['fade',['../structjng_1_1_renderer2_d_1_1_circle_vertex.html#ae323a4740f034e406ca549b105ac58c6',1,'jng::Renderer2D::CircleVertex::fade()'],['../structjng_1_1_renderer2_d_1_1_draw_circle_properties.html#abb25de389fea0e491ce4b4af48ad20f5',1,'jng::Renderer2D::DrawCircleProperties::fade()'],['../structjng_1_1_circle_renderer_component.html#a6309364bcc634154101778755ceabc24',1,'jng::CircleRendererComponent::fade()']]],
+  ['fade_26',['fade',['../structjng_1_1_renderer2_d_1_1_circle_vertex.html#ae323a4740f034e406ca549b105ac58c6',1,'jng::Renderer2D::CircleVertex::fade()'],['../structjng_1_1_circle_renderer_component.html#a6309364bcc634154101778755ceabc24',1,'jng::CircleRendererComponent::fade()'],['../structjng_1_1_renderer2_d_1_1_draw_circle_properties.html#abb25de389fea0e491ce4b4af48ad20f5',1,'jng::Renderer2D::DrawCircleProperties::fade()']]],
   ['file_2ecpp_27',['file.cpp',['../file_8cpp.html',1,'']]],
   ['file_2ehpp_28',['file.hpp',['../file_8hpp.html',1,'']]],
   ['fillquad_29',['fillQuad',['../namespacejng_1_1_renderer2_d.html#af65522dd90fa172e8822301c02cf7aff',1,'jng::Renderer2D::fillQuad(const glm::mat4 &amp;transform, const Ref&lt; Texture &gt; &amp;texture, const glm::vec4 &amp;color={ 1.f, 1.f, 1.f, 1.f })'],['../namespacejng_1_1_renderer2_d.html#a4b5ec300cfeef45eb8fab9f43b66578a',1,'jng::Renderer2D::fillQuad(glm::vec3 position, glm::vec2 size, const glm::vec4 &amp;color)'],['../namespacejng_1_1_renderer2_d.html#ad596f2c2845ba11ea8975977af91e047',1,'jng::Renderer2D::fillQuad(glm::vec3 position, glm::vec2 size, const Ref&lt; Texture &gt; &amp;texture, const glm::vec4 &amp;color={ 1.f, 1.f, 1.f, 1.f })'],['../namespacejng_1_1_renderer2_d.html#ae12ce7c1175098a8e76fa3c621278f55',1,'jng::Renderer2D::fillQuad(const glm::mat4 &amp;transform, const glm::vec4 &amp;color)']]],
@@ -35,13 +35,11 @@ var searchData=
   ['float2_32',['Float2',['../structjng_1_1_layout_element.html#af99663c7b612370f9f9197b09119fb5ba6694430a2b471b5d2de071f2ef1fdc57',1,'jng::LayoutElement']]],
   ['float3_33',['Float3',['../structjng_1_1_layout_element.html#af99663c7b612370f9f9197b09119fb5ba8a8a1d211464d4bdee46db3c75bfa121',1,'jng::LayoutElement']]],
   ['float4_34',['Float4',['../structjng_1_1_layout_element.html#af99663c7b612370f9f9197b09119fb5ba33116adc6690289da9b82ea736864eeb',1,'jng::LayoutElement']]],
-  ['format_35',['Format',['../structjng_1_1_texture_specification.html#af9d2474dc966f5e109b7052fa34ac102',1,'jng::TextureSpecification']]],
+  ['format_35',['format',['../structjng_1_1_texture_specification.html#ac3325021644297ffc6f3df3baa3d07eb',1,'jng::TextureSpecification']]],
   ['fragment_36',['Fragment',['../classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7a37d01b98065725fe3a1d30acf3a0064a',1,'jng::Shader']]],
-  ['framebuffer_37',['Framebuffer',['../classjng_1_1_framebuffer.html',1,'jng']]],
-  ['framebuffer_2ecpp_38',['framebuffer.cpp',['../framebuffer_8cpp.html',1,'']]],
-  ['framebuffer_2ehpp_39',['framebuffer.hpp',['../framebuffer_8hpp.html',1,'']]],
-  ['framebuffer_5fogl_2ecpp_40',['framebuffer_ogl.cpp',['../framebuffer__ogl_8cpp.html',1,'']]],
-  ['framebuffer_5fogl_2ehpp_41',['framebuffer_ogl.hpp',['../framebuffer__ogl_8hpp.html',1,'']]],
-  ['freezerotation_42',['freezeRotation',['../structjng_1_1_rigidbody2_d_component.html#a3155c2dccf42fa0ddaccc9a6afe72f4e',1,'jng::Rigidbody2DComponent']]],
-  ['friction_43',['Friction',['../structjng_1_1_circle_collider2_d_component.html#af4cda591231464d9ff860d955b3d16dc',1,'jng::CircleCollider2DComponent::Friction()'],['../structjng_1_1_box_collider2_d_component.html#aa02124acf2a0d3f9355abd2f8b096345',1,'jng::BoxCollider2DComponent::Friction()']]]
+  ['framebuffer_37',['Framebuffer',['../classjng_1_1_framebuffer.html#a64e5b6bdf8a91db722058387e619fa0f',1,'jng::Framebuffer::Framebuffer()'],['../classjng_1_1_framebuffer.html',1,'jng::Framebuffer']]],
+  ['framebuffer_2ehpp_38',['framebuffer.hpp',['../framebuffer_8hpp.html',1,'']]],
+  ['framebuffer_5fogl_2ecpp_39',['framebuffer_ogl.cpp',['../framebuffer__ogl_8cpp.html',1,'']]],
+  ['freezerotation_40',['freezeRotation',['../structjng_1_1_rigidbody2_d_component.html#a3155c2dccf42fa0ddaccc9a6afe72f4e',1,'jng::Rigidbody2DComponent']]],
+  ['friction_41',['Friction',['../structjng_1_1_circle_collider2_d_component.html#af4cda591231464d9ff860d955b3d16dc',1,'jng::CircleCollider2DComponent::Friction()'],['../structjng_1_1_box_collider2_d_component.html#aa02124acf2a0d3f9355abd2f8b096345',1,'jng::BoxCollider2DComponent::Friction()']]]
 ];

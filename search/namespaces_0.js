@@ -12,5 +12,6 @@ var searchData=
   ['platform_9',['Platform',['../namespacejng_1_1_platform.html',1,'jng']]],
   ['renderer_10',['Renderer',['../namespacejng_1_1_renderer.html',1,'jng']]],
   ['renderer2d_11',['Renderer2D',['../namespacejng_1_1_renderer2_d.html',1,'jng']]],
-  ['script_12',['Script',['../namespacejng_1_1_lua_1_1_script.html',1,'jng::Lua']]]
+  ['rendererapi_12',['RendererAPI',['../namespacejng_1_1_renderer_a_p_i.html',1,'jng']]],
+  ['script_13',['Script',['../namespacejng_1_1_lua_1_1_script.html',1,'jng::Lua']]]
 ];

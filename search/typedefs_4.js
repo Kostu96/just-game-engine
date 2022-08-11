@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['graphicscontexthandle_0',['GraphicsContextHandle',['../graphics__context__ogl_8hpp.html#a40d1a56538869d890fa7fafb544eef0e',1,'graphics_context_ogl.hpp']]]
+  ['localtransformcomponent_0',['LocalTransformComponent',['../namespacejng.html#aab95110672658020aeb041d8623e28f3',1,'jng']]]
 ];

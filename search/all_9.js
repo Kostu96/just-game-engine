@@ -36,5 +36,6 @@ var searchData=
   ['platform_33',['Platform',['../namespacejng_1_1_platform.html',1,'jng']]],
   ['renderer_34',['Renderer',['../namespacejng_1_1_renderer.html',1,'jng']]],
   ['renderer2d_35',['Renderer2D',['../namespacejng_1_1_renderer2_d.html',1,'jng']]],
-  ['script_36',['Script',['../namespacejng_1_1_lua_1_1_script.html',1,'jng::Lua']]]
+  ['rendererapi_36',['RendererAPI',['../namespacejng_1_1_renderer_a_p_i.html',1,'jng']]],
+  ['script_37',['Script',['../namespacejng_1_1_lua_1_1_script.html',1,'jng::Lua']]]
 ];
