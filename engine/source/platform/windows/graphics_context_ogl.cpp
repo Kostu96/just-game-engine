@@ -4,33 +4,19 @@
  * SPDX-License-Identifier: MIT
  */
 
-#include "platform/graphics_context_ogl.hpp"
+#include "platform/graphics_context.hpp"
 
 #include "core/base_internal.hpp"
 #include "platform/window.hpp"
-#include "platform/windows/windows_base.hpp"
 
 #include <glad/gl.h>
-#include <glad/wgl.h>
 #include <GLFW/glfw3.h>
-#define GLFW_EXPOSE_NATIVE_WIN32
-#include <GLFW/glfw3native.h>
-
-#if defined(JNG_WINDOWS)
-#pragma comment(lib, "opengl32.lib")
-#endif
 
 namespace jng {
-    
+
 #ifdef JNG_DEBUG
-    static void GLAPIENTRY openGlErrorHandler(
-        GLenum source,
-        GLenum type,
-        GLuint id,
-        GLenum severity,
-        GLsizei /*length*/,
-        const GLchar* message,
-        const void* /*userParam*/)
+
+    static void GLAPIENTRY openGlErrorHandler(GLenum source, GLenum type, GLenum id, GLuint severity, GLsizei /*length*/, const GLchar* message, const void* /*userParam*/)
     {
         // Skip
         switch (id) {
@@ -79,51 +65,16 @@ namespace jng {
             break;
         }
     }
+
 #endif
 
-    static GLADapiproc windowsGLGetProcAddress(const char* name)
+    GraphicsContext::GraphicsContext(Window& window) :
+        m_window{ window }
     {
-        GLADapiproc p = reinterpret_cast<GLADapiproc>(wglGetProcAddress(name));
-        if (!p)
-        {
-            HMODULE oglLib = GetModuleHandleA("opengl32.dll");
-            if (!oglLib) {
-                JNG_CORE_FATAL("GetModuleHandle error! opengl32.dll is not loaded!");
-                return nullptr;
-            }
+        glfwMakeContextCurrent(m_window.getNativeWindowHandle());
 
-            p = reinterpret_cast<GLADapiproc>(GetProcAddress(oglLib, name));
-        }
-
-        return p;
-    }
-
-    OpenGLGraphicsContext::OpenGLGraphicsContext(Window& window) :
-        m_window{ window },
-        m_windowHandle{ glfwGetWin32Window(m_window.getNativeWindowHandle()) },
-        m_deviceContext{ GetDC(m_windowHandle) }
-    {
-        PIXELFORMATDESCRIPTOR pfd{};
-        pfd.nSize = sizeof(pfd);
-        pfd.nVersion = 1;
-        pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
-        pfd.iPixelType = PFD_TYPE_RGBA;
-        pfd.cColorBits = 32;
-        pfd.cDepthBits = 24;
-        pfd.cStencilBits = 8;
-
-        int pixelFormat = ChoosePixelFormat(m_deviceContext, &pfd);
-        JNG_CORE_ASSERT(pixelFormat, "Could not choose pixel format!");
-        SetPixelFormat(m_deviceContext, pixelFormat, &pfd);
-
-        m_graphicsContextHandle = wglCreateContext(m_deviceContext);
-        wglMakeCurrent(m_deviceContext, m_graphicsContextHandle);
-
-        
-        [[maybe_unused]] int success = gladLoadGL(windowsGLGetProcAddress);
+        [[maybe_unused]] int success = gladLoadGL(glfwGetProcAddress);
         JNG_CORE_ASSERT(success, "Could not load GL extensions!");
-        success = gladLoadWGL(m_deviceContext, windowsGLGetProcAddress);
-        JNG_CORE_ASSERT(success, "Could not load WGL extensions!");
 
         JNG_CORE_INFO("OpenGL info:");
         JNG_CORE_INFO("  Vendor: {0}", (const char*)glGetString(GL_VENDOR));
@@ -149,22 +100,34 @@ namespace jng {
 
         // TODO: temporary:
         glLineWidth(3.f);
+
+        setVSync(true);
     }
 
-    OpenGLGraphicsContext::~OpenGLGraphicsContext()
+    void GraphicsContext::setVSync(bool enabled)
     {
-        wglMakeCurrent(GetDC(m_windowHandle), nullptr);
-        wglDeleteContext(m_graphicsContextHandle);
+        m_isVSync = enabled;
+        glfwSwapInterval(enabled ? 1 : 0);
     }
 
-    void OpenGLGraphicsContext::setVSync(bool enabled)
+    void GraphicsContext::swapBuffers() const
     {
-        wglSwapIntervalEXT(enabled ? 1 : 0);
+        glfwSwapBuffers(m_window.getNativeWindowHandle());
     }
 
-    void OpenGLGraphicsContext::swapBuffers() const
+    std::array<GraphicsContext::Hint, 4> GraphicsContext::getContextCreationHints()
     {
-        SwapBuffers(GetDC(m_windowHandle));
+        std::array<Hint, 4> hints{};
+        hints[0] = { GLFW_CONTEXT_VERSION_MAJOR, 4 };
+        hints[1] = { GLFW_CONTEXT_VERSION_MINOR, 6 };
+        hints[2] = { GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE };
+#ifdef JNG_DEBUG
+        hints[3] = { GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE };
+#else
+        hints[3] = { GLFW_OPENGL_DEBUG_CONTEXT, GLFW_FALSE };
+#endif
+
+        return hints;
     }
 
 } // namespace jng

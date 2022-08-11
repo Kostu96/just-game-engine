@@ -4,18 +4,18 @@
  * SPDX-License-Identifier: MIT
  */
 
-#include "renderer/opengl/renderer_api_ogl.hpp"
+#include "renderer/renderer_api.hpp"
 
 #include "renderer/buffers.hpp"
 #include "renderer/vertex_array.hpp"
 
 #include <glad/gl.h>
 
-namespace jng {
+namespace jng::RendererAPI {
 
-    static GLenum primitiveTypeToGLenum(RendererAPI::PrimitiveType primitiveType)
+    static GLenum primitiveTypeToGLenum(RendererAPI::PrimitiveType type)
     {
-        switch (primitiveType)
+        switch (type)
         {
         case RendererAPI::PrimitiveType::Lines:     return GL_LINES;
         case RendererAPI::PrimitiveType::Triangles: return GL_TRIANGLES;
@@ -25,25 +25,38 @@ namespace jng {
         return static_cast<GLenum>(-1);
     }
 
-    void OpenGLRendererAPI::setViewport(uint32 x, uint32 y, uint32 width, uint32 height) const
+    static GLenum indexTypeToGLenum(RendererAPI::IndexType type)
+    {
+        switch (type)
+        {
+        case RendererAPI::IndexType::UINT8:  return GL_UNSIGNED_BYTE;
+        case RendererAPI::IndexType::UINT16: return GL_UNSIGNED_SHORT;
+        case RendererAPI::IndexType::UINT32: return GL_UNSIGNED_INT;
+        }
+
+        JNG_CORE_ASSERT(false, "This should never be triggered!");
+        return static_cast<GLenum>(-1);
+    }
+
+    void setViewport(uint32 x, uint32 y, uint32 width, uint32 height)
     {
         glViewport(static_cast<int>(x), static_cast<int>(y), static_cast<int>(width), static_cast<int>(height));
     }
     
-    void OpenGLRendererAPI::clear(const glm::vec3& color) const
+    void clear(const glm::vec3& color)
     {
         glClearColor(color.r, color.g, color.b, 1.f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
-    void OpenGLRendererAPI::draw(uint32 count, RendererAPI::PrimitiveType primitiveType) const
+    void draw(uint32 count, RendererAPI::PrimitiveType primitiveType)
     {
         glDrawArrays(primitiveTypeToGLenum(primitiveType), 0, static_cast<GLsizei>(count));
     }
 
-    void OpenGLRendererAPI::drawIndexed(uint32 count) const
+    void drawIndexed(uint32 count, IndexType indexType, PrimitiveType primitiveType)
     {
-        glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(count), GL_UNSIGNED_INT, nullptr);
+        glDrawElements(primitiveTypeToGLenum(primitiveType), static_cast<GLsizei>(count), indexTypeToGLenum(indexType), nullptr);
     }
 
-} // namespace jng
+} // namespace jng::RendererAPI

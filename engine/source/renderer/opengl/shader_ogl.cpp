@@ -4,26 +4,33 @@
  * SPDX-License-Identifier: MIT
  */
 
-#include "renderer/opengl/shader_ogl.hpp"
+#include "renderer/shader.hpp"
 
 #include "core/base_internal.hpp"
-#include "core/engine.hpp"
 #include "utilities/file.hpp"
 
 #include <glad/gl.h>
-#include <glm/gtc/type_ptr.inl>
-#include <shaderc/shaderc.hpp>
-#include <spirv_cross/spirv_glsl.hpp>
 #include <vector>
 
 namespace jng {
 
-    OpenGLShader::OpenGLShader(std::string_view vertexShaderFilename, std::string_view fragmentShaderFilename)
+    static uint32 shaderTypeToOGLShaderType(Shader::Type type)
+    {
+        switch (type)
+        {
+        case Shader::Type::Vertex:   return GL_VERTEX_SHADER;
+        case Shader::Type::Fragment: return GL_FRAGMENT_SHADER;
+        }
+        JNG_CORE_ASSERT(false, "");
+        return static_cast<uint32>(-1);
+    }
+
+    Shader::Shader(const std::filesystem::path& vertexShaderFilename, const std::filesystem::path& fragmentShaderFilename)
     {
         createCacheDirectoryIfNeeded();
 
-        uint32 vs = compileShader(vertexShaderFilename.data(), Type::Vertex);
-        uint32 fs = compileShader(fragmentShaderFilename.data(), Type::Fragment);
+        uint32 vs = compileShader(vertexShaderFilename, Type::Vertex);
+        uint32 fs = compileShader(fragmentShaderFilename, Type::Fragment);
         m_id = glCreateProgram();
         glAttachShader(m_id, vs);
         glAttachShader(m_id, fs);
@@ -46,62 +53,29 @@ namespace jng {
         glDeleteShader(fs);
     }
 
-    OpenGLShader::~OpenGLShader()
+    Shader::~Shader()
     {
         glDeleteProgram(m_id);
     }
 
-    void OpenGLShader::bind() const
+    void Shader::bind() const
     {
         glUseProgram(m_id);
     }
 
-    void OpenGLShader::unbind() const
+    void Shader::unbind() const
     {
         glUseProgram(0);
     }
 
-    std::filesystem::path OpenGLShader::getCacheDirectory() const
+    uint32 Shader::compileShader(const std::filesystem::path& filename, Type type) const
     {
-        return Engine::get().getProperties().assetsDirectory / std::filesystem::path{ "cache/shaders/opengl" };
-    }
+        JNG_CORE_TRACE("Compiling shader: {0}", filename);
 
-    uint32 OpenGLShader::compileShader(const char* shaderFilename, Type type) const
-    {
-        JNG_CORE_TRACE("Compiling shader: {0}", shaderFilename);
-
-        std::vector<uint32> vulkanSpirvData = compileToVulkanSPIRV(shaderFilename, type);
-        
-        // Check for cached OpenGL SPIR-V
-        std::filesystem::path cacheDirectory = getCacheDirectory();
-        std::filesystem::path shaderFilePath = shaderFilename;
-        std::filesystem::path cachedPath = cacheDirectory / (shaderFilePath.stem().string() + shaderTypeToCachedOGLFileExtension(type));
-        
-        bool success;
-        std::vector<uint32> openglSpirvData;
-        if (m_isCacheDirty) {
-            spirv_cross::CompilerGLSL glslCompiler{ vulkanSpirvData };
-            std::string openglCode = glslCompiler.compile();
-
-            shaderc::Compiler compiler;
-            shaderc::CompileOptions options;
-            options.SetTargetEnvironment(shaderc_target_env_opengl, shaderc_env_version_opengl_4_5);
-            options.SetOptimizationLevel(shaderc_optimization_level_performance);
-            auto openGLSpirv = compiler.CompileGlslToSpv(openglCode, static_cast<shaderc_shader_kind>(shaderTypeToShaderCKind(type)), shaderFilename, options);
-            JNG_CORE_ASSERT(openGLSpirv.GetCompilationStatus() == shaderc_compilation_status_success, openGLSpirv.GetErrorMessage());
-            openglSpirvData = std::vector<uint32>{ openGLSpirv.cbegin(), openGLSpirv.cend() };
-
-            success = writeFile(cachedPath.generic_string().c_str(), reinterpret_cast<char*>(openglSpirvData.data()), openglSpirvData.size() * sizeof(uint32), true);
-        }
-        else {
-            size_t size;
-            success = readFile(cachedPath.generic_string().c_str(), nullptr, size, true);
-            openglSpirvData.resize(size / sizeof(uint32));
-            success = readFile(cachedPath.generic_string().c_str(), reinterpret_cast<char*>(openglSpirvData.data()), size, true);
-        }
+        std::vector<uint32> oglSpirvData = compileToSPIRV(filename, type);
 
         uint32 id = glCreateShader(shaderTypeToOGLShaderType(type));
-        glShaderBinary(1, &id, GL_SHADER_BINARY_FORMAT_SPIR_V, openglSpirvData.data(), static_cast<GLsizei>(openglSpirvData.size() * sizeof(uint32)));
+        glShaderBinary(1, &id, GL_SHADER_BINARY_FORMAT_SPIR_V, oglSpirvData.data(), static_cast<GLsizei>(oglSpirvData.size() * sizeof(uint32)));
         glSpecializeShader(id, "main", 0, nullptr, nullptr);
         int ret;
         glGetShaderiv(id, GL_COMPILE_STATUS, &ret);
@@ -115,28 +89,6 @@ namespace jng {
         };
 
         return id;
-    }
-
-    const char* OpenGLShader::shaderTypeToCachedOGLFileExtension(Type type)
-    {
-        switch (type)
-        {
-        case Type::Vertex:   return ".cached_ogl.vert";
-        case Type::Fragment: return ".cached_ogl.frag";
-        }
-        JNG_CORE_ASSERT(false, "");
-        return "";
-    }
-
-    uint32 OpenGLShader::shaderTypeToOGLShaderType(Type type)
-    {
-        switch (type)
-        {
-        case Type::Vertex:   return GL_VERTEX_SHADER;
-        case Type::Fragment: return GL_FRAGMENT_SHADER;
-        }
-        JNG_CORE_ASSERT(false, "");
-        return static_cast<uint32>(-1);
     }
 
 } // namespace jng

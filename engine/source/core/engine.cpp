@@ -11,7 +11,6 @@
 #include "core/layer.hpp"
 #include "core/window_events.hpp"
 #include "imgui/imgui_layer.hpp"
-#include "platform/graphics_context.hpp"
 #include "platform/window.hpp"
 #include "renderer/renderer.hpp"
 #include "renderer/renderer2d.hpp"
@@ -33,7 +32,6 @@ namespace jng {
 
         m_window = Window::create(properties.windowTitle, properties.windowWidth, properties.windowHeight);
         m_window->setEventCallback(JNG_BIND_EVENT_FUNC(Engine::onEvent));
-        m_window->getGraphicsContext()->setVSync(true);
 
         ImGuiLayer::init(m_window.get());
         LuaEngine::init();

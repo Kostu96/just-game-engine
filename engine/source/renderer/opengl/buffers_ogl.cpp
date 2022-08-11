@@ -4,90 +4,110 @@
  * SPDX-License-Identifier: MIT
  */
 
-#include "renderer/opengl/buffers_ogl.hpp"
+#include "renderer/buffers.hpp"
 
 #include <glad/gl.h>
 
 namespace jng {
 
-    OpenGLVertexBuffer::OpenGLVertexBuffer(const void* vertices, size_t size)
+#pragma region VertexBuffer
+    VertexBuffer::VertexBuffer(const void* vertices, size_t size)
     {
         glCreateBuffers(1, &m_id);
         glNamedBufferData(m_id, static_cast<GLsizeiptr>(size), vertices, GL_STATIC_DRAW);
     }
 
-    OpenGLVertexBuffer::OpenGLVertexBuffer(size_t size)
+    VertexBuffer::VertexBuffer(size_t size)
     {
         glCreateBuffers(1, &m_id);
         glNamedBufferData(m_id, static_cast<GLsizeiptr>(size), nullptr, GL_DYNAMIC_DRAW);
     }
 
-    OpenGLVertexBuffer::~OpenGLVertexBuffer()
+    VertexBuffer::~VertexBuffer()
     {
         glDeleteBuffers(1, &m_id);
     }
 
-    void OpenGLVertexBuffer::bind() const
+    void VertexBuffer::bind() const
     {
         glBindBuffer(GL_ARRAY_BUFFER, m_id);
     }
 
-    void OpenGLVertexBuffer::unbind() const
+    void VertexBuffer::unbind() const
     {
         glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
 
-    void OpenGLVertexBuffer::setData(const void* data, size_t size) const
+    void VertexBuffer::setData(const void* data, size_t size) const
     {
         glNamedBufferSubData(m_id, 0, static_cast<GLsizeiptr>(size), data);
     }
+#pragma endregion
 
-    OpenGLIndexBuffer::OpenGLIndexBuffer(const uint32* indices, uint32 count) :
-        m_count(count)
+#pragma region IndexBuffer
+    static size_t indexTypeToSize(RendererAPI::IndexType type)
     {
-        glCreateBuffers(1, &m_id);
-        glNamedBufferData(m_id, static_cast<GLsizeiptr>(count * sizeof(uint32)), indices, GL_STATIC_DRAW);
+        switch (type)
+        {
+        case RendererAPI::IndexType::UINT8:  return sizeof(uint8);
+        case RendererAPI::IndexType::UINT16: return sizeof(uint16);
+        case RendererAPI::IndexType::UINT32: return sizeof(uint32);
+        }
+
+        JNG_CORE_ASSERT(false, "This should never be triggered!");
+        return 0;
     }
 
-    OpenGLIndexBuffer::~OpenGLIndexBuffer()
+    IndexBuffer::IndexBuffer(const void* indices, uint32 count, RendererAPI::IndexType type) :
+        m_count{ count },
+        m_indexType{ type }
+    {
+        glCreateBuffers(1, &m_id);
+        glNamedBufferData(m_id, static_cast<GLsizeiptr>(count * indexTypeToSize(type)), indices, GL_STATIC_DRAW);
+    }
+
+    IndexBuffer::~IndexBuffer()
     {
         glDeleteBuffers(1, &m_id);
     }
 
-    void OpenGLIndexBuffer::bind() const
+    void IndexBuffer::bind() const
     {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_id);
     }
 
-    void OpenGLIndexBuffer::unbind() const
+    void IndexBuffer::unbind() const
     {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
+#pragma endregion
 
-    OpenGLUniformBuffer::OpenGLUniformBuffer(size_t size)
+#pragma region UniformBuffer
+    UniformBuffer::UniformBuffer(size_t size)
     {
         glCreateBuffers(1, &m_id);
         glNamedBufferData(m_id, static_cast<GLsizeiptr>(size), nullptr, GL_DYNAMIC_DRAW);
     }
 
-    OpenGLUniformBuffer::~OpenGLUniformBuffer()
+    UniformBuffer::~UniformBuffer()
     {
         glDeleteBuffers(1, &m_id);
     }
 
-    void OpenGLUniformBuffer::bind(uint32 slot) const
+    void UniformBuffer::bind(uint32 slot) const
     {
         glBindBufferBase(GL_UNIFORM_BUFFER, slot, m_id);
     }
 
-    void OpenGLUniformBuffer::unbind(uint32 slot) const
+    void UniformBuffer::unbind(uint32 slot) const
     {
         glBindBufferBase(GL_UNIFORM_BUFFER, slot, 0);
     }
 
-    void OpenGLUniformBuffer::setData(const void* data, size_t size, size_t offset) const
+    void UniformBuffer::setData(const void* data, size_t size, size_t offset) const
     {
         glNamedBufferSubData(m_id, static_cast<GLintptr>(offset), static_cast<GLsizeiptr>(size), data);
     }
+#pragma endregion
 
 } // namespace jng

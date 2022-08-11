@@ -10,30 +10,39 @@
 
 namespace jng {
 
-    class Framebuffer
+    class Framebuffer final
     {
     public:
         struct Properties {
-            uint32 Width;
-            uint32 Height;
-            uint32 Samples = 1;
-            std::vector<TextureSpecification> AttachmentsSpecifications;
+            uint32 width;
+            uint32 height;
+            uint32 samples = 1;
+            std::vector<TextureSpecification> attachmentsSpecifications;
             
-            bool SwapChainTarget = false;
+            bool swapChainTarget = false;
         };
 
-        virtual void bind() const = 0;
-        virtual void unbind() const = 0;
-        virtual void resize(uint32 width, uint32 height) = 0;
-        virtual uint32 readPixel(uint32 colorAttachmentIndex, uint32 x, uint32 y) const = 0;
-        virtual void clearAttachment(uint32 attachmentIndex, int value) const = 0;
-        virtual void clearAttachment(uint32 attachmentIndex, float value) const = 0;
-        
-        virtual const std::vector<Ref<Texture>>& getColorAttachments() const = 0;
-        virtual const Properties& getProperties() const = 0;
+        explicit Framebuffer(const Properties& properties);
+        ~Framebuffer();
 
-        static Ref<Framebuffer> create(const Properties& properties);
-        virtual ~Framebuffer() = default;
+        void bind() const;
+        void unbind() const;
+
+        void resize(uint32 width, uint32 height);
+        uint32 readPixel(uint32 colorAttachmentIndex, uint32 x, uint32 y) const;
+        void clearAttachment(uint32 attachmentIndex, int value) const;
+        void clearAttachment(uint32 attachmentIndex, float value) const;
+        
+        const std::vector<Ref<Texture>>& getAttachments() const { return m_attachments; }
+        const Properties& getProperties() const { return m_properties; }
+    private:
+        void recreate();
+
+        Properties m_properties;
+        uint32 m_ID;
+        std::vector<Ref<Texture>> m_attachments;
+        uint32 m_colorAttachmentID;
+        uint32 m_depthAttachmentID;
     };
 
 } // namespace jng

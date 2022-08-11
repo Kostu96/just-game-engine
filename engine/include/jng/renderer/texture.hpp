@@ -29,34 +29,39 @@ namespace jng {
     };
 
     struct TextureSpecification {
-        TextureFormat Format;
-        TextureFilter MinificationFilter = TextureFilter::Linear;
-        TextureFilter MagnificationFilter = TextureFilter::Linear;
-        TextureWrapMode WrapMode = TextureWrapMode::Clamp;
+        TextureFormat format;
+        TextureFilter minificationFilter = TextureFilter::Linear;
+        TextureFilter magnificationFilter = TextureFilter::Linear;
+        TextureWrapMode wrapMode = TextureWrapMode::Clamp;
 
-        TextureSpecification(TextureFormat format) : Format{ format } {}
+        TextureSpecification(TextureFormat inFormat) : format{ inFormat } {}
     };
 
-    class Texture
+    class Texture final
     {
     public:
         struct Properties {
-            TextureSpecification Specification = TextureFormat::None;
-            uint32 Width;
-            uint32 Height;
+            TextureSpecification specification = TextureFormat::None;
+            uint32 width;
+            uint32 height;
         };
 
-        virtual void bind(uint32 slot) const = 0;
-        virtual void unbind(uint32 slot) const = 0;
-        virtual void setData(void* data, size_t size) const = 0;
+        explicit Texture(const char* path);
+        explicit Texture(const Properties& properties);
+        ~Texture();
 
-        virtual uint32 getID() const = 0;
-        virtual const Properties& getProperties() const = 0;
-        virtual void* getRendererID() = 0;
+        void bind(uint32 slot) const;
+        void unbind(uint32 slot) const;
+        void setData(void* data, size_t size) const;
 
-        static Ref<Texture> create(const char* path);
-        static Ref<Texture> create(const Properties& properties);
-        virtual ~Texture() = default;
+        uint32 getID() const { return m_id; }
+        const Properties& getProperties() const { return m_properties; }
+        void* getRendererID() { return reinterpret_cast<void*>(static_cast<uint64>(m_id)); }
+    private:
+        void createTexture();
+
+        Properties m_properties;
+        uint32 m_id;
     };
 
 } // namespace jng

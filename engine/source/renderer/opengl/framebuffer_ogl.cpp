@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-#include "renderer/opengl/framebuffer_ogl.hpp"
+#include "renderer/framebuffer.hpp"
 
 #include "core/base_internal.hpp"
 
@@ -39,78 +39,78 @@ namespace jng {
         return false;
     }
 
-    OpenGLFramebuffer::OpenGLFramebuffer(const Properties& properties) :
+    Framebuffer::Framebuffer(const Properties& properties) :
         m_properties{ properties }
     {
         recreate();
     }
 
-    OpenGLFramebuffer::~OpenGLFramebuffer()
+    Framebuffer::~Framebuffer()
     {
         glDeleteTextures(1, &m_colorAttachmentID);
         glDeleteTextures(1, &m_depthAttachmentID);
         glDeleteFramebuffers(1, &m_ID);
     }
 
-    void OpenGLFramebuffer::bind() const
+    void Framebuffer::bind() const
     {
         glBindFramebuffer(GL_FRAMEBUFFER, m_ID);
-        glViewport(0, 0, m_properties.Width, m_properties.Height);
+        glViewport(0, 0, m_properties.width, m_properties.height);
         glClipControl(GL_UPPER_LEFT, GL_ZERO_TO_ONE);
     }
 
-    void OpenGLFramebuffer::unbind() const
+    void Framebuffer::unbind() const
     {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glClipControl(GL_LOWER_LEFT, GL_ZERO_TO_ONE);
     }
 
-    void OpenGLFramebuffer::resize(uint32 width, uint32 height)
+    void Framebuffer::resize(uint32 width, uint32 height)
     {
-        m_properties.Width = width;
-        m_properties.Height = height;
+        m_properties.width = width;
+        m_properties.height = height;
 
         recreate();
     }
 
-    uint32 OpenGLFramebuffer::readPixel(uint32 colorAttachmentIndex, uint32 x, uint32 y) const
+    uint32 Framebuffer::readPixel(uint32 colorAttachmentIndex, uint32 x, uint32 y) const
     {
         JNG_CORE_ASSERT(colorAttachmentIndex < m_attachments.size(), "Index out of bounds!"); // NOTE: includes depth attachment
         glReadBuffer(GL_COLOR_ATTACHMENT0 + colorAttachmentIndex);
 
         uint32 pixelData;
-        glReadPixels(x, y, 1, 1, textureFormatToGLEnum(m_attachments[colorAttachmentIndex]->getProperties().Specification.Format), GL_INT, &pixelData);
+        glReadPixels(x, y, 1, 1, textureFormatToGLEnum(m_attachments[colorAttachmentIndex]->getProperties().specification.format), GL_INT, &pixelData);
 
         return pixelData;
     }
 
-    void OpenGLFramebuffer::clearAttachment(uint32 attachmentIndex, int value) const
+    void Framebuffer::clearAttachment(uint32 attachmentIndex, int value) const
     {
         const Ref<Texture>& attachment = m_attachments[attachmentIndex];
         int data[]{ value };
         glClearTexImage(
             static_cast<GLuint>(reinterpret_cast<uint64>(attachment->getRendererID())),
             0,
-            textureFormatToGLEnum(attachment->getProperties().Specification.Format),
+            textureFormatToGLEnum(attachment->getProperties().specification.format),
             GL_INT,
             data
         );
     }
 
-    void OpenGLFramebuffer::clearAttachment(uint32 attachmentIndex, float value) const
+    void Framebuffer::clearAttachment(uint32 attachmentIndex, float value) const
     {
         const Ref<Texture>& attachment = m_attachments[attachmentIndex];
         float data[]{ value };
         glClearTexImage(
             static_cast<GLuint>(reinterpret_cast<uint64>(attachment->getRendererID())),
             1,
-            textureFormatToGLEnum(attachment->getProperties().Specification.Format),
+            textureFormatToGLEnum(attachment->getProperties().specification.format),
             GL_FLOAT,
             data
         );
     }
 
-    void OpenGLFramebuffer::recreate()
+    void Framebuffer::recreate()
     {
         if (m_ID) {
             m_attachments.clear();
@@ -120,13 +120,13 @@ namespace jng {
         glCreateFramebuffers(1, &m_ID);
         glBindFramebuffer(GL_FRAMEBUFFER, m_ID);
 
-        m_attachments.reserve(m_properties.AttachmentsSpecifications.size());
+        m_attachments.reserve(m_properties.attachmentsSpecifications.size());
         uint32 numColorAtachments = 0;
-        for (uint32 i = 0; i < m_properties.AttachmentsSpecifications.size(); ++i)
+        for (uint32 i = 0; i < m_properties.attachmentsSpecifications.size(); ++i)
         {
-            bool isDepth = isDepthAttachment(m_properties.AttachmentsSpecifications[i].Format);
+            bool isDepth = isDepthAttachment(m_properties.attachmentsSpecifications[i].format);
             if (!isDepth) numColorAtachments++;
-            m_attachments.push_back(Texture::create({m_properties.AttachmentsSpecifications[i], m_properties.Width, m_properties.Height}));
+            m_attachments.push_back(makeRef<Texture>(Texture::Properties{ m_properties.attachmentsSpecifications[i], m_properties.width, m_properties.height }));
             GLenum attachmentTarget =  isDepth ? GL_DEPTH_STENCIL_ATTACHMENT : GL_COLOR_ATTACHMENT0 + i;
             glFramebufferTexture2D(GL_FRAMEBUFFER, attachmentTarget, GL_TEXTURE_2D, m_attachments[i]->getID(), 0);
         }

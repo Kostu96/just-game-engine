@@ -7,6 +7,8 @@
 #pragma once
 #include "core/base.hpp"
 
+#include <array>
+
 namespace jng {
 
     class Window;
@@ -14,13 +16,20 @@ namespace jng {
     class GraphicsContext
     {
     public:
-        virtual ~GraphicsContext() = default;
+        explicit GraphicsContext(Window& window);
+        ~GraphicsContext() = default;
 
-        virtual void setVSync(bool enabled) = 0;
+        void setVSync(bool enabled);
+        bool isVSync() const { return m_isVSync; }
+        void swapBuffers() const;
+    private:
+        struct Hint { int id; int value; };
+        static std::array<Hint, 4> getContextCreationHints();
 
-        virtual void swapBuffers() const = 0;
+        Window& m_window;
+        bool m_isVSync;
 
-        static Scope<GraphicsContext> create(Window& window);
+        friend class Window;
     };
 
 } // namespace jng

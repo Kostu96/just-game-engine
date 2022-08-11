@@ -32,7 +32,7 @@ const Vertex vertices[]{
     {{ -1.f,  1.f,  1.f }, { 0.f, 1.f }}  // 13
 };
 
-const jng::uint32 indices[]{
+const jng::uint8 indices[]{
     // front
     0, 3, 2,
     2, 1, 0,
@@ -58,13 +58,13 @@ class SampleLayer :
 {
 public:
     SampleLayer() :
-        m_shader{ jng::Shader::create("assets/hello_cube/shaders/vertex.glsl", "assets/hello_cube/shaders/fragment.glsl") },
-        m_cameraUBO{ jng::UniformBuffer::create(sizeof(glm::mat4)) },
-        m_modelUBO{ jng::UniformBuffer::create(sizeof(glm::mat4)) },
-        m_VBO{ jng::VertexBuffer::create(vertices, sizeof(vertices)) },
-        m_IBO{ jng::IndexBuffer::create(indices, sizeof(indices)) },
-        m_VAO{ jng::VertexArray::create(m_VBO, LAYOUT, m_shader) },
-        m_texture{ jng::Texture::create("assets/hello_cube/textures/wall_base_color.jpg") },
+        m_shader{ jng::makeRef<jng::Shader>("assets/hello_cube/shaders/vertex.glsl", "assets/hello_cube/shaders/fragment.glsl") },
+        m_cameraUBO{ jng::makeRef<jng::UniformBuffer>(sizeof(glm::mat4)) },
+        m_modelUBO{ jng::makeRef<jng::UniformBuffer>(sizeof(glm::mat4)) },
+        m_VBO{ jng::makeRef<jng::VertexBuffer>(vertices, sizeof(vertices)) },
+        m_IBO{ jng::makeRef<jng::IndexBuffer>(indices, (jng::uint32)(sizeof(indices) / sizeof(jng::uint8)), jng::RendererAPI::IndexType::UINT8) },
+        m_VAO{ jng::makeRef<jng::VertexArray>(m_VBO, LAYOUT) },
+        m_texture{ jng::makeRef<jng::Texture>("assets/hello_cube/textures/wall_base_color.jpg") },
         m_model{ 1.f }
     {
         m_VAO->setIndexBuffer(m_IBO);
@@ -89,7 +89,7 @@ public:
         m_model = glm::rotate(m_model, dt, glm::vec3{ 1.f, 0.7f, 0.f });
         m_modelUBO->setData(glm::value_ptr(m_model), sizeof(glm::mat4), 0);
 
-        jng::RendererAPI::drawIndexed(m_VAO->getIndexBuffer()->getCount());
+        jng::RendererAPI::drawIndexed(m_VAO->getIndexBuffer()->getCount(), m_VAO->getIndexBuffer()->getIndexType());
     }
 
     void onEvent(jng::Event& event) override
