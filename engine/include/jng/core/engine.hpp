@@ -20,7 +20,8 @@ namespace jng {
     /** Main engine class from which all client applications derive
     *
     */
-    class Engine
+    class Engine :
+        public NonCopyable
     {
     public:
         enum class RendererType { None, Renderer2D, Renderer3D };

@@ -37,54 +37,19 @@ namespace jng {
         std::string Tag;
     };
 
-    template<typename Tag>
-    struct Transform
+    struct TransformComponent
     {
-        Transform() = default;
-        Transform(const Transform&) = default;
+        TransformComponent() = default;
+        TransformComponent(const TransformComponent&) = default;
 
-        glm::vec3 Translation{ 0.f, 0.f, 0.f };
-        glm::vec3 Rotation{ 0.f, 0.f, 0.f };
-        glm::vec3 Scale{ 1.f, 1.f, 1.f };
-        bool isDirty = false;
+        glm::vec3 translation{ 0.f, 0.f, 0.f };
+        glm::vec3 rotation{ 0.f, 0.f, 0.f };
+        glm::vec3 scale{ 1.f, 1.f, 1.f };
 
-        void reset()
-        {
-            Translation = { 0.f, 0.f, 0.f };
-            Rotation = { 0.f, 0.f, 0.f };
-            Scale = { 1.f, 1.f, 1.f };
-            isDirty = false;
-        }
+        void reset();
 
-        void setTransform(const glm::mat4& transform)
-        {
-            math::decomposeTransform(transform, Translation, Rotation, Scale);
-        }
-
-        glm::mat4 getTransform() const
-        {
-            glm::mat4 rotMatrix = glm::toMat4(glm::quat(Rotation));
-            return glm::translate(glm::mat4{ 1.f }, Translation) * rotMatrix * glm::scale(glm::mat4{ 1.f }, Scale);
-        }
-    };
-
-    using WorldTransformComponent = Transform<struct World>;
-    using LocalTransformComponent = Transform<struct Local>;
-
-    struct ParentComponent
-    {
-        ParentComponent() = default;
-        ParentComponent(const ParentComponent&) = default;
-
-        Entity parent;
-    };
-
-    struct ChildrenComponent
-    {
-        ChildrenComponent() = default;
-        ChildrenComponent(const ChildrenComponent&) = default;
-
-        std::list<Entity> children;
+        void setTransform(const glm::mat4& transform);
+        glm::mat4 getTransform() const;
     };
 
     struct CameraComponent
@@ -166,6 +131,7 @@ namespace jng {
         bool freezeRotation = false;
         float linearDamping = 0.1f;
         float angularDamping = 0.1f;
+        float gravityScale = 1.f;
 
         b2Body* bodyHandle = nullptr; // NOTE: used in runtime only
 
@@ -187,10 +153,9 @@ namespace jng {
     template<typename... Component>
     struct ComponentGroup {};
 
-    // All components except ID, Tag, Parent, Children
+    // All components except ID, Tag
     using AllComponents = ComponentGroup<
-        WorldTransformComponent,
-        LocalTransformComponent,
+        TransformComponent,
         CameraComponent,
         CircleRendererComponent,
         SpriteRendererComponent,

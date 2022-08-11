@@ -39,14 +39,13 @@ namespace jng {
 
         template<typename Func>
         void each(Func func);
+        template<typename Component, typename Func>
+        void sort(Func func);
+        template<typename Component, typename Func>
+        void each(Func func);
 
         void setViewportSize(float width, float height);
     private:
-        void calculateWorldTransforms();
-
-        static Entity copyEntityWithChildren(Ref<Scene>& scene, Entity entity);
-        static void copyChildren(Ref<Scene>& scene, Entity dst, Entity src);
-
         void drawRenderables();
         void drawColliders();
 
@@ -64,6 +63,20 @@ namespace jng {
         m_registry.each([&](entt::entity entityHandle) {
             func({ entityHandle, *this });
         });
+    }
+
+    template<typename Component, typename Func>
+    void Scene::sort(Func func)
+    {
+        m_registry.sort<Component>(func);
+    }
+
+    template<typename Component, typename Func>
+    void Scene::each(Func func)
+    {
+        auto view = m_registry.view<Component>();
+        for (auto entity : view)
+            func({ entity, *this });
     }
 
 } // namespace jng

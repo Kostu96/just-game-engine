@@ -27,11 +27,12 @@ namespace jng {
                 ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 7.f, 4.f });
                 ImGui::BeginChild("ScneHierarchyChild", { 0, 0 }, false, ImGuiWindowFlags_AlwaysUseWindowPadding);
 
-                m_context.ActiveScene->each([this](Entity entity)
-                    {
-                        if (!entity.hasParent())
-                            updateSceneHierarchyItem(entity);
-                    });
+                m_context.ActiveScene->sort<TagComponent>([](const TagComponent& lhs, const TagComponent& rhs) {
+                    return lhs.Tag < rhs.Tag;
+                });
+                m_context.ActiveScene->each<TagComponent>([this](Entity entity) {
+                    updateSceneHierarchyItem(entity);
+                });
 
                 if (ImGui::IsMouseClicked(ImGuiMouseButton_Left) && ImGui::IsWindowHovered())
                     m_context.SelectedEntity = {};
@@ -52,14 +53,6 @@ namespace jng {
 
                 ImGui::EndChild();
                 ImGui::PopStyleVar();
-
-                if (ImGui::BeginDragDropTarget())
-                {
-                    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SCENE_HIERARCHY_ITEM"))
-                        reinterpret_cast<Entity*>(payload->Data)->removeParent();
-
-                    ImGui::EndDragDropTarget();
-                }
             }
 
             ImGui::End();
@@ -70,11 +63,9 @@ namespace jng {
     void SceneHierarchyWindow::updateSceneHierarchyItem(Entity entity)
     {
         auto& tag = entity.getComponent<TagComponent>().Tag;
-        bool hasChildren = entity.hasChildren();
 
         ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth |
-            (m_context.SelectedEntity == entity ? ImGuiTreeNodeFlags_Selected : 0) |
-            (hasChildren ? 0 : ImGuiTreeNodeFlags_Leaf);
+            (m_context.SelectedEntity == entity ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_Leaf;
 
         bool isOpen = ImGui::TreeNodeEx(entity, flags, tag.c_str());
 
@@ -86,16 +77,6 @@ namespace jng {
             ImGui::SetDragDropPayload("SCENE_HIERARCHY_ITEM", &entity, sizeof(Entity), ImGuiCond_Once);
             ImGui::Text(tag.c_str());
             ImGui::EndDragDropSource();
-        }
-
-        if (ImGui::BeginDragDropTarget())
-        {
-            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SCENE_HIERARCHY_ITEM"))
-            {
-                Entity droppedEntity = *reinterpret_cast<Entity*>(payload->Data);
-                droppedEntity.setParent(entity);
-            }
-            ImGui::EndDragDropTarget();
         }
 
         if (ImGui::BeginPopupContextItem(0, ImGuiPopupFlags_MouseButtonRight))
@@ -116,13 +97,6 @@ namespace jng {
 
         if (isOpen)
         {
-            if (hasChildren)
-            {
-                auto& children = entity.getComponent<ChildrenComponent>();
-                for (auto child : children.children)
-                    updateSceneHierarchyItem(child);
-            }
-
             ImGui::TreePop();
         }
     }

@@ -8,8 +8,6 @@
 
 #include "../editor_context.hpp"
 
-#include <jng/renderer/renderer2d.hpp>
-
 #include <imgui.h>
 
 namespace jng {

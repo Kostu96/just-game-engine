@@ -12,15 +12,15 @@
 
 namespace jng {
 
-    std::shared_ptr<spdlog::logger> Log::m_coreLogger;
-    std::shared_ptr<spdlog::logger> Log::m_userLogger;
+    std::shared_ptr<spdlog::logger> Log::s_coreLogger;
+    std::shared_ptr<spdlog::logger> Log::s_userLogger;
 
     void Log::init()
     {
         spdlog::set_pattern("%^[%T][%n] %v%$");
         spdlog::set_level(spdlog::level::trace);
-        m_coreLogger = spdlog::stdout_color_mt("JNG");
-        m_userLogger = spdlog::stdout_color_mt("APP");
+        s_coreLogger = spdlog::stdout_color_mt("JNG");
+        s_userLogger = spdlog::stdout_color_mt("APP");
     }
 
     struct LogInitializer

@@ -149,18 +149,16 @@ namespace jng {
                 auto tagComponent = entity["TagComponent"];
                 if (tagComponent) tag = tagComponent["Tag"].as<std::string>();
 
-                JNG_CORE_TRACE("Deserializing entity: {0}", tag);
-
                 Entity deserializedEntity = m_scene->createEntity(tag, id);
 
 #pragma region DeserializeTransformComponent
                 auto transformComponent = entity["TransformComponent"];
                 if (transformComponent)
                 {
-                    auto& tc = deserializedEntity.getComponent<WorldTransformComponent>();
-                    tc.Translation = transformComponent["Translation"].as<glm::vec3>();
-                    tc.Rotation = transformComponent["Rotation"].as<glm::vec3>();
-                    tc.Scale = transformComponent["Scale"].as<glm::vec3>();
+                    auto& tc = deserializedEntity.getComponent<TransformComponent>();
+                    tc.translation = transformComponent["Translation"].as<glm::vec3>();
+                    tc.rotation = transformComponent["Rotation"].as<glm::vec3>();
+                    tc.scale = transformComponent["Scale"].as<glm::vec3>();
                 }
 #pragma endregion
 
@@ -237,6 +235,7 @@ namespace jng {
                     comp.freezeRotation = rigidbody2DComponent["FreezeRotation"].as<bool>();
                     comp.linearDamping = rigidbody2DComponent["LinearDamping"].as<float>();
                     comp.angularDamping = rigidbody2DComponent["AngularDamping"].as<float>();
+                    comp.gravityScale = rigidbody2DComponent["GravityScale"].as<float>();
                 }
 #pragma endregion
             
@@ -295,11 +294,11 @@ namespace jng {
         {
             yaml << YAML::Key << "TransformComponent" << YAML::Value;
             yaml << YAML::BeginMap;
-            auto& comp = entity.getComponent<WorldTransformComponent>();
+            auto& comp = entity.getComponent<TransformComponent>();
 
-            yaml << YAML::Key << "Translation" << YAML::Value << comp.Translation;
-            yaml << YAML::Key << "Rotation" << YAML::Value << comp.Rotation;
-            yaml << YAML::Key << "Scale" << YAML::Value << comp.Scale;
+            yaml << YAML::Key << "Translation" << YAML::Value << comp.translation;
+            yaml << YAML::Key << "Rotation" << YAML::Value << comp.rotation;
+            yaml << YAML::Key << "Scale" << YAML::Value << comp.scale;
 
             yaml << YAML::EndMap;
         }
@@ -400,6 +399,7 @@ namespace jng {
             yaml << YAML::Key << "FreezeRotation" << YAML::Value << comp.freezeRotation;
             yaml << YAML::Key << "LinearDamping" << YAML::Value << comp.linearDamping;
             yaml << YAML::Key << "AngularDamping" << YAML::Value << comp.angularDamping;
+            yaml << YAML::Key << "GravityScale" << YAML::Value << comp.gravityScale;
 
             yaml << YAML::EndMap;
         }
