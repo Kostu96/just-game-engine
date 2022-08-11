@@ -81,25 +81,23 @@ $(function() {
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="key__codes_8hpp.html">jng/platform/key_codes.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="mouse__codes_8hpp.html">jng/platform/mouse_codes.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacejng.html">jng</a> {</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacejng.html">jng</a> {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="classjng_1_1_input.html">   16</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classjng_1_1_input.html">Input</a></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classjng_1_1_input.html#af1048b2de61de535115314f0c7404787">isKeyPressed</a>(<a class="code hl_typedef" href="namespacejng_1_1_key.html#a089ff689a96795d7f611132b6ae877f1">Key::Code</a> key);</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classjng_1_1_input.html#a9d73eecd437ed8aa12943f348a9ef1aa">isMouseButtonPressed</a>(<a class="code hl_typedef" href="namespacejng_1_1_mouse.html#abf67ecf84e6c99cfcc1d8ed2e54ad472">Mouse::Code</a> button);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keyword">static</span> glm::vec2 <a class="code hl_function" href="classjng_1_1_input.html#a0efa98b9ffb16b0d415d1260f1b99c4d">getMousePosition</a>();</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <a class="code hl_class" href="classjng_1_1_input.html">Input</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <a class="code hl_class" href="classjng_1_1_input.html">Input</a>(<span class="keyword">const</span> <a class="code hl_class" href="classjng_1_1_input.html">Input</a>&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <a class="code hl_class" href="classjng_1_1_input.html">Input</a>&amp; operator=(<span class="keyword">const</span> <a class="code hl_class" href="classjng_1_1_input.html">Input</a>&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    };</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>} <span class="comment">// namespace jng</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="classjng_1_1_input.html">   14</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classjng_1_1_input.html">Input</a></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classjng_1_1_input.html#af1048b2de61de535115314f0c7404787">isKeyPressed</a>(<a class="code hl_typedef" href="namespacejng_1_1_key.html#a089ff689a96795d7f611132b6ae877f1">Key::Code</a> key);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classjng_1_1_input.html#a9d73eecd437ed8aa12943f348a9ef1aa">isMouseButtonPressed</a>(<a class="code hl_typedef" href="namespacejng_1_1_mouse.html#abf67ecf84e6c99cfcc1d8ed2e54ad472">Mouse::Code</a> button);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keyword">static</span> glm::vec2 <a class="code hl_function" href="classjng_1_1_input.html#a0efa98b9ffb16b0d415d1260f1b99c4d">getMousePosition</a>();</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <a class="code hl_class" href="classjng_1_1_input.html">Input</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <a class="code hl_class" href="classjng_1_1_input.html">Input</a>(<span class="keyword">const</span> <a class="code hl_class" href="classjng_1_1_input.html">Input</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <a class="code hl_class" href="classjng_1_1_input.html">Input</a>&amp; operator=(<span class="keyword">const</span> <a class="code hl_class" href="classjng_1_1_input.html">Input</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    };</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>} <span class="comment">// namespace jng</span></div>
 <div class="ttc" id="abase_8hpp_html"><div class="ttname"><a href="base_8hpp.html">base.hpp</a></div></div>
-<div class="ttc" id="aclassjng_1_1_input_html"><div class="ttname"><a href="classjng_1_1_input.html">jng::Input</a></div><div class="ttdef"><b>Definition:</b> input.hpp:17</div></div>
+<div class="ttc" id="aclassjng_1_1_input_html"><div class="ttname"><a href="classjng_1_1_input.html">jng::Input</a></div><div class="ttdef"><b>Definition:</b> input.hpp:15</div></div>
 <div class="ttc" id="aclassjng_1_1_input_html_a0efa98b9ffb16b0d415d1260f1b99c4d"><div class="ttname"><a href="classjng_1_1_input.html#a0efa98b9ffb16b0d415d1260f1b99c4d">jng::Input::getMousePosition</a></div><div class="ttdeci">static glm::vec2 getMousePosition()</div><div class="ttdef"><b>Definition:</b> input.cpp:30</div></div>
 <div class="ttc" id="aclassjng_1_1_input_html_a9d73eecd437ed8aa12943f348a9ef1aa"><div class="ttname"><a href="classjng_1_1_input.html#a9d73eecd437ed8aa12943f348a9ef1aa">jng::Input::isMouseButtonPressed</a></div><div class="ttdeci">static bool isMouseButtonPressed(Mouse::Code button)</div><div class="ttdef"><b>Definition:</b> input.cpp:23</div></div>
 <div class="ttc" id="aclassjng_1_1_input_html_af1048b2de61de535115314f0c7404787"><div class="ttname"><a href="classjng_1_1_input.html#af1048b2de61de535115314f0c7404787">jng::Input::isKeyPressed</a></div><div class="ttdeci">static bool isKeyPressed(Key::Code key)</div><div class="ttdef"><b>Definition:</b> input.cpp:16</div></div>
@@ -107,11 +105,11 @@ $(function() {
 <div class="ttc" id="amouse__codes_8hpp_html"><div class="ttname"><a href="mouse__codes_8hpp.html">mouse_codes.hpp</a></div></div>
 <div class="ttc" id="anamespacejng_1_1_key_html_a089ff689a96795d7f611132b6ae877f1"><div class="ttname"><a href="namespacejng_1_1_key.html#a089ff689a96795d7f611132b6ae877f1">jng::Key::Code</a></div><div class="ttdeci">uint16 Code</div><div class="ttdef"><b>Definition:</b> key_codes.hpp:13</div></div>
 <div class="ttc" id="anamespacejng_1_1_mouse_html_abf67ecf84e6c99cfcc1d8ed2e54ad472"><div class="ttname"><a href="namespacejng_1_1_mouse.html#abf67ecf84e6c99cfcc1d8ed2e54ad472">jng::Mouse::Code</a></div><div class="ttdeci">uint8 Code</div><div class="ttdef"><b>Definition:</b> mouse_codes.hpp:13</div></div>
-<div class="ttc" id="anamespacejng_html"><div class="ttname"><a href="namespacejng.html">jng</a></div><div class="ttdef"><b>Definition:</b> base.hpp:14</div></div>
+<div class="ttc" id="anamespacejng_html"><div class="ttname"><a href="namespacejng.html">jng</a></div><div class="ttdef"><b>Definition:</b> base.hpp:11</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 11 2022 12:58:20 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Aug 11 2022 15:05:56 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

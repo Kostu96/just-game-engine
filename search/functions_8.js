@@ -7,5 +7,6 @@ var searchData=
   ['iskeypressed_4',['isKeyPressed',['../classjng_1_1_input.html#af1048b2de61de535115314f0c7404787',1,'jng::Input::isKeyPressed()'],['../namespacejng_1_1_lua_1_1_input.html#a7096eaeb458480887cf5a0afbb2b06aa',1,'jng::Lua::Input::isKeyPressed()']]],
   ['isminimized_5',['isMinimized',['../classjng_1_1_window.html#a97aeddab501a974934a634e7cd7b0f43',1,'jng::Window']]],
   ['ismousebuttonpressed_6',['isMouseButtonPressed',['../classjng_1_1_input.html#a9d73eecd437ed8aa12943f348a9ef1aa',1,'jng::Input']]],
-  ['isvsync_7',['isVSync',['../classjng_1_1_graphics_context.html#ae934c68c4bf9eaacd35493295aca7616',1,'jng::GraphicsContext']]]
+  ['isrepeat_7',['isRepeat',['../classjng_1_1_key_press_event.html#aee2bba5d83c229b75959e1135d163391',1,'jng::KeyPressEvent']]],
+  ['isvsync_8',['isVSync',['../classjng_1_1_graphics_context.html#ae934c68c4bf9eaacd35493295aca7616',1,'jng::GraphicsContext']]]
 ];

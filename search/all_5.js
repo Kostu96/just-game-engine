@@ -30,7 +30,7 @@ var searchData=
   ['file_2ecpp_27',['file.cpp',['../file_8cpp.html',1,'']]],
   ['file_2ehpp_28',['file.hpp',['../file_8hpp.html',1,'']]],
   ['fillquad_29',['fillQuad',['../namespacejng_1_1_renderer2_d.html#af65522dd90fa172e8822301c02cf7aff',1,'jng::Renderer2D::fillQuad(const glm::mat4 &amp;transform, const Ref&lt; Texture &gt; &amp;texture, const glm::vec4 &amp;color={ 1.f, 1.f, 1.f, 1.f })'],['../namespacejng_1_1_renderer2_d.html#a4b5ec300cfeef45eb8fab9f43b66578a',1,'jng::Renderer2D::fillQuad(glm::vec3 position, glm::vec2 size, const glm::vec4 &amp;color)'],['../namespacejng_1_1_renderer2_d.html#ad596f2c2845ba11ea8975977af91e047',1,'jng::Renderer2D::fillQuad(glm::vec3 position, glm::vec2 size, const Ref&lt; Texture &gt; &amp;texture, const glm::vec4 &amp;color={ 1.f, 1.f, 1.f, 1.f })'],['../namespacejng_1_1_renderer2_d.html#ae12ce7c1175098a8e76fa3c621278f55',1,'jng::Renderer2D::fillQuad(const glm::mat4 &amp;transform, const glm::vec4 &amp;color)']]],
-  ['fixturehandle_30',['FixtureHandle',['../structjng_1_1_circle_collider2_d_component.html#a2c05c8cc4cf496371429936242102b33',1,'jng::CircleCollider2DComponent::FixtureHandle()'],['../structjng_1_1_box_collider2_d_component.html#ad2a0251542f8607e9817dc2ad2cd83de',1,'jng::BoxCollider2DComponent::FixtureHandle()']]],
+  ['fixturehandle_30',['fixtureHandle',['../structjng_1_1_circle_collider2_d_component.html#ae2e1f9114004b89e12cc612f43c71c65',1,'jng::CircleCollider2DComponent::fixtureHandle()'],['../structjng_1_1_box_collider2_d_component.html#a805db0bf568e52e6b091ec41f2a66296',1,'jng::BoxCollider2DComponent::fixtureHandle()']]],
   ['float_31',['Float',['../structjng_1_1_layout_element.html#af99663c7b612370f9f9197b09119fb5ba22ae0e2b89e5e3d477f988cc36d3272b',1,'jng::LayoutElement']]],
   ['float2_32',['Float2',['../structjng_1_1_layout_element.html#af99663c7b612370f9f9197b09119fb5ba6694430a2b471b5d2de071f2ef1fdc57',1,'jng::LayoutElement']]],
   ['float3_33',['Float3',['../structjng_1_1_layout_element.html#af99663c7b612370f9f9197b09119fb5ba8a8a1d211464d4bdee46db3c75bfa121',1,'jng::LayoutElement']]],
@@ -41,5 +41,5 @@ var searchData=
   ['framebuffer_2ehpp_38',['framebuffer.hpp',['../framebuffer_8hpp.html',1,'']]],
   ['framebuffer_5fogl_2ecpp_39',['framebuffer_ogl.cpp',['../framebuffer__ogl_8cpp.html',1,'']]],
   ['freezerotation_40',['freezeRotation',['../structjng_1_1_rigidbody2_d_component.html#a3155c2dccf42fa0ddaccc9a6afe72f4e',1,'jng::Rigidbody2DComponent']]],
-  ['friction_41',['Friction',['../structjng_1_1_circle_collider2_d_component.html#af4cda591231464d9ff860d955b3d16dc',1,'jng::CircleCollider2DComponent::Friction()'],['../structjng_1_1_box_collider2_d_component.html#aa02124acf2a0d3f9355abd2f8b096345',1,'jng::BoxCollider2DComponent::Friction()']]]
+  ['friction_41',['friction',['../structjng_1_1_circle_collider2_d_component.html#af9f11e45676c5a2d595f8d96559e4c87',1,'jng::CircleCollider2DComponent::friction()'],['../structjng_1_1_box_collider2_d_component.html#ad546d2d8d98da40906ec2b8b42a582c6',1,'jng::BoxCollider2DComponent::friction()']]]
 ];
