@@ -105,13 +105,13 @@ namespace jng {
                     tag = buffer;
                 ImGui::Separator();
 
-                updateComponent<WorldTransformComponent>("Transform", m_context.SelectedEntity,
-                    [](WorldTransformComponent& tc) {
-                        ImGui::DragFloat3("Translation", glm::value_ptr(tc.Translation), 0.1f, 0.f, 0.f, "%.2f");
-                        glm::vec3 degreesRot = glm::degrees(tc.Rotation);
+                updateComponent<TransformComponent>("Transform", m_context.SelectedEntity,
+                    [](TransformComponent& tc) {
+                        ImGui::DragFloat3("Translation", glm::value_ptr(tc.translation), 0.1f, 0.f, 0.f, "%.2f");
+                        glm::vec3 degreesRot = glm::degrees(tc.rotation);
                         ImGui::DragFloat3("Rotation", glm::value_ptr(degreesRot), 0.1f, 0.f, 0.f, "%.2f");
-                        tc.Rotation = glm::radians(degreesRot);
-                        ImGui::DragFloat3("Scale", glm::value_ptr(tc.Scale), 0.1f, 0.f, 0.f, "%.2f");
+                        tc.rotation = glm::radians(degreesRot);
+                        ImGui::DragFloat3("Scale", glm::value_ptr(tc.scale), 0.1f, 0.f, 0.f, "%.2f");
                     }, false);
 
                 updateComponent<CameraComponent>("Camera", m_context.SelectedEntity,

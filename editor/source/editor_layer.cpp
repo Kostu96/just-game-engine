@@ -76,7 +76,6 @@ namespace jng {
                 case SceneState::Stopped:
                 {
                     jng::Renderer2D::beginScene(m_context.EditorCamera.getViewProjection());
-                    m_context.ActiveScene->calculateWorldTransforms();
                     m_context.ActiveScene->drawRenderables();
                     if (m_context.showColliders) m_context.ActiveScene->drawColliders();
                     jng::Renderer2D::endScene();
@@ -165,7 +164,7 @@ namespace jng {
 
                     glm::mat4 cameraView = m_context.EditorCamera.getView();
                     const glm::mat4& cameraProjection = m_context.EditorCamera.getProjection();
-                    auto& tc = m_context.SelectedEntity.getComponent<WorldTransformComponent>();
+                    auto& tc = m_context.SelectedEntity.getComponent<TransformComponent>();
                     glm::mat4 transform = tc.getTransform();
 
                     bool snap = Input::isKeyPressed(Key::LeftControl);
@@ -178,9 +177,9 @@ namespace jng {
                     if (ImGuizmo::IsUsing())
                     {
                         glm::vec3 rotation;
-                        math::decomposeTransform(transform, tc.Translation, rotation, tc.Scale);
-                        glm::vec3 rotDelta = rotation - tc.Rotation;
-                        tc.Rotation += rotDelta;
+                        math::decomposeTransform(transform, tc.translation, rotation, tc.scale);
+                        glm::vec3 rotDelta = rotation - tc.rotation;
+                        tc.rotation += rotDelta;
                     }
                 }
 

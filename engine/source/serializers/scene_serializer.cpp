@@ -155,10 +155,10 @@ namespace jng {
                 auto transformComponent = entity["TransformComponent"];
                 if (transformComponent)
                 {
-                    auto& tc = deserializedEntity.getComponent<WorldTransformComponent>();
-                    tc.Translation = transformComponent["Translation"].as<glm::vec3>();
-                    tc.Rotation = transformComponent["Rotation"].as<glm::vec3>();
-                    tc.Scale = transformComponent["Scale"].as<glm::vec3>();
+                    auto& tc = deserializedEntity.getComponent<TransformComponent>();
+                    tc.translation = transformComponent["Translation"].as<glm::vec3>();
+                    tc.rotation = transformComponent["Rotation"].as<glm::vec3>();
+                    tc.scale = transformComponent["Scale"].as<glm::vec3>();
                 }
 #pragma endregion
 
@@ -294,11 +294,11 @@ namespace jng {
         {
             yaml << YAML::Key << "TransformComponent" << YAML::Value;
             yaml << YAML::BeginMap;
-            auto& comp = entity.getComponent<WorldTransformComponent>();
+            auto& comp = entity.getComponent<TransformComponent>();
 
-            yaml << YAML::Key << "Translation" << YAML::Value << comp.Translation;
-            yaml << YAML::Key << "Rotation" << YAML::Value << comp.Rotation;
-            yaml << YAML::Key << "Scale" << YAML::Value << comp.Scale;
+            yaml << YAML::Key << "Translation" << YAML::Value << comp.translation;
+            yaml << YAML::Key << "Rotation" << YAML::Value << comp.rotation;
+            yaml << YAML::Key << "Scale" << YAML::Value << comp.scale;
 
             yaml << YAML::EndMap;
         }

@@ -11,6 +11,24 @@
 
 namespace jng {
 
+    void TransformComponent::reset()
+    {
+        translation = { 0.f, 0.f, 0.f };
+        rotation = { 0.f, 0.f, 0.f };
+        scale = { 1.f, 1.f, 1.f };
+    }
+
+    void TransformComponent::setTransform(const glm::mat4& transform)
+    {
+        math::decomposeTransform(transform, translation, rotation, scale);
+    }
+
+    glm::mat4 TransformComponent::getTransform() const
+    {
+        glm::mat4 rotMatrix = glm::toMat4(glm::quat(rotation));
+        return glm::translate(glm::mat4{ 1.f }, translation) * rotMatrix * glm::scale(glm::mat4{ 1.f }, scale);
+    }
+
     void CameraComponent::reset()
     {
         camera.reset();

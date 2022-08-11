@@ -36,11 +36,6 @@ namespace jng {
 
         GUID getGUID() const;
         const std::string& getTag() const;
-        bool hasParent() const;
-        bool hasChildren() const;
-
-        void setParent(Entity newParent);
-        void removeParent();
 
         Scene* getScene() { return m_sceneRef; }
 
