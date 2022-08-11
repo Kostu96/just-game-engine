@@ -50,22 +50,19 @@ namespace jng::Renderer2D {
     struct RenderData
     {
         static constexpr uint32 MaxQuadsPerBatch =   1000; //
-        static constexpr uint32 MaxCirclesPerBatch = 500;  //
         static constexpr uint32 MaxLinesPerBatch =   2000; // NOTE: arbitrarily choosen values
-        static constexpr uint32 QuadAndCircleVertexCount = 4;
+        static constexpr uint32 QuadVertexCount = 4;
         static constexpr uint32 LineVertexCount = 2;
-        static constexpr uint32 QuadAndCircleIndexCount = 6;
-        static constexpr uint32 MaxQuadVerticesPerBatch = QuadAndCircleVertexCount * MaxQuadsPerBatch;
-        static constexpr uint32 MaxQuadIndicesPerBatch = QuadAndCircleIndexCount * MaxQuadsPerBatch;
-        static constexpr uint32 MaxCircleVerticesPerBatch = QuadAndCircleVertexCount * MaxCirclesPerBatch;
-        static constexpr uint32 MaxCircleIndicesPerBatch = QuadAndCircleIndexCount * MaxCirclesPerBatch;
+        static constexpr uint32 QuadIndexCount = 6;
+        static constexpr uint32 MaxQuadVerticesPerBatch = QuadVertexCount * MaxQuadsPerBatch;
+        static constexpr uint32 MaxQuadIndicesPerBatch = QuadIndexCount * MaxQuadsPerBatch;
         static constexpr uint32 MaxLineVerticesPerBatch = LineVertexCount * MaxLinesPerBatch;
         static constexpr uint32 MaxTextureSlots = 16; // TODO: render caps
 
         Ref<UniformBuffer> cameraUBO;
         Ref<Texture> whiteTexture;
 
-        glm::vec4 quadAndCircleVertexPositions[4]{};
+        glm::vec4 quadVertexPositions[4]{};
 
         Ref<Shader> quadShader;
         Ref<VertexBuffer> quadVBO;
@@ -185,6 +182,7 @@ namespace jng::Renderer2D {
         std::filesystem::path assetsDir = Engine::get().getProperties().assetsDirectory;
 
         s_data.cameraUBO = makeRef<UniformBuffer>(sizeof(glm::mat4));
+        s_data.cameraUBO->bind(0);
 
         Texture::Properties props{
             TextureFormat::RGBA8,
@@ -195,10 +193,24 @@ namespace jng::Renderer2D {
         s_data.whiteTexture->setData(&whiteTextureData, sizeof(uint32));
         s_data.textureSlots[0] = s_data.whiteTexture;
 
-        s_data.quadAndCircleVertexPositions[0] = { -0.5f, -0.5f, 0.0f, 1.0f };
-        s_data.quadAndCircleVertexPositions[1] = {  0.5f, -0.5f, 0.0f, 1.0f };
-        s_data.quadAndCircleVertexPositions[2] = {  0.5f,  0.5f, 0.0f, 1.0f };
-        s_data.quadAndCircleVertexPositions[3] = { -0.5f,  0.5f, 0.0f, 1.0f };
+        s_data.quadVertexPositions[0] = { -0.5f, -0.5f, 0.0f, 1.0f };
+        s_data.quadVertexPositions[1] = {  0.5f, -0.5f, 0.0f, 1.0f };
+        s_data.quadVertexPositions[2] = {  0.5f,  0.5f, 0.0f, 1.0f };
+        s_data.quadVertexPositions[3] = { -0.5f,  0.5f, 0.0f, 1.0f };
+
+        uint32* quadIndices = new uint32[RenderData::MaxQuadIndicesPerBatch];
+        for (uint32 i = 0, offset = 0; i < s_data.MaxQuadIndicesPerBatch; i += s_data.QuadIndexCount, offset += s_data.QuadVertexCount)
+        {
+            quadIndices[i + 0] = offset + 0;
+            quadIndices[i + 1] = offset + 2;
+            quadIndices[i + 2] = offset + 1;
+
+            quadIndices[i + 3] = offset + 0;
+            quadIndices[i + 4] = offset + 3;
+            quadIndices[i + 5] = offset + 2;
+        }
+        auto quadIBO = makeRef<IndexBuffer>(quadIndices, RenderData::MaxQuadIndicesPerBatch);
+        delete[] quadIndices;
 
         // Quad
         s_data.quadShader = makeRef<Shader>(
@@ -216,28 +228,14 @@ namespace jng::Renderer2D {
         };
         s_data.quadVAO = makeRef<VertexArray>(s_data.quadVBO, quadVertexLayout);
         s_data.quadVBOBase = new QuadVertex[s_data.MaxQuadVerticesPerBatch];
-        
-        uint32* quadIndices = new uint32[RenderData::MaxQuadIndicesPerBatch];
-        for (uint32 i = 0, offset = 0; i < s_data.MaxQuadIndicesPerBatch; i += s_data.QuadAndCircleIndexCount, offset += s_data.QuadAndCircleVertexCount)
-        {
-            quadIndices[i + 0] = offset + 0;
-            quadIndices[i + 1] = offset + 2;
-            quadIndices[i + 2] = offset + 1;
-
-            quadIndices[i + 3] = offset + 0;
-            quadIndices[i + 4] = offset + 3;
-            quadIndices[i + 5] = offset + 2;
-        }
-        auto quadIBO = makeRef<IndexBuffer>(quadIndices, RenderData::MaxQuadIndicesPerBatch);
         s_data.quadVAO->setIndexBuffer(quadIBO);
-        delete[] quadIndices;
 
         // Circle
         s_data.circleShader = makeRef<Shader>(
             (assetsDir / "shaders/circle_vertex.glsl").string(),
             (assetsDir / "shaders/circle_fragment.glsl").string()
         );
-        s_data.circleVBO = makeRef<VertexBuffer>(RenderData::MaxCircleVerticesPerBatch * sizeof(CircleVertex));
+        s_data.circleVBO = makeRef<VertexBuffer>(RenderData::MaxQuadVerticesPerBatch * sizeof(CircleVertex));
 
         VertexLayout circleVertexLayout = {
             { LayoutElement::DataType::Float3,  "a_Position" },
@@ -248,22 +246,8 @@ namespace jng::Renderer2D {
             { LayoutElement::DataType::Int,     "a_EntityID", false }
         };
         s_data.circleVAO = makeRef<VertexArray>(s_data.circleVBO, circleVertexLayout);
-        s_data.circleVBOBase = new CircleVertex[s_data.MaxCircleVerticesPerBatch];
-
-        uint32* circleIndices = new uint32[RenderData::MaxCircleIndicesPerBatch];
-        for (uint32 i = 0, offset = 0; i < s_data.MaxCircleIndicesPerBatch; i += s_data.QuadAndCircleIndexCount, offset += s_data.QuadAndCircleVertexCount)
-        {
-            circleIndices[i + 0] = offset + 0;
-            circleIndices[i + 1] = offset + 2;
-            circleIndices[i + 2] = offset + 1;
-
-            circleIndices[i + 3] = offset + 0;
-            circleIndices[i + 4] = offset + 3;
-            circleIndices[i + 5] = offset + 2;
-        }
-        auto circleIBO = makeRef<IndexBuffer>(circleIndices, RenderData::MaxCircleIndicesPerBatch);
-        s_data.circleVAO->setIndexBuffer(circleIBO); // TODO: Use the same index buffer as for quads?
-        delete[] circleIndices;
+        s_data.circleVBOBase = new CircleVertex[s_data.MaxQuadVerticesPerBatch];
+        s_data.circleVAO->setIndexBuffer(quadIBO);
 
         // Line
         s_data.lineShader = makeRef<Shader>(
@@ -278,8 +262,6 @@ namespace jng::Renderer2D {
         };
         s_data.lineVAO = makeRef<VertexArray>(s_data.lineVBO, lineVertexLayout);
         s_data.lineVBOBase = new LineVertex[s_data.MaxLineVerticesPerBatch];
-
-        s_data.cameraUBO->bind(0);
     }
 
     void shutdown()
@@ -315,12 +297,12 @@ namespace jng::Renderer2D {
 
     void drawSprite(const glm::mat4& transform, const SpriteRendererComponent& src, int32 entityID)
     {
-        glm::vec3 quadVertexPositions[RenderData::QuadAndCircleVertexCount];
+        glm::vec3 quadVertexPositions[RenderData::QuadVertexCount];
 
-        for (uint32 i = 0; i < RenderData::QuadAndCircleVertexCount; ++i)
-            quadVertexPositions[i] = transform * s_data.quadAndCircleVertexPositions[i];
+        for (uint32 i = 0; i < RenderData::QuadVertexCount; ++i)
+            quadVertexPositions[i] = transform * s_data.quadVertexPositions[i];
 
-        constexpr glm::vec2 texCoords[RenderData::QuadAndCircleVertexCount] = {
+        constexpr glm::vec2 texCoords[RenderData::QuadVertexCount] = {
             { 0.f, 0.f },
             { 1.f, 0.f },
             { 1.f, 1.f },
@@ -339,13 +321,13 @@ namespace jng::Renderer2D {
 
     void drawCircle(const glm::mat4& transform, const CircleRendererComponent& crc, int32 entityID)
     {
-        glm::vec3 circleVertexPositions[RenderData::QuadAndCircleVertexCount];
-        glm::vec2 circleVertexLocalPositions[RenderData::QuadAndCircleVertexCount];
+        glm::vec3 circleVertexPositions[RenderData::QuadVertexCount];
+        glm::vec2 circleVertexLocalPositions[RenderData::QuadVertexCount];
 
-        for (uint32 i = 0; i < RenderData::QuadAndCircleVertexCount; ++i)
+        for (uint32 i = 0; i < RenderData::QuadVertexCount; ++i)
         {
-            circleVertexPositions[i] = transform * s_data.quadAndCircleVertexPositions[i];
-            circleVertexLocalPositions[i] = s_data.quadAndCircleVertexPositions[i] * 2.f;
+            circleVertexPositions[i] = transform * s_data.quadVertexPositions[i];
+            circleVertexLocalPositions[i] = s_data.quadVertexPositions[i] * 2.f;
         }
 
         const DrawCircleProperties properties{
@@ -361,13 +343,13 @@ namespace jng::Renderer2D {
 
     void drawCircle(const glm::mat4& transform, const glm::vec4& color, float thickness, float fade)
     {
-        glm::vec3 circleVertexPositions[RenderData::QuadAndCircleVertexCount];
-        glm::vec2 circleVertexLocalPositions[RenderData::QuadAndCircleVertexCount];
+        glm::vec3 circleVertexPositions[RenderData::QuadVertexCount];
+        glm::vec2 circleVertexLocalPositions[RenderData::QuadVertexCount];
 
-        for (uint32 i = 0; i < RenderData::QuadAndCircleVertexCount; ++i)
+        for (uint32 i = 0; i < RenderData::QuadVertexCount; ++i)
         {
-            circleVertexPositions[i] = transform * s_data.quadAndCircleVertexPositions[i];
-            circleVertexLocalPositions[i] = s_data.quadAndCircleVertexPositions[i] * 2.f;
+            circleVertexPositions[i] = transform * s_data.quadVertexPositions[i];
+            circleVertexLocalPositions[i] = s_data.quadVertexPositions[i] * 2.f;
         }
 
         const DrawCircleProperties properties{
@@ -405,7 +387,7 @@ namespace jng::Renderer2D {
             textureIndex = s_data.textureSlotIndex++;
         }
 
-        for (uint32 i = 0; i < RenderData::QuadAndCircleVertexCount; ++i)
+        for (uint32 i = 0; i < RenderData::QuadVertexCount; ++i)
         {
             s_data.quadVBOPtr->position = properties.vertexPositions[i];
             s_data.quadVBOPtr->texCoord = properties.textureCoords[i];
@@ -415,7 +397,7 @@ namespace jng::Renderer2D {
             ++s_data.quadVBOPtr;
         }
 
-        s_data.currentQuadIndexCount += RenderData::QuadAndCircleIndexCount;
+        s_data.currentQuadIndexCount += RenderData::QuadIndexCount;
 
         ++s_data.statistics.quadCount;
     }
@@ -424,13 +406,13 @@ namespace jng::Renderer2D {
     {
         JNG_PROFILE_FUNCTION();
 
-        if (s_data.currentCircleIndexCount >= RenderData::MaxCircleIndicesPerBatch)
+        if (s_data.currentCircleIndexCount >= RenderData::MaxQuadIndicesPerBatch)
         {
             endCircleBatch();
             beginCircleBatch();
         }
 
-        for (uint32 i = 0; i < RenderData::QuadAndCircleVertexCount; ++i)
+        for (uint32 i = 0; i < RenderData::QuadVertexCount; ++i)
         {
             s_data.circleVBOPtr->position = properties.vertexPositions[i];
             s_data.circleVBOPtr->localPosition = properties.localVertexPositions[i];
@@ -441,7 +423,7 @@ namespace jng::Renderer2D {
             ++s_data.circleVBOPtr;
         }
 
-        s_data.currentCircleIndexCount += RenderData::QuadAndCircleIndexCount;
+        s_data.currentCircleIndexCount += RenderData::QuadIndexCount;
 
         ++s_data.statistics.circleCount;
     }
@@ -470,10 +452,10 @@ namespace jng::Renderer2D {
 
     void drawRect(const glm::mat4& transform, const glm::vec4& color)
     {
-        glm::vec3 p0 = transform * s_data.quadAndCircleVertexPositions[0];
-        glm::vec3 p1 = transform * s_data.quadAndCircleVertexPositions[1];
-        glm::vec3 p2 = transform * s_data.quadAndCircleVertexPositions[2];
-        glm::vec3 p3 = transform * s_data.quadAndCircleVertexPositions[3];
+        glm::vec3 p0 = transform * s_data.quadVertexPositions[0];
+        glm::vec3 p1 = transform * s_data.quadVertexPositions[1];
+        glm::vec3 p2 = transform * s_data.quadVertexPositions[2];
+        glm::vec3 p3 = transform * s_data.quadVertexPositions[3];
 
         drawLine(p0, p1, color);
         drawLine(p1, p2, color);
@@ -488,14 +470,14 @@ namespace jng::Renderer2D {
 
     void fillQuad(glm::vec3 position, glm::vec2 size, const Ref<Texture>& texture, const glm::vec4& color)
     {
-        glm::vec3 quadVertexPositions[RenderData::QuadAndCircleVertexCount];
+        glm::vec3 quadVertexPositions[RenderData::QuadVertexCount];
 
         quadVertexPositions[0] = { position.x,          position.y,          position.z };
         quadVertexPositions[1] = { position.x + size.x, position.y,          position.z };
         quadVertexPositions[2] = { position.x + size.x, position.y + size.y, position.z };
         quadVertexPositions[3] = { position.x,          position.y + size.y, position.z };
 
-        constexpr glm::vec2 texCoords[RenderData::QuadAndCircleVertexCount] = {
+        constexpr glm::vec2 texCoords[RenderData::QuadVertexCount] = {
             { 0.f, 0.f },
             { 1.f, 0.f },
             { 1.f, 1.f },
@@ -518,12 +500,12 @@ namespace jng::Renderer2D {
 
     void fillQuad(const glm::mat4& transform, const Ref<Texture>& texture, const glm::vec4& color)
     {
-        glm::vec3 quadVertexPositions[RenderData::QuadAndCircleVertexCount];
+        glm::vec3 quadVertexPositions[RenderData::QuadVertexCount];
 
-        for (uint32 i = 0; i < RenderData::QuadAndCircleVertexCount; ++i)
-            quadVertexPositions[i] = transform * s_data.quadAndCircleVertexPositions[i];
+        for (uint32 i = 0; i < RenderData::QuadVertexCount; ++i)
+            quadVertexPositions[i] = transform * s_data.quadVertexPositions[i];
 
-        constexpr glm::vec2 texCoords[RenderData::QuadAndCircleVertexCount] = {
+        constexpr glm::vec2 texCoords[RenderData::QuadVertexCount] = {
             { 0.f, 0.f },
             { 1.f, 0.f },
             { 1.f, 1.f },
