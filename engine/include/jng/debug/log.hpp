@@ -14,20 +14,18 @@
 
 namespace jng {
     
-    class Log :
-        public NonCopyable
+    class Log
     {
     public:
         static void init();
 
-        inline static spdlog::logger* getCoreLogger() { return m_coreLogger.get(); }
-        inline static spdlog::logger* getUserLogger() { return m_userLogger.get(); }
+        inline static spdlog::logger* getCoreLogger() { return s_coreLogger.get(); }
+        inline static spdlog::logger* getUserLogger() { return s_userLogger.get(); }
     private:
         Log() = delete;
-        Log(const Log&) = delete;
 
-        static std::shared_ptr<spdlog::logger> m_coreLogger;
-        static std::shared_ptr<spdlog::logger> m_userLogger;
+        static std::shared_ptr<spdlog::logger> s_coreLogger;
+        static std::shared_ptr<spdlog::logger> s_userLogger;
     };
 
 } // namespace jng

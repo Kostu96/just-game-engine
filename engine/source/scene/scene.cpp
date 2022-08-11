@@ -332,10 +332,24 @@ namespace jng {
             for (auto entity : group)
             {
                 auto [bcc, tc] = group.get<BoxCollider2DComponent, WorldTransformComponent>(entity);
-                glm::vec3 translation = tc.Translation;
-                glm::vec3 scale = tc.Scale;
-                glm::mat4 transform = glm::translate(glm::mat4{ 1.f }, translation) * glm::scale(glm::mat4{ 1.f }, scale);
-                Renderer2D::drawRect(transform, { 0.25f, 1.f, 0.f, 1.f });
+                b2PolygonShape shape{};
+                shape.SetAsBox(
+                    bcc.size.x * tc.Scale.x, bcc.size.y * tc.Scale.y,
+                    b2Vec2{ tc.Translation.x, tc.Translation.y } + b2Vec2{ bcc.offset.x, bcc.offset.y },
+                    tc.Rotation.z
+                );
+                
+                b2Vec2 p1 = shape.m_vertices[shape.m_count - 1];
+                for (int32 i = 0; i < shape.m_count; ++i)
+                {
+                    b2Vec2 p2 = shape.m_vertices[i];
+                    Renderer2D::drawLine(
+                        { p1.x, p1.y, 0.01f },
+                        { p2.x, p2.y, 0.01f },
+                        { 0.25f, 1.f, 0.f, 1.f }
+                    );
+                    p1 = p2;
+                }
             }
         }
         {
@@ -343,10 +357,29 @@ namespace jng {
             for (auto entity : group)
             {
                 auto [ccc, tc] = group.get<CircleCollider2DComponent, WorldTransformComponent>(entity);
-                glm::vec3 translation = tc.Translation + glm::vec3{ ccc.offset, 0.001f };
-                glm::vec3 scale = tc.Scale * ccc.radius * 2.f;
-                glm::mat4 transform = glm::translate(glm::mat4{ 1.f }, translation) * glm::scale(glm::mat4{ 1.f }, scale);
-                Renderer2D::drawCircle(transform, { 0.25f, 1.f, 0.f, 1.f }, 0.05f);
+                b2Vec2 center{ ccc.offset.x, ccc.offset.y };
+                float radius = ccc.radius * std::max(tc.Scale.x, tc.Scale.y);
+                const float k_segments = 16.0f;
+                const float k_increment = 2.0f * b2_pi / k_segments;
+                float sinInc = sinf(k_increment);
+                float cosInc = cosf(k_increment);
+                b2Vec2 r1(1.0f, 0.0f);
+                b2Vec2 v1 = center + radius * r1;
+                for (int32 i = 0; i < k_segments; ++i)
+                {
+                    // Perform rotation to avoid additional trigonometry.
+                    b2Vec2 r2;
+                    r2.x = cosInc * r1.x - sinInc * r1.y;
+                    r2.y = sinInc * r1.x + cosInc * r1.y;
+                    b2Vec2 v2 = center + radius * r2;
+                    Renderer2D::drawLine(
+                        { v1.x, v1.y, 0.01f },
+                        { v2.x, v2.y, 0.01f },
+                        { 0.25f, 1.f, 0.f, 1.f }
+                    );
+                    r1 = r2;
+                    v1 = v2;
+                }
             }
         }
     }
