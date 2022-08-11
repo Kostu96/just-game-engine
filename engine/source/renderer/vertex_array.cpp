@@ -37,8 +37,8 @@ namespace jng {
         case DataType::Int4:    return sizeof(int32) * 4;
         }
 
-        JNG_CORE_ASSERT(false, "This should never be triggered!")
-            return 0;
+        JNG_CORE_ASSERT(false, "This should never be triggered!");
+        return 0;
     }
 
     VertexLayout::VertexLayout(const std::initializer_list<LayoutElement>& list) :

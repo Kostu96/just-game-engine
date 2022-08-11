@@ -49,15 +49,15 @@ namespace jng::Renderer2D {
 
     struct RenderData
     {
-        static constexpr uint32 MaxQuadsPerBatch =   1000; //
-        static constexpr uint32 MaxLinesPerBatch =   2000; // NOTE: arbitrarily choosen values
-        static constexpr uint32 QuadVertexCount = 4;
-        static constexpr uint32 LineVertexCount = 2;
-        static constexpr uint32 QuadIndexCount = 6;
-        static constexpr uint32 MaxQuadVerticesPerBatch = QuadVertexCount * MaxQuadsPerBatch;
-        static constexpr uint32 MaxQuadIndicesPerBatch = QuadIndexCount * MaxQuadsPerBatch;
-        static constexpr uint32 MaxLineVerticesPerBatch = LineVertexCount * MaxLinesPerBatch;
-        static constexpr uint32 MaxTextureSlots = 16; // TODO: render caps
+        static constexpr uint16 MaxQuadsPerBatch = 1000; //
+        static constexpr uint16 MaxLinesPerBatch = 2000; // NOTE: arbitrarily choosen values
+        static constexpr uint16 QuadVertexCount = 4;
+        static constexpr uint16 LineVertexCount = 2;
+        static constexpr uint16 QuadIndexCount  = 6;
+        static constexpr uint16 MaxQuadVerticesPerBatch = QuadVertexCount * MaxQuadsPerBatch;
+        static constexpr uint16 MaxQuadIndicesPerBatch  = QuadIndexCount  * MaxQuadsPerBatch;
+        static constexpr uint16 MaxLineVerticesPerBatch = LineVertexCount * MaxLinesPerBatch;
+        static constexpr uint16 MaxTextureSlots = 16; // TODO: render caps
 
         Ref<UniformBuffer> cameraUBO;
         Ref<Texture> whiteTexture;
@@ -117,7 +117,7 @@ namespace jng::Renderer2D {
 
             s_data.quadVAO->bind();
             s_data.quadShader->bind();
-            RendererAPI::drawIndexed(s_data.currentQuadIndexCount);
+            RendererAPI::drawIndexed(s_data.currentQuadIndexCount, s_data.quadVAO->getIndexBuffer()->getIndexType());
 
             ++s_data.statistics.drawCalls;
         }
@@ -143,7 +143,7 @@ namespace jng::Renderer2D {
 
             s_data.circleVAO->bind();
             s_data.circleShader->bind();
-            RendererAPI::drawIndexed(s_data.currentCircleIndexCount);
+            RendererAPI::drawIndexed(s_data.currentCircleIndexCount, s_data.circleVAO->getIndexBuffer()->getIndexType());
 
             ++s_data.statistics.drawCalls;
         }
@@ -198,8 +198,8 @@ namespace jng::Renderer2D {
         s_data.quadVertexPositions[2] = {  0.5f,  0.5f, 0.0f, 1.0f };
         s_data.quadVertexPositions[3] = { -0.5f,  0.5f, 0.0f, 1.0f };
 
-        uint32* quadIndices = new uint32[RenderData::MaxQuadIndicesPerBatch];
-        for (uint32 i = 0, offset = 0; i < s_data.MaxQuadIndicesPerBatch; i += s_data.QuadIndexCount, offset += s_data.QuadVertexCount)
+        uint16* quadIndices = new uint16[RenderData::MaxQuadIndicesPerBatch];
+        for (uint16 i = 0, offset = 0; i < s_data.MaxQuadIndicesPerBatch; i += s_data.QuadIndexCount, offset += s_data.QuadVertexCount)
         {
             quadIndices[i + 0] = offset + 0;
             quadIndices[i + 1] = offset + 2;
@@ -209,7 +209,7 @@ namespace jng::Renderer2D {
             quadIndices[i + 4] = offset + 3;
             quadIndices[i + 5] = offset + 2;
         }
-        auto quadIBO = makeRef<IndexBuffer>(quadIndices, RenderData::MaxQuadIndicesPerBatch);
+        auto quadIBO = makeRef<IndexBuffer>(quadIndices, RenderData::MaxQuadIndicesPerBatch, RendererAPI::IndexType::UINT16);
         delete[] quadIndices;
 
         // Quad

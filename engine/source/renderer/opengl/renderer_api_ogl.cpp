@@ -13,12 +13,25 @@
 
 namespace jng::RendererAPI {
 
-    static GLenum primitiveTypeToGLenum(RendererAPI::PrimitiveType primitiveType)
+    static GLenum primitiveTypeToGLenum(RendererAPI::PrimitiveType type)
     {
-        switch (primitiveType)
+        switch (type)
         {
         case RendererAPI::PrimitiveType::Lines:     return GL_LINES;
         case RendererAPI::PrimitiveType::Triangles: return GL_TRIANGLES;
+        }
+
+        JNG_CORE_ASSERT(false, "This should never be triggered!");
+        return static_cast<GLenum>(-1);
+    }
+
+    static GLenum indexTypeToGLenum(RendererAPI::IndexType type)
+    {
+        switch (type)
+        {
+        case RendererAPI::IndexType::UINT8:  return GL_UNSIGNED_BYTE;
+        case RendererAPI::IndexType::UINT16: return GL_UNSIGNED_SHORT;
+        case RendererAPI::IndexType::UINT32: return GL_UNSIGNED_INT;
         }
 
         JNG_CORE_ASSERT(false, "This should never be triggered!");
@@ -41,9 +54,9 @@ namespace jng::RendererAPI {
         glDrawArrays(primitiveTypeToGLenum(primitiveType), 0, static_cast<GLsizei>(count));
     }
 
-    void drawIndexed(uint32 count)
+    void drawIndexed(uint32 count, IndexType indexType, PrimitiveType primitiveType)
     {
-        glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(count), GL_UNSIGNED_INT, nullptr);
+        glDrawElements(primitiveTypeToGLenum(primitiveType), static_cast<GLsizei>(count), indexTypeToGLenum(indexType), nullptr);
     }
 
 } // namespace jng::RendererAPI

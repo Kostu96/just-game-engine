@@ -6,6 +6,7 @@
 
 #pragma once
 #include "jng/core/base.hpp"
+#include "jng/renderer/renderer_api.hpp"
 
 namespace jng {
 
@@ -26,15 +27,17 @@ namespace jng {
     class IndexBuffer final
     {
     public:
-        IndexBuffer(const uint32* indices, uint32 count);
+        IndexBuffer(const void* indices, uint32 count, RendererAPI::IndexType type);
         ~IndexBuffer();
 
         void bind() const;
         void unbind() const;
         uint32 getCount() const { return m_count; }
+        RendererAPI::IndexType getIndexType() const { return m_indexType; }
     private:
         uint32 m_id;
         uint32 m_count;
+        RendererAPI::IndexType m_indexType;
     };
 
     class UniformBuffer final

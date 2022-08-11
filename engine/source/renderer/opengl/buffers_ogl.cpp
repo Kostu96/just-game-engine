@@ -10,6 +10,7 @@
 
 namespace jng {
 
+#pragma region VertexBuffer
     VertexBuffer::VertexBuffer(const void* vertices, size_t size)
     {
         glCreateBuffers(1, &m_id);
@@ -41,12 +42,28 @@ namespace jng {
     {
         glNamedBufferSubData(m_id, 0, static_cast<GLsizeiptr>(size), data);
     }
+#pragma endregion
 
-    IndexBuffer::IndexBuffer(const uint32* indices, uint32 count) :
-        m_count(count)
+#pragma region IndexBuffer
+    static size_t indexTypeToSize(RendererAPI::IndexType type)
+    {
+        switch (type)
+        {
+        case RendererAPI::IndexType::UINT8:  return sizeof(uint8);
+        case RendererAPI::IndexType::UINT16: return sizeof(uint16);
+        case RendererAPI::IndexType::UINT32: return sizeof(uint32);
+        }
+
+        JNG_CORE_ASSERT(false, "This should never be triggered!");
+        return 0;
+    }
+
+    IndexBuffer::IndexBuffer(const void* indices, uint32 count, RendererAPI::IndexType type) :
+        m_count{ count },
+        m_indexType{ type }
     {
         glCreateBuffers(1, &m_id);
-        glNamedBufferData(m_id, static_cast<GLsizeiptr>(count * sizeof(uint32)), indices, GL_STATIC_DRAW);
+        glNamedBufferData(m_id, static_cast<GLsizeiptr>(count * indexTypeToSize(type)), indices, GL_STATIC_DRAW);
     }
 
     IndexBuffer::~IndexBuffer()
@@ -63,7 +80,9 @@ namespace jng {
     {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
+#pragma endregion
 
+#pragma region UniformBuffer
     UniformBuffer::UniformBuffer(size_t size)
     {
         glCreateBuffers(1, &m_id);
@@ -89,5 +108,6 @@ namespace jng {
     {
         glNamedBufferSubData(m_id, static_cast<GLintptr>(offset), static_cast<GLsizeiptr>(size), data);
     }
+#pragma endregion
 
 } // namespace jng
