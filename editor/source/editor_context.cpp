@@ -101,6 +101,8 @@ namespace jng {
     {
         SceneState = SceneState::Playing;
         
+        SelectedEntity = {};
+        
         ActiveScene = Scene::copy(EditorScene);
         ActiveScene->onCreate(physicsGravity);
     }
@@ -108,6 +110,8 @@ namespace jng {
     void EditorContext::onSceneStop()
     {
         SceneState = SceneState::Stopped;
+
+        SelectedEntity = {};
 
         ActiveScene->onDestroy();
         ActiveScene = EditorScene;
