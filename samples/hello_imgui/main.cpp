@@ -4,8 +4,12 @@
  * SPDX-License-Identifier: MIT
  */
 
-#define JNG_DECLARE_MAIN
-#include <jng/jng.hpp>
+#include <jng/core/engine.hpp>
+#include <jng/core/entry_point.hpp>
+#include <jng/core/layer.hpp>
+#include <jng/renderer/renderer_api.hpp>
+
+#include <imgui.h>
 
 class SampleLayer :
     public jng::Layer
