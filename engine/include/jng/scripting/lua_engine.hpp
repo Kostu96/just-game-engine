@@ -30,6 +30,7 @@ namespace jng {
         };
 
         bool hasOnCreate = false;
+        bool hasOnDestroy = false;
         bool hasOnUpdate = false;
 
         std::map<std::string, Property> properties;
@@ -42,6 +43,7 @@ namespace jng {
     ScriptData getScriptData(const std::string& name);
 
     void onCreate(Entity entity, LuaScriptComponent& lsc);
+    void onDestroy(Entity entity, LuaScriptComponent& lsc);
     void onUpdate(Entity entity, LuaScriptComponent& lsc, float dt);
 
     void printLuaStack(const char* file, int line);

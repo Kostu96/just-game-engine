@@ -168,6 +168,15 @@ namespace jng {
 
     void Scene::onDestroy()
     {
+        {
+            auto view = m_registry.view<LuaScriptComponent>();
+            for (auto entity : view)
+            {
+                auto& lsc = view.get<LuaScriptComponent>(entity);
+                LuaEngine::onDestroy(Entity{ entity, *this }, lsc);
+            }
+        }
+
         delete m_physics2dWorld;
         m_physics2dWorld = nullptr;
     }

@@ -152,6 +152,7 @@ namespace jng::LuaEngine {
                 {
                 case LUA_TFUNCTION:
                     if (strcmp(symbol, "onCreate") == 0) it->second.hasOnCreate = true;
+                    else if (strcmp(symbol, "onDestroy") == 0) it->second.hasOnDestroy = true;
                     else if (strcmp(symbol, "onUpdate") == 0) it->second.hasOnUpdate = true;
 
                     break;
@@ -187,7 +188,7 @@ namespace jng::LuaEngine {
         JNG_CORE_ASSERT(lua_gettop(s_data.L) == 0, "Lua stack should be empty!");
 
         std::string instanceName = lsc.name + std::to_string(entity.getGUID());
-        JNG_CORE_TRACE("Registering script instance: {}", instanceName);
+        JNG_CORE_TRACE("Creating script instance: {}", instanceName);
 
         lua_getglobal(s_data.L, "_scriptInstances_");
 
@@ -222,9 +223,9 @@ namespace jng::LuaEngine {
 
         lua_setfield(s_data.L, -2, instanceName.c_str());
 
-        lua_getfield(s_data.L, -1, instanceName.c_str());
         if (lsc.data.hasOnCreate)
         {
+            lua_getfield(s_data.L, -1, instanceName.c_str());
             lua_getfield(s_data.L, -1, "onCreate");
             lua_pushvalue(s_data.L, -2); // copy script table for argument
             JNG_CORE_ASSERT(lua_isfunction(s_data.L, -2), "should be a function");
@@ -233,9 +234,42 @@ namespace jng::LuaEngine {
             {
                 JNG_CORE_ERROR("Lua Error: {}", lua_tostring(s_data.L, -1));
             }
+            lua_pop(s_data.L, 1);
         }
 
-        lua_pop(s_data.L, 2);
+        lua_pop(s_data.L, 1);
+
+        JNG_CORE_ASSERT(lua_gettop(s_data.L) == 0, "Lua stack should be empty!");
+    }
+
+    void onDestroy(Entity entity, LuaScriptComponent& lsc)
+    {
+        JNG_CORE_ASSERT(s_data.scripts.find(lsc.name) != s_data.scripts.end(), "Script is not registered!");
+        JNG_CORE_ASSERT(lua_gettop(s_data.L) == 0, "Lua stack should be empty!");
+
+        std::string instanceName = lsc.name + std::to_string(entity.getGUID());
+        JNG_CORE_TRACE("Destroying script instance: {}", instanceName);
+
+        lua_getglobal(s_data.L, "_scriptInstances_");
+
+        if (lsc.data.hasOnDestroy)
+        {
+            lua_getfield(s_data.L, -1, instanceName.c_str());
+            lua_getfield(s_data.L, -1, "onDestroy");
+            lua_pushvalue(s_data.L, -2); // copy script table for argument
+            JNG_CORE_ASSERT(lua_isfunction(s_data.L, -2), "should be a function");
+            JNG_CORE_ASSERT(lua_istable(s_data.L, -1), "should be a table");
+            if (lua_pcall(s_data.L, 1, 0, 0))
+            {
+                JNG_CORE_ERROR("Lua Error: {}", lua_tostring(s_data.L, -1));
+            }
+            lua_pop(s_data.L, 1);
+        }
+
+        lua_pushnil(s_data.L);
+        lua_setfield(s_data.L, -2, instanceName.c_str());
+
+        lua_pop(s_data.L, 1);
 
         JNG_CORE_ASSERT(lua_gettop(s_data.L) == 0, "Lua stack should be empty!");
     }
