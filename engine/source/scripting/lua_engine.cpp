@@ -147,6 +147,7 @@ namespace jng::LuaEngine {
             if (luaL_dofile(s_data.L, path.string().c_str()))
             {
                 JNG_CORE_ERROR("Lua Error: {}", lua_tostring(s_data.L, -1));
+                lua_pop(s_data.L, 1);
             }
 
             JNG_CORE_TRACE("Reflecting on {} script:", name);

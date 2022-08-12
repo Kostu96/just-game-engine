@@ -185,6 +185,9 @@ namespace jng {
                             }
                             ImGui::EndDragDropTarget();
                         }
+                        ImGui::SameLine();
+                        if (ImGui::Button("X##srcClearTextureBtn"))
+                            src.texture = {};
                     });
 
                 updateComponent<BoxCollider2DComponent>("Box Collider 2D", m_context.SelectedEntity,
