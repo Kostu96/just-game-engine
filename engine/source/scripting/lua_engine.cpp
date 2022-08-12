@@ -25,57 +25,57 @@ namespace jng::LuaEngine {
 
     static void loadJNGDefinitions()
     {
-#pragma region Script
+#pragma region LuaScript
         lua_newtable(s_data.L);
 
-        lua_pushcfunction(s_data.L, Lua::Script::create);
+        lua_pushcfunction(s_data.L, LuaScript::create);
         lua_setfield(s_data.L, -2, "create");
-        lua_pushcfunction(s_data.L, Lua::Script::getComponent);
+        lua_pushcfunction(s_data.L, LuaScript::getComponent);
         lua_setfield(s_data.L, -2, "getComponent");
 
         lua_setglobal(s_data.L, "LuaScript");
 #pragma endregion
 
-#pragma region Global
-        lua_pushcfunction(s_data.L, Lua::Global::log);
+#pragma region LuaGlobal
+        lua_pushcfunction(s_data.L, LuaGlobal::log);
         lua_setglobal(s_data.L, "log");
 #pragma endregion
 
-#pragma region Component
+#pragma region LuaComponent
         lua_newtable(s_data.L);
 
-        lua_pushinteger(s_data.L, Lua::Component::Tag);
+        lua_pushinteger(s_data.L, LuaComponent::Tag);
         lua_setfield(s_data.L, -2, "Tag");
-        lua_pushinteger(s_data.L, Lua::Component::Transform);
+        lua_pushinteger(s_data.L, LuaComponent::Transform);
         lua_setfield(s_data.L, -2, "Transform");
-        lua_pushinteger(s_data.L, Lua::Component::Camera);
+        lua_pushinteger(s_data.L, LuaComponent::Camera);
         lua_setfield(s_data.L, -2, "Camera");
-        lua_pushinteger(s_data.L, Lua::Component::SpriteRenderer);
+        lua_pushinteger(s_data.L, LuaComponent::SpriteRenderer);
         lua_setfield(s_data.L, -2, "SpriteRenderer");
-        lua_pushinteger(s_data.L, Lua::Component::CircleRenderer);
+        lua_pushinteger(s_data.L, LuaComponent::CircleRenderer);
         lua_setfield(s_data.L, -2, "CircleRenderer");
-        lua_pushinteger(s_data.L, Lua::Component::BoxCollider2D);
+        lua_pushinteger(s_data.L, LuaComponent::BoxCollider2D);
         lua_setfield(s_data.L, -2, "BoxCollider2D");
-        lua_pushinteger(s_data.L, Lua::Component::CircleCollider2D);
+        lua_pushinteger(s_data.L, LuaComponent::CircleCollider2D);
         lua_setfield(s_data.L, -2, "CircleCollider2D");
-        lua_pushinteger(s_data.L, Lua::Component::Rigidbody2D);
+        lua_pushinteger(s_data.L, LuaComponent::Rigidbody2D);
         lua_setfield(s_data.L, -2, "Rigidbody2D");
 
         lua_setglobal(s_data.L, "Component");
 
-        luaL_newmetatable(s_data.L, Lua::Component::Rigidbody2DComponent::METATABLE_NAME);
+        luaL_newmetatable(s_data.L, LuaComponent::LuaRigidbody2DComponent::METATABLE_NAME);
 
         lua_pushstring(s_data.L, "__index");
         lua_pushvalue(s_data.L, -2); // pushes the metatable
         lua_settable(s_data.L, -3);  // metatable.__index = metatable
 
-        lua_pushcfunction(s_data.L, Lua::Component::Rigidbody2DComponent::setLinearVelocity);
+        lua_pushcfunction(s_data.L, LuaComponent::LuaRigidbody2DComponent::setLinearVelocity);
         lua_setfield(s_data.L, -2, "setLinearVelocity");
 
         lua_pop(s_data.L, 1);
 #pragma endregion
 
-#pragma region Input
+#pragma region LuaInput
         lua_newtable(s_data.L); // Input
 
         lua_newtable(s_data.L); // Key
@@ -93,7 +93,7 @@ namespace jng::LuaEngine {
 
         lua_setfield(s_data.L, -2, "Key");
 
-        lua_pushcfunction(s_data.L, Lua::Input::isKeyPressed);
+        lua_pushcfunction(s_data.L, LuaInput::isKeyPressed);
         lua_setfield(s_data.L, -2, "isKeyPressed");
 
         lua_setglobal(s_data.L, "Input");
