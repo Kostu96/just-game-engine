@@ -88,6 +88,29 @@ namespace jng {
             JNG_LUA_CALL_EXIT();
         }
 
+        int createEntity(lua_State* L)
+        {
+            JNG_LUA_CCALL_ENTRY(1, 1);
+
+            JNG_CORE_ASSERT(lua_istable(L, 1), "LuaScript::createEntity - 1st parameter is not a table!");
+            JNG_CORE_ASSERT(lua_isstring(L, 2), "LuaScript::createEntity - 1st parameter is not a string!");
+
+            lua_getfield(L, 1, "_sceneHandle_");
+            Scene* sceneHandle = (Scene*)lua_touserdata(L, -1);
+            lua_pop(L, 1);
+
+            const char* name = lua_tostring(L, 2);
+            Entity entity = sceneHandle->createEntity(name);
+
+            LuaEntity* luaEntity = reinterpret_cast<LuaEntity*>(lua_newuserdata(L, sizeof(LuaEntity)));
+            luaEntity->handle = entity;
+            luaL_getmetatable(L, LuaEntity::METATABLE_NAME);
+            lua_setmetatable(L, -2);
+
+            lua_pop(L, 1);
+            JNG_LUA_CALL_EXIT();
+        }
+
     } // namespace LuaScript
 
     namespace LuaGlobal {

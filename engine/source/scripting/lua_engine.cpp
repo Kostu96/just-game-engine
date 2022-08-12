@@ -26,12 +26,23 @@ namespace jng::LuaEngine {
     static void loadJNGDefinitions()
     {
 #pragma region LuaScript
+        luaL_newmetatable(s_data.L, LuaScript::LuaEntity::METATABLE_NAME);
+
+        lua_pushstring(s_data.L, "__index");
+        lua_pushvalue(s_data.L, -2); // pushes the metatable
+        lua_settable(s_data.L, -3);  // metatable.__index = metatable
+
+        lua_pop(s_data.L, 1);
+
         lua_newtable(s_data.L);
 
         lua_pushcfunction(s_data.L, LuaScript::create);
         lua_setfield(s_data.L, -2, "create");
         lua_pushcfunction(s_data.L, LuaScript::getComponent);
         lua_setfield(s_data.L, -2, "getComponent");
+
+        lua_pushcfunction(s_data.L, LuaScript::createEntity);
+        lua_setfield(s_data.L, -2, "createEntity");
 
         lua_setglobal(s_data.L, "LuaScript");
 #pragma endregion
@@ -233,6 +244,7 @@ namespace jng::LuaEngine {
             if (lua_pcall(s_data.L, 1, 0, 0))
             {
                 JNG_CORE_ERROR("Lua Error: {}", lua_tostring(s_data.L, -1));
+                lua_pop(s_data.L, 1);
             }
             lua_pop(s_data.L, 1);
         }
@@ -262,6 +274,7 @@ namespace jng::LuaEngine {
             if (lua_pcall(s_data.L, 1, 0, 0))
             {
                 JNG_CORE_ERROR("Lua Error: {}", lua_tostring(s_data.L, -1));
+                lua_pop(s_data.L, 1);
             }
             lua_pop(s_data.L, 1);
         }
@@ -293,6 +306,7 @@ namespace jng::LuaEngine {
             if (lua_pcall(s_data.L, 2, 0, 0))
             {
                 JNG_CORE_ERROR("Lua Error: {}", lua_tostring(s_data.L, -1));
+                lua_pop(s_data.L, 1);
             }
         }
 

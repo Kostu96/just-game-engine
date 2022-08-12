@@ -14,8 +14,17 @@ namespace jng {
 
     namespace LuaScript {
 
+        struct LuaEntity
+        {
+            void* handle;
+
+            static constexpr const char* METATABLE_NAME = "JNG.Entity";
+        };
+
         int create(lua_State* L);
         int getComponent(lua_State* L);
+
+        int createEntity(lua_State* L);
 
     } // namespace LuaScript
 
