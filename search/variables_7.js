@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['h_0',['H',['../namespacejng_1_1_key.html#aa00cb1cedcbef3c18c58fc9752230762',1,'jng::Key']]],
-  ['handle_1',['handle',['../structjng_1_1_lua_1_1_component_1_1_tag_component.html#abdb5b32062f669b48a95d2f0aa06b9e5',1,'jng::Lua::Component::TagComponent::handle()'],['../structjng_1_1_lua_1_1_component_1_1_camera_component.html#aa0d28c218cec8a03228615c0dc1c7b84',1,'jng::Lua::Component::CameraComponent::handle()'],['../structjng_1_1_lua_1_1_component_1_1_sprite_renderer_component.html#a9d208b3393ce9c2e7c6032b236d7c059',1,'jng::Lua::Component::SpriteRendererComponent::handle()'],['../structjng_1_1_lua_1_1_component_1_1_circle_renderer_component.html#a1b171fc4a2cd05ea295ab52842deee35',1,'jng::Lua::Component::CircleRendererComponent::handle()'],['../structjng_1_1_lua_1_1_component_1_1_box_collider2_d_component.html#ac8833249690a7583190cdd94ce2c34c0',1,'jng::Lua::Component::BoxCollider2DComponent::handle()'],['../structjng_1_1_lua_1_1_component_1_1_circle_collider2_d_component.html#a805a9b8e99419ecc187d7f9730464262',1,'jng::Lua::Component::CircleCollider2DComponent::handle()'],['../structjng_1_1_lua_1_1_component_1_1_rigidbody2_d_component.html#a1d419fa64c09aac635fd135e76e9993d',1,'jng::Lua::Component::Rigidbody2DComponent::handle()']]],
-  ['hasoncreate_2',['hasOnCreate',['../structjng_1_1_lua_engine_1_1_script_data.html#a9b066f8e70cf5802e242c9b042420a1f',1,'jng::LuaEngine::ScriptData']]],
-  ['hasonupdate_3',['hasOnUpdate',['../structjng_1_1_lua_engine_1_1_script_data.html#af384d3106b5fb7237a40c6baaa16dba7',1,'jng::LuaEngine::ScriptData']]],
-  ['height_4',['height',['../structjng_1_1_window_1_1_window_data.html#a9f60716c79e4a960f4dafb212e8a122e',1,'jng::Window::WindowData::height()'],['../structjng_1_1_framebuffer_1_1_properties.html#a70c9421c3887c1e9b772ecb9bbf070a3',1,'jng::Framebuffer::Properties::height()'],['../structjng_1_1_texture_1_1_properties.html#aa2d2d647a3b715483280c51e2ad6abe6',1,'jng::Texture::Properties::height()']]],
-  ['home_5',['Home',['../namespacejng_1_1_key.html#a8a29a6b739bb1d2f36f683fc80b643a3',1,'jng::Key']]]
+  ['g_0',['G',['../namespacejng_1_1_key.html#ada166bc0ef9d2919dbe433ce2c09b606',1,'jng::Key']]],
+  ['globalglfwinitializer_1',['globalGLFWInitializer',['../namespacejng.html#a70a54d5ec764ce2e5f0e85927de223cd',1,'jng']]],
+  ['graveaccent_2',['GraveAccent',['../namespacejng_1_1_key.html#a0269c58629e35a8c750ac75273b75edb',1,'jng::Key']]],
+  ['gravityscale_3',['gravityScale',['../structjng_1_1_rigidbody2_d_component.html#af661800b0cabe90b94e60e850588fdcd',1,'jng::Rigidbody2DComponent']]]
 ];

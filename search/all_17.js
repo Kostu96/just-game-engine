@@ -1,6 +1,28 @@
 var searchData=
 [
-  ['x_0',['X',['../namespacejng_1_1_key.html#a09ed2afefe2865168f94758d83eb23ed',1,'jng::Key']]],
-  ['x1_1',['X1',['../namespacejng_1_1_mouse.html#a30bf0e52230360179a156327fe5d2d7f',1,'jng::Mouse']]],
-  ['x2_2',['X2',['../namespacejng_1_1_mouse.html#adfa6b550ed63b811096afe961b8a864c',1,'jng::Mouse']]]
+  ['w_0',['W',['../namespacejng_1_1_key.html#accf11f5cc18d03c0ae3e381143366a1a',1,'jng::Key']]],
+  ['whitetexture_1',['whiteTexture',['../structjng_1_1_renderer2_d_1_1_render_data.html#a09aaffd42f08f6330fc78b805f590a42',1,'jng::Renderer2D::RenderData']]],
+  ['width_2',['width',['../structjng_1_1_window_1_1_window_data.html#a6fe3692b8f828226d1fa5682e6d3871f',1,'jng::Window::WindowData::width()'],['../structjng_1_1_texture_1_1_properties.html#a450e42e3ab33d87447a8abf06cd5956e',1,'jng::Texture::Properties::width()'],['../structjng_1_1_framebuffer_1_1_properties.html#ac57915dbc2d61afda6e152d9a7e7346e',1,'jng::Framebuffer::Properties::width()']]],
+  ['win32_5flean_5fand_5fmean_3',['WIN32_LEAN_AND_MEAN',['../windows__base_8hpp.html#ac7bef5d85e3dcd73eef56ad39ffc84a9',1,'windows_base.hpp']]],
+  ['window_4',['Window',['../classjng_1_1_window.html',1,'jng::Window'],['../classjng_1_1_graphics_context.html#a553f958a25683445088050a69d3de8e9',1,'jng::GraphicsContext::Window()'],['../classjng_1_1_window.html#abe95145ce9d925b2f45e6c165a323604',1,'jng::Window::Window()']]],
+  ['window_2ecpp_5',['window.cpp',['../window_8cpp.html',1,'']]],
+  ['window_2ehpp_6',['window.hpp',['../window_8hpp.html',1,'']]],
+  ['window_5fevents_2ehpp_7',['window_events.hpp',['../window__events_8hpp.html',1,'']]],
+  ['windowclose_8',['WindowClose',['../namespacejng.html#adb449770efd1c22981a35ae7ab49f8cbac984201d37197ab297a14d19efee4b07',1,'jng']]],
+  ['windowcloseevent_9',['WindowCloseEvent',['../classjng_1_1_window_close_event.html',1,'jng::WindowCloseEvent'],['../classjng_1_1_window_close_event.html#a2334f1fce5b10e095d5b5e3287f7b4fa',1,'jng::WindowCloseEvent::WindowCloseEvent()']]],
+  ['windowdata_10',['WindowData',['../structjng_1_1_window_1_1_window_data.html',1,'jng::Window']]],
+  ['windowfocus_11',['WindowFocus',['../namespacejng.html#adb449770efd1c22981a35ae7ab49f8cba1c68d5453b28d52622bf5486a5fd95ca',1,'jng']]],
+  ['windowheight_12',['windowHeight',['../structjng_1_1_engine_1_1_properties.html#ac697b67b74fc20d9180189095d2669cb',1,'jng::Engine::Properties']]],
+  ['windowmove_13',['WindowMove',['../namespacejng.html#adb449770efd1c22981a35ae7ab49f8cba3d9774b680140c9501d89e75d321ccfc',1,'jng']]],
+  ['windownotfocus_14',['WindowNotFocus',['../namespacejng.html#adb449770efd1c22981a35ae7ab49f8cba06125c91c22a45dd731ee0721695be36',1,'jng']]],
+  ['windowresize_15',['WindowResize',['../namespacejng.html#adb449770efd1c22981a35ae7ab49f8cba9f8f27bff2915738c4fe1b970e12f89c',1,'jng']]],
+  ['windowresizeevent_16',['WindowResizeEvent',['../classjng_1_1_window_resize_event.html',1,'jng::WindowResizeEvent'],['../classjng_1_1_window_resize_event.html#afe5b8a643d64597b8810084a401a9ba3',1,'jng::WindowResizeEvent::WindowResizeEvent()']]],
+  ['windows_5fbase_2ehpp_17',['windows_base.hpp',['../windows__base_8hpp.html',1,'']]],
+  ['windowtitle_18',['windowTitle',['../structjng_1_1_engine_1_1_properties.html#acf9ff4b746c8625840584b457edc4b1e',1,'jng::Engine::Properties']]],
+  ['windowwidth_19',['windowWidth',['../structjng_1_1_engine_1_1_properties.html#a8f54e99c8c17cb20a9fd1b0aa597b089',1,'jng::Engine::Properties']]],
+  ['world1_20',['World1',['../namespacejng_1_1_key.html#a9c8cc63233d7cd35bab1bf1bc487bbc4',1,'jng::Key']]],
+  ['world2_21',['World2',['../namespacejng_1_1_key.html#a931636262c145b1d0a83bd29c8c1cff6',1,'jng::Key']]],
+  ['wrap_22',['Wrap',['../namespacejng.html#a1c1fba89f020b2dcb95b946e4750b150aa212b19ef5f2fb30acf92e6cbccc1f2d',1,'jng']]],
+  ['wrapmode_23',['wrapMode',['../structjng_1_1_texture_specification.html#a16d7cf669f6baf59ba7e1bc738a0745c',1,'jng::TextureSpecification']]],
+  ['writefile_24',['writeFile',['../namespacejng.html#a9bf8b78c6cdb14fabee3b78db5c096ad',1,'jng']]]
 ];

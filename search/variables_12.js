@@ -1,15 +1,15 @@
 var searchData=
 [
-  ['s_0',['S',['../namespacejng_1_1_key.html#af68338a7af29017fa04330d5bde21c5f',1,'jng::Key']]],
-  ['samples_1',['samples',['../structjng_1_1_framebuffer_1_1_properties.html#a939f579076519c1198a162eb424e53d1',1,'jng::Framebuffer::Properties']]],
-  ['scale_2',['scale',['../structjng_1_1_transform_component.html#a71557d62c67cd6269534c78e462dcb86',1,'jng::TransformComponent']]],
-  ['scripts_3',['scripts',['../structjng_1_1_lua_engine_1_1_lua_engine_data.html#a89090dc6abf53554acc25ee5ed0e825a',1,'jng::LuaEngine::LuaEngineData']]],
-  ['scrolllock_4',['ScrollLock',['../namespacejng_1_1_key.html#a478eccb27d551c516d44064550e5f532',1,'jng::Key']]],
-  ['semicolon_5',['Semicolon',['../namespacejng_1_1_key.html#a701daaa583e269efecf194534e9a0b1c',1,'jng::Key']]],
-  ['size_6',['size',['../structjng_1_1_layout_element.html#ac7e3af8c8e1349e4b006114b6d8f0d92',1,'jng::LayoutElement::size()'],['../structjng_1_1_box_collider2_d_component.html#a9b2459aed9ea90507b8dad15f6e6f8b9',1,'jng::BoxCollider2DComponent::size()']]],
-  ['slash_7',['Slash',['../namespacejng_1_1_key.html#ac39fcf662b4594efb2d207bcb2e055e1',1,'jng::Key']]],
-  ['space_8',['Space',['../namespacejng_1_1_key.html#a134167b79abb632268d683e08dfaaf1b',1,'jng::Key']]],
-  ['specification_9',['specification',['../structjng_1_1_texture_1_1_properties.html#a5df52cf9cc00c3dc8a654931bce84c68',1,'jng::Texture::Properties']]],
-  ['statistics_10',['statistics',['../structjng_1_1_renderer2_d_1_1_render_data.html#a47ce90a0a054f4e18d2cb5defc2e6278',1,'jng::Renderer2D::RenderData']]],
-  ['swapchaintarget_11',['swapChainTarget',['../structjng_1_1_framebuffer_1_1_properties.html#a753740c45cc5e9d317fd8b2ef089d7a2',1,'jng::Framebuffer::Properties']]]
+  ['r_0',['R',['../namespacejng_1_1_key.html#a755af69cd58e02da0312a04a7e3d4b7e',1,'jng::Key']]],
+  ['radius_1',['radius',['../structjng_1_1_circle_collider2_d_component.html#ac4706095c32c8b87534ff0dae1fe8d98',1,'jng::CircleCollider2DComponent']]],
+  ['renderertype_2',['rendererType',['../structjng_1_1_engine_1_1_properties.html#aa53c0074d9faf798f542fcfd0e7e0801',1,'jng::Engine::Properties']]],
+  ['restitution_3',['restitution',['../structjng_1_1_box_collider2_d_component.html#ab7f63f4390695a2c7e31489d1d418c33',1,'jng::BoxCollider2DComponent::restitution()'],['../structjng_1_1_circle_collider2_d_component.html#a6f04b61338d8b91d107df55fca892eb8',1,'jng::CircleCollider2DComponent::restitution()']]],
+  ['restitutionthreshold_4',['restitutionThreshold',['../structjng_1_1_box_collider2_d_component.html#ae4581a7239bf1d3ca1d50567f41c4c3f',1,'jng::BoxCollider2DComponent::restitutionThreshold()'],['../structjng_1_1_circle_collider2_d_component.html#ab3e935e24a26e442b6c51c662fa17574',1,'jng::CircleCollider2DComponent::restitutionThreshold()']]],
+  ['right_5',['Right',['../namespacejng_1_1_key.html#a6410f7c3317c4ab332b2ed40d04f8248',1,'jng::Key::Right()'],['../namespacejng_1_1_mouse.html#aee14877e46ef71a3dddb233eeb432256',1,'jng::Mouse::Right()']]],
+  ['rightalt_6',['RightAlt',['../namespacejng_1_1_key.html#a2377159520ca5444dde22cbbbac03ec2',1,'jng::Key']]],
+  ['rightbracket_7',['RightBracket',['../namespacejng_1_1_key.html#ac04a4ed51028f293ca45b7d984795311',1,'jng::Key']]],
+  ['rightcontrol_8',['RightControl',['../namespacejng_1_1_key.html#a9a40462d79d6645d3fb4e257ef12c41d',1,'jng::Key']]],
+  ['rightshift_9',['RightShift',['../namespacejng_1_1_key.html#a77d736fea738c20019cc9b2f074c80c7',1,'jng::Key']]],
+  ['rightsuper_10',['RightSuper',['../namespacejng_1_1_key.html#a35afede18cb0c103443254e46ffa67c2',1,'jng::Key']]],
+  ['rotation_11',['rotation',['../structjng_1_1_transform_component.html#a7f654d90b8d4dacdedcd5aaba2776af2',1,'jng::TransformComponent']]]
 ];

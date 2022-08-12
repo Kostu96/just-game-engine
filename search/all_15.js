@@ -1,14 +1,19 @@
 var searchData=
 [
-  ['v_0',['V',['../namespacejng_1_1_key.html#ab760f06887f661c5454c52c2a5c8eaa3',1,'jng::Key']]],
-  ['value_1',['value',['../structjng_1_1_lua_engine_1_1_script_data_1_1_property.html#a2c61fe755d288a6ad743259c547800a6',1,'jng::LuaEngine::ScriptData::Property']]],
-  ['vertex_2',['Vertex',['../classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7ab22b929ba52471a02d18bb3a4e4472e6',1,'jng::Shader']]],
-  ['vertex_5farray_2ecpp_3',['vertex_array.cpp',['../vertex__array_8cpp.html',1,'']]],
-  ['vertex_5farray_2ehpp_4',['vertex_array.hpp',['../vertex__array_8hpp.html',1,'']]],
-  ['vertex_5farray_5fogl_2ecpp_5',['vertex_array_ogl.cpp',['../vertex__array__ogl_8cpp.html',1,'']]],
-  ['vertexarray_6',['VertexArray',['../classjng_1_1_vertex_array.html',1,'jng::VertexArray'],['../classjng_1_1_vertex_array.html#aa2187731a75749dc7a80a46b43326ed2',1,'jng::VertexArray::VertexArray()']]],
-  ['vertexbuffer_7',['VertexBuffer',['../classjng_1_1_vertex_buffer.html',1,'jng::VertexBuffer'],['../classjng_1_1_vertex_buffer.html#a4782f85847da06deda2088a89d393a0b',1,'jng::VertexBuffer::VertexBuffer(const void *vertices, size_t size)'],['../classjng_1_1_vertex_buffer.html#a58b377b2f8aa63f418265cc48c67b289',1,'jng::VertexBuffer::VertexBuffer(size_t size)']]],
-  ['vertexlayout_8',['VertexLayout',['../classjng_1_1_vertex_layout.html',1,'jng::VertexLayout'],['../classjng_1_1_vertex_layout.html#a8370388e1d1a1ed595145897728f29e5',1,'jng::VertexLayout::VertexLayout()=default'],['../classjng_1_1_vertex_layout.html#a396f89be954cb0dca88b76d4fc612878',1,'jng::VertexLayout::VertexLayout(const std::initializer_list&lt; LayoutElement &gt; &amp;list)'],['../classjng_1_1_vertex_layout.html#a14e5d5488d9be7fa66655e696322c423',1,'jng::VertexLayout::VertexLayout(const VertexLayout &amp;other)']]],
-  ['vertexpositions_9',['vertexPositions',['../structjng_1_1_renderer2_d_1_1_draw_quad_properties.html#a70767b5cba3db55660945e36b4c31ab1',1,'jng::Renderer2D::DrawQuadProperties::vertexPositions()'],['../structjng_1_1_renderer2_d_1_1_draw_circle_properties.html#a9ae6e403bf4fac9a74e997098a5b5464',1,'jng::Renderer2D::DrawCircleProperties::vertexPositions()']]],
-  ['vulkan_10',['Vulkan',['../namespacejng.html#a12ce176de3b33861d2a2f4c90385d499a38625270231b647116c80bcbc4f9d1d8',1,'jng']]]
+  ['u_0',['U',['../namespacejng_1_1_key.html#a5710ce927faaa2d9365492499430e8e4',1,'jng::Key']]],
+  ['u16_1',['U16',['../namespacejng_1_1_renderer_a_p_i.html#aa43863e55823f175aa8500a683bf8b4baef9ef3ebca4d2b64b6ec83808bafa5f2',1,'jng::RendererAPI']]],
+  ['u16_2',['u16',['../namespacejng.html#a4e0dc68c201ae11fd3fc20c43a14ab48',1,'jng']]],
+  ['u32_3',['u32',['../namespacejng.html#ab8905b17ad43673438bdca974ad215ad',1,'jng']]],
+  ['u32_4',['U32',['../namespacejng_1_1_renderer_a_p_i.html#aa43863e55823f175aa8500a683bf8b4bac8bd5bedff8ef192d39a962afc0e19ee',1,'jng::RendererAPI']]],
+  ['u64_5',['u64',['../namespacejng.html#a8d79d6c5acf85eca946f0cbccea7c8b9',1,'jng']]],
+  ['u8_6',['U8',['../namespacejng_1_1_renderer_a_p_i.html#aa43863e55823f175aa8500a683bf8b4ba6669348b484e3008dca2bfa8e85e40b5',1,'jng::RendererAPI']]],
+  ['u8_7',['u8',['../namespacejng.html#af892e9140f636eac82e6764fbe6d275a',1,'jng']]],
+  ['uint_8',['UInt',['../structjng_1_1_layout_element.html#af99663c7b612370f9f9197b09119fb5ba0b1291eded63143ac04709711274785a',1,'jng::LayoutElement']]],
+  ['uint2_9',['UInt2',['../structjng_1_1_layout_element.html#af99663c7b612370f9f9197b09119fb5ba003b50e47c23c2f841dd2b21452f7ec4',1,'jng::LayoutElement']]],
+  ['uint3_10',['UInt3',['../structjng_1_1_layout_element.html#af99663c7b612370f9f9197b09119fb5ba424aaa556a2950e0b98713136b7e6439',1,'jng::LayoutElement']]],
+  ['uint4_11',['UInt4',['../structjng_1_1_layout_element.html#af99663c7b612370f9f9197b09119fb5ba146988b242dbb9ed1e323e309789115a',1,'jng::LayoutElement']]],
+  ['uint4x8_12',['UInt4x8',['../structjng_1_1_layout_element.html#af99663c7b612370f9f9197b09119fb5badf37064ff96c324833dc44d1e202bfd7',1,'jng::LayoutElement']]],
+  ['unbind_13',['unbind',['../classjng_1_1_texture.html#a253cef48d5eeb2d629aed00959255b53',1,'jng::Texture::unbind()'],['../classjng_1_1_vertex_array.html#a4b01a2d12bd91dfa0beec44aacaadcdb',1,'jng::VertexArray::unbind()'],['../classjng_1_1_shader.html#af9d746bc9c0b325cc24eb7819622afae',1,'jng::Shader::unbind()'],['../classjng_1_1_framebuffer.html#a8ca9d8bb4dde57ed18f5564dbe7a205c',1,'jng::Framebuffer::unbind()'],['../classjng_1_1_uniform_buffer.html#a1f7baf2e2dfa2d5e710a0387e2911e73',1,'jng::UniformBuffer::unbind()'],['../classjng_1_1_index_buffer.html#ac219b8d7c871abf15847bb107fae1157',1,'jng::IndexBuffer::unbind()'],['../classjng_1_1_vertex_buffer.html#ace0ecd13d42abf64cd1a953e2d5075ab',1,'jng::VertexBuffer::unbind()']]],
+  ['uniformbuffer_14',['UniformBuffer',['../classjng_1_1_uniform_buffer.html',1,'jng::UniformBuffer'],['../classjng_1_1_uniform_buffer.html#a817d7089af2fd2bc3d0fd65fb1f359f0',1,'jng::UniformBuffer::UniformBuffer()']]],
+  ['up_15',['Up',['../namespacejng_1_1_key.html#a63e4bbc41f7e5899adc8c93c36eb35cc',1,'jng::Key']]]
 ];

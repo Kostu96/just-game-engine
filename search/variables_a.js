@@ -1,21 +1,4 @@
 var searchData=
 [
-  ['k_0',['K',['../namespacejng_1_1_key.html#af8ed215f5bcaf5e508c99ff240f12700',1,'jng::Key']]],
-  ['keypad0_1',['KeyPad0',['../namespacejng_1_1_key.html#a4fd8fa4fc5689d896201c78ea1fb3606',1,'jng::Key']]],
-  ['keypad1_2',['KeyPad1',['../namespacejng_1_1_key.html#a8ab7abe8acbfe4d64114cd3c63a3f412',1,'jng::Key']]],
-  ['keypad2_3',['KeyPad2',['../namespacejng_1_1_key.html#ab6068c5fb8bc8134ec3c65ad966e9bba',1,'jng::Key']]],
-  ['keypad3_4',['KeyPad3',['../namespacejng_1_1_key.html#a514af7d47564fa00feb51b714e76906a',1,'jng::Key']]],
-  ['keypad4_5',['KeyPad4',['../namespacejng_1_1_key.html#ad7d79d77f3b79764dc74bbf14ba0e44d',1,'jng::Key']]],
-  ['keypad5_6',['KeyPad5',['../namespacejng_1_1_key.html#ada4f69d5cf69b92b3c0036407f146f8f',1,'jng::Key']]],
-  ['keypad6_7',['KeyPad6',['../namespacejng_1_1_key.html#a621bff3fdbc8043206574336805580ff',1,'jng::Key']]],
-  ['keypad7_8',['KeyPad7',['../namespacejng_1_1_key.html#ab6796c99e74de9982208cac826933345',1,'jng::Key']]],
-  ['keypad8_9',['KeyPad8',['../namespacejng_1_1_key.html#a183adf463f1694e6db94c196d86b3cbf',1,'jng::Key']]],
-  ['keypad9_10',['KeyPad9',['../namespacejng_1_1_key.html#a131beb69583bacfd99ca97b4f71e7879',1,'jng::Key']]],
-  ['keypadadd_11',['KeyPadAdd',['../namespacejng_1_1_key.html#a6c38c1d61cb6f1b538c901e831c123e4',1,'jng::Key']]],
-  ['keypaddecimal_12',['KeyPadDecimal',['../namespacejng_1_1_key.html#a23099118813e0b22a2070d105408428b',1,'jng::Key']]],
-  ['keypaddivide_13',['KeyPadDivide',['../namespacejng_1_1_key.html#a3967cf4bac58d0c749bae729247481e5',1,'jng::Key']]],
-  ['keypadenter_14',['KeyPadEnter',['../namespacejng_1_1_key.html#aab9dcf01ce676d1c2e97715de9e66025',1,'jng::Key']]],
-  ['keypadequal_15',['KeyPadEqual',['../namespacejng_1_1_key.html#af01f1a3074577e2e4e9bdb0b1e3bc2be',1,'jng::Key']]],
-  ['keypadmultiply_16',['KeyPadMultiply',['../namespacejng_1_1_key.html#ae072962ea5f7b65c04bf235e11fd9b96',1,'jng::Key']]],
-  ['keypadsubtract_17',['KeyPadSubtract',['../namespacejng_1_1_key.html#a92407a7f653c80f8a102c8f40c1537ad',1,'jng::Key']]]
+  ['j_0',['J',['../namespacejng_1_1_key.html#a5125bbddeb3c28859a2b084173d44977',1,'jng::Key']]]
 ];

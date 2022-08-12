@@ -1,9 +1,19 @@
 var searchData=
 [
-  ['d_0',['D',['../namespacejng_1_1_key.html#a5723eaaecac955ad193541561a45c3c4',1,'jng::Key']]],
-  ['data_1',['data',['../structjng_1_1_lua_script_component.html#a8ed4fc2825916450ec79ef3558f38e58',1,'jng::LuaScriptComponent']]],
-  ['delete_2',['Delete',['../namespacejng_1_1_key.html#adaf193512493f8b8d784d76ffcf23382',1,'jng::Key']]],
-  ['density_3',['density',['../structjng_1_1_box_collider2_d_component.html#aec69d0c00306259b8ee979e2e3a26607',1,'jng::BoxCollider2DComponent::density()'],['../structjng_1_1_circle_collider2_d_component.html#a9d8d309621c12c15c2ef3af24e41e252',1,'jng::CircleCollider2DComponent::density()']]],
-  ['down_4',['Down',['../namespacejng_1_1_key.html#a73e05b10e898c7f8fca918aabb5da8a4',1,'jng::Key']]],
-  ['drawcalls_5',['drawCalls',['../structjng_1_1_renderer2_d_1_1_statistics.html#a9aba8bac9f2ece3c7980fc41686f212a',1,'jng::Renderer2D::Statistics']]]
+  ['c_0',['C',['../namespacejng_1_1_key.html#ac14ea997c03051356bedbbdb49289aff',1,'jng::Key']]],
+  ['camera_1',['camera',['../structjng_1_1_camera_component.html#abcc207c3f36c84680c6ff7cb5782a373',1,'jng::CameraComponent']]],
+  ['cameraubo_2',['cameraUBO',['../structjng_1_1_renderer2_d_1_1_render_data.html#ab66098d448ae6ad176890174604a265b',1,'jng::Renderer2D::RenderData']]],
+  ['capslock_3',['CapsLock',['../namespacejng_1_1_key.html#a6259a26cbe5dcd04b3be00e98adaf907',1,'jng::Key']]],
+  ['circlecount_4',['circleCount',['../structjng_1_1_renderer2_d_1_1_statistics.html#a6da76c1601e52e7560869cbab32f805d',1,'jng::Renderer2D::Statistics']]],
+  ['circleshader_5',['circleShader',['../structjng_1_1_renderer2_d_1_1_render_data.html#a21dcc951ddb142009971f17a90161fc8',1,'jng::Renderer2D::RenderData']]],
+  ['circlevao_6',['circleVAO',['../structjng_1_1_renderer2_d_1_1_render_data.html#a5a1fc69a2828db0dea4084db4a1ecbfa',1,'jng::Renderer2D::RenderData']]],
+  ['circlevbo_7',['circleVBO',['../structjng_1_1_renderer2_d_1_1_render_data.html#a32baa911e865bab1c015a116135ec9b3',1,'jng::Renderer2D::RenderData']]],
+  ['circlevbobase_8',['circleVBOBase',['../structjng_1_1_renderer2_d_1_1_render_data.html#a510adce05292cdb026c1e05e8a48aa15',1,'jng::Renderer2D::RenderData']]],
+  ['circlevboptr_9',['circleVBOPtr',['../structjng_1_1_renderer2_d_1_1_render_data.html#a4659cefd192cafc0d049964d288c44da',1,'jng::Renderer2D::RenderData']]],
+  ['color_10',['color',['../structjng_1_1_renderer2_d_1_1_draw_circle_properties.html#ab599c84d6975f249e9cbf966f04f1547',1,'jng::Renderer2D::DrawCircleProperties::color()'],['../structjng_1_1_renderer2_d_1_1_line_vertex.html#a89b9bb47ea4514fda68bff151c7c7efd',1,'jng::Renderer2D::LineVertex::color()'],['../structjng_1_1_renderer2_d_1_1_circle_vertex.html#a8ecaa0721f27e257aa7ddca07cb5f257',1,'jng::Renderer2D::CircleVertex::color()'],['../structjng_1_1_renderer2_d_1_1_quad_vertex.html#aec4e175ec39fe8e17cfc882232bfdc06',1,'jng::Renderer2D::QuadVertex::color()'],['../structjng_1_1_circle_renderer_component.html#afc16aee50331d0c99dc816c716390f43',1,'jng::CircleRendererComponent::color()'],['../structjng_1_1_renderer2_d_1_1_draw_quad_properties.html#a714075c0bd751502554d6d13e05c3cec',1,'jng::Renderer2D::DrawQuadProperties::color()']]],
+  ['color_11',['Color',['../structjng_1_1_sprite_renderer_component.html#afcb01dc30d89a7210139cb3111ed7681',1,'jng::SpriteRendererComponent']]],
+  ['comma_12',['Comma',['../namespacejng_1_1_key.html#ae5965cfaee2a113f0381ee7e2730e3c8',1,'jng::Key']]],
+  ['currentcircleindexcount_13',['currentCircleIndexCount',['../structjng_1_1_renderer2_d_1_1_render_data.html#a4d5cffa07ff2420c6ea050cc57ef7d51',1,'jng::Renderer2D::RenderData']]],
+  ['currentlinevertexcount_14',['currentLineVertexCount',['../structjng_1_1_renderer2_d_1_1_render_data.html#a961c9779b8038381a5ec08c8dbbe7ede',1,'jng::Renderer2D::RenderData']]],
+  ['currentquadindexcount_15',['currentQuadIndexCount',['../structjng_1_1_renderer2_d_1_1_render_data.html#a31d81d23ddf7a0df9ea3ba4f1ae66a56',1,'jng::Renderer2D::RenderData']]]
 ];

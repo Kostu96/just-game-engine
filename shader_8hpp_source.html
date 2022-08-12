@@ -97,15 +97,15 @@ $(function() {
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        std::filesystem::path getCacheDirectory() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordtype">void</span> createCacheDirectoryIfNeeded() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        std::vector&lt;uint32&gt; compileToSPIRV(<span class="keyword">const</span> std::filesystem::path&amp; filename, <a class="code hl_enumeration" href="classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7">Type</a> type) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        std::vector&lt;u32&gt; compileToSPIRV(<span class="keyword">const</span> std::filesystem::path&amp; filename, <a class="code hl_enumeration" href="classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7">Type</a> type) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* shaderTypeToHashFileExtension(<a class="code hl_enumeration" href="classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7">Type</a> type);</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* shaderTypeToCachedVlkFileExtension(<a class="code hl_enumeration" href="classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7">Type</a> type);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keyword">static</span> <a class="code hl_typedef" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> shaderTypeToShaderCKind(<a class="code hl_enumeration" href="classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7">Type</a> type);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keyword">static</span> <a class="code hl_typedef" href="namespacejng.html#ab8905b17ad43673438bdca974ad215ad">u32</a> shaderTypeToShaderCKind(<a class="code hl_enumeration" href="classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7">Type</a> type);</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <a class="code hl_typedef" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> compileShader(<span class="keyword">const</span> std::filesystem::path&amp; filename, <a class="code hl_enumeration" href="classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7">Type</a> type) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <a class="code hl_typedef" href="namespacejng.html#ab8905b17ad43673438bdca974ad215ad">u32</a> compileShader(<span class="keyword">const</span> std::filesystem::path&amp; filename, <a class="code hl_enumeration" href="classjng_1_1_shader.html#a2879f751917d855ee8fbae0adafa43e7">Type</a> type) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keyword">mutable</span> <span class="keywordtype">bool</span> m_isCacheDirty = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <a class="code hl_typedef" href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">uint32</a> m_id;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <a class="code hl_typedef" href="namespacejng.html#ab8905b17ad43673438bdca974ad215ad">u32</a> m_id;</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    };</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>} <span class="comment">// namespace jng</span></div>
@@ -117,11 +117,11 @@ $(function() {
 <div class="ttc" id="aclassjng_1_1_shader_html_af02c0c0dd44ccaaac12fce65a899e0d0"><div class="ttname"><a href="classjng_1_1_shader.html#af02c0c0dd44ccaaac12fce65a899e0d0">jng::Shader::~Shader</a></div><div class="ttdeci">~Shader()</div><div class="ttdef"><b>Definition:</b> shader_ogl.cpp:55</div></div>
 <div class="ttc" id="aclassjng_1_1_shader_html_af9d746bc9c0b325cc24eb7819622afae"><div class="ttname"><a href="classjng_1_1_shader.html#af9d746bc9c0b325cc24eb7819622afae">jng::Shader::unbind</a></div><div class="ttdeci">void unbind() const</div><div class="ttdef"><b>Definition:</b> shader_ogl.cpp:65</div></div>
 <div class="ttc" id="anamespacejng_html"><div class="ttname"><a href="namespacejng.html">jng</a></div><div class="ttdef"><b>Definition:</b> base.hpp:11</div></div>
-<div class="ttc" id="anamespacejng_html_af45e9e1116befd45a9efa94cd7796d70"><div class="ttname"><a href="namespacejng.html#af45e9e1116befd45a9efa94cd7796d70">jng::uint32</a></div><div class="ttdeci">uint32_t uint32</div><div class="ttdef"><b>Definition:</b> base.hpp:41</div></div>
+<div class="ttc" id="anamespacejng_html_ab8905b17ad43673438bdca974ad215ad"><div class="ttname"><a href="namespacejng.html#ab8905b17ad43673438bdca974ad215ad">jng::u32</a></div><div class="ttdeci">uint32_t u32</div><div class="ttdef"><b>Definition:</b> base.hpp:41</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 11 2022 20:29:17 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Aug 12 2022 23:33:36 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

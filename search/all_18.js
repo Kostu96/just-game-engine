@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['y_0',['Y',['../namespacejng_1_1_key.html#aaa4670eb7b5478e0f1ba57e46c5616af',1,'jng::Key']]],
-  ['yaml_1',['YAML',['../namespace_y_a_m_l.html',1,'']]]
+  ['x_0',['X',['../namespacejng_1_1_key.html#a09ed2afefe2865168f94758d83eb23ed',1,'jng::Key']]],
+  ['x1_1',['X1',['../namespacejng_1_1_mouse.html#a30bf0e52230360179a156327fe5d2d7f',1,'jng::Mouse']]],
+  ['x2_2',['X2',['../namespacejng_1_1_mouse.html#adfa6b550ed63b811096afe961b8a864c',1,'jng::Mouse']]]
 ];

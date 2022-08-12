@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['_7eengine_0',['~Engine',['../classjng_1_1_engine.html#ad6fb66c1760cf6772a76f2248d516e88',1,'jng::Engine']]],
+  ['_7eevent_1',['~Event',['../classjng_1_1_event.html#adbcfa4376cf2e1754a29d373d1161ecc',1,'jng::Event']]],
+  ['_7eframebuffer_2',['~Framebuffer',['../classjng_1_1_framebuffer.html#a83d5ca71e20875a9380eae9a4f29a809',1,'jng::Framebuffer']]],
+  ['_7eglfwinitializer_3',['~GLFWInitializer',['../structjng_1_1_g_l_f_w_initializer.html#a5c0b0094ab8393f008f2400aaa176064',1,'jng::GLFWInitializer']]],
+  ['_7egraphicscontext_4',['~GraphicsContext',['../classjng_1_1_graphics_context.html#a2a57547fc527b0f559fbf8d8471f6dec',1,'jng::GraphicsContext']]],
+  ['_7eindexbuffer_5',['~IndexBuffer',['../classjng_1_1_index_buffer.html#aa69153b97b7f98f4bd184be1e408d242',1,'jng::IndexBuffer']]],
+  ['_7elayer_6',['~Layer',['../classjng_1_1_layer.html#a82b4e963f30c0d206a6b031c97090f7f',1,'jng::Layer']]],
+  ['_7elayerstack_7',['~LayerStack',['../classjng_1_1_layer_stack.html#a111c78597880314165c2610639af6941',1,'jng::LayerStack']]],
+  ['_7enativescript_8',['~NativeScript',['../classjng_1_1_native_script.html#a25b4344f625ab1d5c5e8d448159324ab',1,'jng::NativeScript']]],
+  ['_7enoncopyable_9',['~NonCopyable',['../classjng_1_1_non_copyable.html#af643e4cf2d4bf8d93b82df4f3afa2db1',1,'jng::NonCopyable']]],
+  ['_7escene_10',['~Scene',['../classjng_1_1_scene.html#a0116147e40604fc8b37a0703485827b9',1,'jng::Scene']]],
+  ['_7eshader_11',['~Shader',['../classjng_1_1_shader.html#af02c0c0dd44ccaaac12fce65a899e0d0',1,'jng::Shader']]],
+  ['_7etexture_12',['~Texture',['../classjng_1_1_texture.html#a197d5f1f90cdf4778a48e5c9eb9be7ff',1,'jng::Texture']]],
+  ['_7euniformbuffer_13',['~UniformBuffer',['../classjng_1_1_uniform_buffer.html#a8669cfdba3655c3ff97f4d1fd417234c',1,'jng::UniformBuffer']]],
+  ['_7evertexarray_14',['~VertexArray',['../classjng_1_1_vertex_array.html#a04307f5088cce8d8556cf52289fbad44',1,'jng::VertexArray']]],
+  ['_7evertexbuffer_15',['~VertexBuffer',['../classjng_1_1_vertex_buffer.html#af8dd9444113226bd23ac92a8a1c26b09',1,'jng::VertexBuffer']]],
+  ['_7ewindow_16',['~Window',['../classjng_1_1_window.html#a2755e87ecc995d961d3544ac2f8edbda',1,'jng::Window']]]
+];

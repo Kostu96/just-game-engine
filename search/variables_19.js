@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['z_0',['Z',['../namespacejng_1_1_key.html#a3ee5dad6574d967919aa68e062f73f9e',1,'jng::Key']]]
+  ['y_0',['Y',['../namespacejng_1_1_key.html#aaa4670eb7b5478e0f1ba57e46c5616af',1,'jng::Key']]]
 ];

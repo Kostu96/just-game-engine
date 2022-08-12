@@ -1,16 +1,15 @@
 var searchData=
 [
-  ['t_0',['T',['../namespacejng_1_1_key.html#a08f154320aca81a2e1121241f735c9fa',1,'jng::Key']]],
-  ['tab_1',['Tab',['../namespacejng_1_1_key.html#abf6c1e8fea758321de82dfff5dd74e85',1,'jng::Key']]],
-  ['tag_2',['Tag',['../structjng_1_1_tag_component.html#a542f51df9a03a25b74db5cd9773dc3f5',1,'jng::TagComponent']]],
-  ['texcoord_3',['texCoord',['../structjng_1_1_renderer2_d_1_1_quad_vertex.html#ae71d8caebc30e21ea560e4efd8d1561f',1,'jng::Renderer2D::QuadVertex']]],
-  ['texindex_4',['texIndex',['../structjng_1_1_renderer2_d_1_1_quad_vertex.html#a246c024cac9db925483dc627e8296032',1,'jng::Renderer2D::QuadVertex']]],
-  ['texture_5',['texture',['../structjng_1_1_sprite_renderer_component.html#a10588bce3f103b033cf8fcce002e11fb',1,'jng::SpriteRendererComponent::texture()'],['../structjng_1_1_renderer2_d_1_1_draw_quad_properties.html#a0c5b51ccae4d83f85b0ceaccb124f45d',1,'jng::Renderer2D::DrawQuadProperties::texture()']]],
-  ['texturecoords_6',['textureCoords',['../structjng_1_1_renderer2_d_1_1_draw_quad_properties.html#ac7ca77609489f5350ca1740ef3c9092f',1,'jng::Renderer2D::DrawQuadProperties']]],
-  ['textureslotindex_7',['textureSlotIndex',['../structjng_1_1_renderer2_d_1_1_render_data.html#aceebfb172b34d546e880d82683c01456',1,'jng::Renderer2D::RenderData']]],
-  ['textureslots_8',['textureSlots',['../structjng_1_1_renderer2_d_1_1_render_data.html#a6ebf4385220a030a159f11cef68ce5de',1,'jng::Renderer2D::RenderData']]],
-  ['thickness_9',['thickness',['../structjng_1_1_renderer2_d_1_1_draw_circle_properties.html#afe8aeefa43e19fd2fb8038d3f16119f2',1,'jng::Renderer2D::DrawCircleProperties::thickness()'],['../structjng_1_1_circle_renderer_component.html#a085ce55c918a564d2a7ace1ca82fbfd1',1,'jng::CircleRendererComponent::thickness()'],['../structjng_1_1_renderer2_d_1_1_circle_vertex.html#ac9afd735ddfe82c166c9f9f33e668ca4',1,'jng::Renderer2D::CircleVertex::thickness()']]],
-  ['title_10',['title',['../structjng_1_1_window_1_1_window_data.html#af01a3e166fc67a5e9dc2ca0a43804379',1,'jng::Window::WindowData']]],
-  ['translation_11',['translation',['../structjng_1_1_transform_component.html#adf6643b872158978bd6c7019078aeb5d',1,'jng::TransformComponent']]],
-  ['type_12',['type',['../structjng_1_1_layout_element.html#a4fa8fa85aa8c10334ad9461455289b56',1,'jng::LayoutElement::type()'],['../structjng_1_1_rigidbody2_d_component.html#ac1eedce9a48748ae10d16a82380d7205',1,'jng::Rigidbody2DComponent::type()'],['../structjng_1_1_lua_engine_1_1_script_data_1_1_property.html#a8dda26f80959c7ac5c7cb45d007175eb',1,'jng::LuaEngine::ScriptData::Property::type()']]]
+  ['s_0',['S',['../namespacejng_1_1_key.html#af68338a7af29017fa04330d5bde21c5f',1,'jng::Key']]],
+  ['samples_1',['samples',['../structjng_1_1_framebuffer_1_1_properties.html#aa474bdd12bb9d44f572da98639103a8d',1,'jng::Framebuffer::Properties']]],
+  ['scale_2',['scale',['../structjng_1_1_transform_component.html#a71557d62c67cd6269534c78e462dcb86',1,'jng::TransformComponent']]],
+  ['scripts_3',['scripts',['../structjng_1_1_lua_engine_1_1_lua_engine_data.html#a89090dc6abf53554acc25ee5ed0e825a',1,'jng::LuaEngine::LuaEngineData']]],
+  ['scrolllock_4',['ScrollLock',['../namespacejng_1_1_key.html#a478eccb27d551c516d44064550e5f532',1,'jng::Key']]],
+  ['semicolon_5',['Semicolon',['../namespacejng_1_1_key.html#a701daaa583e269efecf194534e9a0b1c',1,'jng::Key']]],
+  ['size_6',['size',['../structjng_1_1_layout_element.html#ac7e3af8c8e1349e4b006114b6d8f0d92',1,'jng::LayoutElement::size()'],['../structjng_1_1_box_collider2_d_component.html#a9b2459aed9ea90507b8dad15f6e6f8b9',1,'jng::BoxCollider2DComponent::size()']]],
+  ['slash_7',['Slash',['../namespacejng_1_1_key.html#ac39fcf662b4594efb2d207bcb2e055e1',1,'jng::Key']]],
+  ['space_8',['Space',['../namespacejng_1_1_key.html#a134167b79abb632268d683e08dfaaf1b',1,'jng::Key']]],
+  ['specification_9',['specification',['../structjng_1_1_texture_1_1_properties.html#a5df52cf9cc00c3dc8a654931bce84c68',1,'jng::Texture::Properties']]],
+  ['statistics_10',['statistics',['../structjng_1_1_renderer2_d_1_1_render_data.html#a47ce90a0a054f4e18d2cb5defc2e6278',1,'jng::Renderer2D::RenderData']]],
+  ['swapchaintarget_11',['swapChainTarget',['../structjng_1_1_framebuffer_1_1_properties.html#a753740c45cc5e9d317fd8b2ef089d7a2',1,'jng::Framebuffer::Properties']]]
 ];
