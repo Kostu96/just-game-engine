@@ -178,7 +178,7 @@ namespace jng {
                         ImGui::ImageButton(src.texture ? src.texture->getRendererID() : m_checkerboard->getRendererID(), {64.f, 64.f});
                         if (ImGui::BeginDragDropTarget())
                         {
-                            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+                            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM_TEXTURE"))
                             {
                                 const char* path = reinterpret_cast<const char*>(payload->Data);
                                 src.texture = makeRef<Texture>(path);
@@ -245,7 +245,7 @@ namespace jng {
 
                         if (ImGui::BeginDragDropTarget())
                         {
-                            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+                            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM_LUA"))
                             {
                                 lsc.name = LuaEngine::registerScript(reinterpret_cast<const char*>(payload->Data));
                                 lsc.data = LuaEngine::getScriptData(lsc.name);

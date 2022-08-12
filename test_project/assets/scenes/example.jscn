@@ -1,6 +1,6 @@
-Scene: Untitled
+Scene: example
 Entities:
-  - Entity: 13981854952416655774
+  - Entity: 16216565274304674005
     TagComponent:
       Tag: Camera
     TransformComponent:
@@ -15,21 +15,12 @@ Entities:
       PerspectiveFOV: 45
       PerspectiveNear: 0.00999999978
       PerspectiveFar: 1000
-  - Entity: 14435125259857035407
+  - Entity: 15538795174018369732
     TagComponent:
-      Tag: Green Square
-    TransformComponent:
-      Translation: [-1.89999998, -1.20000005, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    SpriteRendererComponent:
-      Color: [0, 1, 0, 1]
-  - Entity: 15346625625685970642
-    TagComponent:
-      Tag: Red Square
+      Tag: Sprite
     TransformComponent:
       Translation: [0, 0, 0]
       Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
+      Scale: [5, 5, 1]
     SpriteRendererComponent:
-      Color: [1, 0, 0, 1]
+      Color: [1, 1, 1, 1]

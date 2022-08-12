@@ -18,7 +18,7 @@
 
 namespace jng {
 
-    constexpr static const char* SCENE_FILE_FILTER = "JNG Scene (*.scene.yml)\0*scene.yml\0";
+    constexpr static const char* SCENE_FILE_FILTER = "JNG Scene (*.jscn)\0*.jscn\0";
 
     void MainMenuBar::onImGuiUpdate()
     {

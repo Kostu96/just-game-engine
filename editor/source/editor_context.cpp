@@ -23,7 +23,7 @@ namespace jng {
             std::filesystem::create_directories(ProjectPath);
 
         std::filesystem::path filename = ProjectPath / ProjectPath.filename();
-        filename += ".proj.yml";
+        filename += ".jprj";
         YAML::Emitter yaml;
 
         yaml << YAML::BeginMap;

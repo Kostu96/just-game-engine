@@ -13,7 +13,7 @@
 
 namespace jng {
 
-    void Camera::setOrthographic(float oSize, float oNear, float oFar)
+    void Camera::setOrthographic(f32 oSize, f32 oNear, f32 oFar)
     {
         m_projectionType = ProjectionType::Orthographic;
         m_orthoSize = oSize;
@@ -22,7 +22,7 @@ namespace jng {
         recalculateProjection();
     }
 
-    void Camera::setPerspective(float pFOV, float pNear, float pFar)
+    void Camera::setPerspective(f32 pFOV, f32 pNear, f32 pFar)
     {
         m_projectionType = ProjectionType::Perspective;
         m_perspectiveFOV = pFOV;
@@ -31,7 +31,7 @@ namespace jng {
         recalculateProjection();
     }
 
-    void Camera::setViewportSize(float width, float height)
+    void Camera::setViewportSize(f32 width, f32 height)
     {
         JNG_CORE_ASSERT(width > 0.f && height > 0.f, "Viewport area can't be 0!");
         m_aspectRatio = width / height;
@@ -53,8 +53,8 @@ namespace jng {
         {
         case ProjectionType::Orthographic:
         {
-            float h = m_orthoSize * m_aspectRatio * .5f;
-            float v = m_orthoSize * .5f;
+            f32 h = m_orthoSize * m_aspectRatio * .5f;
+            f32 v = m_orthoSize * .5f;
             m_projection = glm::orthoRH_ZO(-h, h, -v, v, m_orthoNear, m_orthoFar);
         } break;
         case ProjectionType::Perspective:

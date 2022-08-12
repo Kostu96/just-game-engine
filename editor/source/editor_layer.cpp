@@ -110,7 +110,7 @@ namespace jng {
             if (m_context.IsViewportWindowOpen)
             {
                 bool isDragging = ImGui::IsDragDropPayloadBeingAccepted() &&
-                    strcmp(ImGui::GetDragDropPayload()->DataType, "CONTENT_BROWSER_ITEM") == 0;
+                    strcmp(ImGui::GetDragDropPayload()->DataType, "CONTENT_BROWSER_ITEM_SCENE") == 0;
 
                 ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding,
                     isDragging ? ImVec2{ 6.0f, 5.0f } : ImVec2{ 0, 0 });
@@ -188,7 +188,7 @@ namespace jng {
 
                 if (ImGui::BeginDragDropTarget())
                 {
-                    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+                    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM_SCENE"))
                     {
                         const char* path = reinterpret_cast<const char*>(payload->Data);
                         m_context.openScene(path);

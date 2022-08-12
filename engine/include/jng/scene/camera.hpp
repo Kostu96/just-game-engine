@@ -18,26 +18,26 @@ namespace jng {
         Camera(const Camera&) = default;
         void reset() {} // TODO: impl
 
-        void setOrthographic(float oSize, float oNear = -1.f, float oFar = 1.f);
-        void setPerspective(float pFOV, float pNear = 0.01f, float pFar = 1000.f);
+        void setOrthographic(f32 oSize, f32 oNear = -1.f, f32 oFar = 1.f);
+        void setPerspective(f32 pFOV, f32 pNear = 0.01f, f32 pFar = 1000.f);
         const glm::mat4& getProjection() const { return m_projection; }
 
         void setProjectionType(ProjectionType type) { m_projectionType = type; recalculateProjection(); }
         ProjectionType getProjectionType() const { return m_projectionType; }
 
-        void setViewportSize(float width, float height);
-        float getAspectRatio() const { return m_aspectRatio; }
+        void setViewportSize(f32 width, f32 height);
+        f32 getAspectRatio() const { return m_aspectRatio; }
 
-        float getOrthographicSize() const { return m_orthoSize; }
-        float getOrthographicNear() const { return m_orthoNear; }
-        float getOrthographicFar() const { return m_orthoFar; }
-        void setOrthographicSize(float oSize) { m_orthoSize = oSize; recalculateProjection(); }
-        void setOrthographicNear(float oNear) { m_orthoNear = oNear; recalculateProjection(); }
-        void setOrthographicFar(float oFar) { m_orthoFar = oFar; recalculateProjection(); }
+        f32 getOrthographicSize() const { return m_orthoSize; }
+        f32 getOrthographicNear() const { return m_orthoNear; }
+        f32 getOrthographicFar() const { return m_orthoFar; }
+        void setOrthographicSize(f32 oSize) { m_orthoSize = oSize; recalculateProjection(); }
+        void setOrthographicNear(f32 oNear) { m_orthoNear = oNear; recalculateProjection(); }
+        void setOrthographicFar(f32 oFar) { m_orthoFar = oFar; recalculateProjection(); }
 
-        float getPerspectiveFOV() const { return m_perspectiveFOV; }
-        float getPerspectiveNear() const { return m_perspectiveNear; }
-        float getPerspectiveFar() const { return m_perspectiveFar; }
+        f32 getPerspectiveFOV() const { return m_perspectiveFOV; }
+        f32 getPerspectiveNear() const { return m_perspectiveNear; }
+        f32 getPerspectiveFar() const { return m_perspectiveFar; }
         void setPerspectiveFOV(float pFOV) { m_perspectiveFOV = pFOV; recalculateProjection(); }
         void setPerspectiveNear(float pNear) { m_perspectiveNear = pNear; recalculateProjection(); }
         void setPerspectiveFar(float pFar) { m_perspectiveFar = pFar; recalculateProjection(); }

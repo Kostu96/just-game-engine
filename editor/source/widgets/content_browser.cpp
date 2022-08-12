@@ -12,6 +12,17 @@
 
 namespace jng {
 
+    static const char* fileExtensionToPayloadID(const std::filesystem::path& extension)
+    {
+        // NOTE: these can be max 32 characters long
+        if (extension == L".jscn") return "CONTENT_BROWSER_ITEM_SCENE";
+        if (extension == L".lua")  return "CONTENT_BROWSER_ITEM_LUA";
+        if (extension == L".png")  return "CONTENT_BROWSER_ITEM_TEXTURE";
+
+        JNG_CORE_ASSERT(false, "This sould never be triggered!");
+        return "";
+    }
+
     ContentBrowserWindow::ContentBrowserWindow(EditorContext& context) :
         m_context{ context },
         m_fileIcon{ makeRef<Texture>("assets/textures/file_icon.png") },
@@ -58,7 +69,7 @@ namespace jng {
                     if (ImGui::BeginDragDropSource())
                     {
                         auto payload = entry.path().string();
-                        ImGui::SetDragDropPayload("CONTENT_BROWSER_ITEM", payload.c_str(), payload.size() + 1, ImGuiCond_Once);
+                        ImGui::SetDragDropPayload(fileExtensionToPayloadID(entry.path().extension()), payload.c_str(), payload.size() + 1, ImGuiCond_Once);
                         ImGui::ImageButton(thumbnail->getRendererID(), { 32.f, 32.f });
                         ImGui::EndDragDropSource();
                     }
