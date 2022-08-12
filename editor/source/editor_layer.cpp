@@ -53,8 +53,8 @@ namespace jng {
                 m_context.ViewportWindowSize.y != m_viewportFramebuffer->getProperties().height)
             {
                 m_viewportFramebuffer->resize(
-                    static_cast<uint32>(m_context.ViewportWindowSize.x),
-                    static_cast<uint32>(m_context.ViewportWindowSize.y)
+                    static_cast<u32>(m_context.ViewportWindowSize.x),
+                    static_cast<u32>(m_context.ViewportWindowSize.y)
                 );
                 m_context.EditorCamera.setViewportSize(m_context.ViewportWindowSize.x, m_context.ViewportWindowSize.y);
 
@@ -246,8 +246,8 @@ namespace jng {
         {
             m_viewportFramebuffer->bind();
             int pixel = m_viewportFramebuffer->readPixel(1,
-                static_cast<uint32>(m_context.MousePosWithinViewport.x),
-                static_cast<uint32>(m_context.MousePosWithinViewport.y)
+                static_cast<u32>(m_context.MousePosWithinViewport.x),
+                static_cast<u32>(m_context.MousePosWithinViewport.y)
             );
             m_viewportFramebuffer->unbind();
             m_context.SelectedEntity = pixel >= 0 ? Entity{ static_cast<entt::entity>(pixel), *m_context.ActiveScene.get() } : Entity{};

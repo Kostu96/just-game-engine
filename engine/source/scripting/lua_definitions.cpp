@@ -49,7 +49,7 @@ namespace jng::Lua {
             JNG_CORE_ASSERT(lua_isnumber(L, 2), "LuaScript::getComponent - 2nd parameter is not a number!");
 
             lua_getfield(L, 1, "_entityHandle_");
-            entt::entity entityHandle = (entt::entity)(uint64)lua_touserdata(L, -1);
+            entt::entity entityHandle = (entt::entity)(u64)lua_touserdata(L, -1);
             lua_pop(L, 1);
             lua_getfield(L, 1, "_sceneHandle_");
             Scene* sceneHandle = (Scene*)lua_touserdata(L, -1);
@@ -57,7 +57,7 @@ namespace jng::Lua {
 
             Entity entity{ entityHandle, *sceneHandle };
 
-            int64 type = luaL_checkinteger(L, 2);
+            s64 type = luaL_checkinteger(L, 2);
             lua_pop(L, 2); // pop parameters
 
             switch (type)
@@ -135,7 +135,7 @@ namespace jng::Lua {
 
             JNG_CORE_ASSERT(lua_isnumber(L, 1), "Input::isKeyPressed - 1st parameter is not a number!");
 
-            Key::Code key = static_cast<uint16>(luaL_checkinteger(L, 1));
+            Key::Code key = static_cast<u16>(luaL_checkinteger(L, 1));
             lua_pop(L, 1); // pop parameter
 
             bool isPressed = jng::Input::isKeyPressed(key);

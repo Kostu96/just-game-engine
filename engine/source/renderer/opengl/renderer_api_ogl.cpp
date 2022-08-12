@@ -29,16 +29,16 @@ namespace jng::RendererAPI {
     {
         switch (type)
         {
-        case RendererAPI::IndexType::UINT8:  return GL_UNSIGNED_BYTE;
-        case RendererAPI::IndexType::UINT16: return GL_UNSIGNED_SHORT;
-        case RendererAPI::IndexType::UINT32: return GL_UNSIGNED_INT;
+        case RendererAPI::IndexType::U8:  return GL_UNSIGNED_BYTE;
+        case RendererAPI::IndexType::U16: return GL_UNSIGNED_SHORT;
+        case RendererAPI::IndexType::U32: return GL_UNSIGNED_INT;
         }
 
         JNG_CORE_ASSERT(false, "This should never be triggered!");
         return static_cast<GLenum>(-1);
     }
 
-    void setViewport(uint32 x, uint32 y, uint32 width, uint32 height)
+    void setViewport(u32 x, u32 y, u32 width, u32 height)
     {
         glViewport(static_cast<int>(x), static_cast<int>(y), static_cast<int>(width), static_cast<int>(height));
     }
@@ -49,12 +49,12 @@ namespace jng::RendererAPI {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
-    void draw(uint32 count, RendererAPI::PrimitiveType primitiveType)
+    void draw(u32 count, RendererAPI::PrimitiveType primitiveType)
     {
         glDrawArrays(primitiveTypeToGLenum(primitiveType), 0, static_cast<GLsizei>(count));
     }
 
-    void drawIndexed(uint32 count, IndexType indexType, PrimitiveType primitiveType)
+    void drawIndexed(u32 count, IndexType indexType, PrimitiveType primitiveType)
     {
         glDrawElements(primitiveTypeToGLenum(primitiveType), static_cast<GLsizei>(count), indexTypeToGLenum(indexType), nullptr);
     }

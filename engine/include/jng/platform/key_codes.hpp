@@ -10,7 +10,7 @@
 namespace jng {
     namespace Key {
         
-        using Code = uint16;
+        using Code = u16;
 
         // From glfw3.h
         constexpr Code Space = 32;

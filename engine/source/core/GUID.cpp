@@ -12,7 +12,7 @@ namespace jng {
 
     static std::random_device s_randomDevice;
     static std::mt19937_64 s_randomEngine{ s_randomDevice() };
-    static std::uniform_int_distribution<uint64> s_randomDistribution;
+    static std::uniform_int_distribution<u64> s_randomDistribution;
 
     GUID::GUID() :
         m_GUID{ s_randomDistribution(s_randomEngine) }

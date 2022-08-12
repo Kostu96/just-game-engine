@@ -144,7 +144,7 @@ namespace jng {
         if (entities)
             for (auto entity : entities)
             {
-                GUID id{ entity["Entity"].as<uint64>() };
+                GUID id{ entity["Entity"].as<u64>() };
                 std::string tag;
                 auto tagComponent = entity["TagComponent"];
                 if (tagComponent) tag = tagComponent["Tag"].as<std::string>();
@@ -252,7 +252,7 @@ namespace jng {
                     for (auto prop : properties)
                     {
                         std::string name = prop["Name"].as<std::string>();
-                        auto type = static_cast<LuaEngine::ScriptData::PropertyType>(prop["Type"].as<uint32>());
+                        auto type = static_cast<LuaEngine::ScriptData::PropertyType>(prop["Type"].as<u32>());
                         union {
                             double value; 
                             void* any;
@@ -311,7 +311,7 @@ namespace jng {
             yaml << YAML::BeginMap;
             auto& comp = entity.getComponent<CameraComponent>();
 
-            yaml << YAML::Key << "ProjectionType" << YAML::Value << static_cast<uint32>(comp.camera.getProjectionType());
+            yaml << YAML::Key << "ProjectionType" << YAML::Value << static_cast<u32>(comp.camera.getProjectionType());
             yaml << YAML::Key << "OrthographicSize" << YAML::Value << comp.camera.getOrthographicSize();
             yaml << YAML::Key << "OrthographicNear" << YAML::Value << comp.camera.getOrthographicNear();
             yaml << YAML::Key << "OrthographicFar" << YAML::Value << comp.camera.getOrthographicFar();
@@ -394,7 +394,7 @@ namespace jng {
             yaml << YAML::BeginMap;
             auto& comp = entity.getComponent<Rigidbody2DComponent>();
 
-            yaml << YAML::Key << "BodyType" << YAML::Value << static_cast<uint32>(comp.type);
+            yaml << YAML::Key << "BodyType" << YAML::Value << static_cast<u32>(comp.type);
             yaml << YAML::Key << "Enabled" << YAML::Value << comp.enabled;
             yaml << YAML::Key << "FreezeRotation" << YAML::Value << comp.freezeRotation;
             yaml << YAML::Key << "LinearDamping" << YAML::Value << comp.linearDamping;
@@ -423,7 +423,7 @@ namespace jng {
             {
                 yaml << YAML::BeginMap;
                 yaml << YAML::Key << "Name" << YAML::Value << prop.first;
-                yaml << YAML::Key << "Type" << YAML::Value << static_cast<uint32>(prop.second.type);
+                yaml << YAML::Key << "Type" << YAML::Value << static_cast<u32>(prop.second.type);
                 yaml << YAML::Key << "Value" << YAML::Value;
                 switch (prop.second.type)
                 {

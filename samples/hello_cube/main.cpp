@@ -42,7 +42,7 @@ const Vertex vertices[]{
     {{ -1.f,  1.f,  1.f }, { 0.f, 1.f }}  // 13
 };
 
-const jng::uint8 indices[]{
+const jng::u8 indices[]{
     // front
     0, 3, 2,
     2, 1, 0,
@@ -72,7 +72,7 @@ public:
         m_cameraUBO{ jng::makeRef<jng::UniformBuffer>(sizeof(glm::mat4)) },
         m_modelUBO{ jng::makeRef<jng::UniformBuffer>(sizeof(glm::mat4)) },
         m_VBO{ jng::makeRef<jng::VertexBuffer>(vertices, sizeof(vertices)) },
-        m_IBO{ jng::makeRef<jng::IndexBuffer>(indices, (jng::uint32)(sizeof(indices) / sizeof(jng::uint8)), jng::RendererAPI::IndexType::UINT8) },
+        m_IBO{ jng::makeRef<jng::IndexBuffer>(indices, (jng::u32)(sizeof(indices) / sizeof(jng::u8)), jng::RendererAPI::IndexType::U8) },
         m_VAO{ jng::makeRef<jng::VertexArray>(m_VBO, LAYOUT) },
         m_texture{ jng::makeRef<jng::Texture>("assets/hello_cube/textures/wall_base_color.jpg") },
         m_model{ 1.f }

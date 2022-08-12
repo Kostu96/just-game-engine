@@ -210,11 +210,11 @@ namespace jng {
                 updateComponent<Rigidbody2DComponent>("Rigidbody 2D", m_context.SelectedEntity,
                     [](Rigidbody2DComponent& rbc) {
                         const char* bodyTypeStrs[] = { "Static", "Kinematic", "Dynamic" };
-                        const char* currentBodyTypeStr = bodyTypeStrs[(uint32)rbc.type];
+                        const char* currentBodyTypeStr = bodyTypeStrs[(u32)rbc.type];
 
                         if (ImGui::BeginCombo("Body Type", currentBodyTypeStr))
                         {
-                            for (uint32 i = 0; i < 3; ++i)
+                            for (u32 i = 0; i < 3; ++i)
                             {
                                 bool isSelected = currentBodyTypeStr == bodyTypeStrs[i];
                                 if (ImGui::Selectable(bodyTypeStrs[i], isSelected))

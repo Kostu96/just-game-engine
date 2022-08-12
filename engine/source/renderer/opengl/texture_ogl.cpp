@@ -13,7 +13,7 @@
 
 namespace jng {
 
-    static uint32 textureFormatToGLEnum(TextureFormat format)
+    static u32 textureFormatToGLEnum(TextureFormat format)
     {
         switch (format)
         {
@@ -33,8 +33,8 @@ namespace jng {
         JNG_CORE_ASSERT(data, std::string{ "Failed to load image: " } + path);
 
         m_properties.specification.format = TextureFormat::RGBA8;
-        m_properties.width = static_cast<uint32>(width);
-        m_properties.height = static_cast<uint32>(height);
+        m_properties.width = static_cast<u32>(width);
+        m_properties.height = static_cast<u32>(height);
 
         createTexture();
         glTextureSubImage2D(m_id, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data);
@@ -53,12 +53,12 @@ namespace jng {
         glDeleteTextures(1, &m_id);
     }
 
-    void Texture::bind(uint32 slot) const
+    void Texture::bind(u32 slot) const
     {
         glBindTextureUnit(slot, m_id);
     }
 
-    void Texture::unbind(uint32 slot) const
+    void Texture::unbind(u32 slot) const
     {
         glBindTextureUnit(slot, 0);
     }

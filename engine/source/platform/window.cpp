@@ -33,8 +33,8 @@ namespace jng {
     static void glfwWindowSizeCallback(GLFWwindow* window, int width, int height)
     {
         auto data = reinterpret_cast<Window::WindowData*>(glfwGetWindowUserPointer(window));
-        data->width = static_cast<uint32>(width);
-        data->height = static_cast<uint32>(height);
+        data->width = static_cast<u32>(width);
+        data->height = static_cast<u32>(height);
         data->isMinimized = (data->width == 0 || data->height == 0);
         WindowResizeEvent event(data->width, data->height);
         data->eventCallback(event);
@@ -106,14 +106,14 @@ namespace jng {
         glfwSetWindowTitle(m_windowHandle, title);
     }
 
-    Scope<Window> Window::create(const char* title, uint32 width, uint32 height)
+    Scope<Window> Window::create(const char* title, u32 width, u32 height)
     {
         JNG_PROFILE_FUNCTION();
 
         return makeScope<Window>(title, width, height);
     }
 
-    Window::Window(const char* title, uint32 width, uint32 height)
+    Window::Window(const char* title, u32 width, u32 height)
     {
         m_windowData.title = title;
         m_windowData.width = width;

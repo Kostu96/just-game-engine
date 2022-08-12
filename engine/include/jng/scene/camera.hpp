@@ -47,14 +47,14 @@ namespace jng {
         void recalculateProjection();
 
         glm::mat4 m_projection{ 1.f };
+        f32 m_aspectRatio{ 0.f };
+        f32 m_orthoSize{ 10.f };
+        f32 m_orthoNear{ -1.f };
+        f32 m_orthoFar{ 1.f };
+        f32 m_perspectiveFOV{ 45.f };
+        f32 m_perspectiveNear{ 0.01f };
+        f32 m_perspectiveFar{ 1000.f };
         ProjectionType m_projectionType = ProjectionType::Orthographic;
-        float m_aspectRatio{ 0.f };
-        float m_orthoSize{ 10.f };
-        float m_orthoNear{ -1.f };
-        float m_orthoFar{ 1.f };
-        float m_perspectiveFOV{ 45.f };
-        float m_perspectiveNear{ 0.01f };
-        float m_perspectiveFar{ 1000.f };
     };
 
 } // namespace jng

@@ -22,19 +22,19 @@ namespace jng {
     {
         switch (type)
         {
-        case DataType::Float:   return sizeof(float);
-        case DataType::Float2:  return sizeof(float) * 2;
-        case DataType::Float3:  return sizeof(float) * 3;
-        case DataType::Float4:  return sizeof(float) * 4;
+        case DataType::Float:   return sizeof(f32);
+        case DataType::Float2:  return sizeof(f32) * 2;
+        case DataType::Float3:  return sizeof(f32) * 3;
+        case DataType::Float4:  return sizeof(f32) * 4;
         case DataType::UInt:
-        case DataType::UInt4x8: return sizeof(uint32);
-        case DataType::UInt2:   return sizeof(uint32) * 2;
-        case DataType::UInt3:   return sizeof(uint32) * 3;
-        case DataType::UInt4:   return sizeof(uint32) * 4;
-        case DataType::Int:     return sizeof(int32);
-        case DataType::Int2:    return sizeof(int32) * 2;
-        case DataType::Int3:    return sizeof(int32) * 3;
-        case DataType::Int4:    return sizeof(int32) * 4;
+        case DataType::UInt4x8: return sizeof(u32);
+        case DataType::UInt2:   return sizeof(u32) * 2;
+        case DataType::UInt3:   return sizeof(u32) * 3;
+        case DataType::UInt4:   return sizeof(u32) * 4;
+        case DataType::Int:     return sizeof(s32);
+        case DataType::Int2:    return sizeof(s32) * 2;
+        case DataType::Int3:    return sizeof(s32) * 3;
+        case DataType::Int4:    return sizeof(s32) * 4;
         }
 
         JNG_CORE_ASSERT(false, "This should never be triggered!");

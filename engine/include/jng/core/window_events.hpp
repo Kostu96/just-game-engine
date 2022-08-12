@@ -23,17 +23,17 @@ namespace jng {
         public Event
     {
     public:
-        WindowResizeEvent(uint32 width, uint32 height) :
+        WindowResizeEvent(u32 width, u32 height) :
             m_width(width),
             m_height(height) {}
 
-        uint32 getWidth() const { return m_width; }
-        uint32 getHeight() const { return m_height; }
+        u32 getWidth() const { return m_width; }
+        u32 getHeight() const { return m_height; }
 
         EVENT_CLASS_TYPE(WindowResize)
     private:
-        uint32 m_width;
-        uint32 m_height;
+        u32 m_width;
+        u32 m_height;
     };
 
 } // namespace jng
