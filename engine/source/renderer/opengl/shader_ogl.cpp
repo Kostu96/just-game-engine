@@ -13,7 +13,7 @@
 
 namespace jng {
 
-    static uint32 shaderTypeToOGLShaderType(Shader::Type type)
+    static u32 shaderTypeToOGLShaderType(Shader::Type type)
     {
         switch (type)
         {
@@ -21,15 +21,15 @@ namespace jng {
         case Shader::Type::Fragment: return GL_FRAGMENT_SHADER;
         }
         JNG_CORE_ASSERT(false, "");
-        return static_cast<uint32>(-1);
+        return static_cast<u32>(-1);
     }
 
     Shader::Shader(const std::filesystem::path& vertexShaderFilename, const std::filesystem::path& fragmentShaderFilename)
     {
         createCacheDirectoryIfNeeded();
 
-        uint32 vs = compileShader(vertexShaderFilename, Type::Vertex);
-        uint32 fs = compileShader(fragmentShaderFilename, Type::Fragment);
+        u32 vs = compileShader(vertexShaderFilename, Type::Vertex);
+        u32 fs = compileShader(fragmentShaderFilename, Type::Fragment);
         m_id = glCreateProgram();
         glAttachShader(m_id, vs);
         glAttachShader(m_id, fs);
@@ -67,14 +67,14 @@ namespace jng {
         glUseProgram(0);
     }
 
-    uint32 Shader::compileShader(const std::filesystem::path& filename, Type type) const
+    u32 Shader::compileShader(const std::filesystem::path& filename, Type type) const
     {
         JNG_CORE_TRACE("Compiling shader: {0}", filename);
 
-        std::vector<uint32> oglSpirvData = compileToSPIRV(filename, type);
+        std::vector<u32> oglSpirvData = compileToSPIRV(filename, type);
 
-        uint32 id = glCreateShader(shaderTypeToOGLShaderType(type));
-        glShaderBinary(1, &id, GL_SHADER_BINARY_FORMAT_SPIR_V, oglSpirvData.data(), static_cast<GLsizei>(oglSpirvData.size() * sizeof(uint32)));
+        u32 id = glCreateShader(shaderTypeToOGLShaderType(type));
+        glShaderBinary(1, &id, GL_SHADER_BINARY_FORMAT_SPIR_V, oglSpirvData.data(), static_cast<GLsizei>(oglSpirvData.size() * sizeof(u32)));
         glSpecializeShader(id, "main", 0, nullptr, nullptr);
         int ret;
         glGetShaderiv(id, GL_COMPILE_STATUS, &ret);

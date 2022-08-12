@@ -31,8 +31,8 @@ namespace jng {
     public:
         struct Properties
         {
-            uint32 width;
-            uint32 height;
+            u32 width;
+            u32 height;
         };
 
         explicit EditorLayer(const Properties& properties);

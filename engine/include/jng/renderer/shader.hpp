@@ -25,15 +25,15 @@ namespace jng {
     private:
         std::filesystem::path getCacheDirectory() const;
         void createCacheDirectoryIfNeeded() const;
-        std::vector<uint32> compileToSPIRV(const std::filesystem::path& filename, Type type) const;
+        std::vector<u32> compileToSPIRV(const std::filesystem::path& filename, Type type) const;
         static const char* shaderTypeToHashFileExtension(Type type);
         static const char* shaderTypeToCachedVlkFileExtension(Type type);
-        static uint32 shaderTypeToShaderCKind(Type type);
+        static u32 shaderTypeToShaderCKind(Type type);
 
-        uint32 compileShader(const std::filesystem::path& filename, Type type) const;
+        u32 compileShader(const std::filesystem::path& filename, Type type) const;
 
         mutable bool m_isCacheDirty = true;
-        uint32 m_id;
+        u32 m_id;
     };
 
 } // namespace jng

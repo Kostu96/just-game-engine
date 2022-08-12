@@ -15,14 +15,14 @@ namespace jng::RendererAPI {
     };
 
     enum class IndexType {
-        UINT8,
-        UINT16,
-        UINT32
+        U8,
+        U16,
+        U32
     };
         
-    void setViewport(uint32 x, uint32 y, uint32 width, uint32 height);
+    void setViewport(u32 x, u32 y, u32 width, u32 height);
     void clear(const glm::vec3& color);
-    void draw(uint32 count, PrimitiveType primitiveType = PrimitiveType::Triangles);
-    void drawIndexed(uint32 count, IndexType indexType, PrimitiveType primitiveType = PrimitiveType::Triangles);
+    void draw(u32 count, PrimitiveType primitiveType = PrimitiveType::Triangles);
+    void drawIndexed(u32 count, IndexType indexType, PrimitiveType primitiveType = PrimitiveType::Triangles);
 
 } // namespace jng::RendererAPI

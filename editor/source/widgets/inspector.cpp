@@ -178,13 +178,16 @@ namespace jng {
                         ImGui::ImageButton(src.texture ? src.texture->getRendererID() : m_checkerboard->getRendererID(), {64.f, 64.f});
                         if (ImGui::BeginDragDropTarget())
                         {
-                            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+                            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM_TEXTURE"))
                             {
                                 const char* path = reinterpret_cast<const char*>(payload->Data);
                                 src.texture = makeRef<Texture>(path);
                             }
                             ImGui::EndDragDropTarget();
                         }
+                        ImGui::SameLine();
+                        if (ImGui::Button("X##srcClearTextureBtn"))
+                            src.texture = {};
                     });
 
                 updateComponent<BoxCollider2DComponent>("Box Collider 2D", m_context.SelectedEntity,
@@ -210,11 +213,11 @@ namespace jng {
                 updateComponent<Rigidbody2DComponent>("Rigidbody 2D", m_context.SelectedEntity,
                     [](Rigidbody2DComponent& rbc) {
                         const char* bodyTypeStrs[] = { "Static", "Kinematic", "Dynamic" };
-                        const char* currentBodyTypeStr = bodyTypeStrs[(uint32)rbc.type];
+                        const char* currentBodyTypeStr = bodyTypeStrs[(u32)rbc.type];
 
                         if (ImGui::BeginCombo("Body Type", currentBodyTypeStr))
                         {
-                            for (uint32 i = 0; i < 3; ++i)
+                            for (u32 i = 0; i < 3; ++i)
                             {
                                 bool isSelected = currentBodyTypeStr == bodyTypeStrs[i];
                                 if (ImGui::Selectable(bodyTypeStrs[i], isSelected))
@@ -242,7 +245,7 @@ namespace jng {
 
                         if (ImGui::BeginDragDropTarget())
                         {
-                            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+                            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM_LUA"))
                             {
                                 lsc.name = LuaEngine::registerScript(reinterpret_cast<const char*>(payload->Data));
                                 lsc.data = LuaEngine::getScriptData(lsc.name);

@@ -32,7 +32,7 @@ const Vertex vertices[]{
     { { -1.f,  1.f }, { 0.f, 1.f } }
 };
 
-const jng::uint8 indices[]{
+const jng::u8 indices[]{
     0, 2, 1,
     0, 3, 2
 };
@@ -50,7 +50,7 @@ public:
         m_shader{ jng::makeRef<jng::Shader>("assets/hello_framebuffer/shaders/vertex.glsl", "assets/hello_framebuffer/shaders/fragment.glsl") },
         m_cameraUBO{ jng::makeRef<jng::UniformBuffer>(sizeof(glm::mat4)) },
         m_VBO{ jng::makeRef<jng::VertexBuffer>(vertices, sizeof(vertices)) },
-        m_IBO{ jng::makeRef<jng::IndexBuffer>(indices, (jng::uint32)(sizeof(indices) / sizeof(jng::uint8)), jng::RendererAPI::IndexType::UINT8) },
+        m_IBO{ jng::makeRef<jng::IndexBuffer>(indices, (jng::u32)(sizeof(indices) / sizeof(jng::u8)), jng::RendererAPI::IndexType::U8) },
         m_VAO{ jng::makeRef<jng::VertexArray>(m_VBO, LAYOUT) }
     {
         // NOTE: These can be bound once at the begining because they're only one used.

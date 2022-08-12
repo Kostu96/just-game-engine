@@ -53,8 +53,8 @@ namespace jng {
                 m_context.ViewportWindowSize.y != m_viewportFramebuffer->getProperties().height)
             {
                 m_viewportFramebuffer->resize(
-                    static_cast<uint32>(m_context.ViewportWindowSize.x),
-                    static_cast<uint32>(m_context.ViewportWindowSize.y)
+                    static_cast<u32>(m_context.ViewportWindowSize.x),
+                    static_cast<u32>(m_context.ViewportWindowSize.y)
                 );
                 m_context.EditorCamera.setViewportSize(m_context.ViewportWindowSize.x, m_context.ViewportWindowSize.y);
 
@@ -110,7 +110,7 @@ namespace jng {
             if (m_context.IsViewportWindowOpen)
             {
                 bool isDragging = ImGui::IsDragDropPayloadBeingAccepted() &&
-                    strcmp(ImGui::GetDragDropPayload()->DataType, "CONTENT_BROWSER_ITEM") == 0;
+                    strcmp(ImGui::GetDragDropPayload()->DataType, "CONTENT_BROWSER_ITEM_SCENE") == 0;
 
                 ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding,
                     isDragging ? ImVec2{ 6.0f, 5.0f } : ImVec2{ 0, 0 });
@@ -125,7 +125,7 @@ namespace jng {
                 ImGui::PushStyleColor(ImGuiCol_Button, { 0.f, 0.f, 0.f, 0.f });
                 ImGui::PushStyleColor(ImGuiCol_ButtonHovered, { 0.3f, 0.3f, 0.6f, 0.5f });
                 ImGui::PushStyleColor(ImGuiCol_ButtonActive, { 0.f, 0.f, 0.f, 0.f });
-                if (ImGui::ImageButton(icon->getRendererID(), { 32.f, 32.f }))
+                if (ImGui::ImageButton(icon->getRendererID(), { 32.f, 32.f }) && m_context.ActiveScene)
                 {
                     switch (m_context.SceneState)
                     {
@@ -188,7 +188,7 @@ namespace jng {
 
                 if (ImGui::BeginDragDropTarget())
                 {
-                    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+                    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM_SCENE"))
                     {
                         const char* path = reinterpret_cast<const char*>(payload->Data);
                         m_context.openScene(path);
@@ -246,8 +246,8 @@ namespace jng {
         {
             m_viewportFramebuffer->bind();
             int pixel = m_viewportFramebuffer->readPixel(1,
-                static_cast<uint32>(m_context.MousePosWithinViewport.x),
-                static_cast<uint32>(m_context.MousePosWithinViewport.y)
+                static_cast<u32>(m_context.MousePosWithinViewport.x),
+                static_cast<u32>(m_context.MousePosWithinViewport.y)
             );
             m_viewportFramebuffer->unbind();
             m_context.SelectedEntity = pixel >= 0 ? Entity{ static_cast<entt::entity>(pixel), *m_context.ActiveScene.get() } : Entity{};

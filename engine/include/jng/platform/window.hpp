@@ -23,7 +23,7 @@ namespace jng {
 
         struct WindowData {
             std::string title;
-            uint32 width{}, height{};
+            u32 width{}, height{};
             bool isMinimized = false;
             EventCallbackFunc eventCallback;
         };
@@ -31,15 +31,15 @@ namespace jng {
         void onUpdate();
         GLFWwindow* getNativeWindowHandle() const { return m_windowHandle; }
         void setTitle(const char* title);
-        uint32 getWidth() const { return m_windowData.width; }
-        uint32 getHeight() const { return m_windowData.height; }
+        u32 getWidth() const { return m_windowData.width; }
+        u32 getHeight() const { return m_windowData.height; }
         bool isMinimized() const { return m_windowData.isMinimized; }
         void setEventCallback(const EventCallbackFunc& callback) { m_windowData.eventCallback = callback; }
         const EventCallbackFunc& getEventCallback() const { return m_windowData.eventCallback; }
         GraphicsContext* getGraphicsContext() const { return m_graphicsContext.get(); }
 
-        static Scope<Window> create(const char* title, uint32 width, uint32 height);
-        Window(const char* title, uint32 width, uint32 height);
+        static Scope<Window> create(const char* title, u32 width, u32 height);
+        Window(const char* title, u32 width, u32 height);
         ~Window();
     private:
         GLFWwindow* m_windowHandle;

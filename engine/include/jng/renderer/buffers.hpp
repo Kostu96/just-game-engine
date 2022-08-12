@@ -21,22 +21,22 @@ namespace jng {
         void unbind() const;
         void setData(const void* data, size_t size) const;
     private:
-        uint32 m_id;
+        u32 m_id;
     };
 
     class IndexBuffer final
     {
     public:
-        IndexBuffer(const void* indices, uint32 count, RendererAPI::IndexType type);
+        IndexBuffer(const void* indices, u32 count, RendererAPI::IndexType type);
         ~IndexBuffer();
 
         void bind() const;
         void unbind() const;
-        uint32 getCount() const { return m_count; }
+        u32 getCount() const { return m_count; }
         RendererAPI::IndexType getIndexType() const { return m_indexType; }
     private:
-        uint32 m_id;
-        uint32 m_count;
+        u32 m_id;
+        u32 m_count;
         RendererAPI::IndexType m_indexType;
     };
 
@@ -46,11 +46,11 @@ namespace jng {
         explicit UniformBuffer(size_t size);
         ~UniformBuffer();
 
-        void bind(uint32 slot) const;
-        void unbind(uint32 slot) const;
+        void bind(u32 slot) const;
+        void unbind(u32 slot) const;
         void setData(const void* data, size_t size, size_t offset = 0) const;
     private:
-        uint32 m_id;
+        u32 m_id;
     };
 
 } // namespace jng

@@ -42,26 +42,26 @@ namespace jng {
     public:
         struct Properties {
             TextureSpecification specification = TextureFormat::None;
-            uint32 width;
-            uint32 height;
+            u32 width;
+            u32 height;
         };
 
         explicit Texture(const char* path);
         explicit Texture(const Properties& properties);
         ~Texture();
 
-        void bind(uint32 slot) const;
-        void unbind(uint32 slot) const;
+        void bind(u32 slot) const;
+        void unbind(u32 slot) const;
         void setData(void* data, size_t size) const;
 
-        uint32 getID() const { return m_id; }
+        u32 getID() const { return m_id; }
         const Properties& getProperties() const { return m_properties; }
-        void* getRendererID() { return reinterpret_cast<void*>(static_cast<uint64>(m_id)); }
+        void* getRendererID() { return reinterpret_cast<void*>(static_cast<u64>(m_id)); }
     private:
         void createTexture();
 
         Properties m_properties;
-        uint32 m_id;
+        u32 m_id;
     };
 
 } // namespace jng

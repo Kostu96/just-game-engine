@@ -10,7 +10,7 @@
 namespace jng {
     namespace Mouse {
         
-        using Code = uint8;
+        using Code = u8;
 
         constexpr Code Left = 0;
         constexpr Code Right = 1;

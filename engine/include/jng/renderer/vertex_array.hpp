@@ -46,13 +46,13 @@ namespace jng {
         VertexLayout(const VertexLayout& other);
 
         const ContainerType& getElements() const { return m_elements; }
-        uint32 getStride() const { return m_stride; }
+        u32 getStride() const { return m_stride; }
 
         ContainerConstInterator begin() const { return m_elements.begin(); }
         ContainerConstInterator end() const { return m_elements.end(); }
     private:
         ContainerType m_elements;
-        uint32 m_stride;
+        u32 m_stride;
     };
 
     class VertexArray final
@@ -68,7 +68,7 @@ namespace jng {
         void setIndexBuffer(const Ref<IndexBuffer>& ibo);
         const Ref<IndexBuffer>& getIndexBuffer() const { return m_IBO; }
     private:
-        uint32 m_id;
+        u32 m_id;
         Ref<VertexBuffer> m_VBO;
         Ref<IndexBuffer> m_IBO;
     };

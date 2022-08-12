@@ -49,16 +49,16 @@ namespace jng {
     {
         switch (type)
         {
-        case RendererAPI::IndexType::UINT8:  return sizeof(uint8);
-        case RendererAPI::IndexType::UINT16: return sizeof(uint16);
-        case RendererAPI::IndexType::UINT32: return sizeof(uint32);
+        case RendererAPI::IndexType::U8:  return sizeof(u8);
+        case RendererAPI::IndexType::U16: return sizeof(u16);
+        case RendererAPI::IndexType::U32: return sizeof(u32);
         }
 
         JNG_CORE_ASSERT(false, "This should never be triggered!");
         return 0;
     }
 
-    IndexBuffer::IndexBuffer(const void* indices, uint32 count, RendererAPI::IndexType type) :
+    IndexBuffer::IndexBuffer(const void* indices, u32 count, RendererAPI::IndexType type) :
         m_count{ count },
         m_indexType{ type }
     {
@@ -94,12 +94,12 @@ namespace jng {
         glDeleteBuffers(1, &m_id);
     }
 
-    void UniformBuffer::bind(uint32 slot) const
+    void UniformBuffer::bind(u32 slot) const
     {
         glBindBufferBase(GL_UNIFORM_BUFFER, slot, m_id);
     }
 
-    void UniformBuffer::unbind(uint32 slot) const
+    void UniformBuffer::unbind(u32 slot) const
     {
         glBindBufferBase(GL_UNIFORM_BUFFER, slot, 0);
     }

@@ -14,7 +14,7 @@
 
 namespace jng {
 
-    void EditorContext::createProject(std::filesystem::path path)
+    void EditorContext::createProject(const std::filesystem::path& path)
     {
         IsProjectOpen = true;
 
@@ -23,7 +23,7 @@ namespace jng {
             std::filesystem::create_directories(ProjectPath);
 
         std::filesystem::path filename = ProjectPath / ProjectPath.filename();
-        filename += ".proj.yml";
+        filename += ".jprj";
         YAML::Emitter yaml;
 
         yaml << YAML::BeginMap;
@@ -40,9 +40,12 @@ namespace jng {
         if (!std::filesystem::exists(AssetsPath))
             std::filesystem::create_directories(AssetsPath);
         BrowsedPath = AssetsPath;
+
+        SelectedEntity = {};
+        ActiveScene = {};
     }
 
-    void EditorContext::openProject(std::filesystem::path path)
+    void EditorContext::openProject(const std::filesystem::path& path)
     {
         IsProjectOpen = true;
 
@@ -59,6 +62,9 @@ namespace jng {
                 LuaEngine::registerScript(entry.path());
             }
         }
+
+        SelectedEntity = {};
+        ActiveScene = {};
     }
 
     void EditorContext::createScene()
@@ -71,7 +77,7 @@ namespace jng {
         ActiveScene->setViewportSize(ViewportWindowSize.x, ViewportWindowSize.y);
     }
 
-    void EditorContext::openScene(std::filesystem::path path)
+    void EditorContext::openScene(const std::filesystem::path& path)
     {
         if (SceneState != SceneState::Stopped)
             onSceneStop();
@@ -87,7 +93,7 @@ namespace jng {
         ActiveScene = EditorScene;
     }
 
-    void EditorContext::saveScene(std::filesystem::path path)
+    void EditorContext::saveScene(const std::filesystem::path& path)
     {
         if (!path.empty())
         {

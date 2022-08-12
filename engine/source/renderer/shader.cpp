@@ -39,7 +39,7 @@ namespace jng {
             std::filesystem::create_directories(cacheDirectory);
     }
 
-    std::vector<uint32> Shader::compileToSPIRV(const std::filesystem::path& filename, Type type) const
+    std::vector<u32> Shader::compileToSPIRV(const std::filesystem::path& filename, Type type) const
     {
         std::string filenameStr = filename.string();
         std::string shaderFileStem = filename.stem().string();
@@ -74,7 +74,7 @@ namespace jng {
         std::filesystem::path vlkCachedPath = cacheDirectory / (shaderFileStem + shaderTypeToCachedVlkFileExtension(type));
         std::string vlkCachedPathStr = vlkCachedPath.string();
         
-        std::vector<uint32> vulkanSpirvData;
+        std::vector<u32> vulkanSpirvData;
         if (m_isCacheDirty) {
             shaderc::Compiler compiler;
             shaderc::CompileOptions options;
@@ -82,14 +82,14 @@ namespace jng {
             options.SetOptimizationLevel(shaderc_optimization_level_performance);
             auto vulkanSpirv = compiler.CompileGlslToSpv(shaderSource, static_cast<shaderc_shader_kind>(shaderTypeToShaderCKind(type)), filenameStr.c_str(), options);
             JNG_CORE_ASSERT(vulkanSpirv.GetCompilationStatus() == shaderc_compilation_status_success, vulkanSpirv.GetErrorMessage());
-            vulkanSpirvData = std::vector<uint32>{ vulkanSpirv.cbegin(), vulkanSpirv.cend() };
-
+            vulkanSpirvData = std::vector<u32>{ vulkanSpirv.cbegin(), vulkanSpirv.cend() };
+            
             writeFile(hashPathStr.c_str(), reinterpret_cast<char*>(&shaderSourceHash), sizeof(size_t), true);
-            writeFile(vlkCachedPathStr.c_str(), reinterpret_cast<char*>(vulkanSpirvData.data()), vulkanSpirvData.size() * sizeof(uint32), true);
+            writeFile(vlkCachedPathStr.c_str(), reinterpret_cast<char*>(vulkanSpirvData.data()), vulkanSpirvData.size() * sizeof(u32), true);
         }
         else {
             success = readFile(vlkCachedPathStr.c_str(), nullptr, size, true);
-            vulkanSpirvData.resize(size / sizeof(uint32));
+            vulkanSpirvData.resize(size / sizeof(u32));
             success = readFile(vlkCachedPathStr.c_str(), reinterpret_cast<char*>(vulkanSpirvData.data()), size, true);
         }
 
@@ -101,7 +101,7 @@ namespace jng {
         std::filesystem::path oglCachedPath = cacheDirectory / (shaderFileStem + shaderTypeToCachedOGLFileExtension(type));
         std::string oglCachedPathStr = oglCachedPath.string();
 
-        std::vector<uint32> openglSpirvData;
+        std::vector<u32> openglSpirvData;
         if (m_isCacheDirty) {
             spirv_cross::CompilerGLSL glslCompiler{ vulkanSpirvData };
             std::string openglCode = glslCompiler.compile();
@@ -112,13 +112,13 @@ namespace jng {
             options.SetOptimizationLevel(shaderc_optimization_level_performance);
             auto openGLSpirv = compiler.CompileGlslToSpv(openglCode, static_cast<shaderc_shader_kind>(shaderTypeToShaderCKind(type)), filenameStr.c_str(), options);
             JNG_CORE_ASSERT(openGLSpirv.GetCompilationStatus() == shaderc_compilation_status_success, openGLSpirv.GetErrorMessage());
-            openglSpirvData = std::vector<uint32>{ openGLSpirv.cbegin(), openGLSpirv.cend() };
+            openglSpirvData = std::vector<u32>{ openGLSpirv.cbegin(), openGLSpirv.cend() };
 
-            success = writeFile(oglCachedPathStr.c_str(), reinterpret_cast<char*>(openglSpirvData.data()), openglSpirvData.size() * sizeof(uint32), true);
+            success = writeFile(oglCachedPathStr.c_str(), reinterpret_cast<char*>(openglSpirvData.data()), openglSpirvData.size() * sizeof(u32), true);
         }
         else {
             success = readFile(oglCachedPathStr.c_str(), nullptr, size, true);
-            openglSpirvData.resize(size / sizeof(uint32));
+            openglSpirvData.resize(size / sizeof(u32));
             success = readFile(oglCachedPathStr.c_str(), reinterpret_cast<char*>(openglSpirvData.data()), size, true);
         }
 
@@ -147,15 +147,15 @@ namespace jng {
         return "";
     }
 
-    uint32 Shader::shaderTypeToShaderCKind(Type type)
+    u32 Shader::shaderTypeToShaderCKind(Type type)
     {
         switch (type)
         {
-        case Type::Vertex:  return shaderc_glsl_vertex_shader;
-        case Type::Fragment:  return shaderc_glsl_fragment_shader;
+        case Type::Vertex:   return shaderc_glsl_vertex_shader;
+        case Type::Fragment: return shaderc_glsl_fragment_shader;
         }
         JNG_CORE_ASSERT(false, "");
-        return static_cast<uint32>(-1);
+        return static_cast<u32>(-1);
     }
 
 } // namespace jng

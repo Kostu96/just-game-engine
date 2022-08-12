@@ -13,12 +13,12 @@ namespace jng {
     {
     public:
         GUID();
-        explicit GUID(uint64 guid) : m_GUID{ guid } {}
+        explicit GUID(u64 guid) : m_GUID{ guid } {}
         GUID(const GUID&) = default;
 
-        operator uint64() const { return m_GUID; }
+        operator u64() const { return m_GUID; }
     private:
-        uint64 m_GUID;
+        u64 m_GUID;
     };
 
 } // namespace jng

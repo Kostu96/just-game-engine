@@ -13,7 +13,7 @@
 
 namespace jng {
 
-    static uint32 dataTypeToGLEnum(LayoutElement::DataType type)
+    static u32 dataTypeToGLEnum(LayoutElement::DataType type)
     {
         switch (type)
         {
@@ -40,7 +40,7 @@ namespace jng {
         return 0;
     }
 
-    static int dataTypeToCount(LayoutElement::DataType type)
+    static s32 dataTypeToCount(LayoutElement::DataType type)
     {
         switch (type)
         {
@@ -71,7 +71,7 @@ namespace jng {
         glCreateVertexArrays(1, &m_id);
         glBindVertexArray(m_id);
         vbo->bind();
-        uint32 index = 0;
+        u32 index = 0;
         for (const auto& element : layout)
         {
             glEnableVertexAttribArray(index);

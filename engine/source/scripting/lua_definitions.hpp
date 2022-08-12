@@ -10,22 +10,31 @@
 
 class lua_State;
 
-namespace jng::Lua {
+namespace jng {
 
-    namespace Script {
+    namespace LuaScript {
+
+        struct LuaEntity
+        {
+            void* handle;
+
+            static constexpr const char* METATABLE_NAME = "JNG.Entity";
+        };
 
         int create(lua_State* L);
         int getComponent(lua_State* L);
 
-    } // namespace Script
+        int createEntity(lua_State* L);
 
-    namespace Global {
+    } // namespace LuaScript
+
+    namespace LuaGlobal {
 
         int log(lua_State* L);
 
-    } // namespace Global
+    } // namespace LuaGlobal
 
-    namespace Component {
+    namespace LuaComponent {
         
         enum
         {
@@ -39,29 +48,29 @@ namespace jng::Lua {
             Rigidbody2D
         };
 
-        struct TagComponent              { jng::TagComponent*              handle; };
-        //struct TransformComponent        { jng::TransformComponent*        handle; };
-        struct CameraComponent           { jng::CameraComponent*           handle; };
-        struct SpriteRendererComponent   { jng::SpriteRendererComponent*   handle; };
-        struct CircleRendererComponent   { jng::CircleRendererComponent*   handle; };
-        struct BoxCollider2DComponent    { jng::BoxCollider2DComponent*    handle; };
-        struct CircleCollider2DComponent { jng::CircleCollider2DComponent* handle; };
+        struct LuaTagComponent              { TagComponent*              handle; };
+        struct LuaTransformComponent        { TransformComponent*        handle; };
+        struct LuaCameraComponent           { CameraComponent*           handle; };
+        struct LuaSpriteRendererComponent   { SpriteRendererComponent*   handle; };
+        struct LuaCircleRendererComponent   { CircleRendererComponent*   handle; };
+        struct LuaBoxCollider2DComponent    { BoxCollider2DComponent*    handle; };
+        struct LuaCircleCollider2DComponent { CircleCollider2DComponent* handle; };
 
-        struct Rigidbody2DComponent
+        struct LuaRigidbody2DComponent
         {
-            jng::Rigidbody2DComponent* handle;
+            Rigidbody2DComponent* handle;
 
             static int setLinearVelocity(lua_State* L);
 
             static constexpr const char* METATABLE_NAME = "JNG.Rigidbody2DComponenet";
         };
 
-    } // namespace Component
+    } // namespace LuaComponent
 
-    namespace Input {
+    namespace LuaInput {
 
         int isKeyPressed(lua_State* L);
 
-    } // namespace Input
+    } // namespace LuaInput
 
-} // namespace jng::Lua
+} // namespace jng

@@ -55,6 +55,9 @@ namespace jng {
     {
         Ref<Scene> sceneCopy = makeRef<Scene>();
 
+        sceneCopy->m_viewportWidth = other->m_viewportWidth;
+        sceneCopy->m_viewportHeight = other->m_viewportHeight;
+
         other->each([&sceneCopy](Entity entity) {
             std::string tag = entity.getComponent<TagComponent>().Tag;
             GUID id = entity.getComponent<IDComponent>().ID;
@@ -100,8 +103,17 @@ namespace jng {
         m_registry.destroy(entity.m_handle);
     }
 
-    void Scene::onCreate(float gravity)
+    void Scene::onCreate(f32 gravity)
     {
+        {
+            auto view = m_registry.view<CameraComponent>();
+            for (auto entity : view)
+            {
+                auto& cc = view.get<CameraComponent>(entity);
+                cc.camera.setViewportSize(m_viewportWidth, m_viewportHeight);
+            }
+        }
+
         m_physics2dWorld = new b2World{ { 0.f, -gravity } };
         {
             auto group = m_registry.group<Rigidbody2DComponent>(entt::get<TransformComponent>);
@@ -156,6 +168,7 @@ namespace jng {
                 }
             }
         }
+
         {
             auto view = m_registry.view<LuaScriptComponent>();
             for (auto entity : view)
@@ -168,11 +181,20 @@ namespace jng {
 
     void Scene::onDestroy()
     {
+        {
+            auto view = m_registry.view<LuaScriptComponent>();
+            for (auto entity : view)
+            {
+                auto& lsc = view.get<LuaScriptComponent>(entity);
+                LuaEngine::onDestroy(Entity{ entity, *this }, lsc);
+            }
+        }
+
         delete m_physics2dWorld;
         m_physics2dWorld = nullptr;
     }
 
-    void Scene::onUpdate(float dt)
+    void Scene::onUpdate(f32 dt)
     {
         {
             auto view = m_registry.view<LuaScriptComponent>();
@@ -214,16 +236,6 @@ namespace jng {
     void Scene::onEvent(Event& /*event*/)
     {
         
-    }
-
-    void Scene::setViewportSize(float width, float height)
-    {
-        auto view = m_registry.view<CameraComponent>();
-        for (auto entity : view)
-        {
-            auto& cc = view.get<CameraComponent>(entity);
-            cc.camera.setViewportSize(width, height);
-        }
     }
 
     void Scene::drawRenderables()

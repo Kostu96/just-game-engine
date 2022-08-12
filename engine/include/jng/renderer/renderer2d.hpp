@@ -20,18 +20,18 @@ namespace jng {
             const glm::vec3* vertexPositions;
             const glm::vec2* textureCoords;
             const Ref<Texture>& texture;
-            uint32 color;
-            int32 entityID = -1;
+            u32 color;
+            s32 entityID = -1;
         };
 
         struct DrawCircleProperties
         {
             const glm::vec3* vertexPositions;
             const glm::vec2* localVertexPositions;
-            float thickness;
-            float fade;
-            uint32 color;
-            int32 entityID = -1;
+            f32 thickness;
+            f32 fade;
+            u32 color;
+            s32 entityID = -1;
         };
 
         void init();
@@ -41,11 +41,11 @@ namespace jng {
         void endScene();
 
         // Quads
-        void drawSprite(const glm::mat4& transform, const SpriteRendererComponent& src, int32 entityID);
+        void drawSprite(const glm::mat4& transform, const SpriteRendererComponent& src, s32 entityID);
         void drawQuad(const DrawQuadProperties& properties);
         
         // Circles
-        void drawCircle(const glm::mat4& transform, const CircleRendererComponent& crc, int32 entityID);
+        void drawCircle(const glm::mat4& transform, const CircleRendererComponent& crc, s32 entityID);
         void drawCircle(const glm::mat4& transform, const glm::vec4& color, float thickness = 1.f, float fade = 0.005f);
         void drawCircle(const DrawCircleProperties& properties);
 
@@ -60,10 +60,10 @@ namespace jng {
 
         struct Statistics
         {
-            uint32 drawCalls = 0;
-            uint32 quadCount = 0;
-            uint32 circleCount = 0;
-            uint32 lineCount = 0;
+            u32 drawCalls = 0;
+            u32 quadCount = 0;
+            u32 circleCount = 0;
+            u32 lineCount = 0;
         };
 
         const Statistics& getStatistics();

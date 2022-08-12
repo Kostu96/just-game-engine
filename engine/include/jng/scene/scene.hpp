@@ -32,9 +32,9 @@ namespace jng {
         Entity duplicateEntity(Entity other);
         void destroyEntity(Entity entity);
 
-        void onCreate(float gravity);
+        void onCreate(f32 gravity);
         void onDestroy();
-        void onUpdate(float dt);
+        void onUpdate(f32 dt);
         void onEvent(Event& event);
 
         template<typename Func>
@@ -44,11 +44,13 @@ namespace jng {
         template<typename Component, typename Func>
         void each(Func func);
 
-        void setViewportSize(float width, float height);
+        void setViewportSize(f32 width, f32 height) { m_viewportWidth = width; m_viewportHeight = height; }
     private:
         void drawRenderables();
         void drawColliders();
 
+        f32 m_viewportWidth = 0.f;
+        f32 m_viewportHeight = 0.f;
         entt::registry m_registry;
         b2World* m_physics2dWorld = nullptr;
 
