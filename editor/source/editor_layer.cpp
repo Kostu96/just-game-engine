@@ -125,7 +125,7 @@ namespace jng {
                 ImGui::PushStyleColor(ImGuiCol_Button, { 0.f, 0.f, 0.f, 0.f });
                 ImGui::PushStyleColor(ImGuiCol_ButtonHovered, { 0.3f, 0.3f, 0.6f, 0.5f });
                 ImGui::PushStyleColor(ImGuiCol_ButtonActive, { 0.f, 0.f, 0.f, 0.f });
-                if (ImGui::ImageButton(icon->getRendererID(), { 32.f, 32.f }))
+                if (ImGui::ImageButton(icon->getRendererID(), { 32.f, 32.f }) && m_context.ActiveScene)
                 {
                     switch (m_context.SceneState)
                     {
