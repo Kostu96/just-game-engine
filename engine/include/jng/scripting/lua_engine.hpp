@@ -33,7 +33,8 @@ namespace jng {
         bool hasOnDestroy = false;
         bool hasOnUpdate = false;
 
-        std::map<std::string, Property> properties;
+        using PropertiesContainerType = std::map<std::string, Property>;
+        PropertiesContainerType properties;
     };
 
     void init();
