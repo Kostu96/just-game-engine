@@ -204,9 +204,11 @@ namespace jng {
                 LuaEngine::onUpdate(Entity{ entity, *this }, lsc, dt);
             }
         }
-        {
-            m_physics2dWorld->Step(dt, PHYSICS_VEL_ITERATIONS, PHYSICS_POS_ITERATIONS);
 
+        m_physics2dWorld->Step(dt, PHYSICS_VEL_ITERATIONS, PHYSICS_POS_ITERATIONS);
+
+        {
+            
             auto group = m_registry.group<Rigidbody2DComponent>(entt::get<TransformComponent>);
             for (auto entity : group)
             {
