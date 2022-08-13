@@ -67,45 +67,52 @@ namespace jng::LuaEngine {
 #pragma endregion
 
 #pragma region LuaComponent
-        lua_newtable(s_data.L); // Component
 
-        lua_pushinteger(s_data.L, LuaComponent::Tag);
-        lua_setfield(s_data.L, -2, "Tag");
-        lua_pushinteger(s_data.L, LuaComponent::Transform);
-        lua_setfield(s_data.L, -2, "Transform");
-        lua_pushinteger(s_data.L, LuaComponent::Camera);
-        lua_setfield(s_data.L, -2, "Camera");
-        lua_pushinteger(s_data.L, LuaComponent::SpriteRenderer);
-        lua_setfield(s_data.L, -2, "SpriteRenderer");
-        lua_pushinteger(s_data.L, LuaComponent::CircleRenderer);
-        lua_setfield(s_data.L, -2, "CircleRenderer");
-        lua_pushinteger(s_data.L, LuaComponent::BoxCollider2D);
-        lua_setfield(s_data.L, -2, "BoxCollider2D");
-        lua_pushinteger(s_data.L, LuaComponent::CircleCollider2D);
-        lua_setfield(s_data.L, -2, "CircleCollider2D");
-        lua_pushinteger(s_data.L, LuaComponent::Rigidbody2D);
-        lua_setfield(s_data.L, -2, "Rigidbody2D");
+    lua_newtable(s_data.L);
+    lua_pushinteger(s_data.L, static_cast<s64>(LuaComponentID::Camera));
+    lua_setfield(s_data.L, -2, "Camera");
+    lua_pushinteger(s_data.L, static_cast<s64>(LuaComponentID::SpriteRenderer));
+    lua_setfield(s_data.L, -2, "SpriteRenderer");
+    lua_pushinteger(s_data.L, static_cast<s64>(LuaComponentID::CircleRenderer));
+    lua_setfield(s_data.L, -2, "CircleRenderer");
+    lua_pushinteger(s_data.L, static_cast<s64>(LuaComponentID::BoxCollider2D));
+    lua_setfield(s_data.L, -2, "BoxCollider2D");
+    lua_pushinteger(s_data.L, static_cast<s64>(LuaComponentID::CircleCollider2D));
+    lua_setfield(s_data.L, -2, "CircleCollider2D");
+    lua_pushinteger(s_data.L, static_cast<s64>(LuaComponentID::Rigidbody2D));
+    lua_setfield(s_data.L, -2, "Rigidbody2D");
+    lua_setglobal(s_data.L, "ComponentTypeID");
 
-        lua_setglobal(s_data.L, "Component");
+#define LOAD_COMPONENT_METATABLE(type) \
+    luaL_newmetatable(s_data.L, Lua##type##Component::METATABLE_NAME); \
+    lua_pushstring(s_data.L, "__index"); \
+    lua_pushvalue(s_data.L, -2); \
+    lua_settable(s_data.L, -3)
 
-        luaL_newmetatable(s_data.L, LuaComponent::LuaSpriteRendererComponent::METATABLE_NAME);
+    LOAD_COMPONENT_METATABLE(Camera);
+    lua_pop(s_data.L, 1);
 
-        lua_pushstring(s_data.L, "__index");
-        lua_pushvalue(s_data.L, -2); // pushes the metatable
-        lua_settable(s_data.L, -3);  // metatable.__index = metatable
+    LOAD_COMPONENT_METATABLE(SpriteRenderer);
+    lua_pop(s_data.L, 1);
 
-        lua_pop(s_data.L, 1); // LuaSpriteRendererComponent
+    LOAD_COMPONENT_METATABLE(CircleRenderer);
+    lua_pop(s_data.L, 1);
 
-        luaL_newmetatable(s_data.L, LuaComponent::LuaRigidbody2DComponent::METATABLE_NAME);
+    LOAD_COMPONENT_METATABLE(BoxCollider2D);
+    lua_pop(s_data.L, 1);
 
-        lua_pushstring(s_data.L, "__index");
-        lua_pushvalue(s_data.L, -2); // pushes the metatable
-        lua_settable(s_data.L, -3);  // metatable.__index = metatable
+    LOAD_COMPONENT_METATABLE(CircleCollider2D);
+    lua_pop(s_data.L, 1);
 
-        lua_pushcfunction(s_data.L, LuaComponent::LuaRigidbody2DComponent::setLinearVelocity);
-        lua_setfield(s_data.L, -2, "setLinearVelocity");
+    LOAD_COMPONENT_METATABLE(Rigidbody2D);
 
-        lua_pop(s_data.L, 1); // LuaRigidbody2DComponent
+    lua_pushcfunction(s_data.L, LuaRigidbody2DComponent::setLinearVelocity);
+    lua_setfield(s_data.L, -2, "setLinearVelocity");
+        
+    lua_pop(s_data.L, 1); // LuaRigidbody2DComponent
+
+#undef LOAD_COMPONENT_METATABLE
+
 #pragma endregion
 
 #pragma region LuaInput

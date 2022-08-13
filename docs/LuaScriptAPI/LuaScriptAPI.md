@@ -1,14 +1,12 @@
 # Lua Script API
 
 ## Components
-#### Component.Tag
-#### Component.Transform
-#### Component.Camera
-#### Component.SpriteRenderer
-#### Component.CircleRenderer
-#### Component.BoxCollider2D
-#### Component.CircleCollider2D
-#### Component.Rigidbody2D
+#### ComponentTypeID.Camera
+#### ComponentTypeID.SpriteRenderer
+#### ComponentTypeID.CircleRenderer
+#### ComponentTypeID.BoxCollider2D
+#### ComponentTypeID.CircleCollider2D
+#### ComponentTypeID.Rigidbody2D
 
 ## LuaEntity
 #### LuaEntity:addComponent(number [, ...])

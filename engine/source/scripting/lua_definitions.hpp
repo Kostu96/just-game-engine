@@ -43,32 +43,16 @@ namespace jng {
 
     } // namespace LuaGlobal
 
-    namespace LuaComponent {
+#pragma region LuaComponent
         
-        enum
+        enum class LuaComponentID : s64
         {
-            Tag,
-            Transform,
             Camera,
             SpriteRenderer,
             CircleRenderer,
             BoxCollider2D,
             CircleCollider2D,
             Rigidbody2D
-        };
-
-        struct LuaTagComponent
-        {
-            TagComponent* handle;
-
-            static constexpr const char* METATABLE_NAME = "JNG.LuaTagComponent";
-        };
-
-        struct LuaTransformComponent
-        {
-            TransformComponent* handle;
-
-            static constexpr const char* METATABLE_NAME = "JNG.LuaTransformComponent";
         };
 
         struct LuaCameraComponent
@@ -115,7 +99,7 @@ namespace jng {
             static constexpr const char* METATABLE_NAME = "JNG.Rigidbody2DComponenet";
         };
 
-    } // namespace LuaComponent
+#pragma endregion
 
     namespace LuaInput {
 

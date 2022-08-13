@@ -44,21 +44,19 @@ namespace jng {
             entt::entity entityHandle = (entt::entity)(u64)luaEntity->entityHandle;
             Entity entity{ entityHandle, *luaEntity->sceneHandle };
 
-            s64 type = luaL_checkinteger(L, 2);
+            LuaComponentID type = static_cast<LuaComponentID>(luaL_checkinteger(L, 2));
             lua_pop(L, 2); // pop parameters
 
 #define ADD_COMPONENT_CASE(type, ...) \
-    case LuaComponent::type: { \
-        LuaComponent::Lua##type##Component* comp = reinterpret_cast<LuaComponent::Lua##type##Component*>(lua_newuserdata(L, sizeof(LuaComponent::Lua##type##Component))); \
+    case LuaComponentID::type: { \
+        Lua##type##Component* comp = reinterpret_cast<Lua##type##Component*>(lua_newuserdata(L, sizeof(Lua##type##Component))); \
         comp->handle = &entity.addComponent<type##Component>(__VA_ARGS__); \
-        luaL_getmetatable(L, LuaComponent::Lua##type##Component::METATABLE_NAME); \
+        luaL_getmetatable(L, Lua##type##Component::METATABLE_NAME); \
         lua_setmetatable(L, -2); \
     } break
 
             switch (type)
             {
-                ADD_COMPONENT_CASE(Tag, name);
-                ADD_COMPONENT_CASE(Transform);
                 ADD_COMPONENT_CASE(Camera);
                 ADD_COMPONENT_CASE(SpriteRenderer);
                 ADD_COMPONENT_CASE(CircleRenderer);
@@ -207,33 +205,28 @@ namespace jng {
 
             Entity entity{ entityHandle, *sceneHandle };
 
-            s64 type = luaL_checkinteger(L, 2);
+            LuaComponentID type = static_cast<LuaComponentID>(luaL_checkinteger(L, 2));
             lua_pop(L, 2); // pop parameters
+
+#define GET_COMPONENT_CASE(type) \
+    case LuaComponentID::type: { \
+        Lua##type##Component* comp = reinterpret_cast<Lua##type##Component*>(lua_newuserdata(L, sizeof(Lua##type##Component))); \
+        comp->handle = &entity.getComponent<type##Component>(); \
+        luaL_getmetatable(L, Lua##type##Component::METATABLE_NAME); \
+        lua_setmetatable(L, -2); \
+    } break
 
             switch (type)
             {
-            case LuaComponent::Tag:
-                break;
-            case LuaComponent::Transform:
-                break;
-            case LuaComponent::Camera:
-                break;
-            case LuaComponent::SpriteRenderer:
-                break;
-            case LuaComponent::CircleRenderer:
-                break;
-            case LuaComponent::BoxCollider2D:
-                break;
-            case LuaComponent::CircleCollider2D:
-                break;
-            case LuaComponent::Rigidbody2D: {
-                LuaComponent::LuaRigidbody2DComponent* rbc =
-                    reinterpret_cast<LuaComponent::LuaRigidbody2DComponent*>(lua_newuserdata(L, sizeof(LuaComponent::LuaRigidbody2DComponent)));
-                rbc->handle = &entity.getComponent<Rigidbody2DComponent>();
-                luaL_getmetatable(L, LuaComponent::LuaRigidbody2DComponent::METATABLE_NAME);
-                lua_setmetatable(L, -2);
-            } break;
+                GET_COMPONENT_CASE(Camera);
+                GET_COMPONENT_CASE(SpriteRenderer);
+                GET_COMPONENT_CASE(CircleRenderer);
+                GET_COMPONENT_CASE(BoxCollider2D);
+                GET_COMPONENT_CASE(CircleCollider2D);
+                GET_COMPONENT_CASE(Rigidbody2D);
             }
+
+#undef GET_COMPONENT_CASE
 
             JNG_LUA_CALL_EXIT();
         }
@@ -280,26 +273,26 @@ namespace jng {
 
     } // namespace LuaGlobal
 
-    namespace LuaComponent {
+#pragma region LuaComponent
 
-        int LuaRigidbody2DComponent::setLinearVelocity(lua_State* L)
-        {
-            JNG_LUA_CALL_ENTRY(3, 0);
+    int LuaRigidbody2DComponent::setLinearVelocity(lua_State* L)
+    {
+        JNG_LUA_CALL_ENTRY(3, 0);
 
-            LuaRigidbody2DComponent* rbc = reinterpret_cast<LuaRigidbody2DComponent*>(luaL_checkudata(L, 1, LuaRigidbody2DComponent::METATABLE_NAME));
-            JNG_CORE_ASSERT(rbc, "Rigidbody2dComponent::setLinearVelocity - 1st parameter is not a LuaRigidbody2DComponent!");
-            JNG_CORE_ASSERT(lua_isnumber(L, 2), "Rigidbody2dComponent::setLinearVelocity - 2nd parameter is not a number!");
-            JNG_CORE_ASSERT(lua_isnumber(L, 3), "Rigidbody2dComponent::setLinearVelocity - 3rd parameter is not a number!");
+        LuaRigidbody2DComponent* rbc = reinterpret_cast<LuaRigidbody2DComponent*>(luaL_checkudata(L, 1, LuaRigidbody2DComponent::METATABLE_NAME));
+        JNG_CORE_ASSERT(rbc, "Rigidbody2dComponent::setLinearVelocity - 1st parameter is not a LuaRigidbody2DComponent!");
+        JNG_CORE_ASSERT(lua_isnumber(L, 2), "Rigidbody2dComponent::setLinearVelocity - 2nd parameter is not a number!");
+        JNG_CORE_ASSERT(lua_isnumber(L, 3), "Rigidbody2dComponent::setLinearVelocity - 3rd parameter is not a number!");
             
-            float x = (float)lua_tonumber(L, 2);
-            float y = (float)lua_tonumber(L, 3);
-            rbc->handle->setLinearVelocity({ x, y });
+        float x = (float)lua_tonumber(L, 2);
+        float y = (float)lua_tonumber(L, 3);
+        rbc->handle->setLinearVelocity({ x, y });
             
-            lua_pop(L, 3);
-            JNG_LUA_CALL_EXIT();
-        }
+        lua_pop(L, 3);
+        JNG_LUA_CALL_EXIT();
+    }
 
-    } // namespace LuaComponent
+#pragma endregion
 
     namespace LuaInput {
 
