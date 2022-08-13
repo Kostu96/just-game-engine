@@ -18,7 +18,7 @@ namespace jng {
     {
         if (reload) LuaEngine::unregisterScripts();
 
-        for (auto& entry : std::filesystem::recursive_directory_iterator(BrowsedPath))
+        for (auto& entry : std::filesystem::recursive_directory_iterator(AssetsPath))
         {
             if (entry.is_regular_file() && entry.path().extension() == ".lua")
             {

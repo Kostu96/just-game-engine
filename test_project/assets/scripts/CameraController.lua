@@ -18,7 +18,7 @@ function CameraController:onUpdate(dt)
         yVel = -self.Speed
     end
 
-    self:move(xVel * dt, yVel * dt)
+    self.entity:move(xVel * dt, yVel * dt, 0)
 end
 
 return CameraController

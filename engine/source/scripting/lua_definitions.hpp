@@ -16,7 +16,16 @@ namespace jng {
 
         struct LuaEntity
         {
-            void* handle;
+            void* entityHandle;
+            Scene* sceneHandle;
+
+            static int addComponent(lua_State* L);
+
+            static int setPosition(lua_State* L);
+            static int getPosition(lua_State* L);
+            static int getScale(lua_State* L);
+            static int move(lua_State* L);
+            static int scale(lua_State* L);
 
             static constexpr const char* METATABLE_NAME = "JNG.Entity";
         };
@@ -25,8 +34,6 @@ namespace jng {
         int getComponent(lua_State* L);
 
         int createEntity(lua_State* L);
-
-        int move(lua_State* L);
 
     } // namespace LuaScript
 
@@ -50,13 +57,54 @@ namespace jng {
             Rigidbody2D
         };
 
-        struct LuaTagComponent              { TagComponent*              handle; };
-        struct LuaTransformComponent        { TransformComponent*        handle; };
-        struct LuaCameraComponent           { CameraComponent*           handle; };
-        struct LuaSpriteRendererComponent   { SpriteRendererComponent*   handle; };
-        struct LuaCircleRendererComponent   { CircleRendererComponent*   handle; };
-        struct LuaBoxCollider2DComponent    { BoxCollider2DComponent*    handle; };
-        struct LuaCircleCollider2DComponent { CircleCollider2DComponent* handle; };
+        struct LuaTagComponent
+        {
+            TagComponent* handle;
+
+            static constexpr const char* METATABLE_NAME = "JNG.LuaTagComponent";
+        };
+
+        struct LuaTransformComponent
+        {
+            TransformComponent* handle;
+
+            static constexpr const char* METATABLE_NAME = "JNG.LuaTransformComponent";
+        };
+
+        struct LuaCameraComponent
+        {
+            CameraComponent* handle;
+
+            static constexpr const char* METATABLE_NAME = "JNG.LuaCameraComponent";
+        };
+
+        struct LuaSpriteRendererComponent
+        {
+            SpriteRendererComponent* handle;
+
+            static constexpr const char* METATABLE_NAME = "JNG.SpriteRendererComponent";
+        };
+
+        struct LuaCircleRendererComponent
+        {
+            CircleRendererComponent* handle;
+
+            static constexpr const char* METATABLE_NAME = "JNG.LuaCircleRendererComponent";
+        };
+
+        struct LuaBoxCollider2DComponent
+        {
+            BoxCollider2DComponent* handle;
+
+            static constexpr const char* METATABLE_NAME = "JNG.LuaBoxCollider2DComponent";
+        };
+
+        struct LuaCircleCollider2DComponent
+        {
+            CircleCollider2DComponent* handle;
+
+            static constexpr const char* METATABLE_NAME = "JNG.LuaCircleCollider2DComponent";
+        };
 
         struct LuaRigidbody2DComponent
         {

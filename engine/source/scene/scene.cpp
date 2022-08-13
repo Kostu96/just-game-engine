@@ -114,6 +114,15 @@ namespace jng {
             }
         }
 
+        {
+            auto view = m_registry.view<LuaScriptComponent>();
+            for (auto entity : view)
+            {
+                auto& lsc = view.get<LuaScriptComponent>(entity);
+                LuaEngine::onCreate(Entity{ entity, *this }, lsc);
+            }
+        }
+
         m_physics2dWorld = new b2World{ { 0.f, -gravity } };
         {
             auto group = m_registry.group<Rigidbody2DComponent>(entt::get<TransformComponent>);
@@ -166,15 +175,6 @@ namespace jng {
                     fixtureDef.restitutionThreshold = ccc.restitutionThreshold;
                     ccc.fixtureHandle = rbc.bodyHandle->CreateFixture(&fixtureDef);
                 }
-            }
-        }
-
-        {
-            auto view = m_registry.view<LuaScriptComponent>();
-            for (auto entity : view)
-            {
-                auto& lsc = view.get<LuaScriptComponent>(entity);
-                LuaEngine::onCreate(Entity{ entity, *this }, lsc);
             }
         }
     }

@@ -32,7 +32,21 @@ namespace jng::LuaEngine {
         lua_pushvalue(s_data.L, -2); // pushes the metatable
         lua_settable(s_data.L, -3);  // metatable.__index = metatable
 
-        lua_pop(s_data.L, 1);
+        lua_pushcfunction(s_data.L, LuaScript::LuaEntity::addComponent);
+        lua_setfield(s_data.L, -2, "addComponent");
+
+        lua_pushcfunction(s_data.L, LuaScript::LuaEntity::setPosition);
+        lua_setfield(s_data.L, -2, "setPosition");
+        lua_pushcfunction(s_data.L, LuaScript::LuaEntity::getPosition);
+        lua_setfield(s_data.L, -2, "getPosition");
+        lua_pushcfunction(s_data.L, LuaScript::LuaEntity::getScale);
+        lua_setfield(s_data.L, -2, "getScale");
+        lua_pushcfunction(s_data.L, LuaScript::LuaEntity::move);
+        lua_setfield(s_data.L, -2, "move");
+        lua_pushcfunction(s_data.L, LuaScript::LuaEntity::scale);
+        lua_setfield(s_data.L, -2, "scale");
+
+        lua_pop(s_data.L, 1); // LuaEntity
 
         lua_newtable(s_data.L);
 
@@ -44,9 +58,6 @@ namespace jng::LuaEngine {
         lua_pushcfunction(s_data.L, LuaScript::createEntity);
         lua_setfield(s_data.L, -2, "createEntity");
 
-        lua_pushcfunction(s_data.L, LuaScript::move);
-        lua_setfield(s_data.L, -2, "move");
-
         lua_setglobal(s_data.L, "LuaScript");
 #pragma endregion
 
@@ -56,7 +67,7 @@ namespace jng::LuaEngine {
 #pragma endregion
 
 #pragma region LuaComponent
-        lua_newtable(s_data.L);
+        lua_newtable(s_data.L); // Component
 
         lua_pushinteger(s_data.L, LuaComponent::Tag);
         lua_setfield(s_data.L, -2, "Tag");
@@ -77,6 +88,14 @@ namespace jng::LuaEngine {
 
         lua_setglobal(s_data.L, "Component");
 
+        luaL_newmetatable(s_data.L, LuaComponent::LuaSpriteRendererComponent::METATABLE_NAME);
+
+        lua_pushstring(s_data.L, "__index");
+        lua_pushvalue(s_data.L, -2); // pushes the metatable
+        lua_settable(s_data.L, -3);  // metatable.__index = metatable
+
+        lua_pop(s_data.L, 1); // LuaSpriteRendererComponent
+
         luaL_newmetatable(s_data.L, LuaComponent::LuaRigidbody2DComponent::METATABLE_NAME);
 
         lua_pushstring(s_data.L, "__index");
@@ -86,7 +105,7 @@ namespace jng::LuaEngine {
         lua_pushcfunction(s_data.L, LuaComponent::LuaRigidbody2DComponent::setLinearVelocity);
         lua_setfield(s_data.L, -2, "setLinearVelocity");
 
-        lua_pop(s_data.L, 1);
+        lua_pop(s_data.L, 1); // LuaRigidbody2DComponent
 #pragma endregion
 
 #pragma region LuaInput
@@ -221,6 +240,13 @@ namespace jng::LuaEngine {
         lua_setfield(s_data.L, -2, "_entityHandle_");
         lua_pushlightuserdata(s_data.L, entity.getScene());
         lua_setfield(s_data.L, -2, "_sceneHandle_");
+
+        LuaScript::LuaEntity* luaEntity = reinterpret_cast<LuaScript::LuaEntity*>(lua_newuserdata(s_data.L, sizeof(LuaScript::LuaEntity)));
+        luaEntity->entityHandle = entity;
+        luaEntity->sceneHandle = entity.getScene();
+        luaL_getmetatable(s_data.L, LuaScript::LuaEntity::METATABLE_NAME);
+        lua_setmetatable(s_data.L, -2);
+        lua_setfield(s_data.L, -2, "entity");
 
         for (auto& prop : lsc.data.properties)
         {
