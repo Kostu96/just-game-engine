@@ -1,6 +1,6 @@
 # Lua Script API
 
-### Components
+## Components
 #### Component.Tag
 #### Component.Transform
 #### Component.Camera
@@ -10,7 +10,7 @@
 #### Component.CircleCollider2D
 #### Component.Rigidbody2D
 
-### LuaEntity
+## LuaEntity
 #### LuaEntity:addComponent(number [, ...])
 Adds component to the entity.
 
