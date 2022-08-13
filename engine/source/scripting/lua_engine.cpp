@@ -25,40 +25,43 @@ namespace jng::LuaEngine {
 
     static void loadJNGDefinitions()
     {
-#pragma region LuaScript
-        luaL_newmetatable(s_data.L, LuaScript::LuaEntity::METATABLE_NAME);
+#pragma region LuaScene
+        luaL_newmetatable(s_data.L, LuaScene::METATABLE_NAME);
 
         lua_pushstring(s_data.L, "__index");
         lua_pushvalue(s_data.L, -2); // pushes the metatable
         lua_settable(s_data.L, -3);  // metatable.__index = metatable
 
-        lua_pushcfunction(s_data.L, LuaScript::LuaEntity::addComponent);
-        lua_setfield(s_data.L, -2, "addComponent");
-
-        lua_pushcfunction(s_data.L, LuaScript::LuaEntity::setPosition);
-        lua_setfield(s_data.L, -2, "setPosition");
-        lua_pushcfunction(s_data.L, LuaScript::LuaEntity::getPosition);
-        lua_setfield(s_data.L, -2, "getPosition");
-        lua_pushcfunction(s_data.L, LuaScript::LuaEntity::getScale);
-        lua_setfield(s_data.L, -2, "getScale");
-        lua_pushcfunction(s_data.L, LuaScript::LuaEntity::move);
-        lua_setfield(s_data.L, -2, "move");
-        lua_pushcfunction(s_data.L, LuaScript::LuaEntity::scale);
-        lua_setfield(s_data.L, -2, "scale");
-
-        lua_pop(s_data.L, 1); // LuaEntity
-
-        lua_newtable(s_data.L);
-
-        lua_pushcfunction(s_data.L, LuaScript::create);
-        lua_setfield(s_data.L, -2, "create");
-        lua_pushcfunction(s_data.L, LuaScript::getComponent);
-        lua_setfield(s_data.L, -2, "getComponent");
-
-        lua_pushcfunction(s_data.L, LuaScript::createEntity);
+        lua_pushcfunction(s_data.L, LuaScene::createEntity);
         lua_setfield(s_data.L, -2, "createEntity");
 
-        lua_setglobal(s_data.L, "LuaScript");
+        lua_pop(s_data.L, 1);
+#pragma endregion
+
+#pragma region LuaEntity
+        luaL_newmetatable(s_data.L, LuaEntity::METATABLE_NAME);
+
+        lua_pushstring(s_data.L, "__index");
+        lua_pushvalue(s_data.L, -2); // pushes the metatable
+        lua_settable(s_data.L, -3);  // metatable.__index = metatable
+
+        lua_pushcfunction(s_data.L, LuaEntity::addComponent);
+        lua_setfield(s_data.L, -2, "addComponent");
+        lua_pushcfunction(s_data.L, LuaEntity::getComponent);
+        lua_setfield(s_data.L, -2, "getComponent");
+
+        lua_pushcfunction(s_data.L, LuaEntity::setPosition);
+        lua_setfield(s_data.L, -2, "setPosition");
+        lua_pushcfunction(s_data.L, LuaEntity::getPosition);
+        lua_setfield(s_data.L, -2, "getPosition");
+        lua_pushcfunction(s_data.L, LuaEntity::getScale);
+        lua_setfield(s_data.L, -2, "getScale");
+        lua_pushcfunction(s_data.L, LuaEntity::move);
+        lua_setfield(s_data.L, -2, "move");
+        lua_pushcfunction(s_data.L, LuaEntity::scale);
+        lua_setfield(s_data.L, -2, "scale");
+
+        lua_pop(s_data.L, 1);
 #pragma endregion
 
 #pragma region LuaGlobal
@@ -243,15 +246,16 @@ namespace jng::LuaEngine {
         lua_setmetatable(s_data.L, -3);
         lua_setfield(s_data.L, -1, "__index");
 
-        lua_pushlightuserdata(s_data.L, entity);
-        lua_setfield(s_data.L, -2, "_entityHandle_");
-        lua_pushlightuserdata(s_data.L, entity.getScene());
-        lua_setfield(s_data.L, -2, "_sceneHandle_");
+        LuaScene* luaScene = reinterpret_cast<LuaScene*>(lua_newuserdata(s_data.L, sizeof(LuaScene)));
+        luaScene->sceneHandle = entity.getScene();
+        luaL_getmetatable(s_data.L, LuaScene::METATABLE_NAME);
+        lua_setmetatable(s_data.L, -2);
+        lua_setfield(s_data.L, -2, "scene");
 
-        LuaScript::LuaEntity* luaEntity = reinterpret_cast<LuaScript::LuaEntity*>(lua_newuserdata(s_data.L, sizeof(LuaScript::LuaEntity)));
+        LuaEntity* luaEntity = reinterpret_cast<LuaEntity*>(lua_newuserdata(s_data.L, sizeof(LuaEntity)));
         luaEntity->entityHandle = entity;
         luaEntity->sceneHandle = entity.getScene();
-        luaL_getmetatable(s_data.L, LuaScript::LuaEntity::METATABLE_NAME);
+        luaL_getmetatable(s_data.L, LuaEntity::METATABLE_NAME);
         lua_setmetatable(s_data.L, -2);
         lua_setfield(s_data.L, -2, "entity");
 

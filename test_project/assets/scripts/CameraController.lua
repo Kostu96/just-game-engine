@@ -1,4 +1,4 @@
-CameraController = LuaScript:create()
+CameraController = {}
 
 CameraController.Speed = 10
 

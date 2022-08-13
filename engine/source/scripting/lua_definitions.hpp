@@ -12,30 +12,31 @@ class lua_State;
 
 namespace jng {
 
-    namespace LuaScript {
+    struct LuaScene
+    {
+        Scene* sceneHandle;
 
-        struct LuaEntity
-        {
-            void* entityHandle;
-            Scene* sceneHandle;
+        static int createEntity(lua_State* L);
 
-            static int addComponent(lua_State* L);
+        static constexpr const char* METATABLE_NAME = "JNG.Scene";
+    };
 
-            static int setPosition(lua_State* L);
-            static int getPosition(lua_State* L);
-            static int getScale(lua_State* L);
-            static int move(lua_State* L);
-            static int scale(lua_State* L);
+    struct LuaEntity
+    {
+        void* entityHandle;
+        Scene* sceneHandle;
 
-            static constexpr const char* METATABLE_NAME = "JNG.Entity";
-        };
+        static int addComponent(lua_State* L);
+        static int getComponent(lua_State* L);
 
-        int create(lua_State* L);
-        int getComponent(lua_State* L);
+        static int setPosition(lua_State* L);
+        static int getPosition(lua_State* L);
+        static int getScale(lua_State* L);
+        static int move(lua_State* L);
+        static int scale(lua_State* L);
 
-        int createEntity(lua_State* L);
-
-    } // namespace LuaScript
+        static constexpr const char* METATABLE_NAME = "JNG.Entity";
+    };
 
     namespace LuaGlobal {
 
