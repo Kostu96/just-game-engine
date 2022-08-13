@@ -13,7 +13,7 @@
 
 #include <lua/lua.hpp>
 
-#define JNG_LUA_CCALL_ENTRY(numParams, numReturns) \
+#define JNG_LUA_CALL_ENTRY(numParams, numReturns) \
     constexpr static const int NUM_PARAMS = numParams; \
     constexpr static const int NUM_RETURNS = numReturns; \
     [[maybe_unused]] int previousTop = lua_gettop(L)
@@ -28,7 +28,7 @@ namespace jng {
 
         int create(lua_State* L)
         {
-            JNG_LUA_CCALL_ENTRY(1, 1);
+            JNG_LUA_CALL_ENTRY(1, 1);
 
             JNG_CORE_ASSERT(lua_istable(L, 1), "LuaScript::create - 1st parameter is not a table!");
 
@@ -43,7 +43,7 @@ namespace jng {
 
         int getComponent(lua_State* L)
         {
-            JNG_LUA_CCALL_ENTRY(2, 1);
+            JNG_LUA_CALL_ENTRY(2, 1);
 
             JNG_CORE_ASSERT(lua_istable(L, 1), "LuaScript::getComponent - 1st parameter is not a table!");
             JNG_CORE_ASSERT(lua_isnumber(L, 2), "LuaScript::getComponent - 2nd parameter is not a number!");
@@ -90,7 +90,7 @@ namespace jng {
 
         int createEntity(lua_State* L)
         {
-            JNG_LUA_CCALL_ENTRY(1, 1);
+            JNG_LUA_CALL_ENTRY(1, 1);
 
             JNG_CORE_ASSERT(lua_istable(L, 1), "LuaScript::createEntity - 1st parameter is not a table!");
             JNG_CORE_ASSERT(lua_isstring(L, 2), "LuaScript::createEntity - 1st parameter is not a string!");
@@ -111,13 +111,40 @@ namespace jng {
             JNG_LUA_CALL_EXIT();
         }
 
+        int move(lua_State* L)
+        {
+            JNG_LUA_CALL_ENTRY(3, 0);
+
+            JNG_CORE_ASSERT(lua_istable(L, 1), "LuaScript::move - 1st parameter is not a table!");
+            JNG_CORE_ASSERT(lua_isnumber(L, 2), "LuaScript::move - 2nd parameter is not a number!");
+            JNG_CORE_ASSERT(lua_isnumber(L, 3), "LuaScript::move - 3rd parameter is not a number!");
+
+            lua_getfield(L, 1, "_entityHandle_");
+            entt::entity entityHandle = (entt::entity)(u64)lua_touserdata(L, -1);
+            lua_pop(L, 1);
+            lua_getfield(L, 1, "_sceneHandle_");
+            Scene* sceneHandle = (Scene*)lua_touserdata(L, -1);
+            lua_pop(L, 1);
+
+            Entity entity{ entityHandle, *sceneHandle };
+            auto& tc = entity.getComponent<TransformComponent>();
+
+            float x = (float)lua_tonumber(L, 2);
+            float y = (float)lua_tonumber(L, 3);
+            tc.translation.x += x;
+            tc.translation.y += y;
+
+            lua_pop(L, 3);
+            JNG_LUA_CALL_EXIT();
+        }
+
     } // namespace LuaScript
 
     namespace LuaGlobal {
 
         int log(lua_State* L)
         {
-            JNG_LUA_CCALL_ENTRY(1, 0);
+            JNG_LUA_CALL_ENTRY(1, 0);
 
             JNG_CORE_ASSERT(lua_isstring(L, 1), "Global::log - 1st parameter is not a string!");
 
@@ -133,7 +160,7 @@ namespace jng {
 
         int LuaRigidbody2DComponent::setLinearVelocity(lua_State* L)
         {
-            JNG_LUA_CCALL_ENTRY(3, 0);
+            JNG_LUA_CALL_ENTRY(3, 0);
 
             LuaRigidbody2DComponent* rbc = reinterpret_cast<LuaRigidbody2DComponent*>(luaL_checkudata(L, 1, LuaRigidbody2DComponent::METATABLE_NAME));
             JNG_CORE_ASSERT(rbc, "Rigidbody2dComponent::setLinearVelocity - 1st parameter is not a LuaRigidbody2DComponent!");
@@ -144,8 +171,7 @@ namespace jng {
             float y = (float)lua_tonumber(L, 3);
             rbc->handle->setLinearVelocity({ x, y });
             
-            lua_pop(L, 3); // pop parameters
-
+            lua_pop(L, 3);
             JNG_LUA_CALL_EXIT();
         }
 
@@ -155,7 +181,7 @@ namespace jng {
 
         int isKeyPressed(lua_State* L)
         {
-            JNG_LUA_CCALL_ENTRY(1, 1);
+            JNG_LUA_CALL_ENTRY(1, 1);
 
             JNG_CORE_ASSERT(lua_isnumber(L, 1), "Input::isKeyPressed - 1st parameter is not a number!");
 

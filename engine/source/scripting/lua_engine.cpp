@@ -44,6 +44,9 @@ namespace jng::LuaEngine {
         lua_pushcfunction(s_data.L, LuaScript::createEntity);
         lua_setfield(s_data.L, -2, "createEntity");
 
+        lua_pushcfunction(s_data.L, LuaScript::move);
+        lua_setfield(s_data.L, -2, "move");
+
         lua_setglobal(s_data.L, "LuaScript");
 #pragma endregion
 
@@ -132,11 +135,6 @@ namespace jng::LuaEngine {
         lua_close(s_data.L);
     }
 
-    lua_State* getLuaState()
-    {
-        return s_data.L;
-    }
-
     std::string registerScript(const std::filesystem::path& path)
     {
         std::string name = path.stem().string();
@@ -150,40 +148,48 @@ namespace jng::LuaEngine {
                 lua_pop(s_data.L, 1);
             }
 
-            JNG_CORE_TRACE("Reflecting on {} script:", name);
-
-            lua_pushnil(s_data.L); // push nil as first key because lua_next needs something to pop
-            while (lua_next(s_data.L, -2) != 0)
+            if (lua_istable(s_data.L, -1))
             {
-                const char* symbol = lua_type(s_data.L, -2) == LUA_TSTRING ? lua_tostring(s_data.L, -2) : "!not_a_string!";
-                int type = lua_type(s_data.L, -1);
+                JNG_CORE_TRACE("Reflecting on {} script:", name);
 
-                JNG_CORE_TRACE("{}.{} - {}", name, symbol, lua_typename(s_data.L, type));
-
-                switch (type)
+                lua_pushnil(s_data.L); // push nil as first key because lua_next needs something to pop
+                while (lua_next(s_data.L, -2) != 0)
                 {
-                case LUA_TFUNCTION:
-                    if (strcmp(symbol, "onCreate") == 0) it->second.hasOnCreate = true;
-                    else if (strcmp(symbol, "onDestroy") == 0) it->second.hasOnDestroy = true;
-                    else if (strcmp(symbol, "onUpdate") == 0) it->second.hasOnUpdate = true;
+                    const char* symbol = lua_type(s_data.L, -2) == LUA_TSTRING ? lua_tostring(s_data.L, -2) : "!not_a_string!";
+                    int type = lua_type(s_data.L, -1);
 
-                    break;
-                case LUA_TNUMBER:
-                    union { double value; void* any; };
-                    value = lua_tonumber(s_data.L, -1);
-                    it->second.properties.emplace(symbol, ScriptData::Property{ ScriptData::PropertyType::Number, any });
-                    break;
+                    JNG_CORE_TRACE("{}.{} - {}", name, symbol, lua_typename(s_data.L, type));
+
+                    switch (type)
+                    {
+                    case LUA_TFUNCTION:
+                        if (strcmp(symbol, "onCreate") == 0) it->second.hasOnCreate = true;
+                        else if (strcmp(symbol, "onDestroy") == 0) it->second.hasOnDestroy = true;
+                        else if (strcmp(symbol, "onUpdate") == 0) it->second.hasOnUpdate = true;
+
+                        break;
+                    case LUA_TNUMBER:
+                        union { double value; void* any; };
+                        value = lua_tonumber(s_data.L, -1);
+                        it->second.properties.emplace(symbol, ScriptData::Property{ ScriptData::PropertyType::Number, any });
+                        break;
+                    }
+
+                    // pop 'value', leave 'key' for lua_next to pop
+                    lua_pop(s_data.L, 1);
                 }
 
-                // pop 'value', leave 'key' for lua_next to pop
                 lua_pop(s_data.L, 1);
             }
-
-            lua_pop(s_data.L, 1);
         }
         JNG_CORE_ASSERT(lua_gettop(s_data.L) == 0, "Lua stack should be empty!");
 
         return name;
+    }
+
+    void unregisterScripts()
+    {
+        s_data.scripts.clear();
     }
 
     ScriptData getScriptData(const std::string& name)

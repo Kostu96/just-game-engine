@@ -14,6 +14,21 @@
 
 namespace jng {
 
+    void EditorContext::registerScripts(bool reload)
+    {
+        if (reload) LuaEngine::unregisterScripts();
+
+        for (auto& entry : std::filesystem::recursive_directory_iterator(BrowsedPath))
+        {
+            if (entry.is_regular_file() && entry.path().extension() == ".lua")
+            {
+                auto relativePath = std::filesystem::relative(entry, ProjectPath);
+                JNG_CORE_TRACE("Registering script: {}", relativePath);
+                LuaEngine::registerScript(entry.path());
+            }
+        }
+    }
+
     void EditorContext::createProject(const std::filesystem::path& path)
     {
         IsProjectOpen = true;
@@ -53,15 +68,7 @@ namespace jng {
         AssetsPath = ProjectPath / "assets";
         BrowsedPath = AssetsPath;
 
-        for (auto& entry : std::filesystem::recursive_directory_iterator(BrowsedPath))
-        {
-            if (entry.is_regular_file() && entry.path().extension() == ".lua")
-            {
-                auto relativePath = std::filesystem::relative(entry, ProjectPath);
-                JNG_CORE_TRACE("Registering script: {}", relativePath);
-                LuaEngine::registerScript(entry.path());
-            }
-        }
+        registerScripts();
 
         SelectedEntity = {};
         ActiveScene = {};

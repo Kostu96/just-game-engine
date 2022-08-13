@@ -26,6 +26,8 @@ namespace jng {
 
         int createEntity(lua_State* L);
 
+        int move(lua_State* L);
+
     } // namespace LuaScript
 
     namespace LuaGlobal {

@@ -40,6 +40,7 @@ namespace jng {
     void shutdown();
 
     std::string registerScript(const std::filesystem::path& path);
+    void unregisterScripts();
     ScriptData getScriptData(const std::string& name);
 
     void onCreate(Entity entity, LuaScriptComponent& lsc);

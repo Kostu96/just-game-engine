@@ -19,8 +19,7 @@ namespace jng {
         if (extension == L".lua")  return "CONTENT_BROWSER_ITEM_LUA";
         if (extension == L".png")  return "CONTENT_BROWSER_ITEM_TEXTURE";
 
-        JNG_CORE_ASSERT(false, "This sould never be triggered!");
-        return "";
+        return "CONTENT_BROWSER_ITEM_FOLDER";
     }
 
     ContentBrowserWindow::ContentBrowserWindow(EditorContext& context) :

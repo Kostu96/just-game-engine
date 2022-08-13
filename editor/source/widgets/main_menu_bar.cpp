@@ -121,6 +121,13 @@ namespace jng {
                 ImGui::EndMenu();
             }
 
+            if (ImGui::BeginMenu("Project", m_context.IsProjectOpen))
+            {
+                if (ImGui::MenuItem("Reload scripts")) m_context.registerScripts(true);
+
+                ImGui::EndMenu();
+            }
+
             if (ImGui::BeginMenu("Scene", static_cast<bool>(m_context.ActiveScene)))
             {
                 if (ImGui::BeginMenu("Create"))
