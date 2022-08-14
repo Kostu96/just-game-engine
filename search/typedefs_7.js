@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['u16_0',['u16',['../namespacejng.html#a4e0dc68c201ae11fd3fc20c43a14ab48',1,'jng']]],
-  ['u32_1',['u32',['../namespacejng.html#ab8905b17ad43673438bdca974ad215ad',1,'jng']]],
-  ['u64_2',['u64',['../namespacejng.html#a8d79d6c5acf85eca946f0cbccea7c8b9',1,'jng']]],
-  ['u8_3',['u8',['../namespacejng.html#af892e9140f636eac82e6764fbe6d275a',1,'jng']]]
+  ['s16_0',['s16',['../namespacejng.html#a68fa227c2f9f1fdfc099a784d4939b44',1,'jng']]],
+  ['s32_1',['s32',['../namespacejng.html#a263924a08d0923d36c550ad68c880a4c',1,'jng']]],
+  ['s64_2',['s64',['../namespacejng.html#ae4c38677d0d1e4f859823d115ebc0861',1,'jng']]],
+  ['s8_3',['s8',['../namespacejng.html#a820af85ee0d7f6f4f62798f2c227e977',1,'jng']]],
+  ['scope_4',['Scope',['../namespacejng.html#a92f21d8acbde37a6866b878a9db5715c',1,'jng']]]
 ];

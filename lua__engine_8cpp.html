@@ -70,6 +70,7 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">lua_engine.cpp File Reference</div></div>
 </div><!--header-->
@@ -92,16 +93,21 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespacejng_1_1_lua_engine"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejng_1_1_lua_engine.html">jng::LuaEngine</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a0daaa5080d6bc39c00aa50413acd4c23"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lua__engine_8cpp.html#a0daaa5080d6bc39c00aa50413acd4c23">PUSH_REGISTRY_METATABLE</a>(type)</td></tr>
+<tr class="separator:a0daaa5080d6bc39c00aa50413acd4c23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a4ac2ebf951cbdacad0d088c8c72e7894"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejng_1_1_lua_engine.html#a4ac2ebf951cbdacad0d088c8c72e7894">jng::LuaEngine::init</a> ()</td></tr>
 <tr class="separator:a4ac2ebf951cbdacad0d088c8c72e7894"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a75fff1034ce9d21fc31f06afb2d7e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejng_1_1_lua_engine.html#a0a75fff1034ce9d21fc31f06afb2d7e4">jng::LuaEngine::shutdown</a> ()</td></tr>
 <tr class="separator:a0a75fff1034ce9d21fc31f06afb2d7e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2c4d650a8361bec2297ad79fac41522"><td class="memItemLeft" align="right" valign="top">lua_State *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejng_1_1_lua_engine.html#ad2c4d650a8361bec2297ad79fac41522">jng::LuaEngine::getLuaState</a> ()</td></tr>
-<tr class="separator:ad2c4d650a8361bec2297ad79fac41522"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a372a2d8432da5240e64185aeb2104df1"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejng_1_1_lua_engine.html#a372a2d8432da5240e64185aeb2104df1">jng::LuaEngine::registerScript</a> (const std::filesystem::path &amp;path)</td></tr>
 <tr class="separator:a372a2d8432da5240e64185aeb2104df1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafd36ac899ff9af438b10f79ba6b9ff4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejng_1_1_lua_engine.html#aafd36ac899ff9af438b10f79ba6b9ff4">jng::LuaEngine::unregisterScripts</a> ()</td></tr>
+<tr class="separator:aafd36ac899ff9af438b10f79ba6b9ff4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a142542a37646b8aad8e13b329301a97b"><td class="memItemLeft" align="right" valign="top">ScriptData&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejng_1_1_lua_engine.html#a142542a37646b8aad8e13b329301a97b">jng::LuaEngine::getScriptData</a> (const std::string &amp;name)</td></tr>
 <tr class="separator:a142542a37646b8aad8e13b329301a97b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab426a4d1cf7a7f91e06453f973e3e197"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejng_1_1_lua_engine.html#ab426a4d1cf7a7f91e06453f973e3e197">jng::LuaEngine::onCreate</a> (Entity entity, LuaScriptComponent &amp;lsc)</td></tr>
@@ -113,10 +119,34 @@ Functions</h2></td></tr>
 <tr class="memitem:ad9484f5bd22fd41f861950faa2435d79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejng_1_1_lua_engine.html#ad9484f5bd22fd41f861950faa2435d79">jng::LuaEngine::printLuaStack</a> (const char *file, int line)</td></tr>
 <tr class="separator:ad9484f5bd22fd41f861950faa2435d79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a0daaa5080d6bc39c00aa50413acd4c23" name="a0daaa5080d6bc39c00aa50413acd4c23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0daaa5080d6bc39c00aa50413acd4c23">&#9670;&nbsp;</a></span>PUSH_REGISTRY_METATABLE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PUSH_REGISTRY_METATABLE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">type</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    luaL_newmetatable(s_data.<a class="code hl_variable" href="structjng_1_1_lua_engine_1_1_lua_engine_data.html#a833de563457ceb90c2923ec48f3f8f1b">L</a>, type::METATABLE_NAME); \</div>
+<div class="line">    lua_pushstring(s_data.<a class="code hl_variable" href="structjng_1_1_lua_engine_1_1_lua_engine_data.html#a833de563457ceb90c2923ec48f3f8f1b">L</a>, <span class="stringliteral">&quot;__index&quot;</span>); \</div>
+<div class="line">    lua_pushvalue(s_data.<a class="code hl_variable" href="structjng_1_1_lua_engine_1_1_lua_engine_data.html#a833de563457ceb90c2923ec48f3f8f1b">L</a>, -2); \</div>
+<div class="line">    lua_settable(s_data.<a class="code hl_variable" href="structjng_1_1_lua_engine_1_1_lua_engine_data.html#a833de563457ceb90c2923ec48f3f8f1b">L</a>, -3)</div>
+<div class="ttc" id="astructjng_1_1_lua_engine_1_1_lua_engine_data_html_a833de563457ceb90c2923ec48f3f8f1b"><div class="ttname"><a href="structjng_1_1_lua_engine_1_1_lua_engine_data.html#a833de563457ceb90c2923ec48f3f8f1b">jng::LuaEngine::LuaEngineData::L</a></div><div class="ttdeci">lua_State * L</div><div class="ttdef"><b>Definition:</b> lua_engine.cpp:19</div></div>
+</div><!-- fragment -->
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Aug 12 2022 23:33:36 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Sun Aug 14 2022 10:20:15 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

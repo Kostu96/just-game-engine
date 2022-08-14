@@ -89,6 +89,8 @@ Functions</h2></td></tr>
 <tr class="separator:a0a75fff1034ce9d21fc31f06afb2d7e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a372a2d8432da5240e64185aeb2104df1"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejng_1_1_lua_engine.html#a372a2d8432da5240e64185aeb2104df1">registerScript</a> (const std::filesystem::path &amp;path)</td></tr>
 <tr class="separator:a372a2d8432da5240e64185aeb2104df1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafd36ac899ff9af438b10f79ba6b9ff4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejng_1_1_lua_engine.html#aafd36ac899ff9af438b10f79ba6b9ff4">unregisterScripts</a> ()</td></tr>
+<tr class="separator:aafd36ac899ff9af438b10f79ba6b9ff4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a142542a37646b8aad8e13b329301a97b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structjng_1_1_lua_engine_1_1_script_data.html">ScriptData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejng_1_1_lua_engine.html#a142542a37646b8aad8e13b329301a97b">getScriptData</a> (const std::string &amp;name)</td></tr>
 <tr class="separator:a142542a37646b8aad8e13b329301a97b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab426a4d1cf7a7f91e06453f973e3e197"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejng_1_1_lua_engine.html#ab426a4d1cf7a7f91e06453f973e3e197">onCreate</a> (<a class="el" href="classjng_1_1_entity.html">Entity</a> entity, <a class="el" href="structjng_1_1_lua_script_component.html">LuaScriptComponent</a> &amp;lsc)</td></tr>
@@ -99,27 +101,8 @@ Functions</h2></td></tr>
 <tr class="separator:a870f199191d8209051ada8d8733d578e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad9484f5bd22fd41f861950faa2435d79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejng_1_1_lua_engine.html#ad9484f5bd22fd41f861950faa2435d79">printLuaStack</a> (const char *file, int line)</td></tr>
 <tr class="separator:ad9484f5bd22fd41f861950faa2435d79"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2c4d650a8361bec2297ad79fac41522"><td class="memItemLeft" align="right" valign="top">lua_State *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejng_1_1_lua_engine.html#ad2c4d650a8361bec2297ad79fac41522">getLuaState</a> ()</td></tr>
-<tr class="separator:ad2c4d650a8361bec2297ad79fac41522"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ad2c4d650a8361bec2297ad79fac41522" name="ad2c4d650a8361bec2297ad79fac41522"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2c4d650a8361bec2297ad79fac41522">&#9670;&nbsp;</a></span>getLuaState()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">lua_State * jng::LuaEngine::getLuaState </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a142542a37646b8aad8e13b329301a97b" name="a142542a37646b8aad8e13b329301a97b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a142542a37646b8aad8e13b329301a97b">&#9670;&nbsp;</a></span>getScriptData()</h2>
 
@@ -308,10 +291,27 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aafd36ac899ff9af438b10f79ba6b9ff4" name="aafd36ac899ff9af438b10f79ba6b9ff4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafd36ac899ff9af438b10f79ba6b9ff4">&#9670;&nbsp;</a></span>unregisterScripts()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jng::LuaEngine::unregisterScripts </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Aug 12 2022 23:33:36 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Sun Aug 14 2022 10:20:15 for Just™ Game Engine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

@@ -1,24 +1,7 @@
 var searchData=
 [
-  ['jng_5fbind_5fevent_5ffunc_0',['JNG_BIND_EVENT_FUNC',['../base_8hpp.html#a626977026d9fab91c0ef70267d4a5005',1,'base.hpp']]],
-  ['jng_5fcore_5fassert_1',['JNG_CORE_ASSERT',['../assert_8hpp.html#a93b7cd377bbf0a42f012911989fb3a71',1,'assert.hpp']]],
-  ['jng_5fcore_5ferror_2',['JNG_CORE_ERROR',['../log_8hpp.html#a3485bbd85283347179a770e4c5473327',1,'log.hpp']]],
-  ['jng_5fcore_5ffatal_3',['JNG_CORE_FATAL',['../log_8hpp.html#a9cb6f7836c2f96df4c24044a1833227e',1,'log.hpp']]],
-  ['jng_5fcore_5finfo_4',['JNG_CORE_INFO',['../log_8hpp.html#a08b816cc2fed73b79f83764968833c5b',1,'log.hpp']]],
-  ['jng_5fcore_5ftrace_5',['JNG_CORE_TRACE',['../log_8hpp.html#a3ba9485594df1ad15df1e5aca1e628ca',1,'log.hpp']]],
-  ['jng_5fcore_5fwarn_6',['JNG_CORE_WARN',['../log_8hpp.html#a97f7032a3995cc7c3cc0876b8aefa06a',1,'log.hpp']]],
-  ['jng_5flua_5fcall_5fexit_7',['JNG_LUA_CALL_EXIT',['../lua__definitions_8cpp.html#a0e2943d3e9683bfba734f3f77f226a10',1,'lua_definitions.cpp']]],
-  ['jng_5flua_5fccall_5fentry_8',['JNG_LUA_CCALL_ENTRY',['../lua__definitions_8cpp.html#abae7383162a1ce1c8fa653988c63f8d0',1,'lua_definitions.cpp']]],
-  ['jng_5fprint_5flua_5fstack_9',['JNG_PRINT_LUA_STACK',['../lua__engine_8hpp.html#a036690f474de90329b2669aa7f4e2eb8',1,'lua_engine.hpp']]],
-  ['jng_5fprofile_5fbegin_5fsession_10',['JNG_PROFILE_BEGIN_SESSION',['../profiling_8hpp.html#ac64d008936d60d7789b1757815e66f37',1,'profiling.hpp']]],
-  ['jng_5fprofile_5fend_5fsession_11',['JNG_PROFILE_END_SESSION',['../profiling_8hpp.html#a875eeb4083958bc2ca0e8eda843c7aa7',1,'profiling.hpp']]],
-  ['jng_5fprofile_5ffunction_12',['JNG_PROFILE_FUNCTION',['../profiling_8hpp.html#a2d9fc4973e8b169ba251db97a035db57',1,'profiling.hpp']]],
-  ['jng_5fprofile_5fscope_13',['JNG_PROFILE_SCOPE',['../profiling_8hpp.html#aac147ef1adb9d9923c3a3f160921bd9f',1,'profiling.hpp']]],
-  ['jng_5fprofiling_5fenabled_14',['JNG_PROFILING_ENABLED',['../profiling_8hpp.html#a0d2a7c37f831367706dcb77c67fed382',1,'profiling.hpp']]],
-  ['jng_5fuser_5fassert_15',['JNG_USER_ASSERT',['../assert_8hpp.html#a69be49e7be8914c072047878af5b6deb',1,'assert.hpp']]],
-  ['jng_5fuser_5ferror_16',['JNG_USER_ERROR',['../log_8hpp.html#ac2675b802d712642c82ac05a68c8c66c',1,'log.hpp']]],
-  ['jng_5fuser_5ffatal_17',['JNG_USER_FATAL',['../log_8hpp.html#a23f700a8cc815fb75ae0a17580838e31',1,'log.hpp']]],
-  ['jng_5fuser_5finfo_18',['JNG_USER_INFO',['../log_8hpp.html#a5cb84ff231b7aa5038b5f8a684a852ee',1,'log.hpp']]],
-  ['jng_5fuser_5ftrace_19',['JNG_USER_TRACE',['../log_8hpp.html#af69237ee8e90136d083854e1b7050270',1,'log.hpp']]],
-  ['jng_5fuser_5fwarn_20',['JNG_USER_WARN',['../log_8hpp.html#acf8ba851f052c54d014daeee2c35879f',1,'log.hpp']]]
+  ['im_5fvec2_5fclass_5fextra_0',['IM_VEC2_CLASS_EXTRA',['../imconfig_8hpp.html#aa2003642a041a4852fe9f75c0787ec26',1,'imconfig.hpp']]],
+  ['im_5fvec4_5fclass_5fextra_1',['IM_VEC4_CLASS_EXTRA',['../imconfig_8hpp.html#aef71d1233909fa90cb19ffa2cdeedfa1',1,'imconfig.hpp']]],
+  ['imgui_5fdisable_5fdebug_5ftools_2',['IMGUI_DISABLE_DEBUG_TOOLS',['../imconfig_8hpp.html#a3aa8d7564b80a8ab5c5e1dbc1618b55b',1,'imconfig.hpp']]],
+  ['imgui_5fdisable_5fobsolete_5ffunctions_3',['IMGUI_DISABLE_OBSOLETE_FUNCTIONS',['../imconfig_8hpp.html#a0236697e2c0fbaa8c23c4f0ff76811c0',1,'imconfig.hpp']]]
 ];

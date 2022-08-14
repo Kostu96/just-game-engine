@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['boxcollider2d_0',['BoxCollider2D',['../namespacejng_1_1_lua_component.html#aa817703f554b493953f721f0987dde71ac7ded79ebc809d4505e2952ffe262704',1,'jng::LuaComponent']]]
+  ['boxcollider2d_0',['BoxCollider2D',['../namespacejng.html#a55c19ba85393fe792b9b4b66e006d72ca25910cd7a9850d3ac28b40cdd1fe8590',1,'jng']]]
 ];

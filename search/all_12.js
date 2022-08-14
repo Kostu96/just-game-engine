@@ -35,7 +35,7 @@ var searchData=
   ['rightcontrol_32',['RightControl',['../namespacejng_1_1_key.html#a9a40462d79d6645d3fb4e257ef12c41d',1,'jng::Key']]],
   ['rightshift_33',['RightShift',['../namespacejng_1_1_key.html#a77d736fea738c20019cc9b2f074c80c7',1,'jng::Key']]],
   ['rightsuper_34',['RightSuper',['../namespacejng_1_1_key.html#a35afede18cb0c103443254e46ffa67c2',1,'jng::Key']]],
-  ['rigidbody2d_35',['Rigidbody2D',['../namespacejng_1_1_lua_component.html#aa817703f554b493953f721f0987dde71aa0ad192f7fefbe3871f8529359949a73',1,'jng::LuaComponent']]],
+  ['rigidbody2d_35',['Rigidbody2D',['../namespacejng.html#a55c19ba85393fe792b9b4b66e006d72caad79f158aaffd2551d64e266374cfa65',1,'jng']]],
   ['rigidbody2dcomponent_36',['Rigidbody2DComponent',['../structjng_1_1_rigidbody2_d_component.html',1,'jng::Rigidbody2DComponent'],['../structjng_1_1_rigidbody2_d_component.html#a70b4ebbcb124b40ec48dd4968f440c2b',1,'jng::Rigidbody2DComponent::Rigidbody2DComponent(const Rigidbody2DComponent &amp;)=default'],['../structjng_1_1_rigidbody2_d_component.html#a9748b14066ba5400b7751150bfd0f6a9',1,'jng::Rigidbody2DComponent::Rigidbody2DComponent()=default']]],
   ['rotation_37',['rotation',['../structjng_1_1_transform_component.html#a7f654d90b8d4dacdedcd5aaba2776af2',1,'jng::TransformComponent']]],
   ['run_38',['run',['../classjng_1_1_engine.html#a876c22b7567211fed7b98e8071f88a9c',1,'jng::Engine']]]
