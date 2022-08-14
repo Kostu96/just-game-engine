@@ -25,26 +25,41 @@ namespace jng::LuaEngine {
 
     static void loadJNGDefinitions()
     {
-#pragma region LuaScript
-        luaL_newmetatable(s_data.L, LuaScript::LuaEntity::METATABLE_NAME);
+#define PUSH_REGISTRY_METATABLE(type) \
+    luaL_newmetatable(s_data.L, type::METATABLE_NAME); \
+    lua_pushstring(s_data.L, "__index"); \
+    lua_pushvalue(s_data.L, -2); \
+    lua_settable(s_data.L, -3)
 
-        lua_pushstring(s_data.L, "__index");
-        lua_pushvalue(s_data.L, -2); // pushes the metatable
-        lua_settable(s_data.L, -3);  // metatable.__index = metatable
+#pragma region LuaScene
+        PUSH_REGISTRY_METATABLE(LuaScene);
 
-        lua_pop(s_data.L, 1);
-
-        lua_newtable(s_data.L);
-
-        lua_pushcfunction(s_data.L, LuaScript::create);
-        lua_setfield(s_data.L, -2, "create");
-        lua_pushcfunction(s_data.L, LuaScript::getComponent);
-        lua_setfield(s_data.L, -2, "getComponent");
-
-        lua_pushcfunction(s_data.L, LuaScript::createEntity);
+        lua_pushcfunction(s_data.L, LuaScene::createEntity);
         lua_setfield(s_data.L, -2, "createEntity");
 
-        lua_setglobal(s_data.L, "LuaScript");
+        lua_pop(s_data.L, 1);
+#pragma endregion
+
+#pragma region LuaEntity
+        PUSH_REGISTRY_METATABLE(LuaEntity);
+
+        lua_pushcfunction(s_data.L, LuaEntity::addComponent);
+        lua_setfield(s_data.L, -2, "addComponent");
+        lua_pushcfunction(s_data.L, LuaEntity::getComponent);
+        lua_setfield(s_data.L, -2, "getComponent");
+
+        lua_pushcfunction(s_data.L, LuaEntity::setPosition);
+        lua_setfield(s_data.L, -2, "setPosition");
+        lua_pushcfunction(s_data.L, LuaEntity::getPosition);
+        lua_setfield(s_data.L, -2, "getPosition");
+        lua_pushcfunction(s_data.L, LuaEntity::getScale);
+        lua_setfield(s_data.L, -2, "getScale");
+        lua_pushcfunction(s_data.L, LuaEntity::move);
+        lua_setfield(s_data.L, -2, "move");
+        lua_pushcfunction(s_data.L, LuaEntity::scale);
+        lua_setfield(s_data.L, -2, "scale");
+
+        lua_pop(s_data.L, 1);
 #pragma endregion
 
 #pragma region LuaGlobal
@@ -53,37 +68,44 @@ namespace jng::LuaEngine {
 #pragma endregion
 
 #pragma region LuaComponent
-        lua_newtable(s_data.L);
 
-        lua_pushinteger(s_data.L, LuaComponent::Tag);
-        lua_setfield(s_data.L, -2, "Tag");
-        lua_pushinteger(s_data.L, LuaComponent::Transform);
-        lua_setfield(s_data.L, -2, "Transform");
-        lua_pushinteger(s_data.L, LuaComponent::Camera);
-        lua_setfield(s_data.L, -2, "Camera");
-        lua_pushinteger(s_data.L, LuaComponent::SpriteRenderer);
-        lua_setfield(s_data.L, -2, "SpriteRenderer");
-        lua_pushinteger(s_data.L, LuaComponent::CircleRenderer);
-        lua_setfield(s_data.L, -2, "CircleRenderer");
-        lua_pushinteger(s_data.L, LuaComponent::BoxCollider2D);
-        lua_setfield(s_data.L, -2, "BoxCollider2D");
-        lua_pushinteger(s_data.L, LuaComponent::CircleCollider2D);
-        lua_setfield(s_data.L, -2, "CircleCollider2D");
-        lua_pushinteger(s_data.L, LuaComponent::Rigidbody2D);
-        lua_setfield(s_data.L, -2, "Rigidbody2D");
+    lua_newtable(s_data.L);
+    lua_pushinteger(s_data.L, static_cast<s64>(LuaComponentID::Camera));
+    lua_setfield(s_data.L, -2, "Camera");
+    lua_pushinteger(s_data.L, static_cast<s64>(LuaComponentID::SpriteRenderer));
+    lua_setfield(s_data.L, -2, "SpriteRenderer");
+    lua_pushinteger(s_data.L, static_cast<s64>(LuaComponentID::CircleRenderer));
+    lua_setfield(s_data.L, -2, "CircleRenderer");
+    lua_pushinteger(s_data.L, static_cast<s64>(LuaComponentID::BoxCollider2D));
+    lua_setfield(s_data.L, -2, "BoxCollider2D");
+    lua_pushinteger(s_data.L, static_cast<s64>(LuaComponentID::CircleCollider2D));
+    lua_setfield(s_data.L, -2, "CircleCollider2D");
+    lua_pushinteger(s_data.L, static_cast<s64>(LuaComponentID::Rigidbody2D));
+    lua_setfield(s_data.L, -2, "Rigidbody2D");
+    lua_setglobal(s_data.L, "ComponentTypeID");
 
-        lua_setglobal(s_data.L, "Component");
+    PUSH_REGISTRY_METATABLE(LuaCameraComponent);
+    lua_pop(s_data.L, 1);
 
-        luaL_newmetatable(s_data.L, LuaComponent::LuaRigidbody2DComponent::METATABLE_NAME);
+    PUSH_REGISTRY_METATABLE(LuaSpriteRendererComponent);
+    lua_pop(s_data.L, 1);
 
-        lua_pushstring(s_data.L, "__index");
-        lua_pushvalue(s_data.L, -2); // pushes the metatable
-        lua_settable(s_data.L, -3);  // metatable.__index = metatable
+    PUSH_REGISTRY_METATABLE(LuaCircleRendererComponent);
+    lua_pop(s_data.L, 1);
 
-        lua_pushcfunction(s_data.L, LuaComponent::LuaRigidbody2DComponent::setLinearVelocity);
-        lua_setfield(s_data.L, -2, "setLinearVelocity");
+    PUSH_REGISTRY_METATABLE(LuaBoxCollider2DComponent);
+    lua_pop(s_data.L, 1);
 
-        lua_pop(s_data.L, 1);
+    PUSH_REGISTRY_METATABLE(LuaCircleCollider2DComponent);
+    lua_pop(s_data.L, 1);
+
+    PUSH_REGISTRY_METATABLE(LuaRigidbody2DComponent);
+
+    lua_pushcfunction(s_data.L, LuaRigidbody2DComponent::setLinearVelocity);
+    lua_setfield(s_data.L, -2, "setLinearVelocity");
+        
+    lua_pop(s_data.L, 1); // LuaRigidbody2DComponent
+
 #pragma endregion
 
 #pragma region LuaInput
@@ -109,6 +131,8 @@ namespace jng::LuaEngine {
 
         lua_setglobal(s_data.L, "Input");
 #pragma endregion
+
+#undef PUSH_REGISTRY_METATABLE
     }
 
     void init()
@@ -132,11 +156,6 @@ namespace jng::LuaEngine {
         lua_close(s_data.L);
     }
 
-    lua_State* getLuaState()
-    {
-        return s_data.L;
-    }
-
     std::string registerScript(const std::filesystem::path& path)
     {
         std::string name = path.stem().string();
@@ -150,40 +169,48 @@ namespace jng::LuaEngine {
                 lua_pop(s_data.L, 1);
             }
 
-            JNG_CORE_TRACE("Reflecting on {} script:", name);
-
-            lua_pushnil(s_data.L); // push nil as first key because lua_next needs something to pop
-            while (lua_next(s_data.L, -2) != 0)
+            if (lua_istable(s_data.L, -1))
             {
-                const char* symbol = lua_type(s_data.L, -2) == LUA_TSTRING ? lua_tostring(s_data.L, -2) : "!not_a_string!";
-                int type = lua_type(s_data.L, -1);
+                JNG_CORE_TRACE("Reflecting on {} script:", name);
 
-                JNG_CORE_TRACE("{}.{} - {}", name, symbol, lua_typename(s_data.L, type));
-
-                switch (type)
+                lua_pushnil(s_data.L); // push nil as first key because lua_next needs something to pop
+                while (lua_next(s_data.L, -2) != 0)
                 {
-                case LUA_TFUNCTION:
-                    if (strcmp(symbol, "onCreate") == 0) it->second.hasOnCreate = true;
-                    else if (strcmp(symbol, "onDestroy") == 0) it->second.hasOnDestroy = true;
-                    else if (strcmp(symbol, "onUpdate") == 0) it->second.hasOnUpdate = true;
+                    const char* symbol = lua_type(s_data.L, -2) == LUA_TSTRING ? lua_tostring(s_data.L, -2) : "!not_a_string!";
+                    int type = lua_type(s_data.L, -1);
 
-                    break;
-                case LUA_TNUMBER:
-                    union { double value; void* any; };
-                    value = lua_tonumber(s_data.L, -1);
-                    it->second.properties.emplace(symbol, ScriptData::Property{ ScriptData::PropertyType::Number, any });
-                    break;
+                    JNG_CORE_TRACE("{}.{} - {}", name, symbol, lua_typename(s_data.L, type));
+
+                    switch (type)
+                    {
+                    case LUA_TFUNCTION:
+                        if (strcmp(symbol, "onCreate") == 0) it->second.hasOnCreate = true;
+                        else if (strcmp(symbol, "onDestroy") == 0) it->second.hasOnDestroy = true;
+                        else if (strcmp(symbol, "onUpdate") == 0) it->second.hasOnUpdate = true;
+
+                        break;
+                    case LUA_TNUMBER:
+                        union { double value; void* any; };
+                        value = lua_tonumber(s_data.L, -1);
+                        it->second.properties.emplace(symbol, ScriptData::Property{ ScriptData::PropertyType::Number, any });
+                        break;
+                    }
+
+                    // pop 'value', leave 'key' for lua_next to pop
+                    lua_pop(s_data.L, 1);
                 }
 
-                // pop 'value', leave 'key' for lua_next to pop
                 lua_pop(s_data.L, 1);
             }
-
-            lua_pop(s_data.L, 1);
         }
         JNG_CORE_ASSERT(lua_gettop(s_data.L) == 0, "Lua stack should be empty!");
 
         return name;
+    }
+
+    void unregisterScripts()
+    {
+        s_data.scripts.clear();
     }
 
     ScriptData getScriptData(const std::string& name)
@@ -192,6 +219,47 @@ namespace jng::LuaEngine {
         JNG_CORE_ASSERT(data != s_data.scripts.end(), "Lua script is not registered in LuaEngine!");
 
         return data->second;
+    }
+
+    static void registerScriptInstance(lua_State* L, Entity entity, const char* className, const ScriptData::PropertiesContainerType& properties, const char* instanceName)
+    {
+        // create new instance by inheriting scriptClass
+        lua_getglobal(L, className);
+        lua_newtable(L); // instance
+        lua_insert(L, -2);
+        lua_pushvalue(L, -1);
+        lua_setmetatable(L, -3); // set class as instanece's metatable
+        lua_setfield(L, -1, "__index"); // not sure if there is a bug here (-1 or -2 index)
+
+        LuaScene* luaScene = reinterpret_cast<LuaScene*>(lua_newuserdata(L, sizeof(LuaScene)));
+        luaScene->sceneHandle = entity.getScene();
+        luaL_getmetatable(L, LuaScene::METATABLE_NAME);
+        lua_setmetatable(L, -2);
+        lua_setfield(L, -2, "scene");
+
+        LuaEntity* luaEntity = reinterpret_cast<LuaEntity*>(lua_newuserdata(L, sizeof(LuaEntity)));
+        luaEntity->entityHandle = entity;
+        luaEntity->sceneHandle = entity.getScene();
+        luaL_getmetatable(L, LuaEntity::METATABLE_NAME);
+        lua_setmetatable(L, -2);
+        lua_setfield(L, -2, "entity");
+
+        for (auto& prop : properties)
+            switch (prop.second.type)
+            {
+            case LuaEngine::ScriptData::PropertyType::Number:
+                union
+                {
+                    double value;
+                    void* any;
+                };
+                any = prop.second.value;
+                lua_pushnumber(L, value);
+                lua_setfield(L, -2, prop.first.c_str());
+                break;
+            }
+
+        lua_setfield(L, -2, instanceName);
     }
 
     void onCreate(Entity entity, LuaScriptComponent& lsc)
@@ -203,37 +271,7 @@ namespace jng::LuaEngine {
         JNG_CORE_TRACE("Creating script instance: {}", instanceName);
 
         lua_getglobal(s_data.L, "_scriptInstances_");
-
-        lua_getglobal(s_data.L, lsc.name.c_str());
-        lua_newtable(s_data.L);
-        lua_insert(s_data.L, -2);
-        lua_pushvalue(s_data.L, -1);
-        lua_setmetatable(s_data.L, -3);
-        lua_setfield(s_data.L, -1, "__index");
-
-        lua_pushlightuserdata(s_data.L, entity);
-        lua_setfield(s_data.L, -2, "_entityHandle_");
-        lua_pushlightuserdata(s_data.L, entity.getScene());
-        lua_setfield(s_data.L, -2, "_sceneHandle_");
-
-        for (auto& prop : lsc.data.properties)
-        {
-            switch (prop.second.type)
-            {
-            case LuaEngine::ScriptData::PropertyType::Number:
-                union
-                {
-                    double value;
-                    void* any;
-                };
-                any = prop.second.value;
-                lua_pushnumber(s_data.L, value);
-                lua_setfield(s_data.L, -2, prop.first.c_str());
-                break;
-            }
-        }
-
-        lua_setfield(s_data.L, -2, instanceName.c_str());
+        registerScriptInstance(s_data.L, entity, lsc.name.c_str(), lsc.data.properties, instanceName.c_str());
 
         if (lsc.data.hasOnCreate)
         {

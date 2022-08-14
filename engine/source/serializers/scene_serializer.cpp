@@ -114,9 +114,12 @@ namespace jng {
     {
         YAML::Emitter yaml;
 
+        std::string name = path.stem().string();
+        JNG_CORE_TRACE("Serializing scene: {0}", name);
+
         yaml << YAML::BeginMap;
 
-        yaml << YAML::Key << "Scene" << YAML::Value << path.stem().string();
+        yaml << YAML::Key << "Scene" << YAML::Value << name;
         yaml << YAML::Key << "Entities" << YAML::Value;
         yaml << YAML::BeginSeq;
         m_scene->each([this, &yaml](Entity entity) { serializeEntity(entity, yaml); });

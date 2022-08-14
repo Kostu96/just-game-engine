@@ -12,21 +12,31 @@ class lua_State;
 
 namespace jng {
 
-    namespace LuaScript {
+    struct LuaScene
+    {
+        Scene* sceneHandle;
 
-        struct LuaEntity
-        {
-            void* handle;
+        static int createEntity(lua_State* L);
 
-            static constexpr const char* METATABLE_NAME = "JNG.Entity";
-        };
+        static constexpr const char* METATABLE_NAME = "JNG.Scene";
+    };
 
-        int create(lua_State* L);
-        int getComponent(lua_State* L);
+    struct LuaEntity
+    {
+        void* entityHandle;
+        Scene* sceneHandle;
 
-        int createEntity(lua_State* L);
+        static int addComponent(lua_State* L);
+        static int getComponent(lua_State* L);
 
-    } // namespace LuaScript
+        static int setPosition(lua_State* L);
+        static int getPosition(lua_State* L);
+        static int getScale(lua_State* L);
+        static int move(lua_State* L);
+        static int scale(lua_State* L);
+
+        static constexpr const char* METATABLE_NAME = "JNG.Entity";
+    };
 
     namespace LuaGlobal {
 
@@ -34,12 +44,10 @@ namespace jng {
 
     } // namespace LuaGlobal
 
-    namespace LuaComponent {
+#pragma region LuaComponent
         
-        enum
+        enum class LuaComponentID : s64
         {
-            Tag,
-            Transform,
             Camera,
             SpriteRenderer,
             CircleRenderer,
@@ -48,13 +56,40 @@ namespace jng {
             Rigidbody2D
         };
 
-        struct LuaTagComponent              { TagComponent*              handle; };
-        struct LuaTransformComponent        { TransformComponent*        handle; };
-        struct LuaCameraComponent           { CameraComponent*           handle; };
-        struct LuaSpriteRendererComponent   { SpriteRendererComponent*   handle; };
-        struct LuaCircleRendererComponent   { CircleRendererComponent*   handle; };
-        struct LuaBoxCollider2DComponent    { BoxCollider2DComponent*    handle; };
-        struct LuaCircleCollider2DComponent { CircleCollider2DComponent* handle; };
+        struct LuaCameraComponent
+        {
+            CameraComponent* handle;
+
+            static constexpr const char* METATABLE_NAME = "JNG.LuaCameraComponent";
+        };
+
+        struct LuaSpriteRendererComponent
+        {
+            SpriteRendererComponent* handle;
+
+            static constexpr const char* METATABLE_NAME = "JNG.SpriteRendererComponent";
+        };
+
+        struct LuaCircleRendererComponent
+        {
+            CircleRendererComponent* handle;
+
+            static constexpr const char* METATABLE_NAME = "JNG.LuaCircleRendererComponent";
+        };
+
+        struct LuaBoxCollider2DComponent
+        {
+            BoxCollider2DComponent* handle;
+
+            static constexpr const char* METATABLE_NAME = "JNG.LuaBoxCollider2DComponent";
+        };
+
+        struct LuaCircleCollider2DComponent
+        {
+            CircleCollider2DComponent* handle;
+
+            static constexpr const char* METATABLE_NAME = "JNG.LuaCircleCollider2DComponent";
+        };
 
         struct LuaRigidbody2DComponent
         {
@@ -65,7 +100,7 @@ namespace jng {
             static constexpr const char* METATABLE_NAME = "JNG.Rigidbody2DComponenet";
         };
 
-    } // namespace LuaComponent
+#pragma endregion
 
     namespace LuaInput {
 

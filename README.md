@@ -22,3 +22,6 @@ and it might Just™ work for you.
 If not better instructions will come in the future...
 
 Build using your build system (Visual Studio 2022 is tested).
+
+## Sctipt API
+Lua Script API [referene](docs/LuaScriptAPI/LuaScriptAPI.md)

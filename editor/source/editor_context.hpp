@@ -56,6 +56,8 @@ namespace jng {
         float physicsGravity = 9.8f;
         bool showColliders = false;
 
+        void registerScripts(bool reload = false);
+
         void createProject(const std::filesystem::path& path);
         void openProject(const std::filesystem::path& path);
 

@@ -33,13 +33,15 @@ namespace jng {
         bool hasOnDestroy = false;
         bool hasOnUpdate = false;
 
-        std::map<std::string, Property> properties;
+        using PropertiesContainerType = std::map<std::string, Property>;
+        PropertiesContainerType properties;
     };
 
     void init();
     void shutdown();
 
     std::string registerScript(const std::filesystem::path& path);
+    void unregisterScripts();
     ScriptData getScriptData(const std::string& name);
 
     void onCreate(Entity entity, LuaScriptComponent& lsc);

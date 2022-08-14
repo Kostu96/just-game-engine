@@ -114,6 +114,15 @@ namespace jng {
             }
         }
 
+        {
+            auto view = m_registry.view<LuaScriptComponent>();
+            for (auto entity : view)
+            {
+                auto& lsc = view.get<LuaScriptComponent>(entity);
+                LuaEngine::onCreate(Entity{ entity, *this }, lsc);
+            }
+        }
+
         m_physics2dWorld = new b2World{ { 0.f, -gravity } };
         {
             auto group = m_registry.group<Rigidbody2DComponent>(entt::get<TransformComponent>);
@@ -168,15 +177,6 @@ namespace jng {
                 }
             }
         }
-
-        {
-            auto view = m_registry.view<LuaScriptComponent>();
-            for (auto entity : view)
-            {
-                auto& lsc = view.get<LuaScriptComponent>(entity);
-                LuaEngine::onCreate(Entity{ entity, *this }, lsc);
-            }
-        }
     }
 
     void Scene::onDestroy()
@@ -204,9 +204,11 @@ namespace jng {
                 LuaEngine::onUpdate(Entity{ entity, *this }, lsc, dt);
             }
         }
-        {
-            m_physics2dWorld->Step(dt, PHYSICS_VEL_ITERATIONS, PHYSICS_POS_ITERATIONS);
 
+        m_physics2dWorld->Step(dt, PHYSICS_VEL_ITERATIONS, PHYSICS_POS_ITERATIONS);
+
+        {
+            
             auto group = m_registry.group<Rigidbody2DComponent>(entt::get<TransformComponent>);
             for (auto entity : group)
             {

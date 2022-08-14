@@ -1,5 +1,14 @@
 Scene: example
 Entities:
+  - Entity: 15538795174018369732
+    TagComponent:
+      Tag: Sprite
+    TransformComponent:
+      Translation: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [5, 5, 1]
+    SpriteRendererComponent:
+      Color: [1, 1, 1, 1]
   - Entity: 16216565274304674005
     TagComponent:
       Tag: Camera
@@ -15,12 +24,12 @@ Entities:
       PerspectiveFOV: 45
       PerspectiveNear: 0.00999999978
       PerspectiveFar: 1000
-  - Entity: 15538795174018369732
-    TagComponent:
-      Tag: Sprite
-    TransformComponent:
-      Translation: [0, 0, 0]
-      Rotation: [0, 0, 0]
-      Scale: [5, 5, 1]
-    SpriteRendererComponent:
-      Color: [1, 1, 1, 1]
+    LuaScriptComponent:
+      Name: CameraController
+      ScriptData:
+        HasOnCreate: false
+        HasOnUpdate: true
+        Properties:
+          - Name: Speed
+            Type: 0
+            Value: 10
