@@ -25,6 +25,3 @@
 [submodule "lua"]
 	path = engine/third_party/lua
 	url = https://github.com/Kostu96/lua-5.4.4
-[submodule "msdf-atlas-gen"]
-	path = engine/third_party/msdf-atlas-gen
-	url = https://github.com/Kostu96/msdf-atlas-gen-fork.git

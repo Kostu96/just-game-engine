@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2022-2023 Konstanty Misiak
+# Copyright (C) 2022 Konstanty Misiak
 #
 # SPDX-License-Identifier: MIT
 #
@@ -131,19 +131,6 @@ target_link_libraries(imgui PUBLIC
 ### Lua ###
 add_subdirectory(lua)
 ###########
-
-### msdf-atlas-gen ###
-execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory msdf_atlas_gen_build)
-execute_process(COMMAND ${CMAKE_COMMAND} -S ${CMAKE_SOURCE_DIR}/engine/third_party/msdf-atlas-gen -B msdf_atlas_gen_build -D MSDF_ATLAS_INSTALL=ON)
-execute_process(COMMAND ${CMAKE_COMMAND} --build msdf_atlas_gen_build --config Debug)
-execute_process(COMMAND ${CMAKE_COMMAND} --build msdf_atlas_gen_build --config Release)
-execute_process(COMMAND ${CMAKE_COMMAND} --install msdf_atlas_gen_build --prefix msdf_atlas_gen_install)
-set(ENV{msdf-atlas-gen_DIR} ${CMAKE_BINARY_DIR}/msdf_atlas_gen_install)
-set(ENV{msdfgen_DIR} ${CMAKE_BINARY_DIR}/msdf_atlas_gen_install)
-set(ENV{freetype_DIR} ${CMAKE_BINARY_DIR}/msdf_atlas_gen_install)
-find_package(msdf-atlas-gen REQUIRED)
-#add_subdirectory(msdf-atlas-gen)
-######################
 
 ### spdlog: ###
 add_subdirectory(spdlog)
