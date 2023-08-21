@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2022 Konstanty Misiak
+# Copyright (C) 2022-2023 Konstanty Misiak
 #
 # SPDX-License-Identifier: MIT
 #
@@ -132,6 +132,10 @@ target_link_libraries(imgui PUBLIC
 add_subdirectory(lua)
 ###########
 
+### msdf-atlas-gen ###
+
+######################
+
 ### spdlog: ###
 add_subdirectory(spdlog)
 target_compile_options(spdlog PRIVATE
@@ -147,7 +151,10 @@ target_compile_options(stb PRIVATE
 ############
 
 ### yaml-cpp: ###
+set(YAML_CPP_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(YAML_CPP_BUILD_TOOLS OFF CACHE BOOL "" FORCE)
+set(YAML_CPP_INSTALL OFF CACHE BOOL "" FORCE)
+set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
 add_subdirectory(yaml-cpp)
 target_compile_options(yaml-cpp PRIVATE
     $<$<CXX_COMPILER_ID:MSVC>:${COMPILER_FLAGS}>
