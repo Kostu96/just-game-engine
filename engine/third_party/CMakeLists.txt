@@ -132,15 +132,6 @@ target_link_libraries(imgui PUBLIC
 add_subdirectory(lua)
 ###########
 
-### msdf-atlas-gen ###
-#set(MSDF_ATLAS_BUILD_STANDALONE OFF CACHE BOOL "" FORCE)
-#set(MSDF_ATLAS_USE_SKIA OFF CACHE BOOL "" FORCE)
-#set(MSDF_ATLAS_NO_ARTERY_FONT ON CACHE BOOL "" FORCE)
-#set(MSDFGEN_DISABLE_SVG ON CACHE BOOL "" FORCE)
-#set(ENV{VCPKG_DIR} "C:/Users/kmisiak/myplace/vcpkg")
-#add_subdirectory(msdf-atlas-gen)
-######################
-
 ### spdlog: ###
 add_subdirectory(spdlog)
 target_compile_options(spdlog PRIVATE
@@ -154,8 +145,6 @@ target_compile_options(stb PRIVATE
     $<$<CXX_COMPILER_ID:MSVC>:${COMPILER_FLAGS}>
 )
 ############
-
-find_package(yaml-cpp REQUIRED)
 
 set(JNG_ENGINE_THIRD_PARTY_LIBRARIES
     box2d
@@ -176,20 +165,7 @@ set_target_properties(
     EXCLUDE_FROM_ALL true
 )
 
-set(JNG_ENGINE_THIRD_PARTY_INCLUDE_DIRS
-    ${YAML_CPP_INCLUDE_DIR}
-PARENT_SCOPE)
-
-set(JNG_ENGINE_THIRD_PARTY_LIB_DIRS
-    ${YAML_CPP_LIBRARY_DIR}
-PARENT_SCOPE)
-
 set(JNG_ENGINE_THIRD_PARTY_LIBRARIES
     ${Vulkan_LIBRARIES}
     ${JNG_ENGINE_THIRD_PARTY_LIBRARIES}
-    ${YAML_CPP_LIBRARIES}$<$<CONFIG:Debug>:d>
-PARENT_SCOPE)
-
-set(JNG_ENGINE_THIRD_PARTY_DEFINES
-    YAML_CPP_STATIC_DEFINE
 PARENT_SCOPE)

@@ -8,6 +8,8 @@ set(JNG_TARGET_NAME jng)
 set(JNG_TARGET_NAME ${JNG_TARGET_NAME} PARENT_SCOPE)
 
 add_subdirectory(third_party)
+#find_package(msdf-atlas-gen REQUIRED)
+find_package(yaml-cpp REQUIRED)
 
 set(JNG_HEADERS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/jng)
 add_subdirectory(source)
@@ -53,7 +55,6 @@ target_include_directories(${JNG_TARGET_NAME} SYSTEM
     PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/glm
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/entt/include
-    ${JNG_ENGINE_THIRD_PARTY_INCLUDE_DIRS}
     PRIVATE
     ${Vulkan_INCLUDE_DIRS}
 )
@@ -66,17 +67,16 @@ target_include_directories(${JNG_TARGET_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/source
 )
 
-target_link_directories(${JNG_TARGET_NAME} PUBLIC
-    ${JNG_ENGINE_THIRD_PARTY_LIB_DIRS}
-)
-
 if (WIN32)
     target_link_options(${JNG_TARGET_NAME} PUBLIC
         /ignore:4099
     )
 endif()
 
-target_link_libraries(${JNG_TARGET_NAME} PUBLIC ${JNG_ENGINE_THIRD_PARTY_LIBRARIES})
+target_link_libraries(${JNG_TARGET_NAME} PUBLIC
+    ${JNG_ENGINE_THIRD_PARTY_LIBRARIES}
+    yaml-cpp::yaml-cpp
+)
 
 target_precompile_headers(${JNG_TARGET_NAME} PUBLIC
     <glm/glm.hpp>
