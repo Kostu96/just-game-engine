@@ -8,7 +8,7 @@ set(JNG_TARGET_NAME jng)
 set(JNG_TARGET_NAME ${JNG_TARGET_NAME} PARENT_SCOPE)
 
 add_subdirectory(third_party)
-#find_package(msdf-atlas-gen REQUIRED)
+find_package(msdf-atlas-gen REQUIRED)
 find_package(yaml-cpp REQUIRED)
 
 set(JNG_HEADERS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/jng)
@@ -75,6 +75,7 @@ endif()
 
 target_link_libraries(${JNG_TARGET_NAME} PUBLIC
     ${JNG_ENGINE_THIRD_PARTY_LIBRARIES}
+    msdf-atlas-gen::msdf-atlas-gen
     yaml-cpp::yaml-cpp
 )
 
