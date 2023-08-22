@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2022 Konstanty Misiak
+ * Copyright (C) 2021-2023 Konstanty Misiak
  *
  * SPDX-License-Identifier: MIT
  */
@@ -9,6 +9,7 @@
 #include "core/base_internal.hpp"
 #include "core/engine.hpp"
 #include "renderer/buffers.hpp"
+#include "renderer/font.hpp"
 #include "renderer/renderer_api.hpp"
 #include "renderer/shader.hpp"
 #include "renderer/texture.hpp"
@@ -18,6 +19,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/packing.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <msdf-atlas-gen/FontGeometry.h>
+
+#include "renderer/font_data.inl"
 
 namespace jng::Renderer2D {
 
@@ -175,7 +179,7 @@ namespace jng::Renderer2D {
             TextureFormat::RGBA8,
             1, 1
         };
-        s_data.whiteTexture = jng::makeRef<Texture>(props);
+        s_data.whiteTexture = makeRef<Texture>(props);
         u32 whiteTextureData = 0xffffffff;
         s_data.whiteTexture->setData(&whiteTextureData, sizeof(u32));
         s_data.textureSlots[0] = s_data.whiteTexture;
@@ -282,6 +286,14 @@ namespace jng::Renderer2D {
         endLineBatch();
     }
 
+    void drawText(const glm::mat4& transform, const std::string& text, Ref<Font> font, const glm::vec4& color)
+    {
+        const auto& geometry = font->getFontData()->geometry;
+        const auto& metrics = geometry.getMetrics();
+
+
+    }
+
     void drawSprite(const glm::mat4& transform, const SpriteRendererComponent& src, s32 entityID)
     {
         glm::vec3 quadVertexPositions[RenderData::QuadVertexCount];
@@ -304,6 +316,45 @@ namespace jng::Renderer2D {
             entityID
         };
         drawQuad(properties);
+    }
+
+    void drawQuad(const DrawQuadProperties& properties)
+    {
+        JNG_PROFILE_FUNCTION();
+
+        if (s_data.currentQuadIndexCount >= RenderData::MaxQuadIndicesPerBatch)
+        {
+            endQuadBatch();
+            beginQuadBatch();
+        }
+
+        u8 textureIndex = static_cast<u8>(-1);
+        for (u8 i = 0; i < s_data.textureSlotIndex; ++i)
+            if (s_data.textureSlots[i]->getID() == properties.texture->getID())
+            {
+                textureIndex = i;
+                break;
+            }
+
+        if (textureIndex == static_cast<u8>(-1))
+        {
+            s_data.textureSlots[s_data.textureSlotIndex] = properties.texture;
+            textureIndex = s_data.textureSlotIndex++;
+        }
+
+        for (u16 i = 0; i < RenderData::QuadVertexCount; ++i)
+        {
+            s_data.quadVBOPtr->position = properties.vertexPositions[i];
+            s_data.quadVBOPtr->texCoord = properties.textureCoords[i];
+            s_data.quadVBOPtr->color = properties.color;
+            s_data.quadVBOPtr->texIndex = textureIndex;
+            s_data.quadVBOPtr->entityID = properties.entityID;
+            ++s_data.quadVBOPtr;
+        }
+
+        s_data.currentQuadIndexCount += RenderData::QuadIndexCount;
+
+        ++s_data.statistics.quadCount;
     }
 
     void drawCircle(const glm::mat4& transform, const CircleRendererComponent& crc, s32 entityID)
@@ -348,45 +399,6 @@ namespace jng::Renderer2D {
             -1
         };
         drawCircle(properties);
-    }
-
-    void drawQuad(const DrawQuadProperties& properties)
-    {
-        JNG_PROFILE_FUNCTION();
-
-        if (s_data.currentQuadIndexCount >= RenderData::MaxQuadIndicesPerBatch)
-        {
-            endQuadBatch();
-            beginQuadBatch();
-        }
-
-        u8 textureIndex = static_cast<u8>(-1);
-        for (u8 i = 0; i < s_data.textureSlotIndex; ++i)
-            if (s_data.textureSlots[i]->getID() == properties.texture->getID())
-            {
-                textureIndex = i;
-                break;
-            }
-
-        if (textureIndex == static_cast<u8>(-1))
-        {
-            s_data.textureSlots[s_data.textureSlotIndex] = properties.texture;
-            textureIndex = s_data.textureSlotIndex++;
-        }
-
-        for (u16 i = 0; i < RenderData::QuadVertexCount; ++i)
-        {
-            s_data.quadVBOPtr->position = properties.vertexPositions[i];
-            s_data.quadVBOPtr->texCoord = properties.textureCoords[i];
-            s_data.quadVBOPtr->color = properties.color;
-            s_data.quadVBOPtr->texIndex = textureIndex;
-            s_data.quadVBOPtr->entityID = properties.entityID;
-            ++s_data.quadVBOPtr;
-        }
-
-        s_data.currentQuadIndexCount += RenderData::QuadIndexCount;
-
-        ++s_data.statistics.quadCount;
     }
 
     void drawCircle(const DrawCircleProperties& properties)

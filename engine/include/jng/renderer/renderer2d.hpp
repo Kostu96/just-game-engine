@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2022 Konstanty Misiak
+ * Copyright (C) 2021-2023 Konstanty Misiak
  *
  * SPDX-License-Identifier: MIT
  */
@@ -9,6 +9,7 @@
 
 namespace jng {
 
+    class Font;
     class Texture;
     struct CircleRendererComponent;
     struct SpriteRendererComponent;
@@ -39,6 +40,8 @@ namespace jng {
 
         void beginScene(const glm::mat4& viewProjection);
         void endScene();
+
+        void drawText(const glm::mat4& transform, const std::string& text, Ref<Font> font, const glm::vec4& color = { 1.f, 1.f, 1.f, 1.f });
 
         // Quads
         void drawSprite(const glm::mat4& transform, const SpriteRendererComponent& src, s32 entityID);

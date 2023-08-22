@@ -21,6 +21,8 @@ set(JNG_SHADER_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/shaders/line_vertex.glsl
     ${CMAKE_CURRENT_SOURCE_DIR}/shaders/quad_fragment.glsl
     ${CMAKE_CURRENT_SOURCE_DIR}/shaders/quad_vertex.glsl
+    ${CMAKE_CURRENT_SOURCE_DIR}/shaders/text_fragment.glsl
+    ${CMAKE_CURRENT_SOURCE_DIR}/shaders/text_vertex.glsl
 )
 
 add_library(${JNG_TARGET_NAME} STATIC

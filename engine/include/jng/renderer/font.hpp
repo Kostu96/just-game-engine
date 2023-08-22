@@ -9,12 +9,16 @@
 
 namespace jng {
 
+    struct FontData;
+
     class Font
     {
     public:
         explicit Font(const std::filesystem::path& filepath);
-    private:
 
+        const FontData* getFontData() const { return m_data.get(); }
+    private:
+        Scope<FontData> m_data;
     };
 
 } // namespace jng

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2022 Konstanty Misiak
+ * Copyright (C) 2021-2023 Konstanty Misiak
  *
  * SPDX-License-Identifier: MIT
  */
@@ -12,6 +12,7 @@ namespace jng {
     enum class TextureFormat {
         None,
 
+        RGB8,  // normalized integer
         RGBA8, // normalized integer
         R32,   // unsigned integer
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2022 Konstanty Misiak
+ * Copyright (C) 2021-2023 Konstanty Misiak
  *
  * SPDX-License-Identifier: MIT
  */
@@ -13,12 +13,27 @@
 
 namespace jng {
 
-    static u32 textureFormatToGLEnum(TextureFormat format)
+    static u32 textureFormatToGLInternalFormat(TextureFormat format)
     {
         switch (format)
         {
+        case TextureFormat::RGB8:            return GL_RGB8;
         case TextureFormat::RGBA8:           return GL_RGBA8;
         case TextureFormat::R32:             return GL_R32I;
+        case TextureFormat::Depth24Stencil8: return GL_DEPTH24_STENCIL8;
+        }
+
+        JNG_CORE_ASSERT(false, "This should never be triggered!");
+        return 0;
+    }
+
+    static u32 textureFormatToGLDataFormat(TextureFormat format)
+    {
+        switch (format)
+        {
+        case TextureFormat::RGB8:            return GL_RGB;
+        case TextureFormat::RGBA8:           return GL_RGBA;
+        case TextureFormat::R32:             return GL_RED;
         case TextureFormat::Depth24Stencil8: return GL_DEPTH24_STENCIL8;
         }
 
@@ -37,7 +52,7 @@ namespace jng {
         m_properties.height = static_cast<u32>(height);
 
         createTexture();
-        glTextureSubImage2D(m_id, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data);
+        glTextureSubImage2D(m_id, 0, 0, 0, width, height, textureFormatToGLDataFormat(m_properties.specification.format), GL_UNSIGNED_BYTE, data);
 
         stbi_image_free(data);
     }
@@ -68,14 +83,16 @@ namespace jng {
         JNG_CORE_ASSERT(size == static_cast<size_t>(m_properties.width) * static_cast<size_t>(m_properties.height) * 4,
             "Data must be entire texture!");
 
-        glTextureSubImage2D(m_id, 0, 0, 0, static_cast<int>(m_properties.width), static_cast<int>(m_properties.height), GL_RGBA, GL_UNSIGNED_BYTE, data);
+        glTextureSubImage2D(m_id, 0, 0, 0,
+            static_cast<int>(m_properties.width), static_cast<int>(m_properties.height),
+            textureFormatToGLDataFormat(m_properties.specification.format), GL_UNSIGNED_BYTE, data);
     }
 
     void Texture::createTexture()
     {
         glCreateTextures(GL_TEXTURE_2D, 1, &m_id);
         glTextureStorage2D(m_id, 1,
-            textureFormatToGLEnum(m_properties.specification.format),
+            textureFormatToGLInternalFormat(m_properties.specification.format),
             static_cast<int>(m_properties.width),
             static_cast<int>(m_properties.height)
         );
