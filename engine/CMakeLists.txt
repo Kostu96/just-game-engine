@@ -37,7 +37,6 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/shaders PREFIX shaders FILES ${JNG
 target_compile_definitions(${JNG_TARGET_NAME} PUBLIC
     $<$<CONFIG:Debug>:JNG_DEBUG>
     IMGUI_USER_CONFIG="jng/imconfig.hpp"
-    ${JNG_ENGINE_THIRD_PARTY_DEFINES}
 )
 if (WIN32)
     target_compile_definitions(${JNG_TARGET_NAME} PUBLIC
@@ -73,10 +72,12 @@ if (WIN32)
     )
 endif()
 
-target_link_libraries(${JNG_TARGET_NAME} PUBLIC
+target_link_libraries(${JNG_TARGET_NAME}
+    PUBLIC
     ${JNG_ENGINE_THIRD_PARTY_LIBRARIES}
-    msdf-atlas-gen::msdf-atlas-gen
     yaml-cpp::yaml-cpp
+    PRIVATE
+    msdf-atlas-gen::msdf-atlas-gen
 )
 
 target_precompile_headers(${JNG_TARGET_NAME} PUBLIC
