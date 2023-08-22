@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2022 Konstanty Misiak
+# Copyright (C) 2022-2023 Konstanty Misiak
 #
 # SPDX-License-Identifier: MIT
 #
@@ -35,6 +35,7 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/shaders PREFIX shaders FILES ${JNG
 target_compile_definitions(${JNG_TARGET_NAME} PUBLIC
     $<$<CONFIG:Debug>:JNG_DEBUG>
     IMGUI_USER_CONFIG="jng/imconfig.hpp"
+    ${JNG_ENGINE_THIRD_PARTY_DEFINES}
 )
 if (WIN32)
     target_compile_definitions(${JNG_TARGET_NAME} PUBLIC
@@ -52,6 +53,7 @@ target_include_directories(${JNG_TARGET_NAME} SYSTEM
     PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/glm
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/entt/include
+    ${JNG_ENGINE_THIRD_PARTY_INCLUDE_DIRS}
     PRIVATE
     ${Vulkan_INCLUDE_DIRS}
 )
@@ -62,6 +64,10 @@ target_include_directories(${JNG_TARGET_NAME}
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include/jng
     ${CMAKE_CURRENT_SOURCE_DIR}/source
+)
+
+target_link_directories(${JNG_TARGET_NAME} PUBLIC
+    ${JNG_ENGINE_THIRD_PARTY_LIB_DIRS}
 )
 
 if (WIN32)
