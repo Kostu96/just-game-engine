@@ -232,6 +232,10 @@ namespace jng {
             Renderer2D::beginScene(cc.camera.getVP(tc.getTransform()));
         }
         drawRenderables();
+
+        // TODO: temp
+        Renderer2D::drawText(glm::mat4{}, "Kostu96", );
+
         Renderer2D::endScene();
     }
 

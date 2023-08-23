@@ -25,12 +25,23 @@
 
 namespace jng::Renderer2D {
 
+    struct TextVertex
+    {
+        glm::vec3 position;
+        glm::vec2 texCoord;
+        u32 color;
+
+        s32 entityID;
+    };
+    static_assert(sizeof(TextVertex) == 28);
+
     struct QuadVertex
     {
         glm::vec3 position;
         glm::vec2 texCoord;
         u32 color;
         u32 texIndex;
+
         s32 entityID;
     };
     static_assert(sizeof(QuadVertex) == 32);
@@ -42,6 +53,7 @@ namespace jng::Renderer2D {
         f32 thickness;
         f32 fade;
         u32 color;
+
         s32 entityID;
     };
     static_assert(sizeof(CircleVertex) == 36);
@@ -70,6 +82,13 @@ namespace jng::Renderer2D {
 
         glm::vec4 quadVertexPositions[4]{};
 
+        Ref<Shader> textShader;
+        Ref<VertexBuffer> textVBO;
+        Ref<VertexArray> textVAO;
+        u16 currentTextIndexCount = 0;
+        TextVertex* textVBOBase = nullptr;
+        TextVertex* textVBOPtr = nullptr;
+
         Ref<Shader> quadShader;
         Ref<VertexBuffer> quadVBO;
         Ref<VertexArray> quadVAO;
@@ -94,10 +113,35 @@ namespace jng::Renderer2D {
         std::array<Ref<Texture>, MaxTextureSlots> textureSlots;
         u8 textureSlotIndex = 1; // 0 = white texture
 
+        Ref<Texture> fontAtlasTexture;
+
         Statistics statistics;
     };
 
     static RenderData s_data;
+
+    static void beginTextBatch()
+    {
+        s_data.currentTextIndexCount = 0;
+        s_data.textVBOPtr = s_data.textVBOBase;
+    }
+
+    static void endTextBatch()
+    {
+        size_t dataSize = (uintptr_t)s_data.textVBOPtr - (uintptr_t)s_data.textVBOBase;
+        if (dataSize > 0)
+        {
+            s_data.textVBO->setData(s_data.textVBOBase, dataSize);
+
+            s_data.fontAtlasTexture->bind(0);
+
+            s_data.textVAO->bind();
+            s_data.textShader->bind();
+            RendererAPI::drawIndexed(s_data.currentTextIndexCount, s_data.textVAO->getIndexBuffer()->getIndexType());
+
+            ++s_data.statistics.drawCalls;
+        }
+    }
 
     static void beginQuadBatch()
     {
@@ -108,13 +152,13 @@ namespace jng::Renderer2D {
 
     static void endQuadBatch()
     {
-        for (u8 i = 0; i < s_data.textureSlotIndex; ++i)
-            s_data.textureSlots[i]->bind(i);
-
         size_t dataSize = (uintptr_t)s_data.quadVBOPtr - (uintptr_t)s_data.quadVBOBase;
         if (dataSize > 0)
         {
             s_data.quadVBO->setData(s_data.quadVBOBase, dataSize);
+
+            for (u8 i = 0; i < s_data.textureSlotIndex; ++i)
+                s_data.textureSlots[i]->bind(i);
 
             s_data.quadVAO->bind();
             s_data.quadShader->bind();
@@ -203,6 +247,22 @@ namespace jng::Renderer2D {
         auto quadIBO = makeRef<IndexBuffer>(quadIndices, RenderData::MaxQuadIndicesPerBatch, RendererAPI::IndexType::U16);
         delete[] quadIndices;
 
+        // Text
+        s_data.textShader = makeRef<Shader>(
+            assetsDir / "shaders/quad_vertex.glsl",
+            assetsDir / "shaders/quad_fragment.glsl");
+        s_data.textVBO = makeRef<VertexBuffer>(RenderData::MaxQuadVerticesPerBatch * sizeof(TextVertex));
+
+        VertexLayout textVertexLayout = {
+            { LayoutElement::DataType::Float3,  "a_Position" },
+            { LayoutElement::DataType::Float2,  "a_TexCoord" },
+            { LayoutElement::DataType::UInt4x8, "a_Color", true, true },
+            { LayoutElement::DataType::Int,     "a_EntityID", false }
+        };
+        s_data.textVAO = makeRef<VertexArray>(s_data.textVBO, textVertexLayout);
+        s_data.textVBOBase = new TextVertex[s_data.MaxQuadVerticesPerBatch];
+        s_data.textVAO->setIndexBuffer(quadIBO);
+
         // Quad
         s_data.quadShader = makeRef<Shader>(
             (assetsDir / "shaders/quad_vertex.glsl").string(),
@@ -257,6 +317,7 @@ namespace jng::Renderer2D {
 
     void shutdown()
     {
+        delete[] s_data.textVBOBase;
         delete[] s_data.quadVBOBase;
         delete[] s_data.circleVBOBase;
         delete[] s_data.lineVBOBase;
@@ -272,6 +333,8 @@ namespace jng::Renderer2D {
         s_data.statistics.quadCount = 0;
         s_data.statistics.circleCount = 0;
         s_data.statistics.lineCount = 0;
+        
+        beginTextBatch();
         beginQuadBatch();
         beginCircleBatch();
         beginLineBatch();
@@ -282,15 +345,49 @@ namespace jng::Renderer2D {
         JNG_PROFILE_FUNCTION();
 
         endQuadBatch();
+        endQuadBatch();
         endCircleBatch();
         endLineBatch();
     }
 
     void drawText(const glm::mat4& transform, const std::string& text, Ref<Font> font, const glm::vec4& color)
     {
+        JNG_PROFILE_FUNCTION();
+
         const auto& geometry = font->getFontData()->geometry;
         const auto& metrics = geometry.getMetrics();
+        auto fontAtlas = font->getAtlasTexture();
 
+        double x = 0;
+        double fsScale = 1.0 / (metrics.ascenderY - metrics.descenderY);
+        double y = 0;
+
+        char c = 'K';
+
+        auto glyph = geometry.getGlyph(c);
+        if (!glyph)
+            glyph = geometry.getGlyph('?');
+
+        double al, ab, ar, at;
+        glyph->getQuadAtlasBounds(al, ab, ar, at);
+        glm::vec2 texCoordMin{ (float)al, (float)ab };
+        glm::vec2 texCoordMax{ (float)ar, (float)at };
+        float texelWidth = 1.f / fontAtlas->getProperties().width;
+        float texelHeight = 1.f / fontAtlas->getProperties().height;
+        texCoordMin *= glm::vec2{ texelWidth, texelHeight };
+        texCoordMax *= glm::vec2{ texelWidth, texelHeight };
+
+        double pl, pb, pr, pt;
+        glyph->getQuadPlaneBounds(pl, pb, pr, pt);
+        glm::vec2 quadMin{ (float)pl, (float)pb };
+        glm::vec2 quadMax{ (float)pr, (float)pt };
+        quadMin *= fsScale; quadMax *= fsScale;
+        quadMin += glm::vec2{ x, y }; quadMax += glm::vec2{ x, y };
+
+        // render
+
+        double advance = glyph->getAdvance();
+        char nextCharacter = 'o';
 
     }
 

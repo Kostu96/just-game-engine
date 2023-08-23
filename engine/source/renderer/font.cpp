@@ -84,9 +84,20 @@ namespace jng {
             glyph.edgeColoring(msdfgen::edgeColoringInkTrap, DEFAULT_ANGLE_THRESHOLD, glyphSeed);
         }
 
-        Ref<Texture> texture = createAndCacheAtlas<u8, f32, 3, msdf_atlas::msdfGenerator>(m_data->glyphs, width, height);
+        m_atlasTexture = createAndCacheAtlas<u8, f32, 3, msdf_atlas::msdfGenerator>(m_data->glyphs, width, height);
 
         msdfgen::destroyFont(font);
+    }
+
+    Ref<Font> Font::getDefaultFont()
+    {
+        static Ref<Font> defaultFont;
+
+        if (!defaultFont) {
+            defaultFont = makeRef<Font>();
+        }
+
+        return defaultFont;
     }
 
     static struct FreetypeInitializer
