@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2022 Konstanty Misiak
+ * Copyright (C) 2021-2023 Konstanty Misiak
  *
  * SPDX-License-Identifier: MIT
  */
@@ -8,6 +8,7 @@
 
 #include "core/base_internal.hpp"
 #include "renderer/renderer2d.hpp"
+#include "renderer/font.hpp"
 #include "scene/components.hpp"
 #include "scene/entity.hpp"
 
@@ -234,7 +235,7 @@ namespace jng {
         drawRenderables();
 
         // TODO: temp
-        Renderer2D::drawText(glm::mat4{}, "Kostu96", );
+        Renderer2D::drawText(glm::mat4{ 1.f }, "Kostu96", Font::getDefaultFont());
 
         Renderer2D::endScene();
     }

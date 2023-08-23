@@ -344,13 +344,13 @@ namespace jng::Renderer2D {
     {
         JNG_PROFILE_FUNCTION();
 
-        endQuadBatch();
+        endTextBatch();
         endQuadBatch();
         endCircleBatch();
         endLineBatch();
     }
 
-    void drawText(const glm::mat4& transform, const std::string& text, Ref<Font> font, const glm::vec4& color)
+    void drawText(const glm::mat4& transform, const std::string& /*text*/, Ref<Font> font, const glm::vec4& color)
     {
         JNG_PROFILE_FUNCTION();
 
@@ -385,9 +385,15 @@ namespace jng::Renderer2D {
         quadMin += glm::vec2{ x, y }; quadMax += glm::vec2{ x, y };
 
         // render
+        s_data.textVBOPtr->position = transform * glm::vec4(quadMin, 0.f, 1.f);
+        s_data.textVBOPtr->texCoord = { 0.f, 0.f };
+        s_data.textVBOPtr->color = glm::packUnorm4x8(color);
+        s_data.textVBOPtr->entityID = -1;
+        ++s_data.textVBOPtr;
 
         double advance = glyph->getAdvance();
         char nextCharacter = 'o';
+        geometry.getAdvance(advance, c, nextCharacter);
 
     }
 

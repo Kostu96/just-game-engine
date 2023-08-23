@@ -6,6 +6,7 @@
 
 #include "renderer/font.hpp"
 #include "renderer/texture.hpp"
+#include "core/engine.hpp"
 
 #include <msdf-atlas-gen/msdf-atlas-gen.h>
 #include <msdfgen.h>
@@ -94,7 +95,8 @@ namespace jng {
         static Ref<Font> defaultFont;
 
         if (!defaultFont) {
-            defaultFont = makeRef<Font>();
+            std::filesystem::path assetsDir = Engine::get().getProperties().assetsDirectory;
+            defaultFont = makeRef<Font>(assetsDir / "fonts/OpenSans-Regular.ttf");
         }
 
         return defaultFont;
