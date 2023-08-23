@@ -249,8 +249,8 @@ namespace jng::Renderer2D {
 
         // Text
         s_data.textShader = makeRef<Shader>(
-            assetsDir / "shaders/quad_vertex.glsl",
-            assetsDir / "shaders/quad_fragment.glsl");
+            assetsDir / "shaders/text_vertex.glsl",
+            assetsDir / "shaders/text_fragment.glsl");
         s_data.textVBO = makeRef<VertexBuffer>(RenderData::MaxQuadVerticesPerBatch * sizeof(TextVertex));
 
         VertexLayout textVertexLayout = {
@@ -350,51 +350,74 @@ namespace jng::Renderer2D {
         endLineBatch();
     }
 
-    void drawText(const glm::mat4& transform, const std::string& /*text*/, Ref<Font> font, const glm::vec4& color)
+    void drawText(const glm::mat4& transform, const std::string& text, Ref<Font> font, const glm::vec4& color)
     {
         JNG_PROFILE_FUNCTION();
 
         const auto& geometry = font->getFontData()->geometry;
         const auto& metrics = geometry.getMetrics();
         auto fontAtlas = font->getAtlasTexture();
+        s_data.fontAtlasTexture = fontAtlas;
 
         double x = 0;
         double fsScale = 1.0 / (metrics.ascenderY - metrics.descenderY);
         double y = 0;
+        for (size_t i = 0; i < text.size(); i++)
+        {
+            char character = text[i];
+            auto glyph = geometry.getGlyph(character);
+            if (!glyph)
+                glyph = geometry.getGlyph('?');
 
-        char c = 'K';
+            double al, ab, ar, at;
+            glyph->getQuadAtlasBounds(al, ab, ar, at);
+            glm::vec2 texCoordMin{ (float)al, (float)ab };
+            glm::vec2 texCoordMax{ (float)ar, (float)at };
+            float texelWidth = 1.f / fontAtlas->getProperties().width;
+            float texelHeight = 1.f / fontAtlas->getProperties().height;
+            texCoordMin *= glm::vec2{ texelWidth, texelHeight };
+            texCoordMax *= glm::vec2{ texelWidth, texelHeight };
 
-        auto glyph = geometry.getGlyph(c);
-        if (!glyph)
-            glyph = geometry.getGlyph('?');
+            double pl, pb, pr, pt;
+            glyph->getQuadPlaneBounds(pl, pb, pr, pt);
+            glm::vec2 quadMin{ (float)pl, (float)pb };
+            glm::vec2 quadMax{ (float)pr, (float)pt };
+            quadMin *= fsScale; quadMax *= fsScale;
+            quadMin += glm::vec2{ x, y }; quadMax += glm::vec2{ x, y };
 
-        double al, ab, ar, at;
-        glyph->getQuadAtlasBounds(al, ab, ar, at);
-        glm::vec2 texCoordMin{ (float)al, (float)ab };
-        glm::vec2 texCoordMax{ (float)ar, (float)at };
-        float texelWidth = 1.f / fontAtlas->getProperties().width;
-        float texelHeight = 1.f / fontAtlas->getProperties().height;
-        texCoordMin *= glm::vec2{ texelWidth, texelHeight };
-        texCoordMax *= glm::vec2{ texelWidth, texelHeight };
+            // render
+            s_data.textVBOPtr->position = transform * glm::vec4(quadMin, 0.f, 1.f);
+            s_data.textVBOPtr->texCoord = texCoordMin;
+            s_data.textVBOPtr->color = glm::packUnorm4x8(color);
+            s_data.textVBOPtr->entityID = -1;
+            ++s_data.textVBOPtr;
 
-        double pl, pb, pr, pt;
-        glyph->getQuadPlaneBounds(pl, pb, pr, pt);
-        glm::vec2 quadMin{ (float)pl, (float)pb };
-        glm::vec2 quadMax{ (float)pr, (float)pt };
-        quadMin *= fsScale; quadMax *= fsScale;
-        quadMin += glm::vec2{ x, y }; quadMax += glm::vec2{ x, y };
+            s_data.textVBOPtr->position = transform * glm::vec4(quadMin.x, quadMax.y, 0.f, 1.f);
+            s_data.textVBOPtr->texCoord = { texCoordMin.x, texCoordMax.y };
+            s_data.textVBOPtr->color = glm::packUnorm4x8(color);
+            s_data.textVBOPtr->entityID = -1;
+            ++s_data.textVBOPtr;
 
-        // render
-        s_data.textVBOPtr->position = transform * glm::vec4(quadMin, 0.f, 1.f);
-        s_data.textVBOPtr->texCoord = { 0.f, 0.f };
-        s_data.textVBOPtr->color = glm::packUnorm4x8(color);
-        s_data.textVBOPtr->entityID = -1;
-        ++s_data.textVBOPtr;
+            s_data.textVBOPtr->position = transform * glm::vec4(quadMax, 0.f, 1.f);
+            s_data.textVBOPtr->texCoord = texCoordMax;
+            s_data.textVBOPtr->color = glm::packUnorm4x8(color);
+            s_data.textVBOPtr->entityID = -1;
+            ++s_data.textVBOPtr;
 
-        double advance = glyph->getAdvance();
-        char nextCharacter = 'o';
-        geometry.getAdvance(advance, c, nextCharacter);
+            s_data.textVBOPtr->position = transform * glm::vec4(quadMax.x, quadMin.y, 0.f, 1.f);
+            s_data.textVBOPtr->texCoord = { texCoordMax.x, texCoordMin.y };
+            s_data.textVBOPtr->color = glm::packUnorm4x8(color);
+            s_data.textVBOPtr->entityID = -1;
+            ++s_data.textVBOPtr;
 
+            s_data.currentTextIndexCount += RenderData::QuadIndexCount;
+
+            ++s_data.statistics.quadCount;
+
+            double advance = glyph->getAdvance();
+            geometry.getAdvance(advance, character, text[i + 1]);
+            x += fsScale * advance /*+ textParams.Kerning*/;
+        }
     }
 
     void drawSprite(const glm::mat4& transform, const SpriteRendererComponent& src, s32 entityID)

@@ -36,7 +36,7 @@ namespace jng {
             (u32)bitmap.width, (u32)bitmap.height
         };
         Ref<Texture> texture = makeRef<Texture>(props);
-        texture->setData((void *)bitmap.pixels, (size_t)bitmap.width * (size_t)bitmap.height);
+        texture->setData((void *)bitmap.pixels, (size_t)bitmap.width * (size_t)bitmap.height * 3);
 
         return texture;
     }

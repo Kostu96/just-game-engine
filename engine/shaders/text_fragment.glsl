@@ -22,17 +22,22 @@ float median(float r, float g, float b)
 
 float screenPixelRange()
 {
-    vec2 unitRange = vec2(pixelxRange) / vec2(textureSize(msdf, 0));
-    vec2 screenTexSize = vec2(1.0) / fwidth(texCoord);
+    const float pixelRange = 2.0; // this is set to the same value for msdfgen
+    vec2 unitRange = vec2(pixelRange) / vec2(textureSize(u_FontAtlas, 0));
+    vec2 screenTexSize = vec2(1.0) / fwidth(v_TexCoord);
     return max(0.5 * dot(unitRange, screenTexSize), 1.0);
 }
 
 void main()
 {
-    o_fragColor = v_Color * texture(u_FontAtlas, v_TexCoord);
+    vec3 msd = texture(u_FontAtlas, v_TexCoord).rgb;
+    float sd = median(msd.r, msd.g, msd.b);
+    float screenPixelDistance = screenPixelRange() * (sd - 0.5);
+    float opacity = clamp(screenPixelDistance + 0.5, 0.0, 1.0);
 
-    if (o_fragColor.a == 0.0)
+    if (opacity == 0.0)
         discard;
 
+    o_fragColor = vec4(v_Color.rgb, opacity * v_Color.a);
     o_entityID = v_EntityID;
 }

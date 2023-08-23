@@ -209,7 +209,6 @@ namespace jng {
         m_physics2dWorld->Step(dt, PHYSICS_VEL_ITERATIONS, PHYSICS_POS_ITERATIONS);
 
         {
-            
             auto group = m_registry.group<Rigidbody2DComponent>(entt::get<TransformComponent>);
             for (auto entity : group)
             {
@@ -232,10 +231,8 @@ namespace jng {
             auto [cc, tc] = group.get<CameraComponent, TransformComponent>(*group.begin());
             Renderer2D::beginScene(cc.camera.getVP(tc.getTransform()));
         }
-        drawRenderables();
 
-        // TODO: temp
-        Renderer2D::drawText(glm::mat4{ 1.f }, "Kostu96", Font::getDefaultFont());
+        drawRenderables();
 
         Renderer2D::endScene();
     }
@@ -260,6 +257,9 @@ namespace jng {
             auto [crc, tc] = circleGroup.get<CircleRendererComponent, TransformComponent>(entity);
             Renderer2D::drawCircle(tc.getTransform(), crc, static_cast<int32>(entity));
         }
+
+        // TODO: temp
+        Renderer2D::drawText(glm::mat4{ 1.f }, "Kostu96", Font::getDefaultFont());
     }
 
     void Scene::drawColliders()

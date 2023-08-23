@@ -41,6 +41,22 @@ namespace jng {
         return 0;
     }
 
+    static size_t textureFormatToByteCount(TextureFormat format)
+    {
+        switch (format)
+        {
+        case TextureFormat::RGB8:
+            return 3;
+        case TextureFormat::RGBA8:
+        case TextureFormat::R32:
+        case TextureFormat::Depth24Stencil8:
+            return 4;
+        }
+
+        JNG_CORE_ASSERT(false, "This should never be triggered!");
+        return 0;
+    }
+
     Texture::Texture(const char* path)
     {
         int width, height, channels;
@@ -80,8 +96,8 @@ namespace jng {
 
     void Texture::setData(void* data, [[maybe_unused]] size_t size) const
     {
-        JNG_CORE_ASSERT(size == static_cast<size_t>(m_properties.width) * static_cast<size_t>(m_properties.height) * 4,
-            "Data must be entire texture!");
+        JNG_CORE_ASSERT(size == static_cast<size_t>(m_properties.width) * static_cast<size_t>(m_properties.height) *
+            textureFormatToByteCount(m_properties.specification.format), "Data must be entire texture!");
 
         glTextureSubImage2D(m_id, 0, 0, 0,
             static_cast<int>(m_properties.width), static_cast<int>(m_properties.height),
