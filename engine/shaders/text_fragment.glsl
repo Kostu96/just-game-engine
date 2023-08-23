@@ -35,9 +35,10 @@ void main()
     float screenPixelDistance = screenPixelRange() * (sd - 0.5);
     float opacity = clamp(screenPixelDistance + 0.5, 0.0, 1.0);
 
-    if (opacity == 0.0)
-        discard;
+    //if (opacity == 0.0)
+    //    discard;
 
-    o_fragColor = vec4(v_Color.rgb, opacity * v_Color.a);
+    //o_fragColor = vec4(v_Color.rgb, opacity * v_Color.a);
+    o_fragColor = vec4(1.0, 1.0, 0.0, 1.0);
     o_entityID = v_EntityID;
 }

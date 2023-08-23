@@ -5,7 +5,7 @@
  */
 
 #pragma once
-#include "core/base.hpp"
+#include "jng/core/base.hpp"
 
 namespace jng {
 

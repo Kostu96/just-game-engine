@@ -359,22 +359,49 @@ namespace jng::Renderer2D {
         auto fontAtlas = font->getAtlasTexture();
         s_data.fontAtlasTexture = fontAtlas;
 
+        const double spaceGlyphAdvance = geometry.getGlyph(' ')->getAdvance();
+        const double fsScale = 1.0 / (metrics.ascenderY - metrics.descenderY);
+
         double x = 0;
-        double fsScale = 1.0 / (metrics.ascenderY - metrics.descenderY);
         double y = 0;
+        auto advanceX = [&x, &geometry, &fsScale](double advance, char character, char nextCharacter)
+        {
+            geometry.getAdvance(advance, character, nextCharacter);
+            x += fsScale * advance /*+ textParams.Kerning*/;
+        };
+
         for (size_t i = 0; i < text.size(); i++)
         {
             char character = text[i];
+
+            if (character == '\r') continue;
+            if (character == '\n') {
+                x = 0;
+                y -= fsScale * metrics.lineHeight /*+ textParams.LineSpacing*/;
+                continue;
+            }
+            if (character == ' ') {
+                advanceX(spaceGlyphAdvance, character, text[i + 1]);
+                continue;
+            }
+            if (character == '\t') {
+                // TODO: is this right?
+                x += 4.0f * (fsScale * spaceGlyphAdvance /*+ textParams.Kerning*/);
+                continue;
+            }
+
             auto glyph = geometry.getGlyph(character);
             if (!glyph)
                 glyph = geometry.getGlyph('?');
+            if (!glyph)
+                return;
 
             double al, ab, ar, at;
             glyph->getQuadAtlasBounds(al, ab, ar, at);
             glm::vec2 texCoordMin{ (float)al, (float)ab };
             glm::vec2 texCoordMax{ (float)ar, (float)at };
-            float texelWidth = 1.f / fontAtlas->getProperties().width;
-            float texelHeight = 1.f / fontAtlas->getProperties().height;
+            const float texelWidth = 1.f / fontAtlas->getProperties().width;
+            const float texelHeight = 1.f / fontAtlas->getProperties().height;
             texCoordMin *= glm::vec2{ texelWidth, texelHeight };
             texCoordMax *= glm::vec2{ texelWidth, texelHeight };
 
@@ -414,9 +441,7 @@ namespace jng::Renderer2D {
 
             ++s_data.statistics.quadCount;
 
-            double advance = glyph->getAdvance();
-            geometry.getAdvance(advance, character, text[i + 1]);
-            x += fsScale * advance /*+ textParams.Kerning*/;
+            advanceX(glyph->getAdvance(), character, text[i + 1]);
         }
     }
 
@@ -586,64 +611,6 @@ namespace jng::Renderer2D {
         drawLine(p1, p2, color);
         drawLine(p2, p3, color);
         drawLine(p3, p0, color);
-    }
-
-    void fillQuad(glm::vec3 position, glm::vec2 size, const glm::vec4& color)
-    {
-        fillQuad(position, size, s_data.whiteTexture, color);
-    }
-
-    void fillQuad(glm::vec3 position, glm::vec2 size, const Ref<Texture>& texture, const glm::vec4& color)
-    {
-        glm::vec3 quadVertexPositions[RenderData::QuadVertexCount];
-
-        quadVertexPositions[0] = { position.x,          position.y,          position.z };
-        quadVertexPositions[1] = { position.x + size.x, position.y,          position.z };
-        quadVertexPositions[2] = { position.x + size.x, position.y + size.y, position.z };
-        quadVertexPositions[3] = { position.x,          position.y + size.y, position.z };
-
-        constexpr glm::vec2 texCoords[RenderData::QuadVertexCount] = {
-            { 0.f, 0.f },
-            { 1.f, 0.f },
-            { 1.f, 1.f },
-            { 0.f, 1.f }
-        };
-
-        const DrawQuadProperties properties{
-            quadVertexPositions,
-            texCoords,
-            texture,
-            glm::packUnorm4x8(color)
-        };
-        drawQuad(properties);
-    }
-
-    void fillQuad(const glm::mat4& transform, const glm::vec4& color)
-    {
-        fillQuad(transform, s_data.whiteTexture, color);
-    }
-
-    void fillQuad(const glm::mat4& transform, const Ref<Texture>& texture, const glm::vec4& color)
-    {
-        glm::vec3 quadVertexPositions[RenderData::QuadVertexCount];
-
-        for (u16 i = 0; i < RenderData::QuadVertexCount; ++i)
-            quadVertexPositions[i] = transform * s_data.quadVertexPositions[i];
-
-        constexpr glm::vec2 texCoords[RenderData::QuadVertexCount] = {
-            { 0.f, 0.f },
-            { 1.f, 0.f },
-            { 1.f, 1.f },
-            { 0.f, 1.f }
-        };
-
-        const DrawQuadProperties properties{
-            quadVertexPositions,
-            texCoords,
-            texture,
-            glm::packUnorm4x8(color)
-        };
-        drawQuad(properties);
     }
 
     const Statistics& getStatistics()

@@ -56,11 +56,6 @@ namespace jng {
         void drawLine(const glm::vec3& p0, const glm::vec3& p1, const glm::vec4& color);
         void drawRect(const glm::mat4& transform, const glm::vec4& color);
 
-        void fillQuad(glm::vec3 position, glm::vec2 size, const glm::vec4& color);
-        void fillQuad(glm::vec3 position, glm::vec2 size, const Ref<Texture>& texture, const glm::vec4& color = { 1.f, 1.f, 1.f, 1.f });
-        void fillQuad(const glm::mat4& transform, const glm::vec4& color);
-        void fillQuad(const glm::mat4& transform, const Ref<Texture>& texture, const glm::vec4& color = { 1.f, 1.f, 1.f, 1.f });
-
         struct Statistics
         {
             u32 drawCalls = 0;
