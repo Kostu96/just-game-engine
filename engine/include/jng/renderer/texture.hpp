@@ -9,42 +9,36 @@
 
 namespace jng {
 
-    enum class TextureFormat {
-        None,
-
-        RGB8,  // normalized integer
-        RGBA8, // normalized integer
-        R32,   // unsigned integer
-
-        Depth24Stencil8
-    };
-
-    enum class TextureFilter {
-        Linear,
-        Nearest
-    };
-
-    enum class TextureWrapMode {
-        Clamp,
-        Wrap
-    };
-
-    struct TextureSpecification {
-        TextureFormat format;
-        TextureFilter minificationFilter = TextureFilter::Linear;
-        TextureFilter magnificationFilter = TextureFilter::Linear;
-        TextureWrapMode wrapMode = TextureWrapMode::Clamp;
-
-        TextureSpecification(TextureFormat inFormat) : format{ inFormat } {}
-    };
-
     class Texture final
     {
     public:
+        enum class Format {
+            None,
+
+            RGB8,  // normalized integer
+            RGBA8, // normalized integer
+            R32,   // unsigned integer
+
+            Depth24Stencil8
+        };
+
+        enum class FilterMode {
+            Linear,
+            Nearest
+        };
+
+        enum class WrapMode {
+            Clamp,
+            Repeat
+        };
+
         struct Properties {
-            TextureSpecification specification = TextureFormat::None;
-            u32 width;
-            u32 height;
+            u32 width = 1;
+            u32 height = 1;
+            Format format = Format::None;
+            FilterMode minificationFilter = FilterMode::Linear;
+            FilterMode magnificationFilter = FilterMode::Linear;
+            WrapMode wrapMode = WrapMode::Clamp;
         };
 
         explicit Texture(const char* path);

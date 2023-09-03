@@ -31,10 +31,10 @@ namespace jng {
 
         msdfgen::BitmapConstRef<T, N> bitmap = (msdfgen::BitmapConstRef<T, N>)generator.atlasStorage();
 
-        Texture::Properties props{
-            TextureFormat::RGB8,
-            (u32)bitmap.width, (u32)bitmap.height
-        };
+        Texture::Properties props;
+        props.format = Texture::Format::RGB8;
+        props.width = (u32)bitmap.width;
+        props.height = (u32)bitmap.height;
         Ref<Texture> texture = makeRef<Texture>(props);
         texture->setData((void *)bitmap.pixels, (size_t)bitmap.width * (size_t)bitmap.height * 3);
 

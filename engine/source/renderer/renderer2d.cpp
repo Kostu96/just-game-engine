@@ -219,10 +219,8 @@ namespace jng::Renderer2D {
         s_data.cameraUBO = makeRef<UniformBuffer>(sizeof(glm::mat4));
         s_data.cameraUBO->bind(0);
 
-        Texture::Properties props{
-            TextureFormat::RGBA8,
-            1, 1
-        };
+        Texture::Properties props;
+        props.format = Texture::Format::RGBA8;
         s_data.whiteTexture = makeRef<Texture>(props);
         u32 whiteTextureData = 0xffffffff;
         s_data.whiteTexture->setData(&whiteTextureData, sizeof(u32));
