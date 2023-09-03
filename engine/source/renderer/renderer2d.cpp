@@ -419,7 +419,7 @@ namespace jng::Renderer2D {
             s_data.textVBOPtr->entityID = -1;
             ++s_data.textVBOPtr;
 
-            s_data.textVBOPtr->position = transform * glm::vec4(quadMin.x, quadMax.y, 0.f, 1.f);
+            s_data.textVBOPtr->position = transform * glm::vec4(quadMax.x, quadMin.y, 0.f, 1.f);
             s_data.textVBOPtr->texCoord = { texCoordMin.x, texCoordMax.y };
             s_data.textVBOPtr->color = glm::packUnorm4x8(color);
             s_data.textVBOPtr->entityID = -1;
@@ -431,7 +431,7 @@ namespace jng::Renderer2D {
             s_data.textVBOPtr->entityID = -1;
             ++s_data.textVBOPtr;
 
-            s_data.textVBOPtr->position = transform * glm::vec4(quadMax.x, quadMin.y, 0.f, 1.f);
+            s_data.textVBOPtr->position = transform * glm::vec4(quadMin.x, quadMax.y, 0.f, 1.f);
             s_data.textVBOPtr->texCoord = { texCoordMax.x, texCoordMin.y };
             s_data.textVBOPtr->color = glm::packUnorm4x8(color);
             s_data.textVBOPtr->entityID = -1;
