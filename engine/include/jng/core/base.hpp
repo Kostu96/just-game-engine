@@ -1,10 +1,12 @@
 /*
- * Copyright (C) 2021-2022 Konstanty Misiak
+ * Copyright (C) 2021-2023 Konstanty Misiak
  *
  * SPDX-License-Identifier: MIT
  */
 
 #pragma once
+#include <cstdint>
+#include <memory>
 
 #define JNG_BIND_EVENT_FUNC(func) [this](auto&& ...args) -> decltype(auto) { return this->func(std::forward<decltype(args)>(args)...); }
 
