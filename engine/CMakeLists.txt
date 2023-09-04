@@ -70,7 +70,7 @@ target_include_directories(${JNG_TARGET_NAME}
 
 if (WIN32)
     target_link_options(${JNG_TARGET_NAME} PUBLIC
-        /ignore:4099
+        /ignore:4099 # NOTE: ignore warning about pdb files for debug libraries.
     )
 endif()
 
@@ -94,3 +94,40 @@ target_precompile_headers(${JNG_TARGET_NAME} PUBLIC
     <unordered_map>
     <vector>
 )
+
+set_target_properties(${JNG_TARGET_NAME} PROPERTIES
+    VERSION "${PROJECT_VERSION}"
+    DEBUG_POSTFIX "${CMAKE_DEBUG_POSTFIX}"
+)
+
+add_library(${JNG_TARGET_NAME}::${JNG_TARGET_NAME} ALIAS ${JNG_TARGET_NAME}) # NOTE: this is to ensure the same targets are exported with add_subdirectory and find_package
+
+set(CONFIG_EXPORT_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/${JNG_TARGET_NAME}")
+set(EXPORT_TARGETS ${JNG_TARGET_NAME})
+configure_package_config_file(
+    "${PROJECT_SOURCE_DIR}/${JNG_TARGET_NAME}-config.cmake.in"
+    "${PROJECT_BINARY_DIR}/${JNG_TARGET_NAME}-config.cmake"
+    INSTALL_DESTINATION "${CONFIG_EXPORT_DIR}"
+    #PATH_VARS CMAKE_INSTALL_INCLUDEDIR CMAKE_INSTALL_LIBDIR CONFIG_EXPORT_DIR
+)
+unset(EXPORT_TARGETS)
+
+write_basic_package_version_file(
+    "${PROJECT_BINARY_DIR}/${JNG_TARGET_NAME}-config-version.cmake"
+    COMPATIBILITY AnyNewerVersion
+)
+
+if (NOT ${JNG_NO_INSTALL})
+    install(TARGETS ${JNG_TARGET_NAME}
+        EXPORT ${JNG_TARGET_NAME}-targets
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib
+        RUNTIME DESTINATION bin
+        INCLUDES DESTINATION include
+    )
+    
+    install(EXPORT ${JNG_TARGET_NAME}-targets
+        NAMESPACE ${JNG_TARGET_NAME}::
+        DESTINATION "${CONFIG_EXPORT_DIR}"
+    )
+endif()
