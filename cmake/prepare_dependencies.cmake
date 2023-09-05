@@ -9,7 +9,8 @@ execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_BINARY_DIR}
 
 message(STATUS "Preparing glm...")
 if (NOT EXISTS "${PROJECT_BINARY_DIR}/dependencies/glm/.git")
-    execute_process(COMMAND ${GIT_EXECUTABLE} clone https://github.com/g-truc/glm.git --depth 1 WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/dependencies OUTPUT_QUIET)
+    execute_process(COMMAND ${GIT_EXECUTABLE} clone https://github.com/g-truc/glm.git WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/dependencies OUTPUT_QUIET)
+    execute_process(COMMAND ${GIT_EXECUTABLE} checkout 47585fd WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/dependencies/glm OUTPUT_QUIET)
 endif()
 execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_BINARY_DIR}/dependencies/glm/build OUTPUT_QUIET)
 execute_process(COMMAND ${CMAKE_COMMAND} -S ${PROJECT_BINARY_DIR}/dependencies/glm -B ${PROJECT_BINARY_DIR}/dependencies/glm/build -DBUILD_TESTING=OFF OUTPUT_QUIET)

@@ -19,7 +19,7 @@ include(cmake/compiler_warnings.cmake)
 
 ### options: ###
 option(JNG_BUILD_SAMPLES "Build sample projects" ON)
-option(JNG_NO_INSTALL "Do not generate install target" OFF)
+option(JNG_INSTALL "Do not generate install target" ${JNG_MAIN_PROJECT})
 ################
 
 add_subdirectory(engine)

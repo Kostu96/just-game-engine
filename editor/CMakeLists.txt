@@ -25,7 +25,7 @@ target_compile_options(${EDITOR_TARGET_NAME} PRIVATE
 )
 
 target_link_libraries(${EDITOR_TARGET_NAME} PRIVATE
-    ${JNG_TARGET_NAME}
+    jng::jng
     ${JNG_EDITOR_THIRD_PARTY_LIBRARIES}
 )
 
