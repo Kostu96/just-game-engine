@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 Konstanty Misiak
+# Copyright (C) 2021-2023 Konstanty Misiak
 #
 # SPDX-License-Identifier: MIT
 #
@@ -10,7 +10,7 @@ project(glad-proj LANGUAGES C)
 set(GLAD_TARGET_NAME glad)
 
 add_library(${GLAD_TARGET_NAME} STATIC
-	${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
+    ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
     ${CMAKE_CURRENT_SOURCE_DIR}/include/glad/gl.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/glad/wgl.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/KHR/khrplatform.h

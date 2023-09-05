@@ -14,16 +14,13 @@ project(just-game-engine
 
 include(CMakePackageConfigHelpers)
 include(cmake/base_configuration.cmake)
+include(cmake/prepare_dependencies.cmake)
 include(cmake/compiler_warnings.cmake)
 
 ### options: ###
 option(JNG_BUILD_SAMPLES "Build sample projects" ON)
 option(JNG_NO_INSTALL "Do not generate install target" OFF)
 ################
-
-if (NOT DEFINED CMAKE_DEBUG_POSTFIX)
-  set(CMAKE_DEBUG_POSTFIX "d")
-endif()
 
 add_subdirectory(engine)
 add_subdirectory(editor)
