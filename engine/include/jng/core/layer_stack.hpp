@@ -1,10 +1,11 @@
 /*
- * Copyright (C) 2020-2022 Konstanty Misiak
+ * Copyright (C) 2020-2023 Konstanty Misiak
  *
  * SPDX-License-Identifier: MIT
  */
 
 #pragma once
+#include <vector>
 
 namespace jng {
 

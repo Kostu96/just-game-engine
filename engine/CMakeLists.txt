@@ -8,8 +8,6 @@ set(JNG_TARGET_NAME jng)
 set(JNG_TARGET_NAME ${JNG_TARGET_NAME} PARENT_SCOPE)
 
 add_subdirectory(third_party)
-find_package(msdf-atlas-gen REQUIRED)
-find_package(yaml-cpp REQUIRED)
 
 set(JNG_HEADERS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/jng)
 add_subdirectory(source)
@@ -21,6 +19,8 @@ set(JNG_SHADER_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/shaders/line_vertex.glsl
     ${CMAKE_CURRENT_SOURCE_DIR}/shaders/quad_fragment.glsl
     ${CMAKE_CURRENT_SOURCE_DIR}/shaders/quad_vertex.glsl
+    ${CMAKE_CURRENT_SOURCE_DIR}/shaders/text_fragment.glsl
+    ${CMAKE_CURRENT_SOURCE_DIR}/shaders/text_vertex.glsl
 )
 
 add_library(${JNG_TARGET_NAME} STATIC
@@ -54,8 +54,6 @@ target_include_directories(${JNG_TARGET_NAME} SYSTEM
     PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/glm
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/entt/include
-    PRIVATE
-    ${Vulkan_INCLUDE_DIRS}
 )
 
 target_include_directories(${JNG_TARGET_NAME}
@@ -66,18 +64,13 @@ target_include_directories(${JNG_TARGET_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/source
 )
 
-if (WIN32)
-    target_link_options(${JNG_TARGET_NAME} PUBLIC
-        /ignore:4099
-    )
-endif()
-
 target_link_libraries(${JNG_TARGET_NAME}
     PUBLIC
     ${JNG_ENGINE_THIRD_PARTY_LIBRARIES}
     yaml-cpp::yaml-cpp
     PRIVATE
     msdf-atlas-gen::msdf-atlas-gen
+    VulkanShaderTools
 )
 
 target_precompile_headers(${JNG_TARGET_NAME} PUBLIC
@@ -92,3 +85,40 @@ target_precompile_headers(${JNG_TARGET_NAME} PUBLIC
     <unordered_map>
     <vector>
 )
+
+set_target_properties(${JNG_TARGET_NAME} PROPERTIES
+    VERSION "${PROJECT_VERSION}"
+    DEBUG_POSTFIX "${CMAKE_DEBUG_POSTFIX}"
+)
+
+add_library(${JNG_TARGET_NAME}::${JNG_TARGET_NAME} ALIAS ${JNG_TARGET_NAME}) # NOTE: this is to ensure the same targets are exported with add_subdirectory and find_package
+
+#set(CONFIG_EXPORT_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/${JNG_TARGET_NAME}")
+#set(EXPORT_TARGETS ${JNG_TARGET_NAME})
+#configure_package_config_file(
+#    "${PROJECT_SOURCE_DIR}/${JNG_TARGET_NAME}-config.cmake.in"
+#    "${PROJECT_BINARY_DIR}/${JNG_TARGET_NAME}-config.cmake"
+#    INSTALL_DESTINATION "${CONFIG_EXPORT_DIR}"
+#    #PATH_VARS CMAKE_INSTALL_INCLUDEDIR CMAKE_INSTALL_LIBDIR CONFIG_EXPORT_DIR
+#)
+#unset(EXPORT_TARGETS)
+#
+#write_basic_package_version_file(
+#    "${PROJECT_BINARY_DIR}/${JNG_TARGET_NAME}-config-version.cmake"
+#    COMPATIBILITY AnyNewerVersion
+#)
+#
+#if (NOT ${JNG_NO_INSTALL})
+#    install(TARGETS ${JNG_TARGET_NAME}
+#        EXPORT ${JNG_TARGET_NAME}-targets
+#        LIBRARY DESTINATION lib
+#        ARCHIVE DESTINATION lib
+#        RUNTIME DESTINATION bin
+#        INCLUDES DESTINATION include
+#    )
+#    
+#    install(EXPORT ${JNG_TARGET_NAME}-targets
+#        NAMESPACE ${JNG_TARGET_NAME}::
+#        DESTINATION "${CONFIG_EXPORT_DIR}"
+#    )
+#endif()

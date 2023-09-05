@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Konstanty Misiak
+ * Copyright (C) 2022-2023 Konstanty Misiak
  *
  * SPDX-License-Identifier: MIT
  */
@@ -28,10 +28,10 @@ namespace jng {
     EditorLayer::EditorLayer(const Properties& /*properties*/) :
         m_viewportFramebuffer{ makeRef<Framebuffer>(Framebuffer::Properties{
             .width = 1, .height = 1,
-            .attachmentsSpecifications = {
-                jng::TextureFormat::RGBA8,
-                jng::TextureFormat::R32,
-                jng::TextureFormat::Depth24Stencil8
+            .attachmentsProperties = {
+                Texture::Properties{ .format = Texture::Format::RGBA8 },
+                Texture::Properties{ .format = Texture::Format::R32 },
+                Texture::Properties{ .format = Texture::Format::Depth24Stencil8 }
             }
         }) },
         m_mainMenuBar{ m_context },

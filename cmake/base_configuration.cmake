@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2022 Konstanty Misiak
+# Copyright (C) 2021-2023 Konstanty Misiak
 #
 # SPDX-License-Identifier: MIT
 #
@@ -17,6 +17,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/output/release/bi
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/output/release/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/output/release/lib)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_DEBUG_POSTFIX "d")
 
 function(assure_out_of_source_builds)
     # make sure the user doesn't play dirty with symlinks

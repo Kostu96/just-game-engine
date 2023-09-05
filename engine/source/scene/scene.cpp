@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2022 Konstanty Misiak
+ * Copyright (C) 2021-2023 Konstanty Misiak
  *
  * SPDX-License-Identifier: MIT
  */
@@ -8,6 +8,7 @@
 
 #include "core/base_internal.hpp"
 #include "renderer/renderer2d.hpp"
+#include "renderer/font.hpp"
 #include "scene/components.hpp"
 #include "scene/entity.hpp"
 
@@ -208,7 +209,6 @@ namespace jng {
         m_physics2dWorld->Step(dt, PHYSICS_VEL_ITERATIONS, PHYSICS_POS_ITERATIONS);
 
         {
-            
             auto group = m_registry.group<Rigidbody2DComponent>(entt::get<TransformComponent>);
             for (auto entity : group)
             {
@@ -231,7 +231,9 @@ namespace jng {
             auto [cc, tc] = group.get<CameraComponent, TransformComponent>(*group.begin());
             Renderer2D::beginScene(cc.camera.getVP(tc.getTransform()));
         }
+
         drawRenderables();
+
         Renderer2D::endScene();
     }
 
@@ -255,6 +257,9 @@ namespace jng {
             auto [crc, tc] = circleGroup.get<CircleRendererComponent, TransformComponent>(entity);
             Renderer2D::drawCircle(tc.getTransform(), crc, static_cast<int32>(entity));
         }
+
+        // TODO: temp
+        Renderer2D::drawText(glm::mat4{ 1.f }, "Kostu96", Font::getDefaultFont());
     }
 
     void Scene::drawColliders()

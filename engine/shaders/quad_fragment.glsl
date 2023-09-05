@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2022 Konstanty Misiak
+// Copyright (C) 2022-2023 Konstanty Misiak
 //
 // SPDX-License-Identifier: MIT
 //
@@ -39,6 +39,9 @@ void main()
     case 14: o_fragColor *= texture(u_Textures[14], v_TexCoord); break;
     case 15: o_fragColor *= texture(u_Textures[15], v_TexCoord); break;
     }
+
+    if (o_fragColor.a == 0.0)
+        discard;
 
     o_entityID = v_EntityID;
 }

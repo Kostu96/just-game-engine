@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Konstanty Misiak
+ * Copyright (C) 2022-2023 Konstanty Misiak
  *
  * SPDX-License-Identifier: MIT
  */
@@ -44,8 +44,10 @@ public:
     SampleLayer() :
         m_framebuffer{ jng::makeRef<jng::Framebuffer>(jng::Framebuffer::Properties{
             .width = WindowWidth, .height = WindowHeight,
-            .attachmentsSpecifications = { jng::TextureFormat::RGBA8, jng::TextureFormat::Depth24Stencil8 }
-        }) },
+            .attachmentsProperties = {
+                jng::Texture::Properties { .format = jng::Texture::Format::RGBA8 },
+                jng::Texture::Properties { .format = jng::Texture::Format::Depth24Stencil8 }
+        }}) },
         m_texture{ jng::makeRef<jng::Texture>("assets/hello_framebuffer/textures/test.png") },
         m_shader{ jng::makeRef<jng::Shader>("assets/hello_framebuffer/shaders/vertex.glsl", "assets/hello_framebuffer/shaders/fragment.glsl") },
         m_cameraUBO{ jng::makeRef<jng::UniformBuffer>(sizeof(glm::mat4)) },

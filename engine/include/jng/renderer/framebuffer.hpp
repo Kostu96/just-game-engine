@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Konstanty Misiak
+ * Copyright (C) 2022-2023 Konstanty Misiak
  *
  * SPDX-License-Identifier: MIT
  */
@@ -17,7 +17,7 @@ namespace jng {
             u32 width;
             u32 height;
             u32 samples = 1;
-            std::vector<TextureSpecification> attachmentsSpecifications;
+            std::vector<Texture::Properties> attachmentsProperties;
             
             bool swapChainTarget = false;
         };
