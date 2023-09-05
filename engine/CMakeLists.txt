@@ -20,15 +20,13 @@ set(JNG_SHADER_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/shaders/quad_fragment.glsl
     ${CMAKE_CURRENT_SOURCE_DIR}/shaders/quad_vertex.glsl
     ${CMAKE_CURRENT_SOURCE_DIR}/shaders/text_fragment.glsl
-    ${CMAKE_CURRENT_SOURCE_DIR}/shaders/text_vertex.glsl
-)
+    ${CMAKE_CURRENT_SOURCE_DIR}/shaders/text_vertex.glsl)
 
 add_library(${JNG_TARGET_NAME} STATIC
     ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
     ${JNG_HEADERS}
     ${JNG_SOURCES}
-    ${JNG_SHADER_SOURCES}
-)
+    ${JNG_SHADER_SOURCES})
 
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/include/jng PREFIX source FILES ${JNG_HEADERS})
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/source PREFIX source FILES ${JNG_SOURCES})
@@ -39,39 +37,31 @@ target_compile_definitions(${JNG_TARGET_NAME} PUBLIC
     IMGUI_USER_CONFIG="jng/imconfig.hpp"
 )
 if (WIN32)
-    target_compile_definitions(${JNG_TARGET_NAME} PUBLIC
-        JNG_WINDOWS
-    )
+    target_compile_definitions(${JNG_TARGET_NAME} PUBLIC JNG_WINDOWS)
 endif()
 
 set_target_warnings(${JNG_TARGET_NAME})
 
 target_compile_options(${JNG_TARGET_NAME} PRIVATE
-    $<$<CXX_COMPILER_ID:MSVC>:/MP /fp:fast /external:anglebrackets /external:W1>
-)
+    $<$<CXX_COMPILER_ID:MSVC>:/MP /fp:fast /external:anglebrackets /external:W1>)
 
-target_include_directories(${JNG_TARGET_NAME} SYSTEM
-    PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/glm
-    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/entt/include
-)
+target_include_directories(${JNG_TARGET_NAME} SYSTEM PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/third_party/entt/include)
 
 target_include_directories(${JNG_TARGET_NAME}
     PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include/jng
-    ${CMAKE_CURRENT_SOURCE_DIR}/source
-)
+    ${CMAKE_CURRENT_SOURCE_DIR}/source)
 
 target_link_libraries(${JNG_TARGET_NAME}
     PUBLIC
-    ${JNG_ENGINE_THIRD_PARTY_LIBRARIES}
+    glm::glm
     yaml-cpp::yaml-cpp
+    ${JNG_ENGINE_THIRD_PARTY_LIBRARIES}
     PRIVATE
     msdf-atlas-gen::msdf-atlas-gen
-    VulkanShaderTools
-)
+    VulkanShaderTools)
 
 target_precompile_headers(${JNG_TARGET_NAME} PUBLIC
     <glm/glm.hpp>
@@ -83,13 +73,11 @@ target_precompile_headers(${JNG_TARGET_NAME} PUBLIC
     <memory>
     <string>
     <unordered_map>
-    <vector>
-)
+    <vector>)
 
 set_target_properties(${JNG_TARGET_NAME} PROPERTIES
     VERSION "${PROJECT_VERSION}"
-    DEBUG_POSTFIX "${CMAKE_DEBUG_POSTFIX}"
-)
+    DEBUG_POSTFIX "${CMAKE_DEBUG_POSTFIX}")
 
 add_library(${JNG_TARGET_NAME}::${JNG_TARGET_NAME} ALIAS ${JNG_TARGET_NAME}) # NOTE: this is to ensure the same targets are exported with add_subdirectory and find_package
 
