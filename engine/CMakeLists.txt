@@ -60,7 +60,11 @@ target_link_libraries(jng
     yaml-cpp::yaml-cpp
     ${JNG_ENGINE_THIRD_PARTY_LIBRARIES}
     PRIVATE
+    box2d::box2d
+    glad::glad
+    lua::lua
     msdf-atlas-gen::msdf-atlas-gen
+    stb::stb
     VulkanShaderTools)
 
 target_precompile_headers(jng PUBLIC
@@ -77,40 +81,42 @@ target_precompile_headers(jng PUBLIC
 
 set_target_properties(jng PROPERTIES
     VERSION "${PROJECT_VERSION}"
+    SOVERSION "${PROJECT_VERSION_MAJOR}"
     DEBUG_POSTFIX "${CMAKE_DEBUG_POSTFIX}")
 
 add_library(jng::jng ALIAS jng)
 
 if (${JNG_INSTALL})
-    install(TARGETS jng box2d glad glfw imgui lua spdlog stb VulkanShaderTools
+    include(GNUInstallDirs)
+    
+    install(TARGETS jng
         EXPORT jngTargets
-        LIBRARY DESTINATION lib
-        ARCHIVE DESTINATION lib
-        RUNTIME DESTINATION bin
         INCLUDES DESTINATION include)
     
     install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/jng DESTINATION include)
     
     install(EXPORT jngTargets
+        NAMESPACE jng::
         FILE jngTargets.cmake
         DESTINATION lib/cmake/jng)
         
     include(CMakePackageConfigHelpers)
     
-    configure_package_config_file(${CMAKE_SOURCE_DIR}/jngConfig.cmake.in "${CMAKE_CURRENT_BINARY_DIR}/jngConfig.cmake"
+    configure_package_config_file(${CMAKE_SOURCE_DIR}/jngConfig.cmake.in "${CMAKE_BINARY_DIR}/jngConfig.cmake"
         INSTALL_DESTINATION "lib/cmake/jng"
         NO_SET_AND_CHECK_MACRO
         NO_CHECK_REQUIRED_COMPONENTS_MACRO)
         
-    write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/jngConfigVersion.cmake"
-        VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}"
-        COMPATIBILITY AnyNewerVersion)
+    write_basic_package_version_file("${CMAKE_BINARY_DIR}/jngConfigVersion.cmake"
+        VERSION "${PROJECT_VERSION}"
+        COMPATIBILITY SameMajorVersion)
         
     install(FILES
-        ${CMAKE_CURRENT_BINARY_DIR}/jngConfig.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}/jngConfigVersion.cmake
+        ${CMAKE_BINARY_DIR}/jngConfig.cmake
+        ${CMAKE_BINARY_DIR}/jngConfigVersion.cmake
         DESTINATION lib/cmake/jng)
         
-#    export(EXPORT jngTargets
-#        FILE "${CMAKE_CURRENT_BINARY_DIR}/jngTargets.cmake")
+    export(EXPORT jngTargets
+        NAMESPACE jng::
+        FILE "${CMAKE_BINARY_DIR}/jngTargets.cmake")
 endif()

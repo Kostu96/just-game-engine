@@ -16,15 +16,9 @@ set(CMAKE_CXX_CPPCHECK "")
 
 set(COMPILER_FLAGS /MP /fp:fast)
 
-### box2d: ###
-add_subdirectory(box2d)
-##############
-
 ### glad: ###
+set(GLAD_INSTALL ON CACHE BOOL "" FORCE)
 add_subdirectory(glad)
-target_compile_options(glad PRIVATE
-    $<$<CXX_COMPILER_ID:MSVC>:${COMPILER_FLAGS}>
-)
 #############
 
 ### glfw: ###
@@ -73,10 +67,6 @@ target_include_directories(imgui SYSTEM PUBLIC
 target_link_libraries(imgui PUBLIC glfw)
 ##############
 
-### Lua ###
-add_subdirectory(lua)
-###########
-
 ### spdlog: ###
 add_subdirectory(spdlog)
 target_compile_options(spdlog PRIVATE
@@ -85,24 +75,20 @@ target_compile_options(spdlog PRIVATE
 ###############
 
 ### stb: ###
+set(STB_INSTALL ON CACHE BOOL "" FORCE)
 add_subdirectory(stb)
-target_compile_options(stb PRIVATE
-    $<$<CXX_COMPILER_ID:MSVC>:${COMPILER_FLAGS}>
-)
 ############
 
 set(JNG_ENGINE_THIRD_PARTY_LIBRARIES
-    box2d
-    glad
     glfw
     imgui
-    lua
     spdlog
-    stb
 )
 
 set_target_properties(
     ${JNG_ENGINE_THIRD_PARTY_LIBRARIES}
+    glad
+    stb
     update_mappings
     PROPERTIES
     FOLDER third_party

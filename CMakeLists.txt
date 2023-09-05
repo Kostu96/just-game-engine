@@ -7,7 +7,7 @@
 cmake_minimum_required(VERSION 3.16...3.24)
 
 project(just-game-engine 
-    VERSION 0.1
+    VERSION 0.1.0
     DESCRIPTION "Hobby game engine"
     LANGUAGES CXX
 )

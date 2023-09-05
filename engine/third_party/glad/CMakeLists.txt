@@ -33,11 +33,38 @@ target_include_directories(glad SYSTEM PUBLIC
 
 set_target_properties(glad PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
 
+add_library(glad::glad ALIAS glad)
+
 if (GLAD_INSTALL)
+    include(GNUInstallDirs)
+    
     install(TARGETS glad
-            EXPORT gladTargets
-            DESTINATION lib)
-            
-    install(FILES ${GLAD_HEADERS}
-            DESTINATION include)
+        EXPORT gladTargets
+        INCLUDES DESTINATION include)
+    
+    install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/glad ${CMAKE_CURRENT_SOURCE_DIR}/include/KHR DESTINATION include)
+    
+    install(EXPORT gladTargets
+        NAMESPACE glad::
+        FILE gladTargets.cmake
+        DESTINATION lib/cmake/glad)
+        
+    include(CMakePackageConfigHelpers)
+    
+    configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/gladConfig.cmake.in "${CMAKE_CURRENT_BINARY_DIR}/gladConfig.cmake"
+        INSTALL_DESTINATION "lib/cmake/glad"
+        NO_SET_AND_CHECK_MACRO
+        NO_CHECK_REQUIRED_COMPONENTS_MACRO)
+        
+    write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/gladConfigVersion.cmake"
+        COMPATIBILITY AnyNewerVersion)
+        
+    install(FILES
+        ${CMAKE_CURRENT_BINARY_DIR}/gladConfig.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/gladConfigVersion.cmake
+        DESTINATION lib/cmake/glad)
+        
+    export(EXPORT gladTargets
+        NAMESPACE glad::
+        FILE "${CMAKE_CURRENT_BINARY_DIR}/gladTargets.cmake")
 endif()
