@@ -57,11 +57,13 @@ target_include_directories(jng
 target_link_libraries(jng
     PUBLIC
     glm::glm
+    imgui
+    spdlog::spdlog
     yaml-cpp::yaml-cpp
-    ${JNG_ENGINE_THIRD_PARTY_LIBRARIES}
     PRIVATE
     box2d::box2d
     glad::glad
+    glfw
     lua::lua
     msdf-atlas-gen::msdf-atlas-gen
     stb::stb
@@ -89,7 +91,7 @@ add_library(jng::jng ALIAS jng)
 if (${JNG_INSTALL})
     include(GNUInstallDirs)
     
-    install(TARGETS jng
+    install(TARGETS jng imgui VulkanShaderTools
         EXPORT jngTargets
         INCLUDES DESTINATION include)
     

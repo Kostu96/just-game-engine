@@ -6,7 +6,9 @@
 
 cmake_minimum_required(VERSION 3.16...3.24)
 
-project(glad-proj LANGUAGES C)
+project(glad-proj
+    VERSION 1.0
+    LANGUAGES C)
 
 set(GLAD_MAIN_PROJECT OFF)
 if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
@@ -57,6 +59,7 @@ if (GLAD_INSTALL)
         NO_CHECK_REQUIRED_COMPONENTS_MACRO)
         
     write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/gladConfigVersion.cmake"
+        VERSION ${PROJECT_VERSION}
         COMPATIBILITY AnyNewerVersion)
         
     install(FILES
