@@ -4,9 +4,6 @@
 # SPDX-License-Identifier: MIT
 #
 
-set(JNG_TARGET_NAME jng)
-set(JNG_TARGET_NAME ${JNG_TARGET_NAME} PARENT_SCOPE)
-
 add_subdirectory(third_party)
 
 set(JNG_HEADERS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/jng)
@@ -20,60 +17,59 @@ set(JNG_SHADER_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/shaders/quad_fragment.glsl
     ${CMAKE_CURRENT_SOURCE_DIR}/shaders/quad_vertex.glsl
     ${CMAKE_CURRENT_SOURCE_DIR}/shaders/text_fragment.glsl
-    ${CMAKE_CURRENT_SOURCE_DIR}/shaders/text_vertex.glsl
-)
+    ${CMAKE_CURRENT_SOURCE_DIR}/shaders/text_vertex.glsl)
 
-add_library(${JNG_TARGET_NAME} STATIC
+add_library(jng STATIC
     ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
     ${JNG_HEADERS}
     ${JNG_SOURCES}
-    ${JNG_SHADER_SOURCES}
-)
+    ${JNG_SHADER_SOURCES})
 
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/include/jng PREFIX source FILES ${JNG_HEADERS})
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/source PREFIX source FILES ${JNG_SOURCES})
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/shaders PREFIX shaders FILES ${JNG_SHADER_SOURCES})
 
-target_compile_definitions(${JNG_TARGET_NAME} PUBLIC
+target_compile_definitions(jng PUBLIC
     $<$<CONFIG:Debug>:JNG_DEBUG>
     IMGUI_USER_CONFIG="jng/imconfig.hpp"
 )
 if (WIN32)
-    target_compile_definitions(${JNG_TARGET_NAME} PUBLIC
-        JNG_WINDOWS
-    )
+    target_compile_definitions(jng PUBLIC JNG_WINDOWS)
 endif()
 
-set_target_warnings(${JNG_TARGET_NAME})
+set_target_warnings(jng)
 
-target_compile_options(${JNG_TARGET_NAME} PRIVATE
-    $<$<CXX_COMPILER_ID:MSVC>:/MP /fp:fast /external:anglebrackets /external:W1>
-)
+target_compile_options(jng PRIVATE
+    $<$<CXX_COMPILER_ID:MSVC>:/MP /fp:fast /external:anglebrackets /external:W1>)
 
-target_include_directories(${JNG_TARGET_NAME} SYSTEM
+target_include_directories(jng SYSTEM PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/third_party/entt/include>
+    $<INSTALL_INTERFACE:include>)
+
+target_include_directories(jng
     PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/glm
-    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/entt/include
-)
-
-target_include_directories(${JNG_TARGET_NAME}
-    PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include/jng
-    ${CMAKE_CURRENT_SOURCE_DIR}/source
-)
+    ${CMAKE_CURRENT_SOURCE_DIR}/source)
 
-target_link_libraries(${JNG_TARGET_NAME}
+target_link_libraries(jng
     PUBLIC
-    ${JNG_ENGINE_THIRD_PARTY_LIBRARIES}
+    glm::glm
+    imgui
+    spdlog::spdlog
     yaml-cpp::yaml-cpp
     PRIVATE
+    box2d::box2d
+    glad::glad
+    glfw
+    lua::lua
     msdf-atlas-gen::msdf-atlas-gen
-    VulkanShaderTools
-)
+    stb::stb
+    VulkanShaderTools)
 
-target_precompile_headers(${JNG_TARGET_NAME} PUBLIC
+target_precompile_headers(jng PUBLIC
     <glm/glm.hpp>
     <array>
     <cstdint>
@@ -83,42 +79,46 @@ target_precompile_headers(${JNG_TARGET_NAME} PUBLIC
     <memory>
     <string>
     <unordered_map>
-    <vector>
-)
+    <vector>)
 
-set_target_properties(${JNG_TARGET_NAME} PROPERTIES
+set_target_properties(jng PROPERTIES
     VERSION "${PROJECT_VERSION}"
-    DEBUG_POSTFIX "${CMAKE_DEBUG_POSTFIX}"
-)
+    SOVERSION "${PROJECT_VERSION_MAJOR}"
+    DEBUG_POSTFIX "${CMAKE_DEBUG_POSTFIX}")
 
-add_library(${JNG_TARGET_NAME}::${JNG_TARGET_NAME} ALIAS ${JNG_TARGET_NAME}) # NOTE: this is to ensure the same targets are exported with add_subdirectory and find_package
+add_library(jng::jng ALIAS jng)
 
-#set(CONFIG_EXPORT_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/${JNG_TARGET_NAME}")
-#set(EXPORT_TARGETS ${JNG_TARGET_NAME})
-#configure_package_config_file(
-#    "${PROJECT_SOURCE_DIR}/${JNG_TARGET_NAME}-config.cmake.in"
-#    "${PROJECT_BINARY_DIR}/${JNG_TARGET_NAME}-config.cmake"
-#    INSTALL_DESTINATION "${CONFIG_EXPORT_DIR}"
-#    #PATH_VARS CMAKE_INSTALL_INCLUDEDIR CMAKE_INSTALL_LIBDIR CONFIG_EXPORT_DIR
-#)
-#unset(EXPORT_TARGETS)
-#
-#write_basic_package_version_file(
-#    "${PROJECT_BINARY_DIR}/${JNG_TARGET_NAME}-config-version.cmake"
-#    COMPATIBILITY AnyNewerVersion
-#)
-#
-#if (NOT ${JNG_NO_INSTALL})
-#    install(TARGETS ${JNG_TARGET_NAME}
-#        EXPORT ${JNG_TARGET_NAME}-targets
-#        LIBRARY DESTINATION lib
-#        ARCHIVE DESTINATION lib
-#        RUNTIME DESTINATION bin
-#        INCLUDES DESTINATION include
-#    )
-#    
-#    install(EXPORT ${JNG_TARGET_NAME}-targets
-#        NAMESPACE ${JNG_TARGET_NAME}::
-#        DESTINATION "${CONFIG_EXPORT_DIR}"
-#    )
-#endif()
+if (${JNG_INSTALL})
+    include(GNUInstallDirs)
+    
+    install(TARGETS jng imgui VulkanShaderTools
+        EXPORT jngTargets
+        INCLUDES DESTINATION include)
+    
+    install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/jng DESTINATION include)
+    
+    install(EXPORT jngTargets
+        NAMESPACE jng::
+        FILE jngTargets.cmake
+        DESTINATION lib/cmake/jng)
+        
+    include(CMakePackageConfigHelpers)
+    
+    configure_package_config_file(${CMAKE_SOURCE_DIR}/jngConfig.cmake.in "${CMAKE_BINARY_DIR}/jngConfig.cmake"
+        INSTALL_DESTINATION "lib/cmake/jng"
+        NO_SET_AND_CHECK_MACRO
+        NO_CHECK_REQUIRED_COMPONENTS_MACRO)
+        
+    write_basic_package_version_file("${CMAKE_BINARY_DIR}/jngConfigVersion.cmake"
+        VERSION "${PROJECT_VERSION}"
+        COMPATIBILITY SameMajorVersion)
+        
+    install(FILES
+        ${CMAKE_BINARY_DIR}/jngConfig.cmake
+        ${CMAKE_BINARY_DIR}/jngConfigVersion.cmake
+        DESTINATION lib/cmake/jng)
+        
+    export(EXPORT jngTargets
+        NAMESPACE jng::
+        FILE "${CMAKE_BINARY_DIR}/jngTargets.cmake")
+endif()
