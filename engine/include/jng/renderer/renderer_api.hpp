@@ -1,11 +1,13 @@
 /*
- * Copyright (C) 2021-2022 Konstanty Misiak
+ * Copyright (C) 2021-2023 Konstanty Misiak
  *
  * SPDX-License-Identifier: MIT
  */
 
 #pragma once
 #include "jng/core/base.hpp"
+
+#include <glm/glm.hpp>
 
 namespace jng::RendererAPI {
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Konstanty Misiak
+ * Copyright (C) 2022-2023 Konstanty Misiak
  *
  * SPDX-License-Identifier: MIT
  */
@@ -11,6 +11,7 @@
 #include <jng/scene/entity.hpp>
 
 #include <glm/glm.hpp>
+#include <filesystem>
 
 namespace jng {
     

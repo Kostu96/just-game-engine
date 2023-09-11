@@ -68,7 +68,7 @@ target_link_libraries(jng
     msdf-atlas-gen::msdf-atlas-gen
     stb::stb)
 
-target_precompile_headers(jng PUBLIC
+target_precompile_headers(jng PRIVATE
     <glm/glm.hpp>
     <array>
     <chrono>

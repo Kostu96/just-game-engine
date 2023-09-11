@@ -7,6 +7,8 @@
 #pragma once
 #include "jng/core/base.hpp"
 
+#include <filesystem>
+
 namespace jng {
 
     class Shader final
