@@ -66,8 +66,7 @@ target_link_libraries(jng
     glfw
     lua::lua
     msdf-atlas-gen::msdf-atlas-gen
-    stb::stb
-    VulkanShaderTools)
+    stb::stb)
 
 target_precompile_headers(jng PUBLIC
     <glm/glm.hpp>
@@ -92,7 +91,7 @@ add_library(jng::jng ALIAS jng)
 if (${JNG_INSTALL})
     include(GNUInstallDirs)
     
-    install(TARGETS jng imgui VulkanShaderTools
+    install(TARGETS jng imgui
         EXPORT jngTargets
         INCLUDES DESTINATION include)
     

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2022 Konstanty Misiak
+ * Copyright (C) 2021-2023 Konstanty Misiak
  *
  * SPDX-License-Identifier: MIT
  */
@@ -23,16 +23,8 @@ namespace jng {
         void bind() const;
         void unbind() const;
     private:
-        std::filesystem::path getCacheDirectory() const;
-        void createCacheDirectoryIfNeeded() const;
-        std::vector<u32> compileToSPIRV(const std::filesystem::path& filename, Type type) const;
-        static const char* shaderTypeToHashFileExtension(Type type);
-        static const char* shaderTypeToCachedVlkFileExtension(Type type);
-        static u32 shaderTypeToShaderCKind(Type type);
-
         u32 compileShader(const std::filesystem::path& filename, Type type) const;
 
-        mutable bool m_isCacheDirty = true;
         u32 m_id;
     };
 

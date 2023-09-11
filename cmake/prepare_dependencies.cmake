@@ -97,45 +97,6 @@ execute_process(COMMAND ${CMAKE_COMMAND} --install ${PROJECT_BINARY_DIR}/depende
 set(spdlog_DIR ${PROJECT_BINARY_DIR}/dependencies/spdlog/install_dir/lib/cmake/spdlog)
 find_package(spdlog REQUIRED)
 
-message(STATUS "Preparing Vulkan...")
-find_package(Vulkan REQUIRED)
-if (Vulkan_FOUND)
-    add_library(vulkan-shaderc SHARED IMPORTED GLOBAL)
-    add_library(vulkan-spirv-cross-core STATIC IMPORTED GLOBAL)
-    add_library(vulkan-spirv-cross-glsl STATIC IMPORTED GLOBAL)
-    if (WIN32)
-        set_target_properties(vulkan-shaderc PROPERTIES
-            IMPORTED_LOCATION $ENV{VULKAN_SDK}/Bin/shaderc_shared.dll
-            IMPORTED_IMPLIB $ENV{VULKAN_SDK}/Lib/shaderc_shared.lib
-            IMPORTED_LOCATION_DEBUG $ENV{VULKAN_SDK}/Bin/shaderc_sharedd.dll
-            IMPORTED_IMPLIB_DEBUG $ENV{VULKAN_SDK}/Lib/shaderc_sharedd.lib
-            IMPORTED_CONFIGURATIONS "Release;Debug")
-        set_target_properties(vulkan-spirv-cross-core PROPERTIES
-            IMPORTED_LOCATION $ENV{VULKAN_SDK}/Lib/spirv-cross-core.lib
-            IMPORTED_LOCATION_DEBUG $ENV{VULKAN_SDK}/Lib/spirv-cross-cored.lib
-            IMPORTED_CONFIGURATIONS "Release;Debug")
-        set_target_properties(vulkan-spirv-cross-glsl PROPERTIES
-            IMPORTED_LOCATION $ENV{VULKAN_SDK}/Lib/spirv-cross-glsl.lib
-            IMPORTED_LOCATION_DEBUG $ENV{VULKAN_SDK}/Lib/spirv-cross-glsld.lib
-            IMPORTED_CONFIGURATIONS "Release;Debug")
-    else()
-        set_target_properties(vulkan-shaderc PROPERTIES
-            IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/libshaderc_combined.a
-            IMPORTED_CONFIGURATIONS "Release")
-        set_target_properties(vulkan-spirv-cross-core PROPERTIES
-            IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/libspirv-cross-core.a
-            IMPORTED_CONFIGURATIONS "Release")
-        set_target_properties(vulkan-spirv-cross-glsl PROPERTIES
-            IMPORTED_LOCATION $ENV{VULKAN_SDK}/lib/libspirv-cross-glsl.a
-            IMPORTED_CONFIGURATIONS "Release")
-    endif()
-        
-    add_library(VulkanShaderTools INTERFACE)
-    target_include_directories(VulkanShaderTools INTERFACE ${Vulkan_INCLUDE_DIR})
-    target_link_libraries(VulkanShaderTools INTERFACE vulkan-shaderc vulkan-spirv-cross-core vulkan-spirv-cross-glsl)
-    target_link_options(VulkanShaderTools INTERFACE /ignore:4099) # NOTE: ignore warning about pdb files for debug libraries.
-endif()
-
 message(STATUS "Preparing yaml-cpp...")
 if (NOT EXISTS "${PROJECT_BINARY_DIR}/dependencies/yaml-cpp/.git")
     execute_process(COMMAND ${GIT_EXECUTABLE} clone https://github.com/jbeder/yaml-cpp.git --depth 1 WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/dependencies OUTPUT_QUIET)
