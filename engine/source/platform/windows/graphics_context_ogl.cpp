@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2022 Konstanty Misiak
+ * Copyright (C) 2021-2023 Konstanty Misiak
  *
  * SPDX-License-Identifier: MIT
  */
@@ -97,8 +97,6 @@ namespace jng {
         glCullFace(GL_FRONT);
 
         glClipControl(GL_LOWER_LEFT, GL_ZERO_TO_ONE);
-
-        glLineWidth(3.f);
 
         setVSync(true);
     }

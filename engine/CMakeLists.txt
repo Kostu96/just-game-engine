@@ -72,6 +72,7 @@ target_link_libraries(jng
 target_precompile_headers(jng PUBLIC
     <glm/glm.hpp>
     <array>
+    <chrono>
     <cstdint>
     <filesystem>
     <fstream>

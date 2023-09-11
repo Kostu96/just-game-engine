@@ -252,10 +252,10 @@ namespace jng::Renderer2D {
         s_data.textVBO = makeRef<VertexBuffer>(RenderData::MaxQuadVerticesPerBatch * sizeof(TextVertex));
 
         VertexLayout textVertexLayout = {
-            { LayoutElement::DataType::Float3,  "a_Position" },
-            { LayoutElement::DataType::Float2,  "a_TexCoord" },
-            { LayoutElement::DataType::UInt4x8, "a_Color", true, true },
-            { LayoutElement::DataType::Int,     "a_EntityID", false }
+            { LayoutElement::DataType::Float3 },
+            { LayoutElement::DataType::Float2 },
+            { LayoutElement::DataType::UInt4x8, true, true },
+            { LayoutElement::DataType::Int, false }
         };
         s_data.textVAO = makeRef<VertexArray>(s_data.textVBO, textVertexLayout);
         s_data.textVBOBase = new TextVertex[s_data.MaxQuadVerticesPerBatch];
@@ -269,11 +269,11 @@ namespace jng::Renderer2D {
         s_data.quadVBO = makeRef<VertexBuffer>(RenderData::MaxQuadVerticesPerBatch * sizeof(QuadVertex));
 
         VertexLayout quadVertexLayout = {
-            { LayoutElement::DataType::Float3,  "a_Position" },
-            { LayoutElement::DataType::Float2,  "a_TexCoord" },
-            { LayoutElement::DataType::UInt4x8, "a_Color", true, true },
-            { LayoutElement::DataType::UInt,    "a_TexIndex", false },
-            { LayoutElement::DataType::Int,     "a_EntityID", false }
+            { LayoutElement::DataType::Float3 },
+            { LayoutElement::DataType::Float2 },
+            { LayoutElement::DataType::UInt4x8, true, true },
+            { LayoutElement::DataType::UInt, false },
+            { LayoutElement::DataType::Int, false }
         };
         s_data.quadVAO = makeRef<VertexArray>(s_data.quadVBO, quadVertexLayout);
         s_data.quadVBOBase = new QuadVertex[s_data.MaxQuadVerticesPerBatch];
@@ -287,12 +287,12 @@ namespace jng::Renderer2D {
         s_data.circleVBO = makeRef<VertexBuffer>(RenderData::MaxQuadVerticesPerBatch * sizeof(CircleVertex));
 
         VertexLayout circleVertexLayout = {
-            { LayoutElement::DataType::Float3,  "a_Position" },
-            { LayoutElement::DataType::Float2,  "a_LocalPosition" },
-            { LayoutElement::DataType::Float,   "a_Thickness" },
-            { LayoutElement::DataType::Float,   "a_Fade" },
-            { LayoutElement::DataType::UInt4x8, "a_Color", true, true },
-            { LayoutElement::DataType::Int,     "a_EntityID", false }
+            { LayoutElement::DataType::Float3 },
+            { LayoutElement::DataType::Float2 },
+            { LayoutElement::DataType::Float },
+            { LayoutElement::DataType::Float },
+            { LayoutElement::DataType::UInt4x8, true, true },
+            { LayoutElement::DataType::Int, false }
         };
         s_data.circleVAO = makeRef<VertexArray>(s_data.circleVBO, circleVertexLayout);
         s_data.circleVBOBase = new CircleVertex[s_data.MaxQuadVerticesPerBatch];
@@ -306,8 +306,8 @@ namespace jng::Renderer2D {
         s_data.lineVBO = makeRef<VertexBuffer>(RenderData::MaxLineVerticesPerBatch * sizeof(LineVertex));
 
         VertexLayout lineVertexLayout = {
-            { LayoutElement::DataType::Float3,  "a_Position" },
-            { LayoutElement::DataType::UInt4x8, "a_Color", true, true }
+            { LayoutElement::DataType::Float3 },
+            { LayoutElement::DataType::UInt4x8, true, true }
         };
         s_data.lineVAO = makeRef<VertexArray>(s_data.lineVBO, lineVertexLayout);
         s_data.lineVBOBase = new LineVertex[s_data.MaxLineVerticesPerBatch];

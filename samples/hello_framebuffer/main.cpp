@@ -102,8 +102,8 @@ private:
 };
 
 const jng::VertexLayout SampleLayer::LAYOUT{
-    { jng::LayoutElement::DataType::Float2, "a_Position" },
-    { jng::LayoutElement::DataType::Float2, "a_TexCoord" }
+    { jng::LayoutElement::DataType::Float2 },
+    { jng::LayoutElement::DataType::Float2 }
 };
 
 class App :

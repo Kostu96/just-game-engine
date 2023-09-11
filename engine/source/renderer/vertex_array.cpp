@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2022 Konstanty Misiak
+ * Copyright (C) 2021-2023 Konstanty Misiak
  *
  * SPDX-License-Identifier: MIT
  */
@@ -10,8 +10,7 @@
 
 namespace jng {
 
-    LayoutElement::LayoutElement(DataType inType, const char* inName, bool inPassAsFloat, bool inNormalized) :
-        name{ inName },
+    LayoutElement::LayoutElement(DataType inType, bool inPassAsFloat, bool inNormalized) :
         type{ inType },
         size{ dataTypeToSize(type) },
         offset{ 0 },
