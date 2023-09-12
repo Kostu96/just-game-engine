@@ -4,10 +4,6 @@
 # SPDX-License-Identifier: MIT
 #
 
-set(GLAD_INSTALL ON CACHE BOOL "" FORCE)
-add_subdirectory(glad)
-
-### ImGui: ###
 set(IMGUI_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/imgui/backends/imgui_impl_glfw.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/imgui/backends/imgui_impl_glfw.h
@@ -38,15 +34,9 @@ target_include_directories(imgui SYSTEM PUBLIC
     $<INSTALL_INTERFACE:include>)
 
 target_link_libraries(imgui PUBLIC glfw)
-##############
-
-set(STB_INSTALL ON CACHE BOOL "" FORCE)
-add_subdirectory(stb)
 
 set_target_properties(
-    glad
     imgui
-    stb
     PROPERTIES
     FOLDER third_party
     MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL"

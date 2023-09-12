@@ -10,7 +10,7 @@ if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
 endif()
 set(CMAKE_DEBUG_POSTFIX "d")
 
-option(STB_INSTALL "Generate install target" ${GLAD_MAIN_PROJECT})
+option(STB_INSTALL "Generate install target" ${STB_MAIN_PROJECT})
 
 add_library(stb STATIC
     ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt

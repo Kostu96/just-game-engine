@@ -95,7 +95,31 @@ if (${JNG_INSTALL})
         EXPORT jngTargets
         INCLUDES DESTINATION include)
     
+    install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/shaders DESTINATION bin/assets)
+    
     install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/jng DESTINATION include)
+    install(DIRECTORY ${glm_DIR}/../../../include/glm  DESTINATION include)
+    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/third_party/imgui/imgui.h DESTINATION include)
+    
+    file(TO_CMAKE_PATH $ENV{FREETYPE_ROOT} FREETYPE_ROOT2)
+    install(FILES
+        ${box2d_DIR}/../../../lib/box2d$<$<CONFIG:Debug>:d>.lib
+        ${glad_DIR}/../../../lib/glad$<$<CONFIG:Debug>:d>.lib
+        ${glfw3_DIR}/../../../lib/glfw3.lib
+        ${Lua_DIR}/../../../lib/lua$<$<CONFIG:Debug>:d>.lib
+        ${msdf-atlas-gen_DIR}/../../../lib/msdf-atlas-gen$<$<CONFIG:Debug>:d>.lib
+        ${msdfgen_DIR}/../../../lib/msdfgen-core$<$<CONFIG:Debug>:d>.lib
+        ${msdfgen_DIR}/../../../lib/msdfgen-ext$<$<CONFIG:Debug>:d>.lib
+        ${spdlog_DIR}/../../../lib/spdlog$<$<CONFIG:Debug>:d>.lib
+        ${stb_DIR}/../../../lib/stb$<$<CONFIG:Debug>:d>.lib
+        ${yaml-cpp_DIR}/../../../lib/yaml-cpp$<$<CONFIG:Debug>:d>.lib
+        ${FREETYPE_ROOT2}/lib/freetype$<$<CONFIG:Debug>:d>.lib
+        DESTINATION lib)
+    
+    install(FILES
+        ${CMAKE_SOURCE_DIR}/README.md
+        ${CMAKE_SOURCE_DIR}/LICENSE
+        DESTINATION .)
     
     install(EXPORT jngTargets
         NAMESPACE jng::
