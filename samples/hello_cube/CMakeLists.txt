@@ -16,11 +16,7 @@ add_executable(${SAMPLE_TARGET_NAME}
 
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} PREFIX source FILES ${SAMPLE_SOURCES})
 
-set_target_warnings(${SAMPLE_TARGET_NAME})
-
-target_compile_options(${SAMPLE_TARGET_NAME} PRIVATE
-    $<$<CXX_COMPILER_ID:MSVC>:/MP /fp:fast /external:anglebrackets /external:W1>
-    $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -pedantic>)
+set_target_compiler_options(${SAMPLE_TARGET_NAME})
 
 target_link_libraries(${SAMPLE_TARGET_NAME} PRIVATE jng::jng)
 

@@ -14,7 +14,7 @@ project(just-game-engine
 
 include(CMakePackageConfigHelpers)
 include(scripts/cmake/base_configuration.cmake)
-include(scripts/cmake/compiler_warnings.cmake)
+include(scripts/cmake/compiler_options.cmake)
 
 ### options: ###
 option(JNG_BUILD_SAMPLES "Build sample projects" ON)

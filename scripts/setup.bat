@@ -8,9 +8,9 @@ REM
 
 setlocal
 
-cmake -P scripts/cmake/prepare_dependencies.cmake
+set FREETYPE_DIR=%cd%\dependencies\freetype\build\install
 
-set FREETYPE_ROOT=%cd%\dependencies\freetype\build\install
+cmake -P scripts/cmake/prepare_dependencies.cmake
 
 cmake -S . -B build ^
     -Dbox2d_DIR="dependencies/box2d/build/install/lib/cmake/box2d" ^

@@ -31,16 +31,10 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/shaders PREFIX shaders FILES ${JNG
 
 target_compile_definitions(jng PUBLIC
     $<$<CONFIG:Debug>:JNG_DEBUG>
-    IMGUI_USER_CONFIG="jng/imconfig.hpp"
-)
-if (WIN32)
-    target_compile_definitions(jng PUBLIC JNG_WINDOWS)
-endif()
+    $<$<PLATFORM_ID:Windows>:JNG_WINDOWS>
+    IMGUI_USER_CONFIG="jng/imconfig.hpp")
 
-set_target_warnings(jng)
-
-target_compile_options(jng PRIVATE
-    $<$<CXX_COMPILER_ID:MSVC>:/MP /fp:fast /external:anglebrackets /external:W1>)
+set_target_compiler_options(jng)
 
 target_include_directories(jng SYSTEM PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/third_party/entt/include>
@@ -102,17 +96,17 @@ if (${JNG_INSTALL})
     install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/third_party/imgui/imgui.h DESTINATION include)
     
     install(FILES
-        ${CMAKE_SOURCE_DIR}/dependencies/box2d/build/install/lib/box2d.lib
-        ${CMAKE_SOURCE_DIR}/dependencies/freetype/build/install/lib/freetype.lib
-        ${CMAKE_SOURCE_DIR}/dependencies/glad/build/install/lib/glad.lib
-        ${CMAKE_SOURCE_DIR}/dependencies/glfw3/build/install/lib/glfw3.lib
-        ${CMAKE_SOURCE_DIR}/dependencies/Lua/build/install/lib/lua.lib
-        ${CMAKE_SOURCE_DIR}/dependencies/msdf-atlas-gen/build/install/lib/msdf-atlas-gen.lib
-        ${CMAKE_SOURCE_DIR}/dependencies/msdf-atlas-gen/build/install/lib/msdfgen-core.lib
-        ${CMAKE_SOURCE_DIR}/dependencies/msdf-atlas-gen/build/install/lib/msdfgen-ext.lib
-        ${CMAKE_SOURCE_DIR}/dependencies/spdlog/build/install/lib/spdlog.lib
-        ${CMAKE_SOURCE_DIR}/dependencies/stb/build/install/lib/stb.lib
-        ${CMAKE_SOURCE_DIR}/dependencies/yaml-cpp/build/install/lib/yaml-cpp.lib
+        ${CMAKE_SOURCE_DIR}/dependencies/box2d/build/install/lib/box2d$<$<CONFIG:Debug>:d>.lib
+        ${CMAKE_SOURCE_DIR}/dependencies/freetype/build/install/lib/freetype$<$<CONFIG:Debug>:d>.lib
+        ${CMAKE_SOURCE_DIR}/dependencies/glad/build/install/lib/glad$<$<CONFIG:Debug>:d>.lib
+        ${CMAKE_SOURCE_DIR}/dependencies/glfw3/build/install/lib/glfw3$<$<CONFIG:Debug>:d>.lib
+        ${CMAKE_SOURCE_DIR}/dependencies/Lua/build/install/lib/lua$<$<CONFIG:Debug>:d>.lib
+        ${CMAKE_SOURCE_DIR}/dependencies/msdf-atlas-gen/build/install/lib/msdf-atlas-gen$<$<CONFIG:Debug>:d>.lib
+        ${CMAKE_SOURCE_DIR}/dependencies/msdf-atlas-gen/build/install/lib/msdfgen-core$<$<CONFIG:Debug>:d>.lib
+        ${CMAKE_SOURCE_DIR}/dependencies/msdf-atlas-gen/build/install/lib/msdfgen-ext$<$<CONFIG:Debug>:d>.lib
+        ${CMAKE_SOURCE_DIR}/dependencies/spdlog/build/install/lib/spdlog$<$<CONFIG:Debug>:d>.lib
+        ${CMAKE_SOURCE_DIR}/dependencies/stb/build/install/lib/stb$<$<CONFIG:Debug>:d>.lib
+        ${CMAKE_SOURCE_DIR}/dependencies/yaml-cpp/build/install/lib/yaml-cpp$<$<CONFIG:Debug>:d>.lib
         DESTINATION lib)
     
     install(FILES

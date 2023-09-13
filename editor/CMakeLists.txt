@@ -17,12 +17,7 @@ add_executable(${EDITOR_TARGET_NAME}
 
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/source PREFIX source FILES ${EDITOR_SOURCES})
 
-set_target_warnings(${EDITOR_TARGET_NAME})
-
-target_compile_options(${EDITOR_TARGET_NAME} PRIVATE
-    $<$<CXX_COMPILER_ID:MSVC>:/MP /fp:fast /external:anglebrackets /external:W1>
-    $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -pedantic>
-)
+set_target_compiler_options(${EDITOR_TARGET_NAME})
 
 target_link_libraries(${EDITOR_TARGET_NAME} PRIVATE
     jng::jng
@@ -30,7 +25,6 @@ target_link_libraries(${EDITOR_TARGET_NAME} PRIVATE
 )
 
 set_target_properties(${EDITOR_TARGET_NAME} PROPERTIES
-    MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL"
     VS_DEBUGGER_WORKING_DIRECTORY $<TARGET_FILE_DIR:${EDITOR_TARGET_NAME}>
 )
 

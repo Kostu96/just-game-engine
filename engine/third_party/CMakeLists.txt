@@ -39,6 +39,5 @@ set_target_properties(
     imgui
     PROPERTIES
     FOLDER third_party
-    MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL"
     EXCLUDE_FROM_ALL true
 )

@@ -12,9 +12,7 @@ cd just-game-engine
 ```
 then Just™ try:
 ```
-mkdir build
-cd build
-cmake ..
+scripts\setup.bat
 ```
 and it might Just™ work for you.
 If not better instructions will come in the future...
