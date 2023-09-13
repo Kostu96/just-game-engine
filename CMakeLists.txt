@@ -13,14 +13,23 @@ project(just-game-engine
 )
 
 include(CMakePackageConfigHelpers)
-include(cmake/base_configuration.cmake)
-include(cmake/prepare_dependencies.cmake)
-include(cmake/compiler_warnings.cmake)
+include(scripts/cmake/base_configuration.cmake)
+include(scripts/cmake/compiler_warnings.cmake)
 
 ### options: ###
 option(JNG_BUILD_SAMPLES "Build sample projects" ON)
 option(JNG_INSTALL "Do not generate install target" ${JNG_MAIN_PROJECT})
 ################
+
+find_package(box2d REQUIRED)
+find_package(glfw3 REQUIRED)
+find_package(glm REQUIRED)
+find_package(Lua CONFIG REQUIRED)
+find_package(msdf-atlas-gen REQUIRED)
+find_package(spdlog REQUIRED)
+find_package(yaml-cpp REQUIRED)
+find_package(glad REQUIRED)
+find_package(stb REQUIRED)
 
 add_subdirectory(engine)
 add_subdirectory(editor)

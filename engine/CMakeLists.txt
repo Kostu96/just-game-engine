@@ -101,19 +101,18 @@ if (${JNG_INSTALL})
     install(DIRECTORY ${glm_DIR}/../../../include/glm  DESTINATION include)
     install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/third_party/imgui/imgui.h DESTINATION include)
     
-    file(TO_CMAKE_PATH $ENV{FREETYPE_ROOT} FREETYPE_ROOT2)
     install(FILES
-        ${box2d_DIR}/../../../lib/box2d$<$<CONFIG:Debug>:d>.lib
-        ${glad_DIR}/../../../lib/glad$<$<CONFIG:Debug>:d>.lib
-        ${glfw3_DIR}/../../../lib/glfw3.lib
-        ${Lua_DIR}/../../../lib/lua$<$<CONFIG:Debug>:d>.lib
-        ${msdf-atlas-gen_DIR}/../../../lib/msdf-atlas-gen$<$<CONFIG:Debug>:d>.lib
-        ${msdfgen_DIR}/../../../lib/msdfgen-core$<$<CONFIG:Debug>:d>.lib
-        ${msdfgen_DIR}/../../../lib/msdfgen-ext$<$<CONFIG:Debug>:d>.lib
-        ${spdlog_DIR}/../../../lib/spdlog$<$<CONFIG:Debug>:d>.lib
-        ${stb_DIR}/../../../lib/stb$<$<CONFIG:Debug>:d>.lib
-        ${yaml-cpp_DIR}/../../../lib/yaml-cpp$<$<CONFIG:Debug>:d>.lib
-        ${FREETYPE_ROOT2}/lib/freetype$<$<CONFIG:Debug>:d>.lib
+        ${CMAKE_SOURCE_DIR}/dependencies/box2d/build/install/lib/box2d.lib
+        ${CMAKE_SOURCE_DIR}/dependencies/freetype/build/install/lib/freetype.lib
+        ${CMAKE_SOURCE_DIR}/dependencies/glad/build/install/lib/glad.lib
+        ${CMAKE_SOURCE_DIR}/dependencies/glfw3/build/install/lib/glfw3.lib
+        ${CMAKE_SOURCE_DIR}/dependencies/Lua/build/install/lib/lua.lib
+        ${CMAKE_SOURCE_DIR}/dependencies/msdf-atlas-gen/build/install/lib/msdf-atlas-gen.lib
+        ${CMAKE_SOURCE_DIR}/dependencies/msdf-atlas-gen/build/install/lib/msdfgen-core.lib
+        ${CMAKE_SOURCE_DIR}/dependencies/msdf-atlas-gen/build/install/lib/msdfgen-ext.lib
+        ${CMAKE_SOURCE_DIR}/dependencies/spdlog/build/install/lib/spdlog.lib
+        ${CMAKE_SOURCE_DIR}/dependencies/stb/build/install/lib/stb.lib
+        ${CMAKE_SOURCE_DIR}/dependencies/yaml-cpp/build/install/lib/yaml-cpp.lib
         DESTINATION lib)
     
     install(FILES
@@ -128,7 +127,7 @@ if (${JNG_INSTALL})
         
     include(CMakePackageConfigHelpers)
     
-    configure_package_config_file(${CMAKE_SOURCE_DIR}/jngConfig.cmake.in "${CMAKE_BINARY_DIR}/jngConfig.cmake"
+    configure_package_config_file(${CMAKE_SOURCE_DIR}/scripts/cmake/jngConfig.cmake.in "${CMAKE_BINARY_DIR}/jngConfig.cmake"
         INSTALL_DESTINATION "lib/cmake/jng"
         NO_SET_AND_CHECK_MACRO
         NO_CHECK_REQUIRED_COMPONENTS_MACRO)
