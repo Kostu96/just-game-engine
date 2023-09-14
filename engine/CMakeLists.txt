@@ -92,7 +92,7 @@ if (${JNG_INSTALL})
     install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/shaders DESTINATION bin/assets)
     
     install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/jng DESTINATION include)
-    install(DIRECTORY ${glm_DIR}/../../../include/glm  DESTINATION include)
+    install(DIRECTORY ${CMAKE_SOURCE_DIR}/dependencies/glm/build/install/include/glm  DESTINATION include)
     install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/third_party/imgui/imgui.h DESTINATION include)
     
     install(FILES

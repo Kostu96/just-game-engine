@@ -1,9 +1,13 @@
 @echo off
-
 REM
 REM Copyright (C) 2023 Konstanty Misiak
 REM
 REM SPDX-License-Identifier: MIT
+REM
+
+REM Use from just-game-engine root directory
+REM
+REM    scripts\setup.bat <CMAKE_INSTALL_PREFIX>
 REM
 
 setlocal
@@ -22,6 +26,7 @@ cmake -S . -B build ^
     -Dspdlog_DIR="dependencies/spdlog/build/install/lib/cmake/spdlog" ^
     -Dyaml-cpp_DIR="dependencies/yaml-cpp/build/install/lib/cmake/yaml-cpp" ^
     -Dglad_DIR="dependencies/glad/build/install/lib/cmake/glad" ^
-    -Dstb_DIR="dependencies/stb/build/install/lib/cmake/stb"
+    -Dstb_DIR="dependencies/stb/build/install/lib/cmake/stb" ^
+    -DCMAKE_INSTALL_PREFIX=%1
 
 endlocal
