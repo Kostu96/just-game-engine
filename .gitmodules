@@ -1,27 +1,9 @@
-[submodule "spdlog"]
-	path = engine/third_party/spdlog
-	url = https://github.com/gabime/spdlog.git
-[submodule "glm"]
-	path = engine/third_party/glm
-	url = https://github.com/g-truc/glm.git
-[submodule "glfw"]
-	path = engine/third_party/glfw
-	url = https://github.com/glfw/glfw.git
 [submodule "imgui"]
 	path = engine/third_party/imgui
 	url = https://github.com/ocornut/imgui.git
-[submodule "yaml-cpp"]
-	path = engine/third_party/yaml-cpp
-	url = https://github.com/jbeder/yaml-cpp.git
 [submodule "doxygen-awesome-css"]
 	path = docs/doxygen-awesome-css
 	url = https://github.com/jothepro/doxygen-awesome-css.git
-[submodule "box2d"]
-	path = engine/third_party/box2d
-	url = https://github.com/Kostu96/box2d-fork.git
 [submodule "imguizmo"]
 	path = editor/third_party/imguizmo
 	url = https://github.com/CedricGuillemet/ImGuizmo.git
-[submodule "lua"]
-	path = engine/third_party/lua
-	url = https://github.com/Kostu96/lua-5.4.4

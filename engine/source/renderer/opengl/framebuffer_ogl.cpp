@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Konstanty Misiak
+ * Copyright (C) 2022-2023 Konstanty Misiak
  *
  * SPDX-License-Identifier: MIT
  */
@@ -12,26 +12,26 @@
 
 namespace jng {
 
-    static u32 textureFormatToGLEnum(TextureFormat format)
+    static u32 textureFormatToGLEnum(Texture::Format format)
     {
         switch (format)
         {
-        case TextureFormat::RGBA8: return GL_RGBA8;
-        case TextureFormat::R32:   return GL_RED_INTEGER;
+        case Texture::Format::RGBA8: return GL_RGBA8;
+        case Texture::Format::R32:   return GL_RED_INTEGER;
         }
 
         JNG_CORE_ASSERT(false, "This should never be triggered!");
         return 0;
     }
 
-    static bool isDepthAttachment(TextureFormat format)
+    static bool isDepthAttachment(Texture::Format format)
     {
         switch (format)
         {
-        case TextureFormat::RGBA8:
-        case TextureFormat::R32:
+        case Texture::Format::RGBA8:
+        case Texture::Format::R32:
             return false;
-        case TextureFormat::Depth24Stencil8:
+        case Texture::Format::Depth24Stencil8:
             return true;
         }
 
@@ -79,7 +79,7 @@ namespace jng {
         glReadBuffer(GL_COLOR_ATTACHMENT0 + colorAttachmentIndex);
 
         u32 pixelData;
-        glReadPixels(x, y, 1, 1, textureFormatToGLEnum(m_attachments[colorAttachmentIndex]->getProperties().specification.format), GL_INT, &pixelData);
+        glReadPixels(x, y, 1, 1, textureFormatToGLEnum(m_attachments[colorAttachmentIndex]->getProperties().format), GL_INT, &pixelData);
 
         return pixelData;
     }
@@ -91,7 +91,7 @@ namespace jng {
         glClearTexImage(
             static_cast<GLuint>(reinterpret_cast<u64>(attachment->getRendererID())),
             0,
-            textureFormatToGLEnum(attachment->getProperties().specification.format),
+            textureFormatToGLEnum(attachment->getProperties().format),
             GL_INT,
             data
         );
@@ -104,7 +104,7 @@ namespace jng {
         glClearTexImage(
             static_cast<GLuint>(reinterpret_cast<u64>(attachment->getRendererID())),
             1,
-            textureFormatToGLEnum(attachment->getProperties().specification.format),
+            textureFormatToGLEnum(attachment->getProperties().format),
             GL_FLOAT,
             data
         );
@@ -120,13 +120,15 @@ namespace jng {
         glCreateFramebuffers(1, &m_ID);
         glBindFramebuffer(GL_FRAMEBUFFER, m_ID);
 
-        m_attachments.reserve(m_properties.attachmentsSpecifications.size());
+        m_attachments.reserve(m_properties.attachmentsProperties.size());
         u32 numColorAtachments = 0;
-        for (u32 i = 0; i < m_properties.attachmentsSpecifications.size(); ++i)
+        for (u32 i = 0; i < m_properties.attachmentsProperties.size(); ++i)
         {
-            bool isDepth = isDepthAttachment(m_properties.attachmentsSpecifications[i].format);
+            bool isDepth = isDepthAttachment(m_properties.attachmentsProperties[i].format);
             if (!isDepth) numColorAtachments++;
-            m_attachments.push_back(makeRef<Texture>(Texture::Properties{ m_properties.attachmentsSpecifications[i], m_properties.width, m_properties.height }));
+            m_properties.attachmentsProperties[i].width = m_properties.width;
+            m_properties.attachmentsProperties[i].height = m_properties.height;
+            m_attachments.push_back(makeRef<Texture>(m_properties.attachmentsProperties[i]));
             GLenum attachmentTarget =  isDepth ? GL_DEPTH_STENCIL_ATTACHMENT : GL_COLOR_ATTACHMENT0 + i;
             glFramebufferTexture2D(GL_FRAMEBUFFER, attachmentTarget, GL_TEXTURE_2D, m_attachments[i]->getID(), 0);
         }
@@ -135,6 +137,7 @@ namespace jng {
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
+        JNG_CORE_ASSERT(numColorAtachments <= 4, "More that 4 color attachments are unsuppoerted!");
         GLenum buffers[4] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3 };
         glNamedFramebufferDrawBuffers(m_ID, numColorAtachments, buffers);
     }

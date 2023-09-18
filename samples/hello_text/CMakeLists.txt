@@ -1,10 +1,10 @@
 #
-# Copyright (C) 2022-2023 Konstanty Misiak
+# Copyright (C) 2023 Konstanty Misiak
 #
 # SPDX-License-Identifier: MIT
 #
 
-set(SAMPLE_TARGET_NAME hello_imgui)
+set(SAMPLE_TARGET_NAME hello_text)
 
 set(SAMPLE_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
 
@@ -26,4 +26,5 @@ set_target_properties(${SAMPLE_TARGET_NAME} PROPERTIES
 add_custom_command(
     TARGET ${SAMPLE_TARGET_NAME}
     POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/engine/assets $<TARGET_FILE_DIR:${SAMPLE_TARGET_NAME}>/assets/${SAMPLE_TARGET_NAME}
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/engine/shaders $<TARGET_FILE_DIR:${SAMPLE_TARGET_NAME}>/assets/${SAMPLE_TARGET_NAME}/shaders)

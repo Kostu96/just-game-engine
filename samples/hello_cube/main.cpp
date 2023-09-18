@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Konstanty Misiak
+ * Copyright (C) 2022-2023 Konstanty Misiak
  *
  * SPDX-License-Identifier: MIT
  */
@@ -128,8 +128,8 @@ private:
 };
 
 const jng::VertexLayout SampleLayer::LAYOUT{
-    { jng::LayoutElement::DataType::Float3, "a_Position" },
-    { jng::LayoutElement::DataType::Float2, "a_TexCoord" }
+    { jng::LayoutElement::DataType::Float3 },
+    { jng::LayoutElement::DataType::Float2 }
 };
 
 class App :

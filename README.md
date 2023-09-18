@@ -2,9 +2,7 @@
 A 3D/2D game engine developed as an educational project with hope to be usefull.
 
 ## Prerequisites:
-- CMake >=3.20 (3.22 tested)
-- VulkanSDK 1.3.x.x (1.3.216.0 tested)
-  - VULKAN_SDK environment variable has to be set to the installation directory
+- CMake
 
 ## How to build:
 Just™ clone the repository with dependencies:
@@ -14,9 +12,7 @@ cd just-game-engine
 ```
 then Just™ try:
 ```
-mkdir build
-cd build
-cmake ..
+scripts\setup.bat
 ```
 and it might Just™ work for you.
 If not better instructions will come in the future...

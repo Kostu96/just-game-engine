@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Konstanty Misiak
+ * Copyright (C) 2022-2023 Konstanty Misiak
  *
  * SPDX-License-Identifier: MIT
  */
@@ -73,7 +73,7 @@ private:
     jng::Ref<jng::VertexArray> m_VAO;
 };
 
-const jng::VertexLayout SampleLayer::LAYOUT{ { jng::LayoutElement::DataType::Float2, "a_Position" } };
+const jng::VertexLayout SampleLayer::LAYOUT{ { jng::LayoutElement::DataType::Float2 } };
 
 class App :
     public jng::Engine

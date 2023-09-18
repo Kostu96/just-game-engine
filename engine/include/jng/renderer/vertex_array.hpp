@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2022 Konstanty Misiak
+ * Copyright (C) 2021-2023 Konstanty Misiak
  *
  * SPDX-License-Identifier: MIT
  */
@@ -23,11 +23,10 @@ namespace jng {
             UInt4x8
         };
 
-        LayoutElement(DataType inType, const char* inName, bool inPassAsFloat = false, bool inNormalized = false);
+        LayoutElement(DataType inType, bool inPassAsFloat = false, bool inNormalized = false);
 
-        static size_t dataTypeToSize(DataType type);
+        static size_t dataTypeToSize(DataType type); // TODO: move to util functions?
 
-        std::string name;
         DataType type;
         size_t size;
         uintptr_t offset;

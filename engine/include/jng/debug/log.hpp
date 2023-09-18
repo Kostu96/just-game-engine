@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Konstanty Misiak
+ * Copyright (C) 2020-2023 Konstanty Misiak
  *
  * SPDX-License-Identifier: MIT
  */
@@ -17,8 +17,6 @@ namespace jng {
     class Log
     {
     public:
-        static void init();
-
         inline static spdlog::logger* getCoreLogger() { return s_coreLogger.get(); }
         inline static spdlog::logger* getUserLogger() { return s_userLogger.get(); }
     private:
@@ -26,6 +24,8 @@ namespace jng {
 
         static std::shared_ptr<spdlog::logger> s_coreLogger;
         static std::shared_ptr<spdlog::logger> s_userLogger;
+
+        friend struct LogInitializer;
     };
 
 } // namespace jng
