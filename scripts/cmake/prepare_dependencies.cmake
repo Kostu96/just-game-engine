@@ -40,7 +40,7 @@ prapare_dependency_from_git(glfw3          https://github.com/glfw/glfw.git     
 prapare_dependency_from_git(glm            https://github.com/g-truc/glm.git                  47585fd -DBUILD_TESTING=OFF)
 prapare_dependency_from_git(Lua            https://github.com/Kostu96/lua-5.4.4.git           9ebf101)
 prapare_dependency_from_git(msdf-atlas-gen https://github.com/Kostu96/msdf-atlas-gen-fork.git 2815d0e -DMSDF_ATLAS_INSTALL=ON -DMSDF_ATLAS_DYNAMIC_RUNTIME=ON)
-prapare_dependency_from_git(spdlog         https://github.com/gabime/spdlog.git               3aceda0 -SPDLOG_BUILD_EXAMPLE=OFF)
+prapare_dependency_from_git(spdlog         https://github.com/gabime/spdlog.git               3aceda0 -DSPDLOG_BUILD_EXAMPLE=OFF)
 prapare_dependency_from_git(yaml-cpp       https://github.com/jbeder/yaml-cpp.git             016b2e7)
 prapare_dependency_from_ws( glad "engine/third_party/glad")
 prapare_dependency_from_ws( stb  "engine/third_party/stb")
