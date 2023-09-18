@@ -7,6 +7,8 @@
 #pragma once
 #include "jng/core/base.hpp"
 
+#include <filesystem>
+
 namespace jng {
 
     class Texture final
@@ -41,7 +43,7 @@ namespace jng {
             WrapMode wrapMode = WrapMode::Clamp;
         };
 
-        explicit Texture(const char* path);
+        explicit Texture(const std::filesystem::path& filepath);
         explicit Texture(const Properties& properties);
         ~Texture();
 

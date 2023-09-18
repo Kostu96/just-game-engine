@@ -81,11 +81,12 @@ namespace jng {
         return 0;
     }
 
-    Texture::Texture(const char* path)
+    Texture::Texture(const std::filesystem::path& filepath)
     {
+        auto filepathAsString = filepath.string();
         int width, height, channels;
-        stbi_uc* data = stbi_load(path, &width, &height, &channels, 4);
-        JNG_CORE_ASSERT(data, std::string{ "Failed to load image: " } + path);
+        stbi_uc* data = stbi_load(filepathAsString.c_str(), &width, &height, &channels, 4);
+        JNG_CORE_ASSERT(data, "Failed to load image: " + filepathAsString);
 
         m_properties.format = Texture::Format::RGBA8;
         m_properties.width = static_cast<u32>(width);
