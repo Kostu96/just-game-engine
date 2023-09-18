@@ -7,6 +7,8 @@
 #pragma once
 #include "jng/core/base.hpp"
 
+#include <glm/glm.hpp>
+
 namespace jng {
 
     class Font;
